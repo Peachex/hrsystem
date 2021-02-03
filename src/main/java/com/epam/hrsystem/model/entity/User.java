@@ -26,15 +26,6 @@ public class User {
         this.email = email;
     }
 
-    public User(long id, UserRole role, boolean isActive, String email) {
-        this.id = id;
-        this.role = role;
-        this.isActive = isActive;
-        this.email = email;
-    }
-
-    //todo add necessary constructors and remove unnecessary
-
     public long getId() {
         return id;
     }
@@ -113,7 +104,7 @@ public class User {
         }
         User other = (User) obj;
         return (this.id == other.id && this.role == other.role && this.isActive == other.isActive) &&
-                (this.dateOfBirth.compareTo(other.dateOfBirth) == 0) &&
+                (this.dateOfBirth != null ? this.dateOfBirth.compareTo(other.dateOfBirth) == 0 : other.dateOfBirth == null) &&
                 (this.photoName != null ? this.photoName.equals(other.photoName) : other.photoName == null) &&
                 (this.firstName != null ? this.firstName.equals(other.firstName) : other.firstName == null) &&
                 (this.lastName != null ? this.lastName.equals(other.lastName) : other.lastName == null) &&
