@@ -1,4 +1,4 @@
-package com.web.util.mail;
+package com.epam.hrsystem.util.mail;
 
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;

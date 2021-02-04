@@ -1,4 +1,4 @@
-package com.web.util.mail;
+package com.epam.hrsystem.util.mail;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
