@@ -1,4 +1,4 @@
-package com.web.model.pool;
+package com.epam.hrsystem.model.pool;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

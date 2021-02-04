@@ -1,4 +1,4 @@
-package com.web.util;
+package com.epam.hrsystem.util;
 
 import org.mindrot.jbcrypt.BCrypt;
 

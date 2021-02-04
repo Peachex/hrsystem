@@ -1,4 +1,4 @@
-package com.web.model.pool;
+package com.epam.hrsystem.model.pool;
 
 import java.sql.Array;
 import java.sql.Blob;

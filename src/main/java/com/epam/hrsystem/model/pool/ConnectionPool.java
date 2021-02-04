@@ -1,6 +1,6 @@
-package com.web.model.pool;
+package com.epam.hrsystem.model.pool;
 
-import com.web.exception.ConnectionPoolException;
+import com.epam.hrsystem.exception.ConnectionPoolException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
