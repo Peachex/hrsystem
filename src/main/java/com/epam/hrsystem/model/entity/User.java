@@ -10,11 +10,11 @@ public class User {
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
-    private String phone;
+    private String phoneNumber;
     private String email;
 
     public User(long id, UserRole role, boolean isActive, String photoName, String firstName, String lastName,
-                LocalDate dateOfBirth, String phone, String email) {
+                LocalDate dateOfBirth, String phoneNumber, String email) {
         this.id = id;
         this.role = role;
         this.isActive = isActive;
@@ -22,7 +22,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
         this.email = email;
     }
 
@@ -78,12 +78,12 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -108,7 +108,7 @@ public class User {
                 (this.photoName != null ? this.photoName.equals(other.photoName) : other.photoName == null) &&
                 (this.firstName != null ? this.firstName.equals(other.firstName) : other.firstName == null) &&
                 (this.lastName != null ? this.lastName.equals(other.lastName) : other.lastName == null) &&
-                (this.phone != null ? this.phone.equals(other.phone) : other.phone == null) &&
+                (this.phoneNumber != null ? this.phoneNumber.equals(other.phoneNumber) : other.phoneNumber == null) &&
                 (this.email != null ? this.email.equals(other.email) : other.email == null);
     }
 
@@ -121,7 +121,7 @@ public class User {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (dateOfBirth != null ? dateOfBirth.hashCode() : 0);
-        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
     }
@@ -136,7 +136,7 @@ public class User {
         sb.append("first name = ").append(firstName).append("\n");
         sb.append("last name = ").append(lastName).append("\n");
         sb.append("date of birth = ").append(dateOfBirth).append("\n");
-        sb.append("phone = ").append(phone).append("\n");
+        sb.append("phone number = ").append(phoneNumber).append("\n");
         sb.append("email = ").append(email).append("\n");
         return sb.toString();
     }
