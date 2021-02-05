@@ -14,7 +14,8 @@ public class UserValidator {
             "(\\(\\+?\\d+\\)[-\\s]?(((\\d+-\\d+)+)|(\\d+)|((\\d+\\s\\d+)+)))");
     private static final int EMAIL_MAX_LENGTH = 50;
     private static final int PHONE_NUMBER_MAX_LENGTH = 20;
-
+    //todo photo name validator max length = 50
+    //todo password validator max length = 80
     public static boolean isUserRoleValid(String role) {
         boolean result = Arrays.stream(UserRole.values())
                 .map(Enum::toString)
