@@ -14,8 +14,10 @@ public class UserValidator {
             "(\\(\\+?\\d+\\)[-\\s]?(((\\d+-\\d+)+)|(\\d+)|((\\d+\\s\\d+)+)))");
     private static final int EMAIL_MAX_LENGTH = 50;
     private static final int PHONE_NUMBER_MAX_LENGTH = 20;
-    //todo photo name validator max length = 50
-    //todo password validator max length = 80
+    private static final int PHOTO_NAME_MAX_LENGTH = 50;
+    private static final int PASSWORD_MIN_LENGTH = 6;
+    private static final int PASSWORD_MAX_LENGTH = 80;
+
     public static boolean isUserRoleValid(String role) {
         boolean result = Arrays.stream(UserRole.values())
                 .map(Enum::toString)
@@ -29,7 +31,7 @@ public class UserValidator {
             return false;
         }
         Matcher matcher = NAME_PATTERN.matcher(name);
-        return matcher.matches();
+        return (matcher.matches());
     }
 
     public static boolean isPhoneNumberValid(String phoneNumber) {
@@ -46,5 +48,19 @@ public class UserValidator {
         }
         Matcher matcher = EMAIL_PATTERN.matcher(email);
         return (matcher.matches() && email.length() <= EMAIL_MAX_LENGTH);
+    }
+
+    public static boolean isPhotoNameValid(String photoName) {
+        if (photoName == null) {
+            return false;
+        }
+        return (photoName.length() > 0 && photoName.length() < PHOTO_NAME_MAX_LENGTH);
+    }
+
+    public static boolean isPasswordValid(String password, String repeatPassword) {
+        if (password == null || repeatPassword == null) {
+            return false;
+        }
+        return (password.length() > PASSWORD_MIN_LENGTH && password.length() < PASSWORD_MAX_LENGTH && password.equals(repeatPassword));
     }
 }
