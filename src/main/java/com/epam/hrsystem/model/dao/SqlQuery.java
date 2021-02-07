@@ -1,4 +1,4 @@
-package com.epam.hrsystem.model.dao.impl;
+package com.epam.hrsystem.model.dao;
 
 public class SqlQuery {
     // USER QUERIES
