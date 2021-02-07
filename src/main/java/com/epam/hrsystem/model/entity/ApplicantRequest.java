@@ -1,7 +1,7 @@
 package com.epam.hrsystem.model.entity;
 
 public class ApplicantRequest {
-    private final long id;
+    private long id;
     private String summaryFileName;
     private ApplicantState applicantState;
     private User applicant;

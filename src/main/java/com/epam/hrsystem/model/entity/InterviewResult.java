@@ -1,7 +1,7 @@
 package com.epam.hrsystem.model.entity;
 
 public class InterviewResult {
-    private final long id;
+    private long id;
     private byte rating;
     private String comment;
 

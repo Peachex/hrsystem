@@ -3,7 +3,7 @@ package com.epam.hrsystem.model.entity;
 import java.time.LocalDate;
 
 public class User {
-    private final long id;
+    private long id;
     private UserRole role;
     private boolean isActive;
     private String photoName;
@@ -14,6 +14,19 @@ public class User {
     private String email;
 
     public User(long id, UserRole role, boolean isActive, String photoName, String firstName, String lastName,
+                LocalDate dateOfBirth, String phoneNumber, String email) {
+        this.id = id;
+        this.role = role;
+        this.isActive = isActive;
+        this.photoName = photoName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
+    public User(UserRole role, boolean isActive, String photoName, String firstName, String lastName,
                 LocalDate dateOfBirth, String phoneNumber, String email) {
         this.id = id;
         this.role = role;

@@ -3,7 +3,7 @@ package com.epam.hrsystem.model.entity;
 import java.time.LocalDate;
 
 public class Vacancy {
-    private final long id;
+    private long id;
     private boolean isAvailable;
     private String position;
     private String description;
