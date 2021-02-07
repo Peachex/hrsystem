@@ -11,4 +11,10 @@ public interface UserDao {
     Optional<String> findPasswordByEmail(String email) throws DaoException;
 
     boolean add(User user, String password) throws DaoException;
+
+    Optional<Byte> findUserActivity(String email) throws DaoException;
+
+    boolean updateUserActivity(long id, byte activityValue) throws DaoException;
+
+    boolean updatePassword(long id, String newPassword) throws DaoException;
 }
