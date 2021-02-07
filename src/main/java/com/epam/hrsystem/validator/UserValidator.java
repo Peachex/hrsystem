@@ -57,6 +57,13 @@ public class UserValidator {
         return (photoName.length() > 0 && photoName.length() < PHOTO_NAME_MAX_LENGTH);
     }
 
+    public static boolean isPasswordValid(String password) {
+        if (password == null) {
+            return false;
+        }
+        return (password.length() > PASSWORD_MIN_LENGTH && password.length() < PASSWORD_MAX_LENGTH);
+    }
+
     public static boolean isPasswordValid(String password, String repeatPassword) {
         if (password == null || repeatPassword == null) {
             return false;
