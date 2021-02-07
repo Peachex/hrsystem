@@ -14,7 +14,7 @@ public class ConnectionCreator {
     private static final Logger logger = LogManager.getLogger();
     private static final Properties properties = new Properties();
     private static final String DATABASE_URL;
-    private static final String DATABASE_PROPERTY_FILE_PATH = "/data/database.properties";
+    private static final String DATABASE_PROPERTY_FILE_PATH = "/property/database.properties";
     private static final String DATABASE_DRIVER_FIELD = "db.driver";
     private static final String DATABASE_URL_FIELD = "db.url";
     private static final String DATABASE_POOL_SIZE_FIELD = "pool.size";
