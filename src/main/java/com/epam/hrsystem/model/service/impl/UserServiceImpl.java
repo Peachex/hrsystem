@@ -11,13 +11,13 @@ import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.UserService;
 import com.epam.hrsystem.util.Encryptor;
 import com.epam.hrsystem.validator.UserValidator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 import java.util.Optional;
 
-public class UserServiceImpl implements UserService {
+public enum UserServiceImpl implements UserService {
+    INSTANCE;
+
     private static final UserDao dao = UserDaoImpl.INSTANCE;
 
     @Override
@@ -27,8 +27,11 @@ public class UserServiceImpl implements UserService {
             if (UserValidator.isEmailValid(email) && UserValidator.isPasswordValid(password)) {
                 if (!dao.isEmailAvailable(email)) {
                     Optional<String> passwordFromDatabase = dao.findPasswordByEmail(email);
-                    if (passwordFromDatabase.isPresent()) {
-                        result = Encryptor.check(password, passwordFromDatabase.get());
+                    if (passwordFromDatabase.isPresent() && Encryptor.check(password, passwordFromDatabase.get())) {
+                        Optional<Byte> activityValue = dao.findUserActivity(email);
+                        if (activityValue.isPresent()) {
+                            result = activityValue.get() == 1;
+                        }
                     }
                 }
             }
@@ -60,17 +63,38 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean blockUser(long userId) throws ServiceException {
-        return false;
+        boolean result;
+        try {
+            result = dao.updateUserActivity(userId, (byte) 0);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
     }
 
     @Override
     public boolean unblockUser(long userId) throws ServiceException {
-        return false;
+        boolean result;
+        try {
+            result = dao.updateUserActivity(userId, (byte) 1);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
     }
 
     @Override
     public boolean changePassword(long userId, String newPassword) throws ServiceException {
-        return false;
+        boolean result = false;
+        try {
+            if (UserValidator.isPasswordValid(newPassword)) {
+                String encryptedPassword = Encryptor.encrypt(newPassword);
+                result = dao.updatePassword(userId, encryptedPassword);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
     }
 
     @Override

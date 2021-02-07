@@ -17,5 +17,5 @@ public interface UserService {
 
     boolean changePhoto(long userId, String photoName) throws ServiceException;
 
-    //todo changeRole, changeName
+    //todo user info
 }
