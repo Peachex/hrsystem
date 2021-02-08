@@ -8,10 +8,13 @@ import com.epam.hrsystem.model.creator.impl.UserCreator;
 import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
 import com.epam.hrsystem.model.entity.User;
+import com.epam.hrsystem.model.entity.UserRole;
 import com.epam.hrsystem.model.service.UserService;
 import com.epam.hrsystem.util.Encryptor;
 import com.epam.hrsystem.validator.UserValidator;
 
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -100,5 +103,49 @@ public enum UserServiceImpl implements UserService {
     @Override
     public boolean changePhoto(long userId, String photoName) throws ServiceException {
         return false;
+    }
+
+    @Override
+    public List<User> findAllUsers() throws ServiceException {
+        try {
+            List<User> users = dao.findAllUsers();
+            return users;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<User> findBlockedUsers() throws ServiceException {
+        try {
+            List<User> users = dao.findBlockedUsers();
+            return users;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<User> findNotBlockedUsers() throws ServiceException {
+        try {
+            List<User> users = dao.findNotBlockedUsers();
+            return users;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public boolean changeUserRole(long userId, String role) throws ServiceException {
+        boolean result = false;
+        try {
+            if (UserValidator.isUserRoleValid(role)) {
+                UserRole userRole = UserRole.valueOf(role.toUpperCase(Locale.ROOT));
+                result = dao.changeUserRole(userId, userRole);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
     }
 }
