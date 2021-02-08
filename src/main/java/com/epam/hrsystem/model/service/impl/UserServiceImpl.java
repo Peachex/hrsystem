@@ -11,8 +11,10 @@ import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserRole;
 import com.epam.hrsystem.model.service.UserService;
 import com.epam.hrsystem.util.Encryptor;
+import com.epam.hrsystem.validator.BaseValidator;
 import com.epam.hrsystem.validator.UserValidator;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -147,5 +149,48 @@ public enum UserServiceImpl implements UserService {
             throw new ServiceException(e);
         }
         return result;
+    }
+
+    @Override
+    public boolean updateProfile(long userId, Map<String, String> fields) throws ServiceException {
+        boolean result = false;
+        try {
+            Optional<User> userOptional = dao.findUserById(userId);
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                updateUserFields(user, fields);
+                result = dao.updateProfile(user);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    private void updateUserFields(User user, Map<String, String> fields) {
+        String newFirstName = fields.get(RequestParameter.FIRST_NAME);
+        if (UserValidator.isNameValid(newFirstName)) {
+            user.setFirstName(newFirstName);
+        }
+        String newLastName = fields.get(RequestParameter.LAST_NAME);
+        if (UserValidator.isNameValid(newLastName)) {
+            user.setLastName(newLastName);
+        }
+        String newPhotoName = fields.get(RequestParameter.PHOTO_NAME);
+        if (UserValidator.isPhotoNameValid(newPhotoName)) {
+            user.setPhotoName(newPhotoName);
+        }
+        if (BaseValidator.isDateFormatValid(fields.get(RequestParameter.DATE_OF_BIRTH))) {
+            LocalDate newDateOfBirth = LocalDate.parse(fields.get(RequestParameter.DATE_OF_BIRTH));
+            user.setDateOfBirth(newDateOfBirth);
+        }
+        String newPhoneNumber = fields.get(RequestParameter.PHONE_NUMBER);
+        if (UserValidator.isPhoneNumberValid(newPhoneNumber)) {
+            user.setPhoneNumber(newPhoneNumber);
+        }
+        String newEmail = fields.get(RequestParameter.EMAIL);
+        if (UserValidator.isEmailValid(newEmail)) {
+            user.setEmail(newEmail);
+        }
     }
 }

@@ -27,5 +27,5 @@ public interface UserService {
 
     boolean changeUserRole(long userId, String role) throws ServiceException;
 
-    //todo user info
+    boolean updateProfile(long userId, Map<String, String> newFields) throws ServiceException;
 }
