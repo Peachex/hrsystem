@@ -27,4 +27,8 @@ public interface UserDao {
     List<User> findNotBlockedUsers() throws DaoException;
 
     boolean changeUserRole(long userId, UserRole role) throws DaoException;
+
+    boolean updateProfile(User user) throws DaoException;
+
+    Optional<User> findUserById(long userId) throws DaoException;
 }

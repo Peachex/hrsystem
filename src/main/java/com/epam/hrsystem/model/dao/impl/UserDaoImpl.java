@@ -7,9 +7,6 @@ import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserRole;
 import com.epam.hrsystem.model.pool.ConnectionPool;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -25,7 +22,6 @@ import java.util.Optional;
 
 public enum UserDaoImpl implements UserDao {
     INSTANCE;
-    private static final Logger logger = LogManager.getLogger();
     private static final ConnectionPool pool = ConnectionPool.POOL;
 
     @Override
@@ -125,12 +121,15 @@ public enum UserDaoImpl implements UserDao {
 
     @Override
     public List<User> findAllUsers() throws DaoException {
-        List<User> users;
+        List<User> users = new ArrayList<>();
         try (Connection connection = pool.takeConnection();
              Statement statement = connection.createStatement()) {
             statement.executeQuery(SqlQuery.SQL_SELECT_ALL_USERS);
             ResultSet resultSet = statement.getResultSet();
-            users = createUsersListFromResultSet(resultSet);
+            while (resultSet.next()) {
+                User user = createUserFromResultSet(resultSet);
+                users.add(user);
+            }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
@@ -139,12 +138,15 @@ public enum UserDaoImpl implements UserDao {
 
     @Override
     public List<User> findBlockedUsers() throws DaoException {
-        List<User> users;
+        List<User> users = new ArrayList<>();
         try (Connection connection = pool.takeConnection();
              Statement statement = connection.createStatement()) {
             statement.executeQuery(SqlQuery.SQL_SELECT_BLOCKED_USERS);
             ResultSet resultSet = statement.getResultSet();
-            users = createUsersListFromResultSet(resultSet);
+            while (resultSet.next()) {
+                User user = createUserFromResultSet(resultSet);
+                users.add(user);
+            }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
@@ -153,12 +155,15 @@ public enum UserDaoImpl implements UserDao {
 
     @Override
     public List<User> findNotBlockedUsers() throws DaoException {
-        List<User> users;
+        List<User> users = new ArrayList<>();
         try (Connection connection = pool.takeConnection();
              Statement statement = connection.createStatement()) {
             statement.executeQuery(SqlQuery.SQL_SELECT_NOT_BLOCKED_USERS);
             ResultSet resultSet = statement.getResultSet();
-            users = createUsersListFromResultSet(resultSet);
+            while (resultSet.next()) {
+                User user = createUserFromResultSet(resultSet);
+                users.add(user);
+            }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
@@ -179,7 +184,42 @@ public enum UserDaoImpl implements UserDao {
         return result;
     }
 
-    private Optional<Long> findRoleId(UserRole role) throws DaoException {
+    @Override
+    public boolean updateProfile(User user) throws DaoException {
+        boolean result;
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_USER_INFO)) {
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getPhotoName());
+            statement.setDate(4, Date.valueOf(user.getDateOfBirth()));
+            statement.setString(5, user.getPhoneNumber());
+            statement.setString(6, user.getEmail());
+            statement.setLong(7, user.getId());
+            result = statement.executeUpdate() == 1;
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public Optional<User> findUserById(long userId) throws DaoException {
+        Optional<User> user = Optional.empty();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_USER_BY_ID)) {
+            statement.setLong(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = Optional.of(createUserFromResultSet(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return user;
+    }
+
+    private Optional<Long> findRoleId(UserRole role) throws SQLException, ConnectionPoolException {
         Optional<Long> id = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_ROLE_ID_BY_NAME)) {
@@ -188,31 +228,21 @@ public enum UserDaoImpl implements UserDao {
             if (resultSet.next()) {
                 id = Optional.of(resultSet.getLong(1));
             }
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException(e);
         }
         return id;
     }
 
-    private List<User> createUsersListFromResultSet(ResultSet resultSet) throws SQLException {
-        List<User> users = new ArrayList<>();
-        if (resultSet != null && resultSet.next()) {
-            do {
-                long id = resultSet.getLong(1);
-                String photoName = resultSet.getString(2);
-                String firstName = resultSet.getString(3);
-                String lastName = resultSet.getString(4);
-                LocalDate dateOfBirth = resultSet.getDate(5).toLocalDate();
-                String phoneNumber = resultSet.getString(6);
-                String email = resultSet.getString(7);
-                boolean isActive = resultSet.getByte(8) == 1;
-                UserRole role = UserRole.valueOf(resultSet.getString(9).toUpperCase(Locale.ROOT));
-                User user = new User(id, role, isActive, photoName, firstName, lastName, dateOfBirth, phoneNumber, email);
-                users.add(user);
-            } while (resultSet.next());
-        } else {
-            logger.log(Level.WARN, "Result set is null or empty");
-        }
-        return users;
+    private User createUserFromResultSet(ResultSet resultSet) throws SQLException {
+        long id = resultSet.getLong(1);
+        String photoName = resultSet.getString(2);
+        String firstName = resultSet.getString(3);
+        String lastName = resultSet.getString(4);
+        LocalDate dateOfBirth = resultSet.getDate(5).toLocalDate();
+        String phoneNumber = resultSet.getString(6);
+        String email = resultSet.getString(7);
+        boolean isActive = resultSet.getByte(8) == 1;
+        UserRole role = UserRole.valueOf(resultSet.getString(9).toUpperCase(Locale.ROOT));
+        User user = new User(id, role, isActive, photoName, firstName, lastName, dateOfBirth, phoneNumber, email);
+        return user;
     }
 }
