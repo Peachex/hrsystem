@@ -17,6 +17,17 @@ public class SqlQuery {
 
     public static final String SQL_UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE user_id = ?;";
 
+    public static final String SQL_SELECT_ALL_USERS = "SELECT user_id, photo_name, first_name, last_name, date_of_birth," +
+            " phone_number, email, is_active, role FROM users JOIN user_roles ON role_id_fk = user_role_id;";
+
+    public static final String SQL_SELECT_BLOCKED_USERS = "SELECT user_id, photo_name, first_name, last_name, date_of_birth," +
+            " phone_number, email, is_active, role FROM users JOIN user_roles ON role_id_fk = user_role_id WHERE is_active = '0';";
+
+    public static final String SQL_SELECT_NOT_BLOCKED_USERS = "SELECT user_id, photo_name, first_name, last_name, date_of_birth," +
+            " phone_number, email, is_active, role FROM users JOIN user_roles ON role_id_fk = user_role_id WHERE is_active = '1';";
+
+    public static final String SQL_UPDATE_USER_ROLE = "UPDATE users SET role_id_fk = ? WHERE user_id = ?;";
+
     private SqlQuery() {
     }
 }
