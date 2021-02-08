@@ -28,6 +28,12 @@ public class SqlQuery {
 
     public static final String SQL_UPDATE_USER_ROLE = "UPDATE users SET role_id_fk = ? WHERE user_id = ?;";
 
+    public static final String SQL_UPDATE_USER_INFO = "UPDATE users SET first_name = ?, last_name = ?," +
+            " photo_name = ?, date_of_birth = ?, phone_number = ?, email = ? WHERE user_id = ?;";
+
+    public static final String SQL_FIND_USER_BY_ID = "SELECT user_id, photo_name, first_name, last_name, date_of_birth," +
+            " phone_number, email, is_active, role FROM users JOIN user_roles ON role_id_fk = user_role_id WHERE user_id = ?;";
+
     private SqlQuery() {
     }
 }
