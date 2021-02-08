@@ -2,7 +2,9 @@ package com.epam.hrsystem.model.dao;
 
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.entity.User;
+import com.epam.hrsystem.model.entity.UserRole;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
@@ -14,7 +16,15 @@ public interface UserDao {
 
     Optional<Byte> findUserActivity(String email) throws DaoException;
 
-    boolean updateUserActivity(long id, byte activityValue) throws DaoException;
+    boolean updateUserActivity(long userId, byte activityValue) throws DaoException;
 
-    boolean updatePassword(long id, String newPassword) throws DaoException;
+    boolean updatePassword(long userId, String newPassword) throws DaoException;
+
+    List<User> findAllUsers() throws DaoException;
+
+    List<User> findBlockedUsers() throws DaoException;
+
+    List<User> findNotBlockedUsers() throws DaoException;
+
+    boolean changeUserRole(long userId, UserRole role) throws DaoException;
 }
