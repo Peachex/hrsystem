@@ -1,5 +1,8 @@
 package com.epam.hrsystem.model.entity;
 
+import com.epam.hrsystem.exception.DaoException;
+import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
+
 import java.time.LocalDate;
 
 public class Vacancy {
@@ -12,16 +15,24 @@ public class Vacancy {
     private LocalDate creationDate;
     private User employee;
 
-    public Vacancy(long id, boolean isAvailable, String position, String description, String country, String city,
-                   LocalDate creationDate, User employee) {
+    public Vacancy(long id, boolean isAvailable, String position, String description, LocalDate creationDate,
+                   String country, String city, User employee) {
         this.id = id;
+        this.isAvailable = isAvailable;
+        this.position = position;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.country = country;
+        this.city = city;
+        this.employee = employee;
+    }
+
+    public Vacancy(boolean isAvailable, String position, String description, String country, String city) {
         this.isAvailable = isAvailable;
         this.position = position;
         this.description = description;
         this.country = country;
         this.city = city;
-        this.creationDate = creationDate;
-        this.employee = employee;
     }
 
     public long getId() {
@@ -125,7 +136,8 @@ public class Vacancy {
         sb.append("country = ").append(country).append("\n");
         sb.append("city = ").append(city).append("\n");
         sb.append("creation date = ").append(creationDate).append("\n");
-        sb.append("employee id = ").append(employee.getId()).append("\n");
+        //sb.append("employee id = ").append(employee.getId()).append("\n");
+        sb.append("\n").append(employee).append("\n");
         return sb.toString();
     }
 }
