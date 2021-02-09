@@ -29,10 +29,12 @@ public class SqlQuery {
     public static final String SQL_UPDATE_USER_ROLE = "UPDATE users SET role_id_fk = ? WHERE user_id = ?;";
 
     public static final String SQL_UPDATE_USER_INFO = "UPDATE users SET first_name = ?, last_name = ?," +
-            " photo_name = ?, date_of_birth = ?, phone_number = ?, email = ? WHERE user_id = ?;";
+            " date_of_birth = ?, phone_number = ?, email = ? WHERE user_id = ?;";
 
     public static final String SQL_FIND_USER_BY_ID = "SELECT user_id, photo_name, first_name, last_name, date_of_birth," +
             " phone_number, email, is_active, role FROM users JOIN user_roles ON role_id_fk = user_role_id WHERE user_id = ?;";
+
+    public static final String SQL_UPDATE_USER_PHOTO = "UPDATE users SET photo_name = ? WHERE user_id = ?";
 
     // VACANCY QUERIES
 
@@ -50,6 +52,26 @@ public class SqlQuery {
     public static final String SQL_SELECT_ALL_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
             " JOIN users ON user_id_fk = user_id;";
+
+    public static final String SQL_UPDATE_VACANCY_AVAILABILITY = "UPDATE vacancies SET is_available = ? WHERE vacancy_id = ?;";
+
+    public static final String SQL_SELECT_DELETED_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
+            " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
+            " JOIN users ON user_id_fk = user_id WHERE is_available = '0';";
+
+    public static final String SQL_SELECT_AVAILABLE_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
+            " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
+            " JOIN users ON user_id_fk = user_id WHERE is_available = '1';";
+
+    public static final String SQL_UPDATE_VACANCY_INFO = "UPDATE vacancies SET position = ?, description = ?," +
+            " country_id_fk = ?, city_id_fk = ? WHERE vacancy_id = ?;";
+
+    public static final String SQL_FIND_VACANCY_BY_ID = "SELECT vacancy_id, is_available, position, description, creation_date," +
+            " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
+            " JOIN users ON user_id_fk = user_id WHERE vacancy_id = ?;";
+
+    public static final String SQL_CHECK_VACANCY_FOR_EXISTENCE = "SELECT vacancy_id FROM vacancies WHERE is_available = '1' AND position = ?" +
+            " AND description = ? AND country_id_fk = ? AND city_id_fk = ?;";
 
     private SqlQuery() {
     }
