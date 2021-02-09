@@ -31,4 +31,6 @@ public interface UserDao {
     boolean updateProfile(User user) throws DaoException;
 
     Optional<User> findUserById(long userId) throws DaoException;
+
+    boolean changePhoto(long userId, String photoName) throws DaoException;
 }

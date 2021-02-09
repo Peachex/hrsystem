@@ -191,11 +191,10 @@ public enum UserDaoImpl implements UserDao {
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_USER_INFO)) {
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
-            statement.setString(3, user.getPhotoName());
-            statement.setDate(4, Date.valueOf(user.getDateOfBirth()));
-            statement.setString(5, user.getPhoneNumber());
-            statement.setString(6, user.getEmail());
-            statement.setLong(7, user.getId());
+            statement.setDate(3, Date.valueOf(user.getDateOfBirth()));
+            statement.setString(4, user.getPhoneNumber());
+            statement.setString(5, user.getEmail());
+            statement.setLong(6, user.getId());
             result = statement.executeUpdate() == 1;
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -217,6 +216,20 @@ public enum UserDaoImpl implements UserDao {
             throw new DaoException(e);
         }
         return user;
+    }
+
+    @Override
+    public boolean changePhoto(long userId, String photoName) throws DaoException {
+        boolean result;
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_USER_PHOTO)) {
+            statement.setString(1, photoName);
+            statement.setLong(2, userId);
+            result = statement.executeUpdate() == 1;
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return result;
     }
 
     private Optional<Long> findRoleId(UserRole role) throws SQLException, ConnectionPoolException {

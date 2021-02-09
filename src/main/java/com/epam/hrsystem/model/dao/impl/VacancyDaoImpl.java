@@ -17,7 +17,6 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public enum VacancyDaoImpl implements VacancyDao {
@@ -44,13 +43,17 @@ public enum VacancyDaoImpl implements VacancyDao {
     }
 
     @Override
-    public Optional<Byte> findVacancyAvailability(long vacancyId) throws DaoException {
-        return Optional.empty();
-    }
-
-    @Override
     public boolean updateVacancyAvailability(long vacancyId, byte availabilityValue) throws DaoException {
-        return false;
+        boolean result;
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_VACANCY_AVAILABILITY)) {
+            statement.setByte(1, availabilityValue);
+            statement.setLong(2, vacancyId);
+            result = statement.executeUpdate() == 1;
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return result;
     }
 
     @Override
@@ -73,22 +76,69 @@ public enum VacancyDaoImpl implements VacancyDao {
 
     @Override
     public List<Vacancy> findDeletedVacancies() throws DaoException {
-        return null;
+        List<Vacancy> vacancies = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             Statement statement = connection.createStatement()) {
+            statement.executeQuery(SqlQuery.SQL_SELECT_DELETED_VACANCIES);
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                Vacancy vacancy = createVacancyFromResultSet(resultSet);
+                vacancies.add(vacancy);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return vacancies;
     }
 
     @Override
     public List<Vacancy> findAvailableVacancies() throws DaoException {
-        return null;
+        List<Vacancy> vacancies = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             Statement statement = connection.createStatement()) {
+            statement.executeQuery(SqlQuery.SQL_SELECT_AVAILABLE_VACANCIES);
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                Vacancy vacancy = createVacancyFromResultSet(resultSet);
+                vacancies.add(vacancy);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return vacancies;
     }
 
     @Override
-    public boolean updateVacancyInfo(long userId, Map<String, String> fields) throws DaoException {
-        return false;
+    public boolean updateVacancyInfo(Vacancy vacancy) throws DaoException {
+        boolean result;
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_VACANCY_INFO)) {
+            statement.setString(1, vacancy.getPosition());
+            statement.setString(2, vacancy.getDescription());
+            statement.setLong(3, findCountryIdByName(vacancy.getCountry()).orElseThrow(() -> new DaoException("Invalid country")));
+            statement.setLong(4, findCityIdByName(vacancy.getCity()).orElseThrow(() -> new DaoException("Invalid city")));
+            statement.setLong(5, vacancy.getId());
+            result = statement.executeUpdate() == 1;
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return result;
     }
 
     @Override
-    public Optional<Vacancy> findVacancyById(long userId) throws DaoException {
-        return Optional.empty();
+    public Optional<Vacancy> findVacancyById(long vacancyId) throws DaoException {
+        Optional<Vacancy> vacancy = Optional.empty();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_VACANCY_BY_ID)) {
+            statement.setLong(1, vacancyId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                vacancy = Optional.of(createVacancyFromResultSet(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return vacancy;
     }
 
     @Override
@@ -143,6 +193,23 @@ public enum VacancyDaoImpl implements VacancyDao {
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_INSERT_CITY)) {
             statement.setString(1, name);
             result = statement.executeUpdate() == 1;
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean vacancyExists(Vacancy vacancy) throws DaoException {
+        boolean result;
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_CHECK_VACANCY_FOR_EXISTENCE)) {
+            statement.setString(1, vacancy.getPosition());
+            statement.setString(2, vacancy.getDescription());
+            statement.setLong(3, findCountryIdByName(vacancy.getCountry()).orElseThrow(() -> new DaoException("Invalid country")));
+            statement.setLong(4, findCityIdByName(vacancy.getCity()).orElseThrow(() -> new DaoException("Invalid city")));
+            ResultSet resultSet = statement.executeQuery();
+            result = resultSet.next();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }

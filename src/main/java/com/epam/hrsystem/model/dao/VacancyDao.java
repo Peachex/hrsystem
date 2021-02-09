@@ -4,13 +4,10 @@ import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.entity.Vacancy;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface VacancyDao {
     boolean add(Vacancy vacancy) throws DaoException;
-
-    Optional<Byte> findVacancyAvailability(long vacancyId) throws DaoException;
 
     boolean updateVacancyAvailability(long vacancyId, byte availabilityValue) throws DaoException;
 
@@ -20,9 +17,9 @@ public interface VacancyDao {
 
     List<Vacancy> findAvailableVacancies() throws DaoException;
 
-    boolean updateVacancyInfo(long userId, Map<String, String> fields) throws DaoException;
+    boolean updateVacancyInfo(Vacancy vacancy) throws DaoException;
 
-    Optional<Vacancy> findVacancyById(long userId) throws DaoException;
+    Optional<Vacancy> findVacancyById(long vacancyId) throws DaoException;
 
     Optional<Long> findCountryIdByName(String name) throws DaoException;
 
@@ -31,4 +28,6 @@ public interface VacancyDao {
     boolean addCounty(String name) throws DaoException;
 
     boolean addCity(String name) throws DaoException;
+
+    boolean vacancyExists(Vacancy vacancy) throws DaoException;
 }
