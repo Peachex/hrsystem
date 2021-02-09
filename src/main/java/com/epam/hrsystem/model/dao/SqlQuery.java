@@ -34,6 +34,23 @@ public class SqlQuery {
     public static final String SQL_FIND_USER_BY_ID = "SELECT user_id, photo_name, first_name, last_name, date_of_birth," +
             " phone_number, email, is_active, role FROM users JOIN user_roles ON role_id_fk = user_role_id WHERE user_id = ?;";
 
+    // VACANCY QUERIES
+
+    public static final String SQL_INSERT_VACANCY = "INSERT INTO vacancies(is_available, position, description, creation_date," +
+            " country_id_fk, city_id_fk, user_id_fk) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    public static final String SQL_FIND_COUNTRY_ID_BY_NAME = "SELECT country_id FROM countries WHERE country = ?;";
+
+    public static final String SQL_FIND_CITY_ID_BY_NAME = "SELECT city_id FROM cities WHERE city = ?;";
+
+    public static final String SQL_INSERT_COUNTRY = "INSERT INTO countries(country) VALUES (?);";
+
+    public static final String SQL_INSERT_CITY = "INSERT INTO cities(city) VALUES (?);";
+
+    public static final String SQL_SELECT_ALL_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
+            " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
+            " JOIN users ON user_id_fk = user_id;";
+
     private SqlQuery() {
     }
 }
