@@ -19,7 +19,8 @@ public interface VacancyService {
 
     List<Vacancy> findAvailableVacancies() throws ServiceException;
 
-    boolean updateVacancyInfo(long vacancyId, Map<String, String> newFields) throws ServiceException;
+    boolean updateVacancyInfo(long vacancyId, Map<String, String> fields) throws ServiceException;
 
-    //todo isVacancyExists();
+    boolean vacancyExists(Vacancy vacancy) throws ServiceException;
+
 }

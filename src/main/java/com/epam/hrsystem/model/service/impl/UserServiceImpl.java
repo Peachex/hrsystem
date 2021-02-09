@@ -104,7 +104,15 @@ public enum UserServiceImpl implements UserService {
 
     @Override
     public boolean changePhoto(long userId, String photoName) throws ServiceException {
-        return false;
+        boolean result = false;
+        try {
+            if (UserValidator.isPhotoNameValid(photoName)) {
+                result = dao.changePhoto(userId, photoName);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
     }
 
     @Override
@@ -175,10 +183,6 @@ public enum UserServiceImpl implements UserService {
         String newLastName = fields.get(RequestParameter.LAST_NAME);
         if (UserValidator.isNameValid(newLastName)) {
             user.setLastName(newLastName);
-        }
-        String newPhotoName = fields.get(RequestParameter.PHOTO_NAME);
-        if (UserValidator.isPhotoNameValid(newPhotoName)) {
-            user.setPhotoName(newPhotoName);
         }
         if (BaseValidator.isDateFormatValid(fields.get(RequestParameter.DATE_OF_BIRTH))) {
             LocalDate newDateOfBirth = LocalDate.parse(fields.get(RequestParameter.DATE_OF_BIRTH));
