@@ -29,7 +29,7 @@ public class VacancyCreator implements Creator<Vacancy> {
         String city = fields.get(RequestParameter.CITY);
 
         if (isPositionValid(position) && isDescriptionValid(description) && isCountryValid(country) && isCityValid(city)) {
-            Vacancy vacancy = new Vacancy(DEFAULT_AVAILABILITY_VALUE, position, description, country.toUpperCase(Locale.ROOT), city.toUpperCase(Locale.ROOT));
+            Vacancy vacancy = new Vacancy(DEFAULT_AVAILABILITY_VALUE, position, description, country, city);
             result = Optional.of(vacancy);
         }
         return result;
