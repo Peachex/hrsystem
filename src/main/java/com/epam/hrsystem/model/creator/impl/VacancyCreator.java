@@ -1,13 +1,9 @@
 package com.epam.hrsystem.model.creator.impl;
 
-import com.epam.hrsystem.RequestParameter;
+import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.model.creator.Creator;
-import com.epam.hrsystem.model.entity.User;
-import com.epam.hrsystem.model.entity.UserRole;
 import com.epam.hrsystem.model.entity.Vacancy;
 
-import java.time.LocalDate;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 

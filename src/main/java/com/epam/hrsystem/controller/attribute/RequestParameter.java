@@ -1,4 +1,4 @@
-package com.epam.hrsystem;
+package com.epam.hrsystem.controller;
 
 public class RequestParameter {
 
