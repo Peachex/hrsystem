@@ -1,6 +1,6 @@
 package com.epam.hrsystem.model.service.impl;
 
-import com.epam.hrsystem.RequestParameter;
+import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.creator.Creator;
@@ -54,7 +54,7 @@ public enum UserServiceImpl implements UserService {
         try {
             String password = fields.get(RequestParameter.PASSWORD);
             if (UserValidator.isPasswordValid(password) && user.isPresent()) {
-                String passwordRepeat = fields.get(RequestParameter.PASSWORD_REPEAT);
+                String passwordRepeat = fields.get(RequestParameter.REPEATED_PASSWORD);
                 if (UserValidator.isPasswordValid(password, passwordRepeat)) {
                     String encryptedPassword = Encryptor.encrypt(password);
                     result = dao.add(user.get(), encryptedPassword);

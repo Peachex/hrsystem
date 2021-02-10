@@ -1,6 +1,6 @@
 package com.epam.hrsystem.model.service.impl;
 
-import com.epam.hrsystem.RequestParameter;
+import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.creator.Creator;
