@@ -1,0 +1,31 @@
+body {
+    background-color: rgba(255, 255, 255, 0.60);
+}
+
+.header {
+    justify-content: center;
+    display: flex;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+.header-link {
+    color: #ffffffe0;
+}
+
+.container {
+    background-color: #2e2e2e;
+    max-width: 100%;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
+
+wrong-message {
+    display: flex;
+    color: red;
+    justify-content: center;
+}
