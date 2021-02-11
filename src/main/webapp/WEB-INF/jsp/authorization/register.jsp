@@ -29,16 +29,18 @@
 
     <form name="register-form" method="POST" action="register.do">
         <input type="hidden" name="command" value="register"/>
-        <div class="row">
+        <div class="row col-1 offset-1">
             <label for="inputFirstName"><fmt:message key="register.inputFirstName"/> </label>
         </div>
         <div class="row">
-            <input type="text" class="form-control field" id="inputFirstName" name="firstName"
-                   placeholder=
-                   <fmt:message key="register.inputNamePlaceholder"/> required
-                   pattern="[a-zA-Zа-яА-Я]{3,35}">
+            <div class="col-3 offset-1">
+                <input type="text" class="form-control field" id="inputFirstName" name="firstName"
+                       placeholder=
+                               "<fmt:message key="register.inputNamePlaceholder"/>" required
+                       pattern="[a-zA-Zа-яА-Я]{3,35}">
+            </div>
+            <fmt:message key="register.properFirstNameFormat"/>
         </div>
-        <fmt:message key="register.properFirstNameFormat"/>
         <wrong-message>
             ${errorFirstName}
         </wrong-message>
@@ -49,10 +51,12 @@
         <div class="row">
             <input type="text" class="form-control field" id="inputLastName" name="lastName"
                    placeholder=
-                   <fmt:message key="register.inputNamePlaceholder"/> required
+                           "<fmt:message key="register.inputNamePlaceholder"/>" required
                    pattern="[a-zA-Zа-яА-Я]{3,35}">
         </div>
-        <fmt:message key="register.properLastNameFormat"/>
+        <div class="row">
+            <fmt:message key="register.properLastNameFormat"/>
+        </div>
         <wrong-message>
             ${errorLastName}
         </wrong-message>
@@ -71,7 +75,7 @@
             </div>
             <input type="text" class="form-control field" id="inputPhoneNumber" name="phoneNumber"
                    placeholder=
-                   <fmt:message key="register.inputPhoneNumberPlaceholder"/> required
+                           "<fmt:message key="register.inputPhoneNumberPlaceholder"/>" required
                    pattern="(\+?(((\d+-\d+)+)|(\d{2,20})|((\d+\s\d+)+)))|(\(\+?\d+\)[-\s]?(((\d+-\d+)+)|(\d+)|((\d+\s\d+)+)))">
         </div>
         <wrong-message>
@@ -84,7 +88,7 @@
             </div>
             <input type="text" class="form-control field" id="inputEmail" name="email"
                    placeholder=
-                   <fmt:message key="register.inputEmailPlaceholder"/> required
+                           "<fmt:message key="register.inputEmailPlaceholder"/>" required
                    pattern="((\w)([-.](\w))?)+@((\w)([-.](\w))?)+.[a-zA-Zа-яА-Я]{2,4}">
         </div>
         <wrong-message>
@@ -96,7 +100,7 @@
                 <label for="inputPassword"><fmt:message key="register.inputPassword"/> </label>
             </div>
             <input type="password" class="form-control field" id="inputPassword" name="password"
-            <fmt:message key="register.inputPasswordPlaceholder"/> required pattern=".{6,}">
+                   placeholder="<fmt:message key="register.inputPasswordPlaceholder"/>" required pattern=".{6,}">
         </div>
         <wrong-message>
             ${errorPassword}
@@ -118,6 +122,7 @@
                         key="button.completeRegister"/></button>
             </div>
         </div>
+        <input name="ctoken" type="hidden" value="${stoken}"/>
     </form>
 </div>
 </body>
