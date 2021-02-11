@@ -7,6 +7,7 @@ public class UrlPattern {
     public static final String LOGIN = "/login";
     public static final String VACANCY = "/vacancy";
     public static final String REGISTER = "/register";
+    public static final String DOUBLE_POSTING_ERROR = "/double_posting_error";
 
     private UrlPattern() {
     }
