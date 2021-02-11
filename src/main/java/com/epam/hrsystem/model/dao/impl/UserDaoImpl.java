@@ -6,6 +6,7 @@ import com.epam.hrsystem.model.dao.SqlQuery;
 import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserRole;
+import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.pool.ConnectionPool;
 
 import java.sql.Connection;
