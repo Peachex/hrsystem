@@ -40,8 +40,8 @@ public class RegisterCommand implements ActionCommand {
         UserService service = UserServiceImpl.INSTANCE;
         CommandResult result;
         try {
-            if (service.signUp(fields)) {
-                result = new CommandResult(UrlPattern.VACANCY, CommandResult.Type.REDIRECT);
+            if (service.register(fields)) {
+                result = new CommandResult(UrlPattern.LOGIN, CommandResult.Type.FORWARD);
             } else {
                 if (!UserValidator.isNameValid(firstName)) {
                     request.setAttribute("errorFirstName", "First name isn't valid");

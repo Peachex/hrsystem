@@ -6,6 +6,8 @@ public class SessionAttribute {
     public static final String CLIENT_TOKEN = "ctoken";
     public static final String CURRENT_LOCALE = "currentLocale";
     public static final String CURRENT_ROLE = "currentRole";
+    public static final String PREVIOUS = "previousUrl";
+    public static final String USER = "user";
 
     private SessionAttribute() {
     }
