@@ -21,7 +21,7 @@
 
 <html>
 <head>
-    <title>Register</title>
+    <title><fmt:message key="register.title"/></title>
 </head>
 <body>
 <div class="main-container">
@@ -29,6 +29,7 @@
 
     <form name="register-form" method="POST" action="register.do">
         <input type="hidden" name="command" value="register"/>
+        <input type="hidden" name="previousUrl" value="register"/>
         <div class="row col-1 offset-1">
             <label for="inputFirstName"><fmt:message key="register.inputFirstName"/> </label>
         </div>
