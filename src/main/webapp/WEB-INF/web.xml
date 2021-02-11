@@ -30,6 +30,24 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>PermissionFilter</filter-name>
+        <filter-class>com.epam.hrsystem.controller.filter.PermissionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>PermissionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>SaveUrlFilter</filter-name>
+        <filter-class>com.epam.hrsystem.controller.filter.SaveUrlFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SaveUrlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 
     <listener>
         <listener-class>com.epam.hrsystem.controller.listener.SessionListener</listener-class>
@@ -80,5 +98,13 @@
         <url-pattern>/double_posting_error</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>PermissionError</servlet-name>
+        <jsp-file>/WEB-INF/jsp/error/permission_error.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PermissionError</servlet-name>
+        <url-pattern>/permission_error</url-pattern>
+    </servlet-mapping>
 
 </web-app>
