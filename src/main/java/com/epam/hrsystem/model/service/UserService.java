@@ -5,11 +5,12 @@ import com.epam.hrsystem.model.entity.User;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface UserService {
-    boolean signIn(String email, String password) throws ServiceException;
+    Optional<User> login(String email, String password) throws ServiceException;
 
-    boolean signUp(Map<String, String> fields) throws ServiceException;
+    boolean register(Map<String, String> fields) throws ServiceException;
 
     boolean blockUser(long userId) throws ServiceException;
 

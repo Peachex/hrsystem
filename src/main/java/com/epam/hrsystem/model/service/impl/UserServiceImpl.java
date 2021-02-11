@@ -26,17 +26,15 @@ public enum UserServiceImpl implements UserService {
     private static final UserDao dao = UserDaoImpl.INSTANCE;
 
     @Override
-    public boolean signIn(String email, String password) throws ServiceException {
-        boolean result = false;
+    public Optional<User> login(String email, String password) throws ServiceException {
+        Optional<User> result = Optional.empty();
         try {
             if (UserValidator.isEmailValid(email) && UserValidator.isPasswordValid(password)) {
                 if (!dao.isEmailAvailable(email)) {
-                    Optional<String> passwordFromDatabase = dao.findPasswordByEmail(email);
-                    if (passwordFromDatabase.isPresent() && Encryptor.check(password, passwordFromDatabase.get())) {
-                        Optional<Byte> activityValue = dao.findUserActivity(email);
-                        if (activityValue.isPresent()) {
-                            result = activityValue.get() == 1;
-                        }
+                    String passwordFromDatabase = dao.findPasswordByEmail(email).get();
+                    Optional<Byte> activityValue = dao.findUserActivity(email);
+                    if (Encryptor.check(password, passwordFromDatabase) && activityValue.get() == 1) {
+                        result = dao.login(email);
                     }
                 }
             }
@@ -47,7 +45,7 @@ public enum UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean signUp(Map<String, String> fields) throws ServiceException {
+    public boolean register(Map<String, String> fields) throws ServiceException {
         boolean result = false;
         Creator<User> creator = new UserCreator();
         Optional<User> user = creator.create(fields);

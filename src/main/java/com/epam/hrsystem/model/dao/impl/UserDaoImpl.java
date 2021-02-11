@@ -6,8 +6,8 @@ import com.epam.hrsystem.model.dao.SqlQuery;
 import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserRole;
-import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.pool.ConnectionPool;
+import com.epam.hrsystem.util.Encryptor;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -37,6 +37,22 @@ public enum UserDaoImpl implements UserDao {
             throw new DaoException(e);
         }
         return result;
+    }
+
+    @Override
+    public Optional<User> login(String email) throws DaoException {
+        Optional<User> user = Optional.empty();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_USER_BY_EMAIL)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = Optional.of(createUserFromResultSet(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return user;
     }
 
     @Override

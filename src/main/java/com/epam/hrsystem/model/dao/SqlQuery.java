@@ -9,6 +9,9 @@ public class SqlQuery {
     public static final String SQL_INSERT_USER = "INSERT INTO users(photo_name, first_name, last_name," +
             "date_of_birth, phone_number, email, password, is_active, role_id_fk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
+    public static final String SQL_FIND_USER_BY_EMAIL = "SELECT user_id, photo_name, first_name, last_name, date_of_birth," +
+            " phone_number, email, is_active, role FROM users JOIN user_roles ON role_id_fk = user_role_id WHERE email = ?;";
+
     public static final String SQL_FIND_ROLE_ID_BY_NAME = "SELECT user_role_id FROM user_roles WHERE role = ?;";
 
     public static final String SQL_FIND_USER_ACTIVITY_BY_EMAIL = "SELECT is_active FROM users WHERE email = ?;";

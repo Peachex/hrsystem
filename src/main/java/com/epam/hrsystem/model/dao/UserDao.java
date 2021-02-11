@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface UserDao {
     boolean isEmailAvailable(String email) throws DaoException;
 
+    Optional<User> login(String email) throws DaoException;
+
     Optional<String> findPasswordByEmail(String email) throws DaoException;
 
     boolean add(User user, String password) throws DaoException;
