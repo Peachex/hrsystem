@@ -2,6 +2,7 @@ package com.epam.hrsystem.model.dao;
 
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.entity.Vacancy;
+import com.epam.hrsystem.validator.VacancyValidator;
 
 import java.util.List;
 import java.util.Optional;

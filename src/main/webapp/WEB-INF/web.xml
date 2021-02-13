@@ -107,4 +107,13 @@
         <url-pattern>/permission_error</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>VacancyInfo</servlet-name>
+        <jsp-file>/WEB-INF/jsp/vacancy/vacancy_info.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VacancyInfo</servlet-name>
+        <url-pattern>/vacancy_info</url-pattern>
+    </servlet-mapping>
+
 </web-app>

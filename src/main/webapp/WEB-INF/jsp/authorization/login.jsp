@@ -26,7 +26,6 @@
 <div class="main-container">
     <%@ include file="../home/header.jsp" %>
     <form name="register-form" method="POST" action="login.do">
-        <input type="hidden" name="command" value="login"/>
         <input type="hidden" name="previousUrl" value="login"/>
         <div class="row col-1 offset-1">
             <label for="inputEmail"><fmt:message key="login.inputEmail"/> </label>

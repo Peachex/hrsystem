@@ -9,6 +9,7 @@ public class UrlPattern {
     public static final String REGISTER = "/register";
     public static final String DOUBLE_POSTING_ERROR = "/double_posting_error";
     public static final String PERMISSION_ERROR = "/permission_error";
+    public static final String CURRENT_VACANCY = "/vacancy_info";
 
     private UrlPattern() {
     }

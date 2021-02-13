@@ -5,6 +5,7 @@ import com.epam.hrsystem.model.entity.Vacancy;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface VacancyService {
     boolean createVacancy(Map<String, String> fields, long employeeId) throws ServiceException;
@@ -22,5 +23,7 @@ public interface VacancyService {
     boolean updateVacancyInfo(long vacancyId, Map<String, String> fields) throws ServiceException;
 
     boolean vacancyExists(Vacancy vacancy) throws ServiceException;
+
+    Optional<Vacancy> findVacancyById(long vacancyId) throws ServiceException;
 
 }

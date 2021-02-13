@@ -31,6 +31,7 @@ public class PermissionFilter implements Filter {
         List<CommandEnum> sameCommands = new ArrayList<>();
         sameCommands.add(CommandEnum.CHANGE_LANGUAGE);
         sameCommands.add(CommandEnum.VACANCY);
+        sameCommands.add(CommandEnum.VACANCY_INFO);
 
         List<CommandEnum> guestCommands = new ArrayList<>(sameCommands);
         guestCommands.add(CommandEnum.REGISTER);

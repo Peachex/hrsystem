@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ToVacancyCommand implements ActionCommand {
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request) throws CommandException {
         VacancyService service = VacancyServiceImpl.INSTANCE;
         CommandResult result = new CommandResult(UrlPattern.VACANCY, CommandResult.Type.FORWARD);
         try {

@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class SaveUrlFilter implements Filter {
+    private static final String SLASH = "/";
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -24,9 +26,12 @@ public class SaveUrlFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
         String previousUrl = request.getParameter(RequestParameter.PREVIOUS_URL);
-        System.out.println(previousUrl);
+        //fixme filter returns previous url only of command
+        System.out.println(request.getRequestURL());
+
         if (previousUrl != null && !previousUrl.isEmpty()) {
             session.setAttribute(SessionAttribute.PREVIOUS, previousUrl);
+            //System.out.println(previousUrl);
         }
         chain.doFilter(request, response);
     }

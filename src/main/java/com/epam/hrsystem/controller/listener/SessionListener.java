@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.listener;
 
+import com.epam.hrsystem.controller.UrlPattern;
 import com.epam.hrsystem.controller.attribute.Locale;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.model.entity.UserRole;
@@ -15,6 +16,7 @@ public class SessionListener implements HttpSessionListener {
         HttpSession session = se.getSession();
         session.setAttribute(SessionAttribute.CURRENT_LOCALE, Locale.RU.getLocale());
         session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.GUEST);
+        session.setAttribute(SessionAttribute.PREVIOUS, UrlPattern.HOME);
     }
 
     @Override

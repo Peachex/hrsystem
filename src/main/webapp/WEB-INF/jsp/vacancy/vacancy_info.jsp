@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Peachex
-  Date: 2/10/2021
-  Time: 7:28 PM
+  Date: 2/13/2021
+  Time: 10:44 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -20,23 +20,18 @@
 
 <html>
 <head>
-    <title><fmt:message key="vacancy.title"/></title>
+    <title><fmt:message key="vacancy_info.title"/></title>
 </head>
 <body>
 <div class="main-container">
     <%@ include file="../home/header.jsp" %>
     <%-- <input type="hidden" name="previousUrl"  value="vacancy"/>
-     <c:set var="vacancyId" scope="request" value="${vacancy.id}"/>
      --%>
-    <c:set var="vacancies" scope="request" value="${vacancies}"/>
-    ${noVacancies}
-    <c:forEach var="vacancy" items="${vacancies}">
-        <tr>
-            <a href="<c:url value="vacancy_info.do?vacancyId=${vacancy.id}"/>" class="list-group-item list-group-item-action">${vacancy.position}
-                    ${vacancy.creationDate}</a>
-            <br>
-        </tr>
-    </c:forEach>
+    <c:set var="vacancy" scope="request" value="${vacancy}"/>
+    ${vacancy.position}
+    ${vacancy.description}
+    ${vacancy.country}
+    ${vacancy.city}
     <input name="ctoken" type="hidden" value="${stoken}"/>
 </div>
 </body>

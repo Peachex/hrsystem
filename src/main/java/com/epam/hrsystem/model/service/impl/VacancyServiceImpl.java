@@ -129,6 +129,17 @@ public enum VacancyServiceImpl implements VacancyService {
         return result;
     }
 
+    @Override
+    public Optional<Vacancy> findVacancyById(long vacancyId) throws ServiceException {
+        Optional<Vacancy> vacancy;
+        try {
+            vacancy = dao.findVacancyById(vacancyId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return vacancy;
+    }
+
     private boolean addCountryIfNotExists(String name) throws DaoException {
         boolean result = true;
         Optional<Long> idOptional = dao.findCountryIdByName(name.toUpperCase(Locale.ROOT));

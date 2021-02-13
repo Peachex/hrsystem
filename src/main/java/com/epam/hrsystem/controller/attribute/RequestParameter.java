@@ -22,6 +22,7 @@ public class RequestParameter {
 
     public static final String VACANCIES = "vacancies";
     public static final String NO_VACANCIES = "noVacancies";
+    public static final String VACANCY_ID = "vacancyId";
 
     private RequestParameter() {
     }

@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class RegisterCommand implements ActionCommand {
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public CommandResult execute(HttpServletRequest request) throws CommandException {
         String firstName = request.getParameter(RequestParameter.FIRST_NAME);
         String lastName = request.getParameter(RequestParameter.LAST_NAME);
         String dateOfBirth = request.getParameter(RequestParameter.DATE_OF_BIRTH);
