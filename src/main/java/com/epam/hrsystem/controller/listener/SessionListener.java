@@ -16,7 +16,7 @@ public class SessionListener implements HttpSessionListener {
         HttpSession session = se.getSession();
         session.setAttribute(SessionAttribute.CURRENT_LOCALE, Locale.RU.getLocale());
         session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.GUEST);
-        session.setAttribute(SessionAttribute.PREVIOUS, UrlPattern.HOME);
+        session.setAttribute(SessionAttribute.CURRENT_PAGE, UrlPattern.HOME);
     }
 
     @Override

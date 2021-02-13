@@ -41,7 +41,7 @@
 
     <filter>
         <filter-name>SaveUrlFilter</filter-name>
-        <filter-class>com.epam.hrsystem.controller.filter.SaveUrlFilter</filter-class>
+        <filter-class>com.epam.hrsystem.controller.filter.PageTrackFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>SaveUrlFilter</filter-name>
@@ -54,66 +54,12 @@
     </listener>
 
     <servlet>
-        <servlet-name>Login</servlet-name>
-        <jsp-file>/WEB-INF/jsp/authorization/login.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>Home</servlet-name>
         <jsp-file>/WEB-INF/jsp/home/home.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Vacancy</servlet-name>
-        <jsp-file>/WEB-INF/jsp/vacancy/vacancy.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Vacancy</servlet-name>
-        <url-pattern>/vacancy</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Register</servlet-name>
-        <jsp-file>/WEB-INF/jsp/authorization/register.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Register</servlet-name>
-        <url-pattern>/register</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>DoublePostingError</servlet-name>
-        <jsp-file>/WEB-INF/jsp/error/double_posting_error.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DoublePostingError</servlet-name>
-        <url-pattern>/double_posting_error</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>PermissionError</servlet-name>
-        <jsp-file>/WEB-INF/jsp/error/permission_error.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PermissionError</servlet-name>
-        <url-pattern>/permission_error</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>VacancyInfo</servlet-name>
-        <jsp-file>/WEB-INF/jsp/vacancy/vacancy_info.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>VacancyInfo</servlet-name>
-        <url-pattern>/vacancy_info</url-pattern>
     </servlet-mapping>
 
 </web-app>

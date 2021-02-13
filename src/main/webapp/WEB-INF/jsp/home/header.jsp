@@ -38,18 +38,22 @@
             <a class="nav-link header-link offset-1" href="change_language.do"><fmt:message
                     key="header.changeLanguage"/></a>
             <c:if test="${role.toString().equals(guest)}">
-                <a class="nav-link header-link offset-1" href="register"><fmt:message key="header.register"/></a>
-                <a class="nav-link header-link offset-1" href="login"><fmt:message key="header.login"/></a>
+                <a class="nav-link header-link offset-1" href="to_register.do"><fmt:message
+                        key="header.register"/></a>
+                <a class="nav-link header-link offset-1" href="to_login.do"><fmt:message
+                        key="header.login"/></a>
             </c:if>
 
             <c:if test="${role.toString().equals(applicant) || role.toString().equals(employee)}">
-                <a class="nav-link header-link offset-1" href="register">${user.firstName} ${user.lastName}</a>
+                <a class="nav-link header-link offset-1" href="home">${user.firstName} ${user.lastName}</a>
                 <a class="nav-link header-link offset-1" href="logout.do"><fmt:message key="header.logout"/></a>
             </c:if>
 
             <c:if test="${role.toString().equals(admin)}">
-                <a class="nav-link header-link offset-1" href="register"><fmt:message key="header.admin"/></a>
-                <a class="nav-link header-link offset-1" href="register">${user.firstName} ${user.lastName}</a>
+                <a class="nav-link header-link offset-1" href="home"><fmt:message
+                        key="header.admin"/></a>
+                <a class="nav-link header-link offset-1"
+                   href="../authorization/register.jsp">${user.firstName} ${user.lastName}</a>
                 <a class="nav-link header-link offset-1" href="logout.do"><fmt:message key="header.logout"/></a>
             </c:if>
         </nav>
