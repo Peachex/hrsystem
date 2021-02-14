@@ -12,6 +12,7 @@ import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.validator.VacancyValidator;
+import org.apache.logging.log4j.Level;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -42,7 +43,7 @@ public enum VacancyServiceImpl implements VacancyService {
                     }
                 }
             }
-        } catch (DaoException e) {
+        } catch (DaoException | NumberFormatException e) {
             throw new ServiceException(e);
         }
         return result;

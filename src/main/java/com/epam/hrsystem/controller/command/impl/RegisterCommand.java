@@ -43,6 +43,7 @@ public class RegisterCommand implements ActionCommand {
             if (service.register(fields)) {
                 result = new CommandResult(UrlPattern.LOGIN, CommandResult.Type.FORWARD);
             } else {
+                //fixme add errorFirstName and other strings to JspAttribute
                 if (!UserValidator.isNameValid(firstName)) {
                     request.setAttribute("errorFirstName", "First name isn't valid");
                 }

@@ -31,7 +31,7 @@ public class PermissionFilter implements Filter {
     public void init(FilterConfig filterConfig) {
         List<CommandEnum> sameCommands = new ArrayList<>();
         sameCommands.add(CommandEnum.CHANGE_LANGUAGE);
-        sameCommands.add(CommandEnum.VACANCY);
+        sameCommands.add(CommandEnum.TO_VACANCY);
         sameCommands.add(CommandEnum.VACANCY_INFO);
 
         List<CommandEnum> guestCommands = new ArrayList<>(sameCommands);
@@ -46,9 +46,11 @@ public class PermissionFilter implements Filter {
 
         List<CommandEnum> employeeCommands = new ArrayList<>(sameCommands);
         employeeCommands.add(CommandEnum.LOGOUT);
+        employeeCommands.add(CommandEnum.CREATE_VACANCY);
 
         List<CommandEnum> adminCommands = new ArrayList<>(sameCommands);
         adminCommands.add(CommandEnum.LOGOUT);
+        adminCommands.add(CommandEnum.CREATE_VACANCY);
 
         permissionCommands.put(UserRole.GUEST, guestCommands);
         permissionCommands.put(UserRole.APPLICANT, applicantCommands);

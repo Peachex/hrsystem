@@ -35,7 +35,7 @@
             <c:set var="userPhotoName" scope="session" value="${userPhotoName}"/>
 
             <a class="nav-link header-link" href="home"><fmt:message key="header.home"/> </a>
-            <a class="nav-link header-link offset-1" href="vacancy.do"><fmt:message key="header.vacancy"/></a>
+            <a class="nav-link header-link offset-1" href="to_vacancy.do"><fmt:message key="header.vacancy"/></a>
             <a class="nav-link header-link offset-1" href="change_language.do"><fmt:message
                     key="header.changeLanguage"/></a>
             <c:if test="${role.toString().equals(guest)}">

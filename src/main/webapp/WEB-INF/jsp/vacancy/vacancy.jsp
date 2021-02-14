@@ -10,17 +10,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.currentLocale}"/>
 <fmt:setBundle basename="locale.page_content"/>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
 
 <html>
 <head>
@@ -34,13 +23,17 @@
      --%>
     <c:set var="vacancies" scope="request" value="${vacancies}"/>
     <c:if test="${role.toString().equals(employee) || role.toString().equals(admin)}">
+        <wrongMessage>
+                ${errorPosition}
+                ${errorDescription}
+                ${errorCountry}
+                ${errorCity}
+        </wrongMessage>
+
         <!-- Button to Open the Modal -->
-        <div class="mb-3 row">
-            <!-- Button to Open the Modal -->
-            <button type="button" class="btn btn-primary button" data-toggle="modal" data-target="#createVacancyModal">
-                <fmt:message key="button.createVacancy"/>
-            </button>
-        </div>
+        <button type="submit" class="btn btn-primary button" data-toggle="modal" data-target="#createVacancyModal">
+            <fmt:message key="button.createVacancy"/>
+        </button>
 
         <!-- The Modal -->
 
@@ -57,7 +50,6 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <form name="create-vacancy-form" method="POST" action="create_vacancy.do">
-                            <input type="hidden" name="employeeId" value="${user.id}">
                             <div class="offset-1">
                                 <label for="inputPosition"><fmt:message
                                         key="create_vacancy_modal.inputPosition"/> </label>
@@ -76,9 +68,10 @@
                             </div>
 
                             <div class="form-group">
-                                <textarea class="form-control" rows="5" id="inputDescription"
-                                          name="description" placeholder="<fmt:message
-                                        key="create_vacancy_modal.inputDescriptionPlaceholder"/>" required></textarea>
+                                    <textarea class="form-control" rows="5" id="inputDescription"
+                                              name="description" placeholder="<fmt:message
+                                             key="create_vacancy_modal.inputDescriptionPlaceholder"/>"
+                                              required></textarea>
                             </div>
 
                             <div class="offset-1">
@@ -110,6 +103,7 @@
                                             key="button.create"/></button>
                                 </div>
                             </div>
+                            <input name="ctoken" type="hidden" value="${stoken}"/>
                         </form>
                     </div>
 
@@ -124,7 +118,6 @@
         </div>
     </c:if>
 
-
     ${noVacancies}
     <c:forEach var="vacancy" items="${vacancies}">
         <tr>
@@ -134,7 +127,23 @@
             <br>
         </tr>
     </c:forEach>
-    <input name="ctoken" type="hidden" value="${stoken}"/>
 </div>
 </body>
 </html>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>

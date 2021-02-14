@@ -16,7 +16,7 @@ public class ProjectMain {
 
         VacancyService service = VacancyServiceImpl.INSTANCE;
         Map<String, String> fields = new LinkedHashMap<>();
-        fields.put(RequestParameter.POSITION, "Junior Recruiting/HR");
+        fields.put(RequestParameter.POSITION, "Test");
         fields.put(RequestParameter.DESCRIPTION, "Join one of Inc 5000’s fastest-growing companies as an IT Recruiter. A top-rated Google Marketing Platform Partner, DELVE is a strategic partner for site-side analytics, campaign management, and advanced marketing science.\n" +
                 "\n" +
                 "Join and expand our team of analysts, data engineers, data scientists, and media traders that drives client growth through a data-driven mindset that converts digital inefficiency into hard ROI.\n" +
@@ -24,6 +24,8 @@ public class ProjectMain {
                 "In this role you will collaborate directly with hiring managers to understand who they need, when, why, etc. and prioritize a list of hiring needs, per department, per optimal start date, based on known forecasts of inflowing biz.");
         fields.put(RequestParameter.COUNTRY, "Germany");
         fields.put(RequestParameter.CITY, "Dresden");
+        fields.put(RequestParameter.EMPLOYEE_ID, "2");
+        //todo delete unnecessary tokens
 
         //System.out.println(service.createVacancy(fields, 1) + "\n");
 
@@ -35,8 +37,6 @@ public class ProjectMain {
         for (Vacancy vacancy : vacancies) {
             System.out.println(vacancy);
         }*/
-        String str = null;
-        System.out.println(str);
         //service.deleteVacancy(1);
         //service.restoreVacancy(1);
 

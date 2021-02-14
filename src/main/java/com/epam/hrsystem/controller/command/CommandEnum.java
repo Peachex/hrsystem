@@ -2,6 +2,7 @@ package com.epam.hrsystem.controller.command;
 
 
 import com.epam.hrsystem.controller.command.impl.ChangeLanguageCommand;
+import com.epam.hrsystem.controller.command.impl.CreateVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.LoginCommand;
 import com.epam.hrsystem.controller.command.impl.LogoutCommand;
 import com.epam.hrsystem.controller.command.impl.RegisterCommand;
@@ -14,8 +15,8 @@ public enum CommandEnum {
     REGISTER {{
         this.command = new RegisterCommand();
     }},
-    TO_REGISTER{{
-       this.command = new ToRegisterCommand();
+    TO_REGISTER {{
+        this.command = new ToRegisterCommand();
     }},
     LOGIN {{
         this.command = new LoginCommand();
@@ -29,11 +30,14 @@ public enum CommandEnum {
     CHANGE_LANGUAGE {{
         this.command = new ChangeLanguageCommand();
     }},
-    VACANCY {{
+    TO_VACANCY {{
         this.command = new ToVacancyCommand();
     }},
     VACANCY_INFO {{
         this.command = new VacancyInfoCommand();
+    }},
+    CREATE_VACANCY {{
+        this.command = new CreateVacancyCommand();
     }};
 
     ActionCommand command;

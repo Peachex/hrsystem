@@ -39,6 +39,7 @@ public class DoublePostingPreventingFilter implements Filter {
         } else {
             serverToken = (Integer) session.getAttribute(SessionAttribute.SERVER_TOKEN);
             clientToken = Integer.parseInt(request.getParameter(SessionAttribute.CLIENT_TOKEN));
+            System.out.println(clientToken + "\n");
             if (serverToken == clientToken) {
                 session.setAttribute(SessionAttribute.SERVER_TOKEN, new Random().nextInt(MAX_RANDOM_RANGE));
                 chain.doFilter(request, response);

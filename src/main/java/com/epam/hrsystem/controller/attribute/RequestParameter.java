@@ -17,12 +17,11 @@ public class RequestParameter {
     public static final String DESCRIPTION = "description";
     public static final String COUNTRY = "country";
     public static final String CITY = "city";
-
     public static final String PREVIOUS_URL = "previousUrl";
-
     public static final String VACANCIES = "vacancies";
     public static final String NO_VACANCIES = "noVacancies";
     public static final String VACANCY_ID = "vacancyId";
+    public static final String EMPLOYEE_ID = "employeeId";
 
     private RequestParameter() {
     }
