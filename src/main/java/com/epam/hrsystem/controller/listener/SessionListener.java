@@ -15,7 +15,8 @@ public class SessionListener implements HttpSessionListener {
     public void sessionCreated(HttpSessionEvent sessionEvent) {
         HttpSession session = sessionEvent.getSession();
         session.setAttribute(SessionAttribute.CURRENT_LOCALE, Locale.RU.getLocale());
-        session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.GUEST);
+        //fixme change default role for guest
+        session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.EMPLOYEE);
         session.setAttribute(SessionAttribute.PREVIOUS_PAGE, UrlPattern.HOME);
         session.setAttribute(SessionAttribute.CURRENT_PAGE, UrlPattern.HOME);
     }
