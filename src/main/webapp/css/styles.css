@@ -29,3 +29,8 @@ wrong-message {
     color: red;
     justify-content: center;
 }
+
+.avatar {
+    background: #2e2e2e no-repeat;
+    border: #2e2e2e;
+}

@@ -25,6 +25,7 @@
 <body>
 <div class="main-container">
     <%@ include file="header.jsp" %>
+
     <br>
     <img src="${pageContext.request.contextPath}/img/portfolio.png" width="128" height="128" class="row offset-6">
     <br>

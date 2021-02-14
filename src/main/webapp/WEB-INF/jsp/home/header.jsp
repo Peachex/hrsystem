@@ -32,6 +32,7 @@
             <c:set var="applicant" scope="session" value="APPLICANT"/>
             <c:set var="employee" scope="session" value="EMPLOYEE"/>
             <c:set var="user" scope="session" value="${user}"/>
+            <c:set var="userPhotoName" scope="session" value="${userPhotoName}"/>
 
             <a class="nav-link header-link" href="home"><fmt:message key="header.home"/> </a>
             <a class="nav-link header-link offset-1" href="vacancy.do"><fmt:message key="header.vacancy"/></a>
@@ -46,6 +47,17 @@
 
             <c:if test="${role.toString().equals(applicant) || role.toString().equals(employee)}">
                 <a class="nav-link header-link offset-1" href="home">${user.firstName} ${user.lastName}</a>
+                <c:choose>
+                    <c:when test="${userPhotoName == null}">
+                        <img src="${pageContext.request.contextPath}/img/default_avatar.png" width="72" height="64"
+                             class="rounded-circle avatar">
+                    </c:when>
+                    <c:otherwise>
+                        <%--<img src="${pageContext.request.contextPath}/img/${userPhotoName}" width="128" height="128"
+                             class="avatar"> --%>
+                    </c:otherwise>
+                </c:choose>
+
                 <a class="nav-link header-link offset-1" href="logout.do"><fmt:message key="header.logout"/></a>
             </c:if>
 
@@ -54,6 +66,16 @@
                         key="header.admin"/></a>
                 <a class="nav-link header-link offset-1"
                    href="../authorization/register.jsp">${user.firstName} ${user.lastName}</a>
+                <c:choose>
+                    <c:when test="${userPhotoName == null}">
+                        <img src="${pageContext.request.contextPath}/img/default_avatar.png" width="72" height="64"
+                             class="rounded-circle avatar">
+                    </c:when>
+                    <c:otherwise>
+                        <%--<img src="${pageContext.request.contextPath}/img/${userPhotoName}" width="128" height="128"
+                             class="avatar"> --%>
+                    </c:otherwise>
+                </c:choose>
                 <a class="nav-link header-link offset-1" href="logout.do"><fmt:message key="header.logout"/></a>
             </c:if>
         </nav>
