@@ -34,7 +34,7 @@
         </div>
         <div class="row">
             <div class="col-3 offset-1">
-                <input type="text" class="form-control field" id="inputFirstName" name="firstName"
+                <input type="text" class="form-control field" id="inputFirstName" name="firstName" value="${firstName}"
                        placeholder=
                                "<fmt:message key="register.inputNamePlaceholder"/>" required
                        pattern="[a-zA-Zа-яА-Я]{3,35}">

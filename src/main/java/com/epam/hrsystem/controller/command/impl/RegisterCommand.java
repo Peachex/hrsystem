@@ -44,6 +44,8 @@ public class RegisterCommand implements ActionCommand {
                 result = new CommandResult(UrlPattern.LOGIN, CommandResult.Type.FORWARD);
             } else {
                 //fixme add errorFirstName and other strings to JspAttribute
+                //todo add field data saving
+                request.setAttribute(RequestParameter.FIRST_NAME, fields.get(RequestParameter.FIRST_NAME));
                 if (!UserValidator.isNameValid(firstName)) {
                     request.setAttribute("errorFirstName", "First name isn't valid");
                 }
