@@ -10,6 +10,7 @@ import com.epam.hrsystem.model.entity.UserRole;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -69,7 +70,8 @@ public class PermissionFilter implements Filter {
         List<CommandEnum> commands = permissionCommands.get(role);
         CommandEnum commandType = CommandProvider.defineCommandType(request).get();
         if (commands == null || !commands.contains(commandType)) {
-            response.sendRedirect(request.getContextPath() + UrlPattern.PERMISSION_ERROR);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(UrlPattern.PERMISSION_ERROR);
+            dispatcher.forward(request, response);
         } else {
             filterChain.doFilter(servletRequest, servletResponse);
         }

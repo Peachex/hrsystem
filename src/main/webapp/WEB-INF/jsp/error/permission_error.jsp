@@ -12,6 +12,6 @@
 </head>
 <body>
 <h1 style="color:red">Command is not allowed for your role!</h1><br>
-<a href="register">Try Again</a>
+<a href="home">Try Again</a>
 </body>
 </html>

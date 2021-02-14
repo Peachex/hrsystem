@@ -12,15 +12,16 @@ import javax.servlet.http.HttpSessionListener;
 public class SessionListener implements HttpSessionListener {
 
     @Override
-    public void sessionCreated(HttpSessionEvent se) {
-        HttpSession session = se.getSession();
+    public void sessionCreated(HttpSessionEvent sessionEvent) {
+        HttpSession session = sessionEvent.getSession();
         session.setAttribute(SessionAttribute.CURRENT_LOCALE, Locale.RU.getLocale());
         session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.GUEST);
+        session.setAttribute(SessionAttribute.PREVIOUS_PAGE, UrlPattern.HOME);
         session.setAttribute(SessionAttribute.CURRENT_PAGE, UrlPattern.HOME);
     }
 
     @Override
-    public void sessionDestroyed(HttpSessionEvent se) {
-        se.getSession().invalidate();
+    public void sessionDestroyed(HttpSessionEvent sessionEvent) {
+        sessionEvent.getSession().invalidate();
     }
 }

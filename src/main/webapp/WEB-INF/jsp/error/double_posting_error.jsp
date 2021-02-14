@@ -12,6 +12,7 @@
 </head>
 <body>
 <h1 style="color:red">DoublePosting not allowed</h1><br>
-<a href="register">Try Again</a>
+<a href="${sessionScope.previousPage}">Try Again</a>
+
 </body>
 </html>
