@@ -7,6 +7,7 @@ import com.epam.hrsystem.controller.command.impl.FindVacanciesByKeyWordCommand;
 import com.epam.hrsystem.controller.command.impl.LoginCommand;
 import com.epam.hrsystem.controller.command.impl.LogoutCommand;
 import com.epam.hrsystem.controller.command.impl.RegisterCommand;
+import com.epam.hrsystem.controller.command.impl.SortVacanciesByDateCommand;
 import com.epam.hrsystem.controller.command.impl.ToLoginCommand;
 import com.epam.hrsystem.controller.command.impl.ToRegisterCommand;
 import com.epam.hrsystem.controller.command.impl.VacancyInfoCommand;
@@ -42,6 +43,10 @@ public enum CommandEnum {
     }},
     FIND_VACANCIES_BY_KEY_WORD {{
         this.command = new FindVacanciesByKeyWordCommand();
+    }},
+    SORT_VACANCIES_BY_DATE
+    {{
+        this.command = new SortVacanciesByDateCommand();
     }};
 
     ActionCommand command;

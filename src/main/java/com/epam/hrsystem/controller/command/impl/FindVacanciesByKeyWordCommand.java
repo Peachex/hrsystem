@@ -20,7 +20,6 @@ public class FindVacanciesByKeyWordCommand implements ActionCommand {
         CommandResult result = new CommandResult(UrlPattern.VACANCY, CommandResult.Type.FORWARD);
         try {
             String keyWord = request.getParameter(RequestParameter.KEY_WORD);
-            System.out.println(keyWord);
             List<Vacancy> vacancies = service.findVacanciesByKeyWord(keyWord);
             if (vacancies.size() > 0) {
                 request.setAttribute(RequestParameter.VACANCIES, vacancies);

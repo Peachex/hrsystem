@@ -21,7 +21,7 @@
     <%-- <input type="hidden" name="previousUrl"  value="vacancy"/>
      <c:set var="vacancyId" scope="request" value="${vacancy.id}"/>
      --%>
-    <c:set var="vacancies" scope="request" value="${vacancies}"/>
+    <c:set var="vacancies" scope="application" value="${vacancies}"/>
     <c:if test="${role.toString().equals(employee) || role.toString().equals(admin)}">
         <wrongMessage>
                 ${errorPosition}
@@ -119,7 +119,7 @@
     </c:if>
 
     <form name="create-vacancy-form" method="GET" action="find_vacancies_by_key_word.do">
-        <div class="form-group">
+        <div class="form-group col-4">
             <input type="text" class="form-control-plaintext" placeholder="<fmt:message key="vacancy.inputKeyWord"/> "
                    value="${keyWord}" name="keyWord">
         </div>
@@ -130,6 +130,19 @@
             </div>
         </div>
     </form>
+
+    <div class="dropdown col-2 offset-2">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <fmt:message key="button.sortByDate"/>
+        </button>
+
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=asc"><fmt:message
+                    key="button.sortAsc"/> </a>
+            <a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=desc"><fmt:message
+                    key="button.sortDesc"/> </a>
+        </div>
+    </div>
 
     ${noVacancies}
     <c:forEach var="vacancy" items="${vacancies}">
