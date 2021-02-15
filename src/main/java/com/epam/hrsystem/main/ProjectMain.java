@@ -2,7 +2,9 @@ package com.epam.hrsystem.main;
 
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.ServiceException;
+import com.epam.hrsystem.model.service.UserService;
 import com.epam.hrsystem.model.service.VacancyService;
+import com.epam.hrsystem.model.service.impl.UserServiceImpl;
 import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
 
 import java.util.LinkedHashMap;
@@ -26,6 +28,8 @@ public class ProjectMain {
         fields.put(RequestParameter.CITY, "Dresden");
         fields.put(RequestParameter.EMPLOYEE_ID, "2");
         //todo delete unnecessary tokens
+        UserService userService = UserServiceImpl.INSTANCE;
+        //userService.changeUserRole(11, "employee");
 
         //System.out.println(service.createVacancy(fields, 1) + "\n");
 

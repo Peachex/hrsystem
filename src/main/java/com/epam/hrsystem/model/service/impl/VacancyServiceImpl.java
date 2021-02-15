@@ -12,7 +12,6 @@ import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.validator.VacancyValidator;
-import org.apache.logging.log4j.Level;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,6 +22,7 @@ import java.util.Optional;
 public enum VacancyServiceImpl implements VacancyService {
     INSTANCE;
 
+    private static final String PERCENT_SIGN = "%";
     private static final VacancyDao dao = VacancyDaoImpl.INSTANCE;
 
     @Override
@@ -139,6 +139,17 @@ public enum VacancyServiceImpl implements VacancyService {
             throw new ServiceException(e);
         }
         return vacancy;
+    }
+
+    @Override
+    public List<Vacancy> findVacanciesByKeyWord(String keyWord) throws ServiceException {
+        try {
+            String keyWordForQuery = PERCENT_SIGN + keyWord + PERCENT_SIGN;
+            List<Vacancy> vacancies = dao.findVacanciesByKeyWord(keyWordForQuery);
+            return vacancies;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
     private boolean addCountryIfNotExists(String name) throws DaoException {

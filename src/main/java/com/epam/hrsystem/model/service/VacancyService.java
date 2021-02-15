@@ -26,4 +26,6 @@ public interface VacancyService {
 
     Optional<Vacancy> findVacancyById(long vacancyId) throws ServiceException;
 
+    List<Vacancy> findVacanciesByKeyWord(String keyWord) throws ServiceException;
+
 }

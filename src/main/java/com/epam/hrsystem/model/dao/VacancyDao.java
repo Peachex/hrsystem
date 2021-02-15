@@ -18,6 +18,8 @@ public interface VacancyDao {
 
     List<Vacancy> findAvailableVacancies() throws DaoException;
 
+    List<Vacancy> findVacanciesByKeyWord(String keyWord) throws DaoException;
+
     boolean updateVacancyInfo(Vacancy vacancy) throws DaoException;
 
     Optional<Vacancy> findVacancyById(long vacancyId) throws DaoException;

@@ -33,6 +33,7 @@ public class PermissionFilter implements Filter {
         sameCommands.add(CommandEnum.CHANGE_LANGUAGE);
         sameCommands.add(CommandEnum.TO_VACANCY);
         sameCommands.add(CommandEnum.VACANCY_INFO);
+        sameCommands.add(CommandEnum.FIND_VACANCIES_BY_KEY_WORD);
 
         List<CommandEnum> guestCommands = new ArrayList<>(sameCommands);
         guestCommands.add(CommandEnum.REGISTER);

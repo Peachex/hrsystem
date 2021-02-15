@@ -118,6 +118,19 @@
         </div>
     </c:if>
 
+    <form name="create-vacancy-form" method="GET" action="find_vacancies_by_key_word.do">
+        <div class="form-group">
+            <input type="text" class="form-control-plaintext" placeholder="<fmt:message key="vacancy.inputKeyWord"/> "
+                   value="${keyWord}" name="keyWord">
+        </div>
+        <div class="mb-3 row">
+            <div class="col-4 offset-5">
+                <button class="btn btn-primary button" type="submit"><fmt:message
+                        key="button.find"/></button>
+            </div>
+        </div>
+    </form>
+
     ${noVacancies}
     <c:forEach var="vacancy" items="${vacancies}">
         <tr>

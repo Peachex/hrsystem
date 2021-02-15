@@ -109,6 +109,25 @@ public enum VacancyDaoImpl implements VacancyDao {
     }
 
     @Override
+    public List<Vacancy> findVacanciesByKeyWord(String keyWord) throws DaoException {
+        List<Vacancy> vacancies = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_VACANCIES_BY_KEY_WORD)) {
+            statement.setString(1, keyWord);
+            statement.setString(2, keyWord);
+            statement.executeQuery();
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                Vacancy vacancy = createVacancyFromResultSet(resultSet);
+                vacancies.add(vacancy);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return vacancies;
+    }
+
+    @Override
     public boolean updateVacancyInfo(Vacancy vacancy) throws DaoException {
         boolean result;
         try (Connection connection = pool.takeConnection();
