@@ -5,22 +5,17 @@ import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
-import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.entity.comparator.VacancyComparator;
-import com.epam.hrsystem.model.service.VacancyService;
-import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 public class SortVacanciesByDateCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        VacancyService service = VacancyServiceImpl.INSTANCE;
         CommandResult result = new CommandResult(UrlPattern.VACANCY, CommandResult.Type.FORWARD);
         Comparator<Vacancy> comparator = VacancyComparator.VACANCY_CREATION_DATE;
         ServletContext servletContext = request.getServletContext();

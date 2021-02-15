@@ -53,6 +53,7 @@ public class PermissionFilter implements Filter {
         List<CommandEnum> adminCommands = new ArrayList<>(sameCommands);
         adminCommands.add(CommandEnum.LOGOUT);
         adminCommands.add(CommandEnum.CREATE_VACANCY);
+        adminCommands.add(CommandEnum.SEE_ALL_VACANCIES);
 
         permissionCommands.put(UserRole.GUEST, guestCommands);
         permissionCommands.put(UserRole.APPLICANT, applicantCommands);

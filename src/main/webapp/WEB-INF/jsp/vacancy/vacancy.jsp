@@ -144,7 +144,17 @@
         </div>
     </div>
 
+    <c:if test="${role.toString().equals(admin)}">
+        <form name="see-all-vacancies" method="GET" action="see_all_vacancies.do">
+            <div class="col-2 offset-4">
+                <button class="btn btn-primary button" type="submit"><fmt:message
+                        key="button.seeAllVacancies"/></button>
+            </div>
+        </form>
+    </c:if>
+
     ${noVacancies}
+    <fmt:message key="vacancy_vacanciesAmount"/> ${vacancies.size()}
     <c:forEach var="vacancy" items="${vacancies}">
         <tr>
             <a href="<c:url value="vacancy_info.do?vacancyId=${vacancy.id}"/>"
