@@ -1,11 +1,13 @@
 package com.epam.hrsystem.validator;
 
+import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.model.entity.UserRole;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -22,6 +24,46 @@ public class UserValidator {
     private static final int PHOTO_NAME_MAX_LENGTH = 50;
 
     private UserValidator() {
+    }
+
+    public static boolean isRegisterFormValid(Map<String, String> fields) {
+        boolean result = true;
+        String firstName = fields.get(RequestParameter.FIRST_NAME);
+        if (!isNameValid(firstName)) {
+            fields.put(RequestParameter.FIRST_NAME, "Invalid input!");
+            result = false;
+        }
+        String lastName = fields.get(RequestParameter.LAST_NAME);
+        if (!isNameValid(lastName)) {
+            fields.put(RequestParameter.LAST_NAME, "Invalid input!");
+            result = false;
+        }
+        String dateOfBirth = fields.get(RequestParameter.DATE_OF_BIRTH);
+        if (!BaseValidator.isDateFormatValid(dateOfBirth)) {
+            fields.put(RequestParameter.DATE_OF_BIRTH, "Invalid input!");
+            result = false;
+        }
+        String phoneNumber = fields.get(RequestParameter.PHONE_NUMBER);
+        if (!isPhoneNumberValid(phoneNumber)) {
+            fields.put(RequestParameter.PHONE_NUMBER, "Invalid input!");
+            result = false;
+        }
+        String email = fields.get(RequestParameter.EMAIL);
+        if (!isNameValid(email)) {
+            fields.put(RequestParameter.EMAIL, "Invalid input!");
+            result = false;
+        }
+        String password = fields.get(RequestParameter.PASSWORD);
+        if (!isPasswordValid(password)) {
+            fields.put(RequestParameter.PASSWORD, "");
+            result = false;
+        }
+        String repeatPassword = fields.get(RequestParameter.REPEATED_PASSWORD);
+        if (!isRepeatPasswordValid(password, repeatPassword)) {
+            fields.put(RequestParameter.REPEATED_PASSWORD, "");
+            result = false;
+        }
+        return result;
     }
 
     public static boolean isUserRoleValid(String role) {
