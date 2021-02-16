@@ -28,7 +28,6 @@ public class User {
 
     public User(UserRole role, boolean isActive, String photoName, String firstName, String lastName,
                 LocalDate dateOfBirth, String phoneNumber, String email) {
-        this.id = id;
         this.role = role;
         this.isActive = isActive;
         this.photoName = photoName;

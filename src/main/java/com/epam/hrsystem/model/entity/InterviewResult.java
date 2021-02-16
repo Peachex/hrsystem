@@ -11,6 +11,11 @@ public class InterviewResult {
         this.comment = comment;
     }
 
+    public InterviewResult(byte rating, String comment) {
+        this.rating = rating;
+        this.comment = comment;
+    }
+
     public long getId() {
         return id;
     }

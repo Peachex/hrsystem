@@ -18,6 +18,15 @@ public class ApplicantRequest {
         this.interviewResult = interviewResult;
     }
 
+    public ApplicantRequest(String summaryFileName, ApplicantState applicantState, User applicant,
+                            Vacancy vacancy, InterviewResult interviewResult) {
+        this.summaryFileName = summaryFileName;
+        this.applicantState = applicantState;
+        this.applicant = applicant;
+        this.vacancy = vacancy;
+        this.interviewResult = interviewResult;
+    }
+
     public long getId() {
         return id;
     }

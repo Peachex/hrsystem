@@ -1,8 +1,5 @@
 package com.epam.hrsystem.model.entity;
 
-import com.epam.hrsystem.exception.DaoException;
-import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
-
 import java.time.LocalDate;
 
 public class Vacancy {
@@ -136,8 +133,7 @@ public class Vacancy {
         sb.append("country = ").append(country).append("\n");
         sb.append("city = ").append(city).append("\n");
         sb.append("creation date = ").append(creationDate).append("\n");
-        //sb.append("employee id = ").append(employee.getId()).append("\n");
-        sb.append("\n").append(employee).append("\n");
+        sb.append("employee id = ").append(employee.getId()).append("\n");
         return sb.toString();
     }
 }
