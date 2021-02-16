@@ -41,6 +41,34 @@ public class MailSender {
         this.mailText = mailText;
     }
 
+    public MailSender() {
+
+    }
+
+    public String getSendToEmail() {
+        return sendToEmail;
+    }
+
+    public void setSendToEmail(String sendToEmail) {
+        this.sendToEmail = sendToEmail;
+    }
+
+    public String getMailSubject() {
+        return mailSubject;
+    }
+
+    public void setMailSubject(String mailSubject) {
+        this.mailSubject = mailSubject;
+    }
+
+    public String getMailText() {
+        return mailText;
+    }
+
+    public void setMailText(String mailText) {
+        this.mailText = mailText;
+    }
+
     public void send() {
         try {
             initMessage();

@@ -3,6 +3,9 @@ package com.epam.hrsystem.util;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class Encryptor {
+    private Encryptor() {
+    }
+
     public static String encrypt(String password) {
         String salt = BCrypt.gensalt();
         String hashedValue = BCrypt.hashpw(password, salt);
