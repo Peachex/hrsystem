@@ -23,11 +23,7 @@ public interface UserDao {
 
     boolean updatePassword(long userId, String newPassword) throws DaoException;
 
-    List<User> findAllUsers() throws DaoException;
-
-    List<User> findBlockedUsers() throws DaoException;
-
-    List<User> findNotBlockedUsers() throws DaoException;
+    List<User> findUsersBySqlQuery(String sqlQuery) throws DaoException;
 
     boolean changeUserRole(long userId, UserRole role) throws DaoException;
 

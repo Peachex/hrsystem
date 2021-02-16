@@ -5,6 +5,7 @@ import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.creator.Creator;
 import com.epam.hrsystem.model.creator.impl.VacancyCreator;
+import com.epam.hrsystem.model.dao.SqlQuery;
 import com.epam.hrsystem.model.dao.VacancyDao;
 import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
 import com.epam.hrsystem.model.dao.impl.VacancyDaoImpl;
@@ -12,6 +13,8 @@ import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.validator.VacancyValidator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,9 +24,9 @@ import java.util.Optional;
 
 public enum VacancyServiceImpl implements VacancyService {
     INSTANCE;
-
-    private static final String PERCENT_SIGN = "%";
+    private static final Logger logger = LogManager.getLogger();
     private static final VacancyDao dao = VacancyDaoImpl.INSTANCE;
+    private static final String PERCENT_SIGN = "%";
 
     @Override
     public boolean createVacancy(Map<String, String> fields, long employeeId) throws ServiceException {
@@ -74,7 +77,7 @@ public enum VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findAllVacancies() throws ServiceException {
         try {
-            List<Vacancy> vacancies = dao.findAllVacancies();
+            List<Vacancy> vacancies = dao.findVacanciesBySqlQuery(SqlQuery.SQL_SELECT_ALL_VACANCIES);
             return vacancies;
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -84,7 +87,7 @@ public enum VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findDeletedVacancies() throws ServiceException {
         try {
-            List<Vacancy> vacancies = dao.findDeletedVacancies();
+            List<Vacancy> vacancies = dao.findVacanciesBySqlQuery(SqlQuery.SQL_SELECT_DELETED_VACANCIES);
             return vacancies;
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -94,7 +97,7 @@ public enum VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findAvailableVacancies() throws ServiceException {
         try {
-            List<Vacancy> vacancies = dao.findAvailableVacancies();
+            List<Vacancy> vacancies = dao.findVacanciesBySqlQuery(SqlQuery.SQL_SELECT_AVAILABLE_VACANCIES);
             return vacancies;
         } catch (DaoException e) {
             throw new ServiceException(e);

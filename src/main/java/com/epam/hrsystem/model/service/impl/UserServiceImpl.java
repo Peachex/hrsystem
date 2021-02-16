@@ -5,6 +5,7 @@ import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.creator.Creator;
 import com.epam.hrsystem.model.creator.impl.UserCreator;
+import com.epam.hrsystem.model.dao.SqlQuery;
 import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
 import com.epam.hrsystem.model.entity.User;
@@ -22,7 +23,6 @@ import java.util.Optional;
 
 public enum UserServiceImpl implements UserService {
     INSTANCE;
-
     private static final UserDao dao = UserDaoImpl.INSTANCE;
 
     @Override
@@ -116,7 +116,7 @@ public enum UserServiceImpl implements UserService {
     @Override
     public List<User> findAllUsers() throws ServiceException {
         try {
-            List<User> users = dao.findAllUsers();
+            List<User> users = dao.findUsersBySqlQuery(SqlQuery.SQL_SELECT_ALL_USERS);
             return users;
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -126,7 +126,7 @@ public enum UserServiceImpl implements UserService {
     @Override
     public List<User> findBlockedUsers() throws ServiceException {
         try {
-            List<User> users = dao.findBlockedUsers();
+            List<User> users = dao.findUsersBySqlQuery(SqlQuery.SQL_SELECT_BLOCKED_USERS);
             return users;
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -136,7 +136,7 @@ public enum UserServiceImpl implements UserService {
     @Override
     public List<User> findNotBlockedUsers() throws ServiceException {
         try {
-            List<User> users = dao.findNotBlockedUsers();
+            List<User> users = dao.findUsersBySqlQuery(SqlQuery.SQL_SELECT_NOT_BLOCKED_USERS);
             return users;
         } catch (DaoException e) {
             throw new ServiceException(e);

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface UserService {
+    //fixme delete unnecessary functions
     Optional<User> login(String email, String password) throws ServiceException;
 
     boolean register(Map<String, String> fields) throws ServiceException;

@@ -136,45 +136,11 @@ public enum UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findAllUsers() throws DaoException {
+    public List<User> findUsersBySqlQuery(String sqlQuery) throws DaoException {
         List<User> users = new ArrayList<>();
         try (Connection connection = pool.takeConnection();
              Statement statement = connection.createStatement()) {
-            statement.executeQuery(SqlQuery.SQL_SELECT_ALL_USERS);
-            ResultSet resultSet = statement.getResultSet();
-            while (resultSet.next()) {
-                User user = createUserFromResultSet(resultSet);
-                users.add(user);
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException(e);
-        }
-        return users;
-    }
-
-    @Override
-    public List<User> findBlockedUsers() throws DaoException {
-        List<User> users = new ArrayList<>();
-        try (Connection connection = pool.takeConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeQuery(SqlQuery.SQL_SELECT_BLOCKED_USERS);
-            ResultSet resultSet = statement.getResultSet();
-            while (resultSet.next()) {
-                User user = createUserFromResultSet(resultSet);
-                users.add(user);
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException(e);
-        }
-        return users;
-    }
-
-    @Override
-    public List<User> findNotBlockedUsers() throws DaoException {
-        List<User> users = new ArrayList<>();
-        try (Connection connection = pool.takeConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeQuery(SqlQuery.SQL_SELECT_NOT_BLOCKED_USERS);
+            statement.executeQuery(sqlQuery);
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
                 User user = createUserFromResultSet(resultSet);
