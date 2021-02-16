@@ -12,7 +12,6 @@ import com.epam.hrsystem.validator.BaseValidator;
 import com.epam.hrsystem.validator.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -64,7 +63,7 @@ public class RegisterCommand implements ActionCommand {
                 if (!UserValidator.isPasswordValid(password)) {
                     request.setAttribute("errorPassword", "Password isn't valid");
                 }
-                if (!UserValidator.isPasswordValid(password, repeatedPassword)) {
+                if (!UserValidator.isRepeatPasswordValid(password, repeatedPassword)) {
                     request.setAttribute("errorRepeatedPassword", "Repeated password isn't valid");
                 }
                 result = new CommandResult(UrlPattern.REGISTER, CommandResult.Type.REDIRECT);

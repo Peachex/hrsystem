@@ -1,6 +1,9 @@
 package com.epam.hrsystem.validator;
 
 import com.epam.hrsystem.model.entity.UserRole;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.regex.Matcher;
@@ -8,21 +11,27 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class UserValidator {
+    private static final Logger logger = LogManager.getLogger();
     private static final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Zа-яА-Я]{3,35}");
     private static final Pattern EMAIL_PATTERN = Pattern.compile("((\\w)([-.](\\w))?)+@((\\w)([-.](\\w))?)+.[a-zA-Zа-яА-Я]{2,4}");
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("(\\+?(((\\d+-\\d+)+)|(\\d{2,20})|((\\d+\\s\\d+)+)))|" +
             "(\\(\\+?\\d+\\)[-\\s]?(((\\d+-\\d+)+)|(\\d+)|((\\d+\\s\\d+)+)))");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("[\\w\\s\\p{Punct}]{6,80}");
     private static final int EMAIL_MAX_LENGTH = 50;
     private static final int PHONE_NUMBER_MAX_LENGTH = 20;
     private static final int PHOTO_NAME_MAX_LENGTH = 50;
-    private static final int PASSWORD_MIN_LENGTH = 6;
-    private static final int PASSWORD_MAX_LENGTH = 80;
+
+    private UserValidator() {
+    }
 
     public static boolean isUserRoleValid(String role) {
         boolean result = Arrays.stream(UserRole.values())
                 .map(Enum::toString)
                 .collect(Collectors.toList())
                 .contains(role.toUpperCase());
+        if (!result) {
+            logger.log(Level.DEBUG, "Role isn't valid: " + role);
+        }
         return result;
     }
 
@@ -31,7 +40,11 @@ public class UserValidator {
             return false;
         }
         Matcher matcher = NAME_PATTERN.matcher(name);
-        return (matcher.matches());
+        boolean result = matcher.matches();
+        if (!result) {
+            logger.log(Level.DEBUG, "Name isn't valid: " + name);
+        }
+        return result;
     }
 
     public static boolean isPhoneNumberValid(String phoneNumber) {
@@ -39,7 +52,11 @@ public class UserValidator {
             return false;
         }
         Matcher matcher = PHONE_NUMBER_PATTERN.matcher(phoneNumber);
-        return (matcher.matches() && phoneNumber.length() <= PHONE_NUMBER_MAX_LENGTH);
+        boolean result = matcher.matches() && phoneNumber.length() <= PHONE_NUMBER_MAX_LENGTH;
+        if (!result) {
+            logger.log(Level.DEBUG, "Phone number isn't valid: " + phoneNumber);
+        }
+        return result;
     }
 
     public static boolean isEmailValid(String email) {
@@ -47,27 +64,44 @@ public class UserValidator {
             return false;
         }
         Matcher matcher = EMAIL_PATTERN.matcher(email);
-        return (matcher.matches() && email.length() <= EMAIL_MAX_LENGTH);
+        boolean result = matcher.matches() && email.length() <= EMAIL_MAX_LENGTH;
+        if (!result) {
+            logger.log(Level.DEBUG, "Email isn't valid: " + email);
+        }
+        return result;
     }
 
     public static boolean isPhotoNameValid(String photoName) {
         if (photoName == null) {
             return false;
         }
-        return (photoName.length() > 0 && photoName.length() < PHOTO_NAME_MAX_LENGTH);
+        boolean result = photoName.length() > 0 && photoName.length() <= PHOTO_NAME_MAX_LENGTH;
+        if (!result) {
+            logger.log(Level.DEBUG, "Photo name isn't valid: " + photoName);
+        }
+        return result;
+    }
+
+    public static boolean isRepeatPasswordValid(String password, String repeatPassword) {
+        if (repeatPassword == null) {
+            return false;
+        }
+        boolean result = isPasswordValid(password) && password.equals(repeatPassword);
+        if (!result) {
+            logger.log(Level.DEBUG, "Repeat password isn't valid: " + repeatPassword);
+        }
+        return result;
     }
 
     public static boolean isPasswordValid(String password) {
         if (password == null) {
             return false;
         }
-        return (password.length() > PASSWORD_MIN_LENGTH && password.length() < PASSWORD_MAX_LENGTH);
-    }
-
-    public static boolean isPasswordValid(String password, String repeatPassword) {
-        if (password == null || repeatPassword == null) {
-            return false;
+        Matcher matcher = PASSWORD_PATTERN.matcher(password);
+        boolean result = matcher.matches();
+        if (!result) {
+            logger.log(Level.DEBUG, "Password isn't valid: " + password);
         }
-        return (password.length() > PASSWORD_MIN_LENGTH && password.length() < PASSWORD_MAX_LENGTH && password.equals(repeatPassword));
+        return result;
     }
 }

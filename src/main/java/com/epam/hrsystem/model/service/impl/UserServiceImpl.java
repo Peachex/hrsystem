@@ -53,7 +53,7 @@ public enum UserServiceImpl implements UserService {
             String password = fields.get(RequestParameter.PASSWORD);
             if (UserValidator.isPasswordValid(password) && user.isPresent()) {
                 String passwordRepeat = fields.get(RequestParameter.REPEATED_PASSWORD);
-                if (UserValidator.isPasswordValid(password, passwordRepeat)) {
+                if (UserValidator.isRepeatPasswordValid(password, passwordRepeat)) {
                     String encryptedPassword = Encryptor.encrypt(password);
                     result = dao.add(user.get(), encryptedPassword);
                 }

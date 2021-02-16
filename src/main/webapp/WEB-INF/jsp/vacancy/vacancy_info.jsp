@@ -32,7 +32,16 @@
     ${vacancy.description}
     ${vacancy.country}
     ${vacancy.city}
-    <input name="ctoken" type="hidden" value="${stoken}"/>
+    ${user.id}
+    ${vacancy.employee.id}
+    <c:if test="${user.id == vacancy.employee.id || role.toString().equals(admin)}">
+        <form name="see-all-vacancies" method="GET" action="see_all_vacancies.do">
+            <div class="col-2 offset-4">
+                <button class="btn btn-primary button" type="submit"><fmt:message
+                        key="button.seeAllVacancies"/></button>
+            </div>
+        </form>
+    </c:if>
 </div>
 </body>
 </html>

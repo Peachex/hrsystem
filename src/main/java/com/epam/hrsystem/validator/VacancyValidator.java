@@ -1,26 +1,44 @@
 package com.epam.hrsystem.validator;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class VacancyValidator {
-    private static final int POSITION_MAX_LENGTH = 5000;
-    private static final int DESCRIPTION_MAX_LENGTH = 15000;
+    private static final Logger logger = LogManager.getLogger();
+    private static final Pattern POSITION_PATTERN = Pattern.compile("[\\w\\s\\p{Punct}]{3,1000}");
+    private static final Pattern DESCRIPTION_PATTERN = Pattern.compile("[\\w\\s\\p{Punct}]{3,10000}");
     private static final Pattern COUNTRY_PATTERN = Pattern.compile("[a-zA-Zа-яА-я\\s]{3,50}");
     private static final Pattern CITY_PATTERN = Pattern.compile("[a-zA-Zа-яА-я\\s]{2,50}");
 
+    private VacancyValidator() {
+    }
+
     public static boolean isPositionValid(String position) {
-        if (position == null || position.isEmpty()) {
+        if (position == null) {
             return false;
         }
-        return (position.length() < POSITION_MAX_LENGTH);
+        Matcher matcher = POSITION_PATTERN.matcher(position);
+        boolean result = matcher.matches();
+        if (!result) {
+            logger.log(Level.DEBUG, "Position isn't valid: " + position);
+        }
+        return result;
     }
 
     public static boolean isDescriptionValid(String description) {
-        if (description == null || description.isEmpty()) {
+        if (description == null) {
             return false;
         }
-        return (description.length() < DESCRIPTION_MAX_LENGTH);
+        Matcher matcher = DESCRIPTION_PATTERN.matcher(description);
+        boolean result = matcher.matches();
+        if (!result) {
+            logger.log(Level.DEBUG, "Description isn't valid: " + description);
+        }
+        return result;
     }
 
     public static boolean isCountryValid(String country) {
@@ -28,7 +46,11 @@ public class VacancyValidator {
             return false;
         }
         Matcher matcher = COUNTRY_PATTERN.matcher(country);
-        return matcher.matches();
+        boolean result = matcher.matches();
+        if (!result) {
+            logger.log(Level.DEBUG, "Country isn't valid: " + country);
+        }
+        return result;
     }
 
     public static boolean isCityValid(String city) {
@@ -36,6 +58,10 @@ public class VacancyValidator {
             return false;
         }
         Matcher matcher = CITY_PATTERN.matcher(city);
-        return matcher.matches();
+        boolean result = matcher.matches();
+        if (!result) {
+            logger.log(Level.DEBUG, "City isn't valid: " + city);
+        }
+        return result;
     }
 }

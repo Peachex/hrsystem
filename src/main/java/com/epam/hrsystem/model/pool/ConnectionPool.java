@@ -49,10 +49,6 @@ public enum ConnectionPool {
         }
     }
 
-    public void init() {
-
-    }
-
     public Connection takeConnection() throws ConnectionPoolException {
         ProxyConnection connection;
         try {
@@ -69,6 +65,7 @@ public enum ConnectionPool {
             freeConnections.offer((ProxyConnection) connection);
         } else {
             logger.log(Level.ERROR, "Couldn't release connection");
+            throw new RuntimeException("Couldn't release connection");
         }
     }
 
