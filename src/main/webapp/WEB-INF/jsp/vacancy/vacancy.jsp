@@ -13,6 +13,11 @@
 
 <html>
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
+
     <title><fmt:message key="vacancy.title"/></title>
 </head>
 <body>
@@ -20,17 +25,17 @@
     <%@ include file="../home/header.jsp" %>
     <c:set var="vacancies" scope="application" value="${vacancies}"/>
     <c:if test="${role.toString().equals(employee) || role.toString().equals(admin)}">
-        <!-- Button to Open the Modal -->
-        <button type="submit" class="btn btn-primary button" data-toggle="modal" data-target="#createVacancyModal">
-            <fmt:message key="button.createVacancy"/>
-        </button>
 
         <wrongMessage>
                 ${errorVacancyCreation}
         </wrongMessage>
 
-        <!-- The Modal -->
+        <!-- Button to Open the Modal -->
+        <button type="submit" class="btn btn-primary button" data-toggle="modal" data-target="#createVacancyModal">
+            <fmt:message key="button.createVacancy"/>
+        </button>
 
+        <!-- The Modal -->
         <div class="modal" id="createVacancyModal">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
@@ -154,20 +159,18 @@
         </tr>
     </c:forEach>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
