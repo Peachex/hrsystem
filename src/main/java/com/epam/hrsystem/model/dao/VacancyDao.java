@@ -2,7 +2,6 @@ package com.epam.hrsystem.model.dao;
 
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.entity.Vacancy;
-import com.epam.hrsystem.validator.VacancyValidator;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,11 +11,7 @@ public interface VacancyDao {
 
     boolean updateVacancyAvailability(long vacancyId, byte availabilityValue) throws DaoException;
 
-    List<Vacancy> findAllVacancies() throws DaoException;
-
-    List<Vacancy> findDeletedVacancies() throws DaoException;
-
-    List<Vacancy> findAvailableVacancies() throws DaoException;
+    List<Vacancy> findVacanciesBySqlQuery(String sqlQuery) throws DaoException;
 
     List<Vacancy> findVacanciesByKeyWord(String keyWord) throws DaoException;
 

@@ -1,6 +1,8 @@
 package com.epam.hrsystem.model.dao;
 
 public class SqlQuery {
+    //todo delete comments
+
     // USER QUERIES
     public static final String SQL_SELECT_EMAIL = "SELECT email FROM users WHERE email = ?;";
 
@@ -40,7 +42,6 @@ public class SqlQuery {
     public static final String SQL_UPDATE_USER_PHOTO = "UPDATE users SET photo_name = ? WHERE user_id = ?";
 
     // VACANCY QUERIES
-
     public static final String SQL_INSERT_VACANCY = "INSERT INTO vacancies(is_available, position, description, creation_date," +
             " country_id_fk, city_id_fk, user_id_fk) VALUES (?, ?, ?, ?, ?, ?, ?)";
 

@@ -7,7 +7,6 @@ import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserRole;
 import com.epam.hrsystem.model.pool.ConnectionPool;
-import com.epam.hrsystem.util.Encryptor;
 
 import java.sql.Connection;
 import java.sql.Date;

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
+    //fixme delete unnecessary functions
     boolean isEmailAvailable(String email) throws DaoException;
 
     Optional<User> login(String email) throws DaoException;
@@ -35,5 +36,4 @@ public interface UserDao {
     Optional<User> findUserById(long userId) throws DaoException;
 
     boolean changePhoto(long userId, String photoName) throws DaoException;
-
 }

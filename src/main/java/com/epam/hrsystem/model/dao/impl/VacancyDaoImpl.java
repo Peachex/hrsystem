@@ -57,11 +57,11 @@ public enum VacancyDaoImpl implements VacancyDao {
     }
 
     @Override
-    public List<Vacancy> findAllVacancies() throws DaoException {
+    public List<Vacancy> findVacanciesBySqlQuery(String sqlQuery) throws DaoException {
         List<Vacancy> vacancies = new ArrayList<>();
         try (Connection connection = pool.takeConnection();
              Statement statement = connection.createStatement()) {
-            statement.executeQuery(SqlQuery.SQL_SELECT_ALL_VACANCIES);
+            statement.executeQuery(sqlQuery);
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
                 Vacancy vacancy = createVacancyFromResultSet(resultSet);
@@ -71,40 +71,6 @@ public enum VacancyDaoImpl implements VacancyDao {
             throw new DaoException(e);
         }
 
-        return vacancies;
-    }
-
-    @Override
-    public List<Vacancy> findDeletedVacancies() throws DaoException {
-        List<Vacancy> vacancies = new ArrayList<>();
-        try (Connection connection = pool.takeConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeQuery(SqlQuery.SQL_SELECT_DELETED_VACANCIES);
-            ResultSet resultSet = statement.getResultSet();
-            while (resultSet.next()) {
-                Vacancy vacancy = createVacancyFromResultSet(resultSet);
-                vacancies.add(vacancy);
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException(e);
-        }
-        return vacancies;
-    }
-
-    @Override
-    public List<Vacancy> findAvailableVacancies() throws DaoException {
-        List<Vacancy> vacancies = new ArrayList<>();
-        try (Connection connection = pool.takeConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeQuery(SqlQuery.SQL_SELECT_AVAILABLE_VACANCIES);
-            ResultSet resultSet = statement.getResultSet();
-            while (resultSet.next()) {
-                Vacancy vacancy = createVacancyFromResultSet(resultSet);
-                vacancies.add(vacancy);
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException(e);
-        }
         return vacancies;
     }
 
