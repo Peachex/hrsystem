@@ -26,7 +26,7 @@ public class ConnectionCreator {
             String driverName = (String) properties.get(DATABASE_DRIVER_FIELD);
             Class.forName(driverName);
         } catch (ClassNotFoundException | IOException e) {
-            logger.log(Level.ERROR, e);
+            logger.log(Level.ERROR, "Couldn't load properties: " + e);
         }
         DATABASE_URL = (String) properties.get(DATABASE_URL_FIELD);
         POOL_SIZE = (String) properties.get(DATABASE_POOL_SIZE_FIELD);

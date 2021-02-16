@@ -16,9 +16,9 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 public enum ConnectionPool {
     POOL;
+    private final Logger logger = LogManager.getLogger();
     public static final int DEFAULT_POOL_SIZE = 10;
     public static final int FATAL_CONNECTION_ERROR_NUMBER = 5;
-    private final Logger logger = LogManager.getLogger();
     private final BlockingQueue<ProxyConnection> freeConnections;
     private final Queue<ProxyConnection> givenConnections;
 
@@ -30,7 +30,7 @@ public enum ConnectionPool {
         try {
             poolSize = Integer.parseInt(ConnectionCreator.getPoolSize());
         } catch (NumberFormatException e) {
-            logger.log(Level.ERROR, e);
+            logger.log(Level.ERROR, "Couldn't read pool size, default size = " + DEFAULT_POOL_SIZE + " will be used: " + e);
             poolSize = DEFAULT_POOL_SIZE;
         }
         for (int i = 0; i < poolSize; i++) {
@@ -39,13 +39,13 @@ public enum ConnectionPool {
                 ProxyConnection proxyConnection = new ProxyConnection(connection);
                 freeConnections.add(proxyConnection);
             } catch (SQLException e) {
-                logger.log(Level.ERROR, e);
+                logger.log(Level.ERROR, "Connection hasn't been created" + e);
                 errorCounter++;
             }
         }
         if (errorCounter >= FATAL_CONNECTION_ERROR_NUMBER) {
-            logger.log(Level.FATAL, errorCounter + " connections hasn't been created");
-            throw new RuntimeException(errorCounter + " connections hasn't been created");
+            logger.log(Level.FATAL, errorCounter + " connections haven't been created");
+            throw new RuntimeException(errorCounter + " connections haven't been created");
         }
     }
 
@@ -55,6 +55,7 @@ public enum ConnectionPool {
             connection = freeConnections.take();
             givenConnections.offer(connection);
         } catch (InterruptedException e) {
+            logger.log(Level.ERROR, "Couldn't take connection: " + e);
             throw new ConnectionPoolException(e);
         }
         return connection;
@@ -76,6 +77,7 @@ public enum ConnectionPool {
                 proxyConnection.reallyClose();
             }
         } catch (InterruptedException | SQLException e) {
+            logger.log(Level.ERROR, "Couldn't destroy connection pool: " + e);
             throw new ConnectionPoolException(e);
         } finally {
             deregisterDrivers();
@@ -89,6 +91,7 @@ public enum ConnectionPool {
                 DriverManager.deregisterDriver(driver);
             }
         } catch (SQLException e) {
+            logger.log(Level.ERROR, "Couldn't deregister drivers: " + e);
             throw new ConnectionPoolException(e);
         }
     }
