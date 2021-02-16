@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.PagePath;
 import com.epam.hrsystem.controller.UrlPattern;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -16,7 +17,7 @@ import java.util.List;
 public class SortVacanciesByDateCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        CommandResult result = new CommandResult(UrlPattern.VACANCY, CommandResult.Type.FORWARD);
+        CommandResult result = new CommandResult(PagePath.VACANCY, CommandResult.Type.FORWARD);
         Comparator<Vacancy> comparator = VacancyComparator.VACANCY_CREATION_DATE;
         ServletContext servletContext = request.getServletContext();
         List<Vacancy> vacancies = (List<Vacancy>) servletContext.getAttribute(RequestParameter.VACANCIES);

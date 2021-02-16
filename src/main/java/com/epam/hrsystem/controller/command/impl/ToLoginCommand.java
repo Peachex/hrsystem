@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.PagePath;
 import com.epam.hrsystem.controller.UrlPattern;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ToLoginCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        CommandResult result = new CommandResult(UrlPattern.LOGIN, CommandResult.Type.REDIRECT);
+        CommandResult result = new CommandResult(PagePath.LOGIN, CommandResult.Type.REDIRECT);
         return result;
     }
 }

@@ -11,7 +11,6 @@ public class CommandResult {
     public enum Type {
         FORWARD,
         REDIRECT,
-        RETURN_URL
     }
 
     public CommandResult(String path, Type type) {

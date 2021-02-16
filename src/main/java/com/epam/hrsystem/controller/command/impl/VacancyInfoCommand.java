@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.PagePath;
 import com.epam.hrsystem.controller.UrlPattern;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
@@ -36,15 +37,15 @@ public class VacancyInfoCommand implements ActionCommand {
                 if (vacancyOptional.isPresent()) {
                     Vacancy vacancy = vacancyOptional.get();
                     request.setAttribute("vacancy", vacancy);
-                    result = new CommandResult(UrlPattern.CURRENT_VACANCY, CommandResult.Type.FORWARD);
+                    result = new CommandResult(PagePath.CURRENT_VACANCY, CommandResult.Type.FORWARD);
                 } else {
-                    result = new CommandResult(UrlPattern.VACANCY, CommandResult.Type.REDIRECT);
+                    result = new CommandResult(PagePath.VACANCY, CommandResult.Type.REDIRECT);
                     //todo error message
                 }
             } catch (NumberFormatException e) {
                 logger.log(Level.ERROR, e);
                 {
-                    result = new CommandResult(UrlPattern.VACANCY, CommandResult.Type.REDIRECT);
+                    result = new CommandResult(PagePath.VACANCY, CommandResult.Type.REDIRECT);
                 }
             }
         } catch (ServiceException e) {

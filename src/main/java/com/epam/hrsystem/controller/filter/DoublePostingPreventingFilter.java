@@ -1,7 +1,10 @@
 package com.epam.hrsystem.controller.filter;
 
-import com.epam.hrsystem.controller.UrlPattern;
+import com.epam.hrsystem.controller.PagePath;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -16,6 +19,7 @@ import java.io.IOException;
 import java.util.Random;
 
 public class DoublePostingPreventingFilter implements Filter {
+    private static final Logger logger = LogManager.getLogger();
     private static final int MAX_RANDOM_RANGE = 10000;
     private static final String NAME_OF_GET_METHOD = "GET";
     private HttpSession session = null;
@@ -43,7 +47,8 @@ public class DoublePostingPreventingFilter implements Filter {
                 session.setAttribute(SessionAttribute.SERVER_TOKEN, new Random().nextInt(MAX_RANDOM_RANGE));
                 chain.doFilter(request, response);
             } else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher(UrlPattern.DOUBLE_POSTING_ERROR);
+                logger.log(Level.ERROR, "Couldn't execute double post request");
+                RequestDispatcher dispatcher = request.getRequestDispatcher(PagePath.DOUBLE_POSTING_ERROR);
                 dispatcher.forward(request, response);
             }
         }

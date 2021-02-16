@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.PagePath;
 import com.epam.hrsystem.controller.UrlPattern;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -17,7 +18,7 @@ public class SeeAllVacanciesCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         VacancyService service = VacancyServiceImpl.INSTANCE;
-        CommandResult result = new CommandResult(UrlPattern.VACANCY, CommandResult.Type.FORWARD);
+        CommandResult result = new CommandResult(PagePath.VACANCY, CommandResult.Type.FORWARD);
         try {
             List<Vacancy> vacancies = service.findAllVacancies();
             if (vacancies.size() > 0) {

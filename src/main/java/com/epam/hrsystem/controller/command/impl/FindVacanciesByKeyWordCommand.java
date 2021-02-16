@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.PagePath;
 import com.epam.hrsystem.controller.UrlPattern;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -17,7 +18,7 @@ public class FindVacanciesByKeyWordCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         VacancyService service = VacancyServiceImpl.INSTANCE;
-        CommandResult result = new CommandResult(UrlPattern.VACANCY, CommandResult.Type.FORWARD);
+        CommandResult result = new CommandResult(PagePath.VACANCY, CommandResult.Type.FORWARD);
         try {
             String keyWord = request.getParameter(RequestParameter.KEY_WORD);
             List<Vacancy> vacancies = service.findVacanciesByKeyWord(keyWord);

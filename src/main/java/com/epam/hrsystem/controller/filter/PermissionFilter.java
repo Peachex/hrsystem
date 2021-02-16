@@ -1,11 +1,14 @@
 package com.epam.hrsystem.controller.filter;
 
-import com.epam.hrsystem.controller.UrlPattern;
+import com.epam.hrsystem.controller.PagePath;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandEnum;
 import com.epam.hrsystem.controller.command.CommandProvider;
 import com.epam.hrsystem.model.entity.UserRole;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -25,6 +28,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class PermissionFilter implements Filter {
+    private static final Logger logger = LogManager.getLogger();
     private static final Map<UserRole, List<CommandEnum>> permissionCommands = new HashMap<>();
 
     @Override
@@ -75,7 +79,8 @@ public class PermissionFilter implements Filter {
         List<CommandEnum> commands = permissionCommands.get(role);
         CommandEnum commandType = CommandProvider.defineCommandType(request).get();
         if (commands == null || !commands.contains(commandType)) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(UrlPattern.PERMISSION_ERROR);
+            logger.log(Level.ERROR, "User hasn't got permission to execute command = " + commandType);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(PagePath.PERMISSION_ERROR);
             dispatcher.forward(request, response);
         } else {
             filterChain.doFilter(servletRequest, servletResponse);

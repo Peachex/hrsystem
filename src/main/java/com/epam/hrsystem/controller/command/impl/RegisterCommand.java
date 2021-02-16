@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.PagePath;
 import com.epam.hrsystem.controller.UrlPattern;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -40,7 +41,7 @@ public class RegisterCommand implements ActionCommand {
         CommandResult result;
         try {
             if (service.register(fields)) {
-                result = new CommandResult(UrlPattern.LOGIN, CommandResult.Type.FORWARD);
+                result = new CommandResult(PagePath.LOGIN, CommandResult.Type.FORWARD);
             } else {
                 //fixme add errorFirstName and other strings to JspAttribute
                 //todo add field data saving
@@ -66,7 +67,7 @@ public class RegisterCommand implements ActionCommand {
                 if (!UserValidator.isRepeatPasswordValid(password, repeatedPassword)) {
                     request.setAttribute("errorRepeatedPassword", "Repeated password isn't valid");
                 }
-                result = new CommandResult(UrlPattern.REGISTER, CommandResult.Type.REDIRECT);
+                result = new CommandResult(PagePath.REGISTER, CommandResult.Type.REDIRECT);
             }
         } catch (ServiceException e) {
             throw new CommandException(e);

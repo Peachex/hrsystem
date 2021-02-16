@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.PagePath;
 import com.epam.hrsystem.controller.UrlPattern;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
@@ -35,7 +36,7 @@ public class LoginCommand implements ActionCommand {
             } else {
                 request.setAttribute("errorData", "Email or password aren't valid");
                 //todo create class Message
-                result = new CommandResult(UrlPattern.LOGIN, CommandResult.Type.FORWARD);
+                result = new CommandResult(PagePath.LOGIN, CommandResult.Type.FORWARD);
             }
         } catch (ServiceException e) {
             throw new CommandException(e);

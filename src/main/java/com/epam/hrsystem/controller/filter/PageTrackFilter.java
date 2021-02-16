@@ -28,6 +28,7 @@ public class PageTrackFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
 
+        //fixme current page maybe unnecessary
         String currentPage = getRequestWithAllParameters(request);
         String previousPage = (String) session.getAttribute(SessionAttribute.CURRENT_PAGE);
 

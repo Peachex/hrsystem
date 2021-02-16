@@ -54,12 +54,9 @@ public class Controller extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + urlPath);
                     break;
                 }
-                case RETURN_URL: {
-                    //todo create session
-                    break;
-                }
             }
         } catch (CommandException e) {
+            logger.log(Level.ERROR, "Couldn't process request: " + e);
             throw new ServletException(e);
         }
     }
