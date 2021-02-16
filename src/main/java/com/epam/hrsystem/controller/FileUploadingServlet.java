@@ -1,5 +1,7 @@
 package com.epam.hrsystem.controller;
 
+import com.epam.hrsystem.controller.attribute.UrlPattern;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;

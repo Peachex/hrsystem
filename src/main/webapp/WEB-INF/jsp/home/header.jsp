@@ -10,13 +10,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.currentLocale}"/>
 <fmt:setBundle basename="locale.page_content"/>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        crossorigin="anonymous"></script>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
 
 <html>
 <head>
@@ -36,8 +29,20 @@
 
             <a class="nav-link header-link" href="home"><fmt:message key="header.home"/> </a>
             <a class="nav-link header-link offset-1" href="to_vacancy.do"><fmt:message key="header.vacancy"/></a>
-            <a class="nav-link header-link offset-1" href="change_language.do"><fmt:message
-                    key="header.changeLanguage"/></a>
+
+            <li class="nav-item dropdown offset-1">
+                <a class="nav-link dropdown-toggle header-link" id="navbarDropdown" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <fmt:message key="header.changeLanguage"/>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="change_language.do?newLocale=ru_RU"><fmt:message
+                            key="header.russianLanguage"/></a></li>
+                    <li><a class="dropdown-item" href="change_language.do?newLocale=en_EN"><fmt:message
+                            key="header.englishLanguage"/></a></li>
+                </ul>
+            </li>
+
             <c:if test="${role.toString().equals(guest)}">
                 <a class="nav-link header-link offset-1" href="to_register.do"><fmt:message
                         key="header.register"/></a>
@@ -45,8 +50,34 @@
                         key="header.login"/></a>
             </c:if>
 
-            <c:if test="${role.toString().equals(applicant) || role.toString().equals(employee)}">
-                <a class="nav-link header-link offset-1" href="home">${user.firstName} ${user.lastName}</a>
+            <c:if test="${!role.toString().equals(guest)}">
+                <li class="nav-item dropdown offset-1">
+                    <a class="nav-link dropdown-toggle header-link" id="navbarDropdownUser" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                            ${user.firstName} ${user.lastName}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownUser">
+                        <li><a class="dropdown-item" href="home"><fmt:message
+                                key="user.profile"/></a></li>
+                        <c:if test="${role.toString().equals(applicant)}">
+                            <li><a class="dropdown-item" href="home"><fmt:message
+                                    key="user.requests"/></a></li>
+                        </c:if>
+                        <c:if test="${!role.toString().equals(applicant)}">
+                            <li><a class="dropdown-item" href="home"><fmt:message
+                                    key="user.employeeVacancies"/></a></li>
+                        </c:if>
+                        <c:if test="${role.toString().equals(admin)}">
+                            <li><a class="dropdown-item" href="home"><fmt:message
+                                    key="header.admin"/></a></li>
+                        </c:if>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="logout.do"><fmt:message
+                                key="header.logout"/></a></li>
+                    </ul>
+                </li>
                 <c:choose>
                     <c:when test="${userPhotoName == null}">
                         <img src="${pageContext.request.contextPath}/img/default_avatar.png" width="72" height="64"
@@ -57,30 +88,19 @@
                              class="avatar"> --%>
                     </c:otherwise>
                 </c:choose>
-
-                <a class="nav-link header-link offset-1" href="logout.do"><fmt:message key="header.logout"/></a>
-            </c:if>
-
-            <c:if test="${role.toString().equals(admin)}">
-                <a class="nav-link header-link offset-1" href="home"><fmt:message
-                        key="header.admin"/></a>
-                <a class="nav-link header-link offset-1"
-                   href="../authorization/register.jsp">${user.firstName} ${user.lastName}</a>
-                <c:choose>
-                    <c:when test="${userPhotoName == null}">
-                        <img src="${pageContext.request.contextPath}/img/default_avatar.png" width="72" height="64"
-                             class="rounded-circle avatar">
-                    </c:when>
-                    <c:otherwise>
-                        <%--<img src="${pageContext.request.contextPath}/img/${userPhotoName}" width="128" height="128"
-                             class="avatar"> --%>
-                    </c:otherwise>
-                </c:choose>
-                <a class="nav-link header-link offset-1" href="logout.do"><fmt:message key="header.logout"/></a>
             </c:if>
         </nav>
-        <input name="ctoken" type="hidden" value="${stoken}"/>
     </div>
 </div>
 </body>
 </html>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>

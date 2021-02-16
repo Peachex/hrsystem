@@ -34,3 +34,14 @@ wrong-message {
     background: #2e2e2e no-repeat;
     border: #2e2e2e;
 }
+
+.change-language {
+    margin-top: 5px;
+    background: #2e2e2e;
+    border: unset;
+    display: flex;
+    font-size: 27px;
+    text-decoration: none;
+    justify-content: center;
+    color: #e6e6e6;
+}

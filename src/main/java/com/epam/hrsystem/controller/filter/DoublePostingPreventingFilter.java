@@ -1,6 +1,6 @@
 package com.epam.hrsystem.controller.filter;
 
-import com.epam.hrsystem.controller.PagePath;
+import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

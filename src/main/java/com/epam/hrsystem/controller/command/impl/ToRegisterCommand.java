@@ -1,7 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
-import com.epam.hrsystem.controller.PagePath;
-import com.epam.hrsystem.controller.UrlPattern;
+import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;

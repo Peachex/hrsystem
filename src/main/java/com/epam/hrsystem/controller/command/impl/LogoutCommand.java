@@ -1,23 +1,14 @@
 package com.epam.hrsystem.controller.command.impl;
 
-import com.epam.hrsystem.controller.UrlPattern;
-import com.epam.hrsystem.controller.attribute.RequestParameter;
+import com.epam.hrsystem.controller.attribute.UrlPattern;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
-import com.epam.hrsystem.exception.ServiceException;
-import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserRole;
-import com.epam.hrsystem.model.service.UserService;
-import com.epam.hrsystem.model.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
 
 public class LogoutCommand implements ActionCommand {
     @Override

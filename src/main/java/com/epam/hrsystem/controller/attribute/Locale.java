@@ -10,6 +10,16 @@ public enum Locale {
         this.locale = locale;
     }
 
+    public static Locale defineLocale(String locale) {
+        Locale result = EN;
+        if (locale != null && !locale.isEmpty()) {
+            if (locale.equalsIgnoreCase(RU.locale)) {
+                result = RU;
+            }
+        }
+        return result;
+    }
+
     public String getLocale() {
         return locale;
     }

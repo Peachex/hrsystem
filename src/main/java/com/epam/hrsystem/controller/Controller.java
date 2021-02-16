@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller;
 
+import com.epam.hrsystem.controller.attribute.UrlPattern;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandProvider;
 import com.epam.hrsystem.controller.command.CommandResult;

@@ -1,4 +1,4 @@
-package com.epam.hrsystem.controller;
+package com.epam.hrsystem.controller.attribute;
 
 public class PagePath {
     public static final String LOGIN = "/WEB-INF/jsp/authorization/login.jsp";

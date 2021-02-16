@@ -1,6 +1,5 @@
 package com.epam.hrsystem.controller.command;
 
-
 import com.epam.hrsystem.controller.command.impl.ChangeLanguageCommand;
 import com.epam.hrsystem.controller.command.impl.CreateVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.FindVacanciesByKeyWordCommand;

@@ -1,6 +1,6 @@
 package com.epam.hrsystem.controller.listener;
 
-import com.epam.hrsystem.controller.UrlPattern;
+import com.epam.hrsystem.controller.attribute.UrlPattern;
 import com.epam.hrsystem.controller.attribute.Locale;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.model.entity.UserRole;

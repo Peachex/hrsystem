@@ -1,4 +1,4 @@
-package com.epam.hrsystem.controller;
+package com.epam.hrsystem.controller.attribute;
 
 public class UrlPattern {
     public static final String CONTROLLER = "*.do";

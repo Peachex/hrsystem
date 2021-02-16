@@ -1,6 +1,6 @@
 package com.epam.hrsystem.controller.filter;
 
-import com.epam.hrsystem.controller.PagePath;
+import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandEnum;
