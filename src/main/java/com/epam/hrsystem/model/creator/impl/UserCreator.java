@@ -5,10 +5,7 @@ import com.epam.hrsystem.model.creator.Creator;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserRole;
 
-import static com.epam.hrsystem.validator.UserValidator.isEmailValid;
-import static com.epam.hrsystem.validator.UserValidator.isNameValid;
-import static com.epam.hrsystem.validator.UserValidator.isPhoneNumberValid;
-import static com.epam.hrsystem.validator.BaseValidator.isDateFormatValid;
+import static com.epam.hrsystem.validator.UserValidator.isRegisterFormValid;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -22,15 +19,12 @@ public class UserCreator implements Creator<User> {
     @Override
     public Optional<User> create(Map<String, String> fields) {
         Optional<User> result = Optional.empty();
-
-        String email = fields.get(RequestParameter.EMAIL);
-        String firstName = fields.get(RequestParameter.FIRST_NAME);
-        String lastName = fields.get(RequestParameter.LAST_NAME);
-        String dateOfBirth = fields.get(RequestParameter.DATE_OF_BIRTH);
-        String phoneNumber = fields.get(RequestParameter.PHONE_NUMBER);
-
-        if (isEmailValid(email) && isNameValid(firstName) && isNameValid(lastName) && isDateFormatValid(dateOfBirth) &&
-                isPhoneNumberValid(phoneNumber)) {
+        if (isRegisterFormValid(fields)) {
+            String email = fields.get(RequestParameter.EMAIL);
+            String firstName = fields.get(RequestParameter.FIRST_NAME);
+            String lastName = fields.get(RequestParameter.LAST_NAME);
+            String dateOfBirth = fields.get(RequestParameter.DATE_OF_BIRTH);
+            String phoneNumber = fields.get(RequestParameter.PHONE_NUMBER);
             User user = new User(DEFAULT_ROLE, DEFAULT_ACTIVE_VALUE, DEFAULT_PHOTO_NAME, firstName, lastName, LocalDate.parse(dateOfBirth), phoneNumber, email);
             result = Optional.of(user);
         }

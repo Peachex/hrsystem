@@ -1,5 +1,7 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.attribute.CommandName;
+import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -8,8 +10,10 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.VacancyService;
-import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;;
-import com.epam.hrsystem.validator.VacancyValidator;
+import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,12 +21,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CreateVacancyCommand implements ActionCommand {
+    private static final Logger logger = LogManager.getLogger();
+
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         String position = request.getParameter(RequestParameter.POSITION);
         String description = request.getParameter(RequestParameter.DESCRIPTION);
         String country = request.getParameter(RequestParameter.COUNTRY);
         String city = request.getParameter(RequestParameter.CITY);
+
         HttpSession session = request.getSession();
         User employee = (User) session.getAttribute(SessionAttribute.USER);
         long employeeId = employee.getId();
@@ -34,24 +41,17 @@ public class CreateVacancyCommand implements ActionCommand {
         fields.put(RequestParameter.CITY, city);
 
         VacancyService service = VacancyServiceImpl.INSTANCE;
-        CommandResult result = new CommandResult("to_vacancy.do", CommandResult.Type.FORWARD);
+        CommandResult result = new CommandResult(CommandName.TO_VACANCY, CommandResult.Type.FORWARD);
         try {
-            //fixme add errorFirstName and other strings to JspAttribute
             if (!service.createVacancy(fields, employeeId)) {
-                if (!VacancyValidator.isPositionValid(position)) {
-                    request.setAttribute("errorPosition", "Position isn't valid");
-                }
-                if (!VacancyValidator.isDescriptionValid(description)) {
-                    request.setAttribute("errorDescription", "Description isn't valid");
-                }
-                if (!VacancyValidator.isCountryValid(country)) {
-                    request.setAttribute("errorCountry", "Country isn't valid");
-                }
-                if (!VacancyValidator.isCityValid(city)) {
-                    request.setAttribute("errorCity", "City isn't valid");
-                }
+                request.setAttribute(RequestParameter.POSITION, fields.get(RequestParameter.POSITION));
+                request.setAttribute(RequestParameter.DESCRIPTION, fields.get(RequestParameter.DESCRIPTION));
+                request.setAttribute(RequestParameter.COUNTRY, fields.get(RequestParameter.COUNTRY));
+                request.setAttribute(RequestParameter.CITY, fields.get(RequestParameter.CITY));
+                request.setAttribute(Constant.ERROR_VACANCY_CREATION_ATTRIBUTE, Constant.ERROR_VACANCY_CREATION_MESSAGE);
             }
         } catch (ServiceException e) {
+            logger.log(Level.ERROR, "Couldn't create vacancy");
             throw new CommandException(e);
         }
         return result;

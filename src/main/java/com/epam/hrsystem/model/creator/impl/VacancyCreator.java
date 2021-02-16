@@ -7,10 +7,7 @@ import com.epam.hrsystem.model.entity.Vacancy;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.epam.hrsystem.validator.VacancyValidator.isPositionValid;
-import static com.epam.hrsystem.validator.VacancyValidator.isDescriptionValid;
-import static com.epam.hrsystem.validator.VacancyValidator.isCountryValid;
-import static com.epam.hrsystem.validator.VacancyValidator.isCityValid;
+import static com.epam.hrsystem.validator.VacancyValidator.isCreationVacancyFormValid;
 
 public class VacancyCreator implements Creator<Vacancy> {
     private static final boolean DEFAULT_AVAILABILITY_VALUE = true;
@@ -18,13 +15,11 @@ public class VacancyCreator implements Creator<Vacancy> {
     @Override
     public Optional<Vacancy> create(Map<String, String> fields) {
         Optional<Vacancy> result = Optional.empty();
-
-        String position = fields.get(RequestParameter.POSITION);
-        String description = fields.get(RequestParameter.DESCRIPTION);
-        String country = fields.get(RequestParameter.COUNTRY);
-        String city = fields.get(RequestParameter.CITY);
-
-        if (isPositionValid(position) && isDescriptionValid(description) && isCountryValid(country) && isCityValid(city)) {
+        if (isCreationVacancyFormValid(fields)) {
+            String position = fields.get(RequestParameter.POSITION);
+            String description = fields.get(RequestParameter.DESCRIPTION);
+            String country = fields.get(RequestParameter.COUNTRY);
+            String city = fields.get(RequestParameter.CITY);
             Vacancy vacancy = new Vacancy(DEFAULT_AVAILABILITY_VALUE, position, description, country, city);
             result = Optional.of(vacancy);
         }

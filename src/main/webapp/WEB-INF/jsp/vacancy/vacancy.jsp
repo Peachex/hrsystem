@@ -18,22 +18,16 @@
 <body>
 <div class="main-container">
     <%@ include file="../home/header.jsp" %>
-    <%-- <input type="hidden" name="previousUrl"  value="vacancy"/>
-     <c:set var="vacancyId" scope="request" value="${vacancy.id}"/>
-     --%>
     <c:set var="vacancies" scope="application" value="${vacancies}"/>
     <c:if test="${role.toString().equals(employee) || role.toString().equals(admin)}">
-        <wrongMessage>
-                ${errorPosition}
-                ${errorDescription}
-                ${errorCountry}
-                ${errorCity}
-        </wrongMessage>
-
         <!-- Button to Open the Modal -->
         <button type="submit" class="btn btn-primary button" data-toggle="modal" data-target="#createVacancyModal">
             <fmt:message key="button.createVacancy"/>
         </button>
+
+        <wrongMessage>
+                ${errorVacancyCreation}
+        </wrongMessage>
 
         <!-- The Modal -->
 
@@ -56,10 +50,9 @@
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control field" id="inputPosition" name="position"
-                                       placeholder=
+                                       value="${position}" placeholder=
                                                "<fmt:message key="create_vacancy_modal.inputPositionPlaceholder"/>"
-                                       required
-                                    <%--pattern="[]{3,35}"--%>>
+                                       required pattern="[\w\s\p{Punct}]{3,1000}">
                             </div>
 
                             <div class="row">
@@ -80,10 +73,9 @@
                             </div>
                             <div class="row">
                                 <input type="text" class="form-control field" id="inputCountry" name="country"
-                                       placeholder=
+                                       value="${country}" placeholder=
                                                "<fmt:message key="create_vacancy_modal.inputCountryPlaceholder"/>"
-                                       required
-                                    <%--pattern="[]{3,35}"--%>>
+                                       required pattern="[a-zA-Zа-яА-я\s]{3,50}">
                             </div>
 
                             <div class="offset-1">
@@ -92,10 +84,9 @@
                             </div>
                             <div class="row">
                                 <input type="text" class="form-control field" id="inputCity" name="city"
-                                       placeholder=
+                                       value="${city}" placeholder=
                                                "<fmt:message key="create_vacancy_modal.inputCityPlaceholder"/>"
-                                       required
-                                    <%--pattern="[]{3,35}"--%>>
+                                       required pattern="[a-zA-Zа-яА-я\s]{2,50}">
                             </div>
                             <div class="mb-3 row">
                                 <div class="col-4 offset-5">
@@ -132,11 +123,10 @@
     </form>
 
     <div class="dropdown col-2 offset-2">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="sortDropDown">
             <fmt:message key="button.sortByDate"/>
         </button>
-
-        <div class="dropdown-menu">
+        <div class="dropdown-menu" aria-label="sortDropDown">
             <a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=asc"><fmt:message
                     key="button.sortAsc"/> </a>
             <a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=desc"><fmt:message
@@ -167,19 +157,17 @@
 </body>
 </html>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        crossorigin="anonymous"></script>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
