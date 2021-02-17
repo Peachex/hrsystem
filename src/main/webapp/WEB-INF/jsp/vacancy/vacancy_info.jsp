@@ -67,10 +67,59 @@
         </c:if>
     </c:if>
 
-    <div class="mb-3">
-        <label for="formFile" class="form-label">Default file input example</label>
-        <input class="form-control" type="file" id="formFile" value="c">
-    </div>
+    <c:if test="${role.toString().equals(guest)}">
+        <a class="btn btn-primary col-2 offset-3" href="to_register.do" role="button" style="margin-top: 2%;
+    width: 10%;"><fmt:message
+                key="button.createVacancyRequest"/> </a>
+    </c:if>
+
+    <c:if test="${role.toString().equals(applicant)}">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary col-2 offset-3" style="margin-top: 2%;
+    width: 10%;" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+            <fmt:message key="button.createVacancyRequest"/>
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><fmt:message
+                                key="button.createVacancyRequest"/></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="create_vacancy_request" method="POST" action="create_vacancy_request.do">
+                            <input type="hidden" name="vacancyId" value="${vacancy.id}">
+                            <div class="offset-1">
+                                <label for="inputSummary"><fmt:message
+                                        key="create_vacancy_request.inputSummary"/> </label>
+                            </div>
+                            <div class="form-group">
+                                  <textarea class="form-control" rows="5" id="inputSummary"
+                                            name="symmary" placeholder="<fmt:message
+                                             key="create_vacancy_request.inputSummaryPlaceholder"/>"
+                                            required></textarea>
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="offset-3" style="margin-top: 5%;width: 93%;">
+                                    <button class="btn btn-primary button" type="submit"><fmt:message
+                                            key="button.createVacancyRequest"/></button>
+                                </div>
+                            </div>
+                            <input name="ctoken" type="hidden" value="${stoken}"/>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><fmt:message
+                                key="button.close"/></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:if>
 
     <wrong-message>
         ${errorVacancyDelete}
