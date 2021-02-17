@@ -24,6 +24,7 @@ public class RequestParameter {
     public static final String EMPLOYEE_ID = "employeeId";
     public static final String KEY_WORD = "keyWord";
     public static final String SORT_SEQUENCE = "sortSequence";
+    public static final String VACANCY = "vacancy";
 
     //Different
     public static final String NEW_LOCALE = "newLocale";

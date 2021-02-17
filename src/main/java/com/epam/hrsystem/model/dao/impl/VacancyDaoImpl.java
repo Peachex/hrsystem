@@ -28,7 +28,7 @@ public enum VacancyDaoImpl implements VacancyDao {
         boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_INSERT_VACANCY)) {
-            statement.setByte(1, vacancy.isAvailable() ? (byte) 1 : 0);
+            statement.setByte(1, vacancy.getIsAvailable() ? (byte) 1 : 0);
             statement.setString(2, vacancy.getPosition());
             statement.setString(3, vacancy.getDescription());
             statement.setDate(4, Date.valueOf(vacancy.getCreationDate()));

@@ -32,7 +32,6 @@
     <img src="${pageContext.request.contextPath}/img/headhunting.png" width="128" height="128" class="row offset-6">
     <br>
     <img src="${pageContext.request.contextPath}/img/chair.png" width="128" height="128" class="row offset-6">
-    <input name="ctoken" type="hidden" value="${stoken}"/>
 </div>
 </body>
 </html>

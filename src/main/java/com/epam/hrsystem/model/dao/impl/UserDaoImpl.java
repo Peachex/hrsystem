@@ -82,7 +82,7 @@ public enum UserDaoImpl implements UserDao {
             statement.setString(5, user.getPhoneNumber());
             statement.setString(6, user.getEmail());
             statement.setString(7, password);
-            statement.setByte(8, user.isActive() ? (byte) 1 : 0);
+            statement.setByte(8, user.getIsActive() ? (byte) 1 : 0);
             statement.setLong(9, findRoleId(user.getRole()).orElseThrow(() -> new DaoException("Invalid role")));
             result = statement.executeUpdate() == 1;
         } catch (SQLException | ConnectionPoolException e) {
