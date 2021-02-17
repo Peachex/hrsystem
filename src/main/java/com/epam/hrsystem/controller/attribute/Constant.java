@@ -12,6 +12,9 @@ public class Constant {
     public static final String ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE = "errorApplicantRequestCreation";
     public static final String ERROR_APPLICANT_REQUEST_CREATION_MESSAGE = "Couldn't create applicant request, check input data or you have already created request";
 
+    public static final String CREATION_APPLICANT_REQUEST_MAIL_SUBJECT = "HR-SYSTEM";
+    public static final String CREATION_APPLICANT_REQUEST_MAIL_TEXT = "Hello! Thanks for the application you left. Wait for telephone interview, our recruiter will contact you. Good luck!";
+
     private Constant() {
     }
 }

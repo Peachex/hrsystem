@@ -14,9 +14,10 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.Properties;
 
-public class MailSender {
+public enum MailSender {
+    INSTANCE;
     private static final Logger logger = LogManager.getLogger();
-    private static final String MAIL_PROPERTY_FILE_PATH = "/data/mail.properties";
+    private static final String MAIL_PROPERTY_FILE_PATH = "/property/mail.properties";
     private static final String CONTENT_TYPE = "text/html";
     private static Properties properties;
 
@@ -35,7 +36,7 @@ public class MailSender {
     private String mailSubject;
     private String mailText;
 
-    public MailSender(String sendToEmail, String mailSubject, String mailText) {
+    /*public MailSender(String sendToEmail, String mailSubject, String mailText) {
         this.sendToEmail = sendToEmail;
         this.mailSubject = mailSubject;
         this.mailText = mailText;
@@ -43,7 +44,7 @@ public class MailSender {
 
     public MailSender() {
 
-    }
+    }*/
 
     public String getSendToEmail() {
         return sendToEmail;

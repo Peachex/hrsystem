@@ -11,6 +11,7 @@ import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
 import com.epam.hrsystem.model.service.impl.ApplicantRequestServiceImpl;
+import com.epam.hrsystem.util.mail.MailSender;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,11 +33,17 @@ public class CreateApplicantRequestCommand implements ActionCommand {
         Map<String, String> fields = new LinkedHashMap<>();
         fields.put(RequestParameter.SUMMARY, summary);
         fields.put(RequestParameter.VACANCY_ID, vacancyIdStr);
-        CommandResult result = new CommandResult(CommandName.TO_VACANCY, CommandResult.Type.FORWARD);
+        CommandResult result;
         try {
             ApplicantRequestService service = ApplicantRequestServiceImpl.INSTANCE;
-            boolean isCreated = service.createApplicantRequest(fields, applicant);
-            if (!isCreated) {
+            if (service.createApplicantRequest(fields, applicant)) {
+                MailSender mailSender = MailSender.INSTANCE;
+                mailSender.setSendToEmail(applicant.getEmail());
+                mailSender.setMailSubject(Constant.CREATION_APPLICANT_REQUEST_MAIL_SUBJECT);
+                mailSender.setMailText(Constant.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
+                mailSender.send();
+                result = new CommandResult(CommandName.TO_VACANCY, CommandResult.Type.FORWARD);
+            } else {
                 result = new CommandResult((String) session.getAttribute(SessionAttribute.PREVIOUS_PAGE), CommandResult.Type.FORWARD);
                 request.setAttribute(Constant.ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE, Constant.ERROR_APPLICANT_REQUEST_CREATION_MESSAGE);
             }

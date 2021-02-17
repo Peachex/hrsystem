@@ -2,7 +2,6 @@ package com.epam.hrsystem.model.dao.impl;
 
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
-import com.epam.hrsystem.model.dao.SqlQuery;
 import com.epam.hrsystem.model.dao.VacancyDao;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;

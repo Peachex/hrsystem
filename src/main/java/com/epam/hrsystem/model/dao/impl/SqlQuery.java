@@ -1,4 +1,4 @@
-package com.epam.hrsystem.model.dao;
+package com.epam.hrsystem.model.dao.impl;
 
 public class SqlQuery {
     //todo delete comments

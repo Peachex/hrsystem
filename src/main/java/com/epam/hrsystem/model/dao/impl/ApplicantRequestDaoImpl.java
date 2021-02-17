@@ -3,7 +3,6 @@ package com.epam.hrsystem.model.dao.impl;
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.dao.ApplicantRequestDao;
-import com.epam.hrsystem.model.dao.SqlQuery;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.pool.ConnectionPool;
 

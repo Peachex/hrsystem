@@ -5,7 +5,7 @@ import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.creator.Creator;
 import com.epam.hrsystem.model.creator.impl.UserCreator;
-import com.epam.hrsystem.model.dao.SqlQuery;
+import com.epam.hrsystem.model.dao.impl.SqlQuery;
 import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
 import com.epam.hrsystem.model.entity.User;
