@@ -2,25 +2,25 @@ package com.epam.hrsystem.model.entity;
 
 public class ApplicantRequest {
     private long id;
-    private String summaryFileName;
+    private String summary;
     private ApplicantState applicantState;
     private User applicant;
     private Vacancy vacancy;
     private InterviewResult interviewResult;
 
-    public ApplicantRequest(long id, String summaryFileName, ApplicantState applicantState, User applicant,
+    public ApplicantRequest(long id, String summary, ApplicantState applicantState, User applicant,
                             Vacancy vacancy, InterviewResult interviewResult) {
         this.id = id;
-        this.summaryFileName = summaryFileName;
+        this.summary = summary;
         this.applicantState = applicantState;
         this.applicant = applicant;
         this.vacancy = vacancy;
         this.interviewResult = interviewResult;
     }
 
-    public ApplicantRequest(String summaryFileName, ApplicantState applicantState, User applicant,
+    public ApplicantRequest(String summary, ApplicantState applicantState, User applicant,
                             Vacancy vacancy, InterviewResult interviewResult) {
-        this.summaryFileName = summaryFileName;
+        this.summary = summary;
         this.applicantState = applicantState;
         this.applicant = applicant;
         this.vacancy = vacancy;
@@ -31,12 +31,12 @@ public class ApplicantRequest {
         return id;
     }
 
-    public String getSummaryFileName() {
-        return summaryFileName;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setSummaryFileName(String summaryFileName) {
-        this.summaryFileName = summaryFileName;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public ApplicantState getApplicantState() {
@@ -82,7 +82,7 @@ public class ApplicantRequest {
         ApplicantRequest other = (ApplicantRequest) obj;
         return (this.id == other.id && this.applicantState == other.applicantState) &&
                 (this.applicant != null ? this.applicant.equals(other.applicant) : other.applicant == null) &&
-                (this.summaryFileName != null ? this.summaryFileName.equals(other.summaryFileName) : other.summaryFileName == null) &&
+                (this.summary != null ? this.summary.equals(other.summary) : other.summary == null) &&
                 (this.vacancy != null ? this.vacancy.equals(other.vacancy) : other.vacancy == null) &&
                 (this.interviewResult != null ? this.interviewResult.equals(other.interviewResult) : other.interviewResult == null);
     }
@@ -90,7 +90,7 @@ public class ApplicantRequest {
     @Override
     public int hashCode() {
         int result = Long.hashCode(id);
-        result = 31 * result + (summaryFileName != null ? summaryFileName.hashCode() : 0);
+        result = 31 * result + (summary != null ? summary.hashCode() : 0);
         result = 31 * result + (applicantState != null ? applicantState.hashCode() : 0);
         result = 31 * result + (applicant != null ? applicant.hashCode() : 0);
         result = 31 * result + (vacancy != null ? vacancy.hashCode() : 0);
@@ -102,7 +102,7 @@ public class ApplicantRequest {
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("id = ").append(id).append("\n");
-        sb.append("summary file name = ").append(summaryFileName).append("\n");
+        sb.append("summary = ").append(summary).append("\n");
         sb.append("applicant state = ").append(applicantState).append("\n");
         sb.append("applicant id = ").append(applicant.getId()).append("\n");
         sb.append("vacancy id = ").append(vacancy.getId()).append("\n");

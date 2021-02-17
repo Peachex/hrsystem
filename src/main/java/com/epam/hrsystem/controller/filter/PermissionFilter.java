@@ -60,6 +60,7 @@ public class PermissionFilter implements Filter {
         adminCommands.add(CommandEnum.CREATE_VACANCY);
         adminCommands.add(CommandEnum.SEE_ALL_VACANCIES);
         adminCommands.add(CommandEnum.DELETE_VACANCY);
+        adminCommands.add(CommandEnum.RESTORE_VACANCY);
 
         permissionCommands.put(UserRole.GUEST, guestCommands);
         permissionCommands.put(UserRole.APPLICANT, applicantCommands);

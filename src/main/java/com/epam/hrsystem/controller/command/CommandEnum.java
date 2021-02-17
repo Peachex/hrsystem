@@ -7,6 +7,7 @@ import com.epam.hrsystem.controller.command.impl.FindVacanciesByKeyWordCommand;
 import com.epam.hrsystem.controller.command.impl.LoginCommand;
 import com.epam.hrsystem.controller.command.impl.LogoutCommand;
 import com.epam.hrsystem.controller.command.impl.RegisterCommand;
+import com.epam.hrsystem.controller.command.impl.RestoreVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.SeeAllVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.SortVacanciesByDateCommand;
 import com.epam.hrsystem.controller.command.impl.ToLoginCommand;
@@ -53,6 +54,9 @@ public enum CommandEnum {
     }},
     DELETE_VACANCY {{
         this.command = new DeleteVacancyCommand();
+    }},
+    RESTORE_VACANCY {{
+        this.command = new RestoreVacancyCommand();
     }};
 
     ActionCommand command;

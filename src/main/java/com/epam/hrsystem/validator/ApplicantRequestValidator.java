@@ -6,22 +6,25 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ApplicantRequestValidator {
     private static final Logger logger = LogManager.getLogger();
-    private static final int SUMMARY_NAME_MAX_LENGTH = 50;
+    private static final Pattern SUMMARY_PATTERN = Pattern.compile("[\\w\\s\\p{Punct}]{3,10000}");
 
     private ApplicantRequestValidator() {
     }
 
-    public static boolean isSummaryNameValid(String summaryName) {
-        if (summaryName == null) {
+    public static boolean isSummaryNameValid(String summary) {
+        if (summary == null) {
             return false;
         }
-        boolean result = summaryName.length() > 0 && summaryName.length() <= SUMMARY_NAME_MAX_LENGTH;
+        Matcher matcher = SUMMARY_PATTERN.matcher(summary);
+        boolean result = matcher.matches();
         if (!result) {
-            logger.log(Level.DEBUG, "Summary name isn't valid: " + summaryName);
+            logger.log(Level.DEBUG, "Summary name isn't valid: " + summary);
         }
         return result;
     }

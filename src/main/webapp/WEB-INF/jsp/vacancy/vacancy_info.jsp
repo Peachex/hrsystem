@@ -24,11 +24,6 @@
     <%@ include file="../home/header.jsp" %>
     <c:set var="vacancy" scope="request" value="${vacancy}"/>
 
-
-    <%--${user.id}
-    ${vacancy.employee.id}--%>
-
-
     <div class="card text-dark bg-light offset-3" style="margin-top: 3%;max-width: 50%;">
         <div class="card-header"><h4><fmt:message key="vacancy_info.title"/> #${vacancy.id}</h4></div>
         <div class="card-body">
@@ -72,10 +67,15 @@
         </c:if>
     </c:if>
 
+    <div class="mb-3">
+        <label for="formFile" class="form-label">Default file input example</label>
+        <input class="form-control" type="file" id="formFile" value="c">
+    </div>
+
     <wrong-message>
         ${errorVacancyDelete}
+        ${errorVacancyRestore}
     </wrong-message>
-
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
