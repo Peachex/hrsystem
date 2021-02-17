@@ -13,8 +13,6 @@ import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.validator.VacancyValidator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,14 +22,13 @@ import java.util.Optional;
 
 public enum VacancyServiceImpl implements VacancyService {
     INSTANCE;
-    private static final Logger logger = LogManager.getLogger();
     private static final VacancyDao dao = VacancyDaoImpl.INSTANCE;
     private static final String PERCENT_SIGN = "%";
 
     @Override
     public boolean createVacancy(Map<String, String> fields, long employeeId) throws ServiceException {
         boolean result = false;
-        Creator<Vacancy> creator = new VacancyCreator();
+        Creator<Vacancy> creator = VacancyCreator.INSTANCE;
         Optional<Vacancy> vacancyOptional = creator.create(fields);
         try {
             if (vacancyOptional.isPresent()) {

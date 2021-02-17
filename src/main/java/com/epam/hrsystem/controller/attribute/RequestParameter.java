@@ -26,6 +26,9 @@ public class RequestParameter {
     public static final String SORT_SEQUENCE = "sortSequence";
     public static final String VACANCY = "vacancy";
 
+    //Vacancy request
+    public static final String SUMMARY = "summary";
+
     //Different
     public static final String NEW_LOCALE = "newLocale";
 

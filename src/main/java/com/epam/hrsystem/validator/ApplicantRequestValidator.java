@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 public class ApplicantRequestValidator {
     private static final Logger logger = LogManager.getLogger();
-    private static final Pattern SUMMARY_PATTERN = Pattern.compile("[\\w\\s\\p{Punct}]{3,10000}");
+    private static final Pattern SUMMARY_PATTERN = Pattern.compile("[\\wА-Яа-я\\s\\p{Punct}]{3,10000}");
 
     private ApplicantRequestValidator() {
     }
 
-    public static boolean isSummaryNameValid(String summary) {
+    public static boolean isSummaryValid(String summary) {
         if (summary == null) {
             return false;
         }

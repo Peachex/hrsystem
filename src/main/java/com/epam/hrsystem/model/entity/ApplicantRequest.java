@@ -18,13 +18,11 @@ public class ApplicantRequest {
         this.interviewResult = interviewResult;
     }
 
-    public ApplicantRequest(String summary, ApplicantState applicantState, User applicant,
-                            Vacancy vacancy, InterviewResult interviewResult) {
+    public ApplicantRequest(String summary, ApplicantState applicantState) {
         this.summary = summary;
         this.applicantState = applicantState;
         this.applicant = applicant;
         this.vacancy = vacancy;
-        this.interviewResult = interviewResult;
     }
 
     public long getId() {

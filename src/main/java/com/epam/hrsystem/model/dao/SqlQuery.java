@@ -81,6 +81,13 @@ public class SqlQuery {
     public static final String SQL_CHECK_VACANCY_FOR_EXISTENCE = "SELECT vacancy_id FROM vacancies WHERE is_available = '1' AND position = ?" +
             " AND description = ? AND country_id_fk = ? AND city_id_fk = ?;";
 
+    //APPLICANT_REQUEST QUERIES
+    public static final String SQL_INSERT_APPLICANT_REQUEST = "INSERT INTO applicant_requests(summary, applicant_state, user_id_fk, vacancy_id_fk)" +
+            " VALUES (?, ?, ?, ?);";
+
+    public static final String SQL_CHECK_APPLICANT_REQUEST_FOR_EXISTENCE = "SELECT applicant_request_id FROM applicant_requests WHERE" +
+            " user_id_fk = ? AND vacancy_id_fk = ?;";
+
     private SqlQuery() {
     }
 }

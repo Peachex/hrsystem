@@ -49,6 +49,7 @@ public class PermissionFilter implements Filter {
         //todo add commands
         List<CommandEnum> applicantCommands = new ArrayList<>(sameCommands);
         applicantCommands.add(CommandEnum.LOGOUT);
+        applicantCommands.add(CommandEnum.CREATE_APPLICANT_REQUEST);
 
         List<CommandEnum> employeeCommands = new ArrayList<>(sameCommands);
         employeeCommands.add(CommandEnum.LOGOUT);

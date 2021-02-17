@@ -68,7 +68,7 @@
     </c:if>
 
     <c:if test="${role.toString().equals(guest)}">
-        <a class="btn btn-primary col-2 offset-3" href="to_register.do" role="button" style="margin-top: 2%;
+        <a class="btn btn-primary col-2 offset-3" href="to_login.do" role="button" style="margin-top: 2%;
     width: 10%;"><fmt:message
                 key="button.createVacancyRequest"/> </a>
     </c:if>
@@ -76,7 +76,7 @@
     <c:if test="${role.toString().equals(applicant)}">
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary col-2 offset-3" style="margin-top: 2%;
-    width: 10%;" data-bs-toggle="modal"
+    width: 10%;     margin-bottom: 2%;" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
             <fmt:message key="button.createVacancyRequest"/>
         </button>
@@ -91,7 +91,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form name="create_vacancy_request" method="POST" action="create_vacancy_request.do">
+                        <form name="create_applicant_request" method="POST" action="create_applicant_request.do">
                             <input type="hidden" name="vacancyId" value="${vacancy.id}">
                             <div class="offset-1">
                                 <label for="inputSummary"><fmt:message
@@ -99,7 +99,7 @@
                             </div>
                             <div class="form-group">
                                   <textarea class="form-control" rows="5" id="inputSummary"
-                                            name="symmary" placeholder="<fmt:message
+                                            name="summary" placeholder="<fmt:message
                                              key="create_vacancy_request.inputSummaryPlaceholder"/>"
                                             required></textarea>
                             </div>
@@ -124,6 +124,7 @@
     <wrong-message>
         ${errorVacancyDelete}
         ${errorVacancyRestore}
+        ${errorApplicantRequestCreation}
     </wrong-message>
 
 </div>

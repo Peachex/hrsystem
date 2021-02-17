@@ -47,7 +47,7 @@ public enum UserServiceImpl implements UserService {
     @Override
     public boolean register(Map<String, String> fields) throws ServiceException {
         boolean result = false;
-        Creator<User> creator = new UserCreator();
+        Creator<User> creator = UserCreator.INSTANCE;
         Optional<User> user = creator.create(fields);
         try {
             String password = fields.get(RequestParameter.PASSWORD);

@@ -2,6 +2,7 @@ package com.epam.hrsystem.controller.command;
 
 import com.epam.hrsystem.controller.command.impl.ChangeLanguageCommand;
 import com.epam.hrsystem.controller.command.impl.CreateVacancyCommand;
+import com.epam.hrsystem.controller.command.impl.CreateApplicantRequestCommand;
 import com.epam.hrsystem.controller.command.impl.DeleteVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.FindVacanciesByKeyWordCommand;
 import com.epam.hrsystem.controller.command.impl.LoginCommand;
@@ -57,6 +58,9 @@ public enum CommandEnum {
     }},
     RESTORE_VACANCY {{
         this.command = new RestoreVacancyCommand();
+    }},
+    CREATE_APPLICANT_REQUEST {{
+        this.command = new CreateApplicantRequestCommand();
     }};
 
     ActionCommand command;

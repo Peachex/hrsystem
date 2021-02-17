@@ -9,7 +9,8 @@ import java.util.Optional;
 
 import static com.epam.hrsystem.validator.VacancyValidator.isCreationVacancyFormValid;
 
-public class VacancyCreator implements Creator<Vacancy> {
+public enum VacancyCreator implements Creator<Vacancy> {
+    INSTANCE;
     private static final boolean DEFAULT_AVAILABILITY_VALUE = true;
 
     @Override
