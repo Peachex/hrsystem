@@ -29,7 +29,8 @@
         <div class="col-3 offset-3">
             <form name="find-vacancy-from" method="GET" action="find_vacancies_by_key_word.do">
                 <div class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="<fmt:message key="button.find"/>"
+                    <input class="form-control me-2" type="search"
+                           placeholder="<fmt:message key="vacancy.inputKeyWord"/>"
                            aria-label="Search"
                            value="${keyWord}" name="keyWord">
                     <button class="btn btn-outline-success" type="submit"><fmt:message
@@ -53,8 +54,12 @@
             </div>
         </div>
     </div>
+    <div class="mt-3">
+        <wrong-message>
+            ${noVacancies}
+        </wrong-message>
+    </div>
 
-    ${noVacancies}
     <fmt:message key="vacancy_vacanciesAmount"/> ${vacancies.size()}
     <c:forEach var="vacancy" items="${vacancies}">
         <tr>

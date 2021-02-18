@@ -27,7 +27,7 @@ public class FindVacanciesByKeyWordCommand implements ActionCommand {
                 request.setAttribute(RequestParameter.VACANCIES, vacancies);
             } else {
                 //fixme magic text
-                request.setAttribute(Constant.NO_VACANCIES_ATTRIBUTE, "No vacancies");
+                request.setAttribute(Constant.NO_VACANCIES_ATTRIBUTE, Constant.NO_VACANCIES_MESSAGE);
             }
             request.setAttribute(RequestParameter.KEY_WORD, keyWord);
         } catch (ServiceException e) {
