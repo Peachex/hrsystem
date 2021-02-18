@@ -64,24 +64,25 @@
         <vacancies-number><fmt:message key="vacancy_vacanciesAmount"/> ${vacancies.size()}</vacancies-number>
     </div>
 
-    <table class="table mt-4 offset-2" style="width: 70%">
+    <table class="table table-dark table-bordered border-dark mt-4 offset-2" style="width: 70%">
         <thead>
         <tr>
             <th scope="col"><fmt:message key="vacancy_position"/></th>
             <th scope="col"><fmt:message key="vacancy_country"/></th>
             <th scope="col"><fmt:message key="vacancy_city"/></th>
             <th scope="col"><fmt:message key="vacancy_creationDate"/></th>
+            <th scope="col"><fmt:message key="table_action"/></th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="vacancy" items="${vacancies}">
-        <tr>
-
-            <th scope="row"><a href="<c:url value="vacancy_info.do?vacancyId=${vacancy.id}"/>"> ${vacancy.position}></a>
-            </th>
+        <tr class="table-secondary">
+            <th scope="row">${vacancy.position}</th>
             <th scope="row">${vacancy.country}</th>
             <th scope="row">${vacancy.city}</th>
             <th scope="row">${vacancy.creationDate}</th>
+            <th scope="row"><a href="<c:url value="vacancy_info.do?vacancyId=${vacancy.id}"/>"><fmt:message
+                    key="link.moreInfo"/></a></th>
         <tr>
             </c:forEach>
         </tbody>
