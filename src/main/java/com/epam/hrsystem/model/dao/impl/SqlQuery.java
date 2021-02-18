@@ -65,7 +65,7 @@ public class SqlQuery {
 
     public static final String SQL_FIND_VACANCIES_BY_KEY_WORD = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
-            " JOIN users ON user_id_fk = user_id WHERE position LIKE ? OR description LIKE ? HAVING is_available = '1';";
+            " JOIN users ON user_id_fk = user_id WHERE position LIKE ? OR description LIKE ? OR country LIKE ? OR city LIKE ? HAVING is_available = '1';";
 
     public static final String SQL_SELECT_AVAILABLE_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +

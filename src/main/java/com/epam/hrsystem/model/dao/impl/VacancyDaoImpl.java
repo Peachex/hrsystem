@@ -80,6 +80,8 @@ public enum VacancyDaoImpl implements VacancyDao {
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_VACANCIES_BY_KEY_WORD)) {
             statement.setString(1, keyWord);
             statement.setString(2, keyWord);
+            statement.setString(3, keyWord);
+            statement.setString(4, keyWord);
             statement.executeQuery();
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
