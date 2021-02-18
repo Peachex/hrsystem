@@ -80,9 +80,9 @@ public class PermissionFilter implements Filter {
             return;
         }
         List<CommandEnum> commands = permissionCommands.get(role);
-        CommandEnum commandType = CommandProvider.defineCommandType(request).get();
-        if (commands == null || !commands.contains(commandType)) {
-            logger.log(Level.ERROR, "User hasn't got permission to execute command = " + commandType);
+        CommandEnum command = CommandProvider.defineCommandType(request).get();
+        if (commands == null || !commands.contains(command)) {
+            logger.log(Level.ERROR, "User hasn't got permission to execute command = " + command);
             //fixme replace error page with previous page
             RequestDispatcher dispatcher = request.getRequestDispatcher(PagePath.PERMISSION_ERROR);
             dispatcher.forward(request, response);

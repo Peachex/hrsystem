@@ -1,12 +1,16 @@
 package com.epam.hrsystem.controller.command;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 import java.util.Optional;
 
 public class CommandProvider {
+    private static final Logger logger = LogManager.getLogger();
     private static final String DO_SUBSTRING = ".do";
-
     private static final String SLASH = "/";
 
     private CommandProvider() {
@@ -17,9 +21,14 @@ public class CommandProvider {
         String url = request.getRequestURI();
         String stringCommand = parseCommandName(url);
         if (stringCommand != null && !stringCommand.isEmpty()) {
-            CommandEnum commandEnum = CommandEnum.valueOf(stringCommand.toUpperCase());
-            ActionCommand command = commandEnum.getCurrentCommand();
-            result = Optional.of(command);
+            try {
+                CommandEnum commandEnum = CommandEnum.valueOf(stringCommand.toUpperCase());
+                ActionCommand command = commandEnum.getCurrentCommand();
+                result = Optional.of(command);
+            } catch (IllegalArgumentException e) {
+                logger.log(Level.ERROR, "Command " + stringCommand + "isn't correct: " + e);
+            }
+
         }
         return result;
     }
