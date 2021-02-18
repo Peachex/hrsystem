@@ -18,6 +18,9 @@ public class Constant {
     public static final String CREATION_APPLICANT_REQUEST_MAIL_SUBJECT = "HR-SYSTEM";
     public static final String CREATION_APPLICANT_REQUEST_MAIL_TEXT = "Hello! Thanks for the application you left. Wait for telephone interview, our recruiter will contact you. Good luck!";
 
+    public static final String NO_VACANCIES_ATTRIBUTE = "noVacancies";
+    public static final String NO_VACANCIES_MESSAGE = "No vacancies";
+
     private Constant() {
     }
 }

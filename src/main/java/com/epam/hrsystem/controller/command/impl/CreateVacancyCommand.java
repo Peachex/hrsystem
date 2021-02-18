@@ -42,7 +42,7 @@ public class CreateVacancyCommand implements ActionCommand {
         fields.put(RequestParameter.CITY, city);
 
         VacancyService service = VacancyServiceImpl.INSTANCE;
-        CommandResult result = new CommandResult(CommandName.TO_VACANCY, CommandResult.Type.FORWARD);
+        CommandResult result = new CommandResult(CommandName.TO_VACANCIES, CommandResult.Type.FORWARD);
         try {
             if (!service.createVacancy(fields, employeeId)) {
                 request.setAttribute(RequestParameter.POSITION, fields.get(RequestParameter.POSITION));

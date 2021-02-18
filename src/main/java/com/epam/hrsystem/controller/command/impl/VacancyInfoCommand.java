@@ -34,13 +34,13 @@ public class VacancyInfoCommand implements ActionCommand {
                     request.setAttribute("vacancy", vacancy);
                     result = new CommandResult(PagePath.CURRENT_VACANCY, CommandResult.Type.FORWARD);
                 } else {
-                    result = new CommandResult(PagePath.VACANCY, CommandResult.Type.REDIRECT);
+                    result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.REDIRECT);
                     //todo error message
                 }
             } catch (NumberFormatException e) {
                 logger.log(Level.ERROR, e);
                 {
-                    result = new CommandResult(PagePath.VACANCY, CommandResult.Type.REDIRECT);
+                    result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.REDIRECT);
                 }
             }
         } catch (ServiceException e) {

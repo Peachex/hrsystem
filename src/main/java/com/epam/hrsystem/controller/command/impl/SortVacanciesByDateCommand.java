@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -17,7 +18,7 @@ public class SortVacanciesByDateCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         //fixme
-        CommandResult result = new CommandResult(PagePath.VACANCY, CommandResult.Type.FORWARD);
+        CommandResult result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD);
         Comparator<Vacancy> comparator = VacancyComparator.VACANCY_CREATION_DATE;
         ServletContext servletContext = request.getServletContext();
         List<Vacancy> vacancies = (List<Vacancy>) servletContext.getAttribute(RequestParameter.VACANCIES);
@@ -33,7 +34,7 @@ public class SortVacanciesByDateCommand implements ActionCommand {
             request.setAttribute(RequestParameter.VACANCIES, vacancies);
         } else {
             //fixme magic text
-            request.setAttribute(RequestParameter.NO_VACANCIES, "No vacancies");
+            request.setAttribute(Constant.NO_VACANCIES_ATTRIBUTE, "No vacancies");
         }
         return result;
     }

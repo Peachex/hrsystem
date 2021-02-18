@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -18,7 +19,7 @@ public class FindVacanciesByKeyWordCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         //fixme
         VacancyService service = VacancyServiceImpl.INSTANCE;
-        CommandResult result = new CommandResult(PagePath.VACANCY, CommandResult.Type.FORWARD);
+        CommandResult result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD);
         try {
             String keyWord = request.getParameter(RequestParameter.KEY_WORD);
             List<Vacancy> vacancies = service.findVacanciesByKeyWord(keyWord);
@@ -26,7 +27,7 @@ public class FindVacanciesByKeyWordCommand implements ActionCommand {
                 request.setAttribute(RequestParameter.VACANCIES, vacancies);
             } else {
                 //fixme magic text
-                request.setAttribute(RequestParameter.NO_VACANCIES, "No vacancies");
+                request.setAttribute(Constant.NO_VACANCIES_ATTRIBUTE, "No vacancies");
             }
             request.setAttribute(RequestParameter.KEY_WORD, keyWord);
         } catch (ServiceException e) {

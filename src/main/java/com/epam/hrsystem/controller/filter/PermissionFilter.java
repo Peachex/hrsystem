@@ -35,7 +35,7 @@ public class PermissionFilter implements Filter {
     public void init(FilterConfig filterConfig) {
         List<CommandEnum> sameCommands = new ArrayList<>();
         sameCommands.add(CommandEnum.CHANGE_LANGUAGE);
-        sameCommands.add(CommandEnum.TO_VACANCY);
+        sameCommands.add(CommandEnum.TO_VACANCIES);
         sameCommands.add(CommandEnum.VACANCY_INFO);
         sameCommands.add(CommandEnum.FIND_VACANCIES_BY_KEY_WORD);
         sameCommands.add(CommandEnum.SORT_VACANCIES_BY_DATE);

@@ -32,7 +32,7 @@
             <c:set var="userPhotoName" scope="session" value="${userPhotoName}"/>
 
             <a class="nav-link header-link" href="home"><fmt:message key="header.home"/> </a>
-            <a class="nav-link header-link offset-1" href="to_vacancy.do"><fmt:message key="header.vacancy"/></a>
+            <a class="nav-link header-link offset-1" href="to_vacancies.do"><fmt:message key="header.vacancy"/></a>
 
             <li class="nav-item dropdown offset-1">
                 <a class="nav-link dropdown-toggle header-link" id="navbarDropdown" data-bs-toggle="dropdown"

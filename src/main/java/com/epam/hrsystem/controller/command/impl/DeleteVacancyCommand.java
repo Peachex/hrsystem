@@ -2,7 +2,6 @@ package com.epam.hrsystem.controller.command.impl;
 
 import com.epam.hrsystem.controller.attribute.CommandName;
 import com.epam.hrsystem.controller.attribute.Constant;
-import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -25,7 +24,7 @@ public class DeleteVacancyCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         //fixme
         VacancyService service = VacancyServiceImpl.INSTANCE;
-        CommandResult result = new CommandResult(CommandName.TO_VACANCY, CommandResult.Type.FORWARD);
+        CommandResult result = new CommandResult(CommandName.TO_VACANCIES, CommandResult.Type.FORWARD);
         try {
             String vacancyId = request.getParameter(RequestParameter.VACANCY_ID);
             long id = Long.parseLong(vacancyId);

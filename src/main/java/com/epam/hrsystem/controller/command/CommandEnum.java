@@ -14,7 +14,7 @@ import com.epam.hrsystem.controller.command.impl.SortVacanciesByDateCommand;
 import com.epam.hrsystem.controller.command.impl.ToLoginCommand;
 import com.epam.hrsystem.controller.command.impl.ToRegisterCommand;
 import com.epam.hrsystem.controller.command.impl.VacancyInfoCommand;
-import com.epam.hrsystem.controller.command.impl.ToVacancyCommand;
+import com.epam.hrsystem.controller.command.impl.ToVacanciesCommand;
 
 public enum CommandEnum {
     REGISTER {{
@@ -35,8 +35,8 @@ public enum CommandEnum {
     CHANGE_LANGUAGE {{
         this.command = new ChangeLanguageCommand();
     }},
-    TO_VACANCY {{
-        this.command = new ToVacancyCommand();
+    TO_VACANCIES {{
+        this.command = new ToVacanciesCommand();
     }},
     VACANCY_INFO {{
         this.command = new VacancyInfoCommand();

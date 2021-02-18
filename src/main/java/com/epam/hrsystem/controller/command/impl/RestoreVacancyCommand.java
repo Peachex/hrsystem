@@ -24,7 +24,7 @@ public class RestoreVacancyCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         //fixme
         VacancyService service = VacancyServiceImpl.INSTANCE;
-        CommandResult result = new CommandResult(CommandName.TO_VACANCY, CommandResult.Type.FORWARD);
+        CommandResult result = new CommandResult(CommandName.TO_VACANCIES, CommandResult.Type.FORWARD);
         try {
             String vacancyId = request.getParameter(RequestParameter.VACANCY_ID);
             long id = Long.parseLong(vacancyId);

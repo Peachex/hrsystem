@@ -43,7 +43,7 @@ public class CreateApplicantRequestCommand implements ActionCommand {
                 mailSender.setMailSubject(Constant.CREATION_APPLICANT_REQUEST_MAIL_SUBJECT);
                 mailSender.setMailText(Constant.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
                 mailSender.send();
-                result = new CommandResult(CommandName.TO_VACANCY, CommandResult.Type.FORWARD);
+                result = new CommandResult(CommandName.TO_VACANCIES, CommandResult.Type.FORWARD);
             } else {
                 result = new CommandResult((String) session.getAttribute(SessionAttribute.PREVIOUS_PAGE), CommandResult.Type.FORWARD);
                 request.setAttribute(Constant.ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE, Constant.ERROR_APPLICANT_REQUEST_CREATION_MESSAGE);
