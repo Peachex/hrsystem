@@ -22,8 +22,8 @@
 <body>
 <div class="main-container">
     <%@ include file="header.jsp" %>
-    <div id="carouselExampleInterval" class="mt-5 carousel carousel-dark slide offset-5"
-         style="width: 20%;padding-top: 10%;"
+    <div id="carouselExampleInterval" class="carousel carousel-dark slide offset-5"
+         style="width: 20%;margin-top: 15%"
          data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="4000">
