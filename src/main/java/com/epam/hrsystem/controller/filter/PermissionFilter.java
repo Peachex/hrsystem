@@ -46,7 +46,6 @@ public class PermissionFilter implements Filter {
         guestCommands.add(CommandEnum.TO_LOGIN);
         guestCommands.add(CommandEnum.TO_REGISTER);
 
-        //todo add commands
         List<CommandEnum> applicantCommands = new ArrayList<>(sameCommands);
         applicantCommands.add(CommandEnum.LOGOUT);
         applicantCommands.add(CommandEnum.CREATE_APPLICANT_REQUEST);
@@ -84,6 +83,7 @@ public class PermissionFilter implements Filter {
         CommandEnum commandType = CommandProvider.defineCommandType(request).get();
         if (commands == null || !commands.contains(commandType)) {
             logger.log(Level.ERROR, "User hasn't got permission to execute command = " + commandType);
+            //fixme replace error page with previous page
             RequestDispatcher dispatcher = request.getRequestDispatcher(PagePath.PERMISSION_ERROR);
             dispatcher.forward(request, response);
         } else {

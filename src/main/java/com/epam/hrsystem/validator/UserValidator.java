@@ -49,7 +49,7 @@ public class UserValidator {
             result = false;
         }
         String email = fields.get(RequestParameter.EMAIL);
-        if (!isNameValid(email)) {
+        if (!isEmailValid(email)) {
             fields.put(RequestParameter.EMAIL, "Invalid input!");
             result = false;
         }

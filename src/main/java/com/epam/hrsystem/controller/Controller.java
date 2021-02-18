@@ -58,6 +58,7 @@ public class Controller extends HttpServlet {
             }
         } catch (CommandException e) {
             logger.log(Level.ERROR, "Couldn't process request: " + e);
+            //todo redirect to error page (500)
             throw new ServletException(e);
         }
     }

@@ -32,7 +32,7 @@ public class LoginCommand implements ActionCommand {
                 //fixme delete request setAttribute and change attribute in jsp to sessionScope
                 request.setAttribute(SessionAttribute.USER, user);
                 request.setAttribute(SessionAttribute.CURRENT_ROLE, user.getRole());
-                result = new CommandResult(UrlPattern.HOME, CommandResult.Type.FORWARD);
+                result = new CommandResult(UrlPattern.HOME, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute("errorData", "Email or password aren't valid");
                 //todo create class Message

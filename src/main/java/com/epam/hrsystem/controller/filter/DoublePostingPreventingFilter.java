@@ -48,7 +48,7 @@ public class DoublePostingPreventingFilter implements Filter {
                 chain.doFilter(request, response);
             } else {
                 logger.log(Level.ERROR, "Couldn't execute double post request");
-                RequestDispatcher dispatcher = request.getRequestDispatcher(PagePath.DOUBLE_POSTING_ERROR);
+                RequestDispatcher dispatcher = request.getRequestDispatcher((String) session.getAttribute(SessionAttribute.CURRENT_PAGE));
                 dispatcher.forward(request, response);
             }
         }

@@ -24,17 +24,6 @@ public class CommandProvider {
         return result;
     }
 
-    public static String parseCommandName(String url) {
-        String commandName;
-        int doPosition = url.indexOf(DO_SUBSTRING);
-        if (doPosition == -1) {
-            return null;
-        }
-        int lastSlashPosition = url.lastIndexOf(SLASH);
-        commandName = url.substring(lastSlashPosition + 1, doPosition);
-        return commandName;
-    }
-
     public static Optional<CommandEnum> defineCommandType(HttpServletRequest request) {
         Optional<CommandEnum> result = Optional.empty();
         String url = request.getRequestURI();
@@ -44,5 +33,16 @@ public class CommandProvider {
             result = Optional.of(command);
         }
         return result;
+    }
+
+    public static String parseCommandName(String url) {
+        String commandName;
+        int doPosition = url.indexOf(DO_SUBSTRING);
+        if (doPosition == -1) {
+            return null;
+        }
+        int lastSlashPosition = url.lastIndexOf(SLASH);
+        commandName = url.substring(lastSlashPosition + 1, doPosition);
+        return commandName;
     }
 }

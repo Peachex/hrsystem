@@ -15,7 +15,7 @@ public class CommandResult {
 
     public CommandResult(String path, Type type) {
         this.path = path;
-        this.type = Type.FORWARD;
+        this.type = type;
     }
 
     public CommandResult(String path) {
