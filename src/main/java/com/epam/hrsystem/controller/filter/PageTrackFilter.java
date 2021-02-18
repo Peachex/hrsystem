@@ -32,7 +32,7 @@ public class PageTrackFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
         String currentPage = getRequestWithAllParameters(request);
@@ -43,7 +43,7 @@ public class PageTrackFilter implements Filter {
                 session.setAttribute(SessionAttribute.CURRENT_PAGE, currentPage);
             }
         }
-        chain.doFilter(request, response);
+        filterChain.doFilter(request, servletResponse);
     }
 
     @Override

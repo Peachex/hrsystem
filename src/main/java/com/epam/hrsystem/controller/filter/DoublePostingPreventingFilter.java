@@ -1,6 +1,5 @@
 package com.epam.hrsystem.controller.filter;
 
-import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -32,24 +31,24 @@ public class DoublePostingPreventingFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain chain) throws IOException, ServletException {
-        httpRequest = (HttpServletRequest) request;
+        httpRequest = (HttpServletRequest) servletRequest;
         session = httpRequest.getSession(true);
         if (httpRequest.getMethod().equals(NAME_OF_GET_METHOD)) {
             session = httpRequest.getSession(true);
             session.setAttribute(SessionAttribute.SERVER_TOKEN, new Random().nextInt(MAX_RANDOM_RANGE));
-            chain.doFilter(request, response);
+            chain.doFilter(servletRequest, servletResponse);
         } else {
             serverToken = (Integer) session.getAttribute(SessionAttribute.SERVER_TOKEN);
-            clientToken = Integer.parseInt(request.getParameter(SessionAttribute.CLIENT_TOKEN));
+            clientToken = Integer.parseInt(servletRequest.getParameter(SessionAttribute.CLIENT_TOKEN));
             if (serverToken == clientToken) {
                 session.setAttribute(SessionAttribute.SERVER_TOKEN, new Random().nextInt(MAX_RANDOM_RANGE));
-                chain.doFilter(request, response);
+                chain.doFilter(servletRequest, servletResponse);
             } else {
-                logger.log(Level.ERROR, "Couldn't execute double post request");
-                RequestDispatcher dispatcher = request.getRequestDispatcher((String) session.getAttribute(SessionAttribute.CURRENT_PAGE));
-                dispatcher.forward(request, response);
+                logger.log(Level.ERROR, "Couldn't execute double post servletRequest");
+                RequestDispatcher dispatcher = servletRequest.getRequestDispatcher((String) session.getAttribute(SessionAttribute.CURRENT_PAGE));
+                dispatcher.forward(servletRequest, servletResponse);
             }
         }
     }

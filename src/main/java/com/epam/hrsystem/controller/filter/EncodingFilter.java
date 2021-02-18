@@ -16,14 +16,14 @@ public class EncodingFilter implements Filter {
         code = fConfig.getInitParameter(ENCODING_PARAMETER_NAME);
     }
 
-    public void doFilter(ServletRequest request, ServletResponse response,
-                         FilterChain chain) throws IOException, ServletException {
-        String codeRequest = request.getCharacterEncoding();
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
+                         FilterChain filterChain) throws IOException, ServletException {
+        String codeRequest = servletRequest.getCharacterEncoding();
         if (codeRequest == null || !codeRequest.equalsIgnoreCase(code)) {
-            request.setCharacterEncoding(code);
-            response.setCharacterEncoding(code);
+            servletRequest.setCharacterEncoding(code);
+            servletResponse.setCharacterEncoding(code);
         }
-        chain.doFilter(request, response);
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     public void destroy() {
