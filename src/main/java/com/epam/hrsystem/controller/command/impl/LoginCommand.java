@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.UrlPattern;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
@@ -18,7 +19,6 @@ import java.util.Optional;
 
 public class LoginCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        //fixme
         String email = request.getParameter(RequestParameter.EMAIL);
         String password = request.getParameter(RequestParameter.PASSWORD);
         UserService service = UserServiceImpl.INSTANCE;
@@ -30,13 +30,10 @@ public class LoginCommand implements ActionCommand {
                 HttpSession session = request.getSession();
                 session.setAttribute(SessionAttribute.USER, user);
                 session.setAttribute(SessionAttribute.CURRENT_ROLE, user.getRole());
-                //fixme delete request setAttribute and change attribute in jsp to sessionScope
-                request.setAttribute(SessionAttribute.USER, user);
-                request.setAttribute(SessionAttribute.CURRENT_ROLE, user.getRole());
                 result = new CommandResult(UrlPattern.HOME, CommandResult.Type.REDIRECT);
             } else {
-                request.setAttribute("errorData", "Email or password aren't valid");
-                //todo create class Message
+                request.setAttribute(RequestParameter.EMAIL, email);
+                request.setAttribute(Constant.ERROR_INPUT_DATA_ATTRIBUTE, Constant.ERROR_INPUT_DATA_MESSAGE);
                 result = new CommandResult(PagePath.LOGIN, CommandResult.Type.FORWARD);
             }
         } catch (ServiceException e) {

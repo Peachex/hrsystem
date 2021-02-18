@@ -22,37 +22,37 @@
 <body>
 <div class="main-container">
     <%@ include file="../home/header.jsp" %>
-    <form name="register-form" method="POST" action="login.do">
-        <input type="hidden" name="previousUrl" value="login"/>
-        <div class="row col-1 offset-1">
+    <form name="login-form" method="POST" action="login.do">
+        <div class="col-2 offset-5" style="margin-top: 8%">
             <label for="inputEmail"><fmt:message key="login.inputEmail"/> </label>
         </div>
-        <div class="row">
-            <div class="col-3 offset-1">
-                <input type="text" class="form-control field" id="inputEmail" name="email"
-                       required
-                       pattern="((\w)([-.](\w))?)+@((\w)([-.](\w))?)+.[a-zA-Zа-яА-Я]{2,4}">
-            </div>
+        <div class="col-2 offset-5">
+            <input type="text" class="form-control field" id="inputEmail" name="email" value="${email}"
+                   required
+                   pattern="((\w)([-.](\w))?)+@((\w)([-.](\w))?)+.[a-zA-Zа-яА-Я]{2,4}">
         </div>
-        <div class="offset-1">
+
+        <div class="mt-3 col-2 offset-5">
             <label for="inputPassword"><fmt:message key="login.inputPassword"/> </label>
         </div>
-        <div class="row">
+        <div class="col-2 offset-5">
             <input type="password" class="form-control field" id="inputPassword" name="password"
-                   required pattern=".{6,}"/>
+                   required pattern="[\w\s\p{Punct}]{6,80}"/>
         </div>
-        <div class="mb-3 row">
-            <div class="col-4 offset-5">
-                <button class="btn btn-primary button" type="submit"><fmt:message
-                        key="button.login"/></button>
-            </div>
+        <div class="mt-3">
+            <wrong-message>
+                ${errorInputData}
+            </wrong-message>
         </div>
-        <wrong-message>
-            ${errorData}
-        </wrong-message>
+
+        <div class="mt-5 col-2 offset-5">
+            <button class="btn btn-primary" style="width: 100%" type="submit"><fmt:message
+                    key="button.login"/></button>
+        </div>
         <input name="ctoken" type="hidden" value="${stoken}"/>
     </form>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
         crossorigin="anonymous"></script>
 </body>
