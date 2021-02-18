@@ -37,7 +37,7 @@ public class PageTrackFilter implements Filter {
         HttpSession session = request.getSession();
         String currentPage = getRequestWithAllParameters(request);
         String previousPage = (String) session.getAttribute(SessionAttribute.CURRENT_PAGE);
-        if (!currentPage.equals(previousPage)) {
+        if (currentPage != null && !currentPage.isEmpty() && !currentPage.equals(previousPage)) {
             session.setAttribute(SessionAttribute.PREVIOUS_PAGE, previousPage);
             if (!commandsNotToBeTracked.contains(currentPage)) {
                 session.setAttribute(SessionAttribute.CURRENT_PAGE, currentPage);
@@ -52,7 +52,7 @@ public class PageTrackFilter implements Filter {
     }
 
     private String getRequestWithAllParameters(HttpServletRequest request) {
-        String action = request.getRequestURL().substring(DEFAULT_URL.length());
+        String action = request.getRequestURL().toString().substring(DEFAULT_URL.length());
         StringBuilder sb = new StringBuilder(action + QUESTION_SIGN);
         Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
