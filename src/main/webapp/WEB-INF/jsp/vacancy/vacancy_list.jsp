@@ -25,28 +25,34 @@
     <%@ include file="../home/header.jsp" %>
     <c:set var="vacancies" scope="application" value="${vacancies}"/>
 
-    <form name="find-vacancy-from" method="GET" action="find_vacancies_by_key_word.do">
-        <div class="d-flex col-2 offset-5">
-            <input class="form-control me-2" type="search" placeholder="<fmt:message key="button.find"/>"
-                   aria-label="Search"
-                   value="${keyWord}" name="keyWord">
-            <button class="btn btn-outline-success" type="submit"><fmt:message
-                    key="button.find"/></button>
+    <div class="row align-items-start" style="margin-top: 3%">
+        <div class="col-3 offset-3">
+            <form name="find-vacancy-from" method="GET" action="find_vacancies_by_key_word.do">
+                <div class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="<fmt:message key="button.find"/>"
+                           aria-label="Search"
+                           value="${keyWord}" name="keyWord">
+                    <button class="btn btn-outline-success" type="submit"><fmt:message
+                            key="button.find"/></button>
+                </div>
+            </form>
         </div>
-    </form>
-
-    <div class="dropdown col-2 offset-2">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="sortDropDown">
-            <fmt:message key="button.sortByDate"/>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="sortDropDown">
-            <a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=asc"><fmt:message
-                    key="button.sortAsc"/> </a>
-            <a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=desc"><fmt:message
-                    key="button.sortDesc"/> </a>
+        <div class="col-2" style="display: flex;justify-content: center">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropDown"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <fmt:message key="button.sortByDate"/>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="sortDropDown">
+                    <li><a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=asc"><fmt:message
+                            key="button.sortAsc"/> </a></li>
+                    <li><a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=desc"><fmt:message
+                            key="button.sortDesc"/> </a></li>
+                </ul>
+            </div>
         </div>
     </div>
-
 
     ${noVacancies}
     <fmt:message key="vacancy_vacanciesAmount"/> ${vacancies.size()}
@@ -64,5 +70,3 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
-
-
