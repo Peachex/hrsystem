@@ -10,28 +10,52 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.currentLocale}"/>
 <fmt:setBundle basename="locale.page_content"/>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        crossorigin="anonymous"></script>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
-
 <html>
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
+
     <title><fmt:message key="home.title"/></title>
 </head>
 <body>
 <div class="main-container">
     <%@ include file="header.jsp" %>
+    <div id="carouselExampleInterval" class="mt-5 carousel carousel-dark slide offset-5"
+         style="width: 20%;padding-top: 10%;"
+         data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="4000">
+                <img src="${pageContext.request.contextPath}/img/headhunting.png" class="d-block w-100" alt="...">
+                <h1><fmt:message key="home.firstSlideName"/></h1>
+                <h3><fmt:message key="home.seeVacanciesMessage"/></h3>
+            </div>
+            <div class="carousel-item" data-bs-interval="4000">
+                <img src="${pageContext.request.contextPath}/img/portfolio.png" class="d-block w-100" alt="...">
+                <h1><fmt:message key="home.secondSlideName"/></h1>
+                <h3><fmt:message key="home.registerAndApplyVacanciesMessage"/></h3>
+            </div>
+            <div class="carousel-item">
+                <img src="${pageContext.request.contextPath}/img/chair.png" class="d-block w-100" alt="...">
+                <h1><fmt:message key="home.thirdSlideName"/></h1>
+                <h3><fmt:message key="home.getJobMessage"/></h3>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </a>
+    </div>
 
-    <br>
-    <img src="${pageContext.request.contextPath}/img/portfolio.png" width="128" height="128" class="row offset-6">
-    <br>
-    <img src="${pageContext.request.contextPath}/img/headhunting.png" width="128" height="128" class="row offset-6">
-    <br>
-    <img src="${pageContext.request.contextPath}/img/chair.png" width="128" height="128" class="row offset-6">
+
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
 </body>
 </html>
