@@ -60,15 +60,32 @@
         </wrong-message>
     </div>
 
-    <fmt:message key="vacancy_vacanciesAmount"/> ${vacancies.size()}
-    <c:forEach var="vacancy" items="${vacancies}">
+    <div class="mt-3">
+        <vacancies-number><fmt:message key="vacancy_vacanciesAmount"/> ${vacancies.size()}</vacancies-number>
+    </div>
+
+    <table class="table mt-4 offset-2" style="width: 70%">
+        <thead>
         <tr>
-            <a href="<c:url value="vacancy_info.do?vacancyId=${vacancy.id}"/>"
-               class="list-group-item list-group-item-action">${vacancy.position}
-                    ${vacancy.creationDate}</a>
-            <br>
+            <th scope="col"><fmt:message key="vacancy_position"/></th>
+            <th scope="col"><fmt:message key="vacancy_country"/></th>
+            <th scope="col"><fmt:message key="vacancy_city"/></th>
+            <th scope="col"><fmt:message key="vacancy_creationDate"/></th>
         </tr>
-    </c:forEach>
+        </thead>
+        <tbody>
+        <c:forEach var="vacancy" items="${vacancies}">
+        <tr>
+
+            <th scope="row"><a href="<c:url value="vacancy_info.do?vacancyId=${vacancy.id}"/>"> ${vacancy.position}></a>
+            </th>
+            <th scope="row">${vacancy.country}</th>
+            <th scope="row">${vacancy.city}</th>
+            <th scope="row">${vacancy.creationDate}</th>
+        <tr>
+            </c:forEach>
+        </tbody>
+    </table>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"

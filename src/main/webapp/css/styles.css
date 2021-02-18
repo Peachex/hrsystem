@@ -30,6 +30,13 @@ wrong-message {
     justify-content: center;
 }
 
+vacancies-number{
+    font-size: 20px;
+    display: flex;
+    color: #8f8f8f;
+    justify-content: center;
+}
+
 .avatar {
     background: #2e2e2e no-repeat;
     border: #2e2e2e;
