@@ -23,6 +23,7 @@ public class DeleteVacancyCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
+        //fixme
         VacancyService service = VacancyServiceImpl.INSTANCE;
         CommandResult result = new CommandResult(CommandName.TO_VACANCY, CommandResult.Type.FORWARD);
         try {

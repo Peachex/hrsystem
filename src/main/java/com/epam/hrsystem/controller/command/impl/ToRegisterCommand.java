@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ToRegisterCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
+        //fixme
         CommandResult result = new CommandResult(PagePath.REGISTER, CommandResult.Type.FORWARD);
         return result;
     }

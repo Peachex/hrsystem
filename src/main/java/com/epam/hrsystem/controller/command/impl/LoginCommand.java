@@ -18,6 +18,7 @@ import java.util.Optional;
 
 public class LoginCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request) throws CommandException {
+        //fixme
         String email = request.getParameter(RequestParameter.EMAIL);
         String password = request.getParameter(RequestParameter.PASSWORD);
         UserService service = UserServiceImpl.INSTANCE;

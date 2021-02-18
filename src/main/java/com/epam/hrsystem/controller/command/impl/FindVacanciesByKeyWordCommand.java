@@ -16,6 +16,7 @@ import java.util.List;
 public class FindVacanciesByKeyWordCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
+        //fixme
         VacancyService service = VacancyServiceImpl.INSTANCE;
         CommandResult result = new CommandResult(PagePath.VACANCY, CommandResult.Type.FORWARD);
         try {

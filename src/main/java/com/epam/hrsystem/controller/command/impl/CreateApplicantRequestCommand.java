@@ -26,6 +26,7 @@ public class CreateApplicantRequestCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
+        //fixme
         String summary = request.getParameter(RequestParameter.SUMMARY);
         HttpSession session = request.getSession();
         User applicant = (User) session.getAttribute(SessionAttribute.USER);

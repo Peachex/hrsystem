@@ -16,6 +16,7 @@ import java.util.List;
 public class SortVacanciesByDateCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
+        //fixme
         CommandResult result = new CommandResult(PagePath.VACANCY, CommandResult.Type.FORWARD);
         Comparator<Vacancy> comparator = VacancyComparator.VACANCY_CREATION_DATE;
         ServletContext servletContext = request.getServletContext();

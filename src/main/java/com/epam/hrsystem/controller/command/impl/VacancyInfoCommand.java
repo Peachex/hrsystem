@@ -21,6 +21,7 @@ public class VacancyInfoCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
+        //fixme
         String vacancyId = request.getParameter(RequestParameter.VACANCY_ID);
         VacancyService service = VacancyServiceImpl.INSTANCE;
         CommandResult result;

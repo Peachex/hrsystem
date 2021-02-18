@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 public class LogoutCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
+        //fixme
         HttpSession session = request.getSession();
         session.removeAttribute(SessionAttribute.USER);
         session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.GUEST);

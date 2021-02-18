@@ -2,8 +2,8 @@ package com.epam.hrsystem.controller.command.impl;
 
 import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.PagePath;
-import com.epam.hrsystem.controller.attribute.RequestParameter;
-import com.epam.hrsystem.controller.attribute.SessionAttribute;
+import com.epam.hrsystem.controller.attribute.RequestParameter;;
+import com.epam.hrsystem.controller.attribute.UrlPattern;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
@@ -15,7 +15,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -45,9 +44,7 @@ public class RegisterCommand implements ActionCommand {
         CommandResult result;
         try {
             if (service.register(fields)) {
-                result = new CommandResult(PagePath.LOGIN, CommandResult.Type.FORWARD);
-                HttpSession session = request.getSession();
-                session.setAttribute(SessionAttribute.CURRENT_PAGE, result.getPath());
+                result = new CommandResult(UrlPattern.LOGIN, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute(RequestParameter.FIRST_NAME, fields.get(RequestParameter.FIRST_NAME));
                 request.setAttribute(RequestParameter.LAST_NAME, fields.get(RequestParameter.LAST_NAME));
