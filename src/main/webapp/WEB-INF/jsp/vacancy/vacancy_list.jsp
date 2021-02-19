@@ -64,7 +64,7 @@
         <vacancies-number><fmt:message key="vacancy_vacanciesAmount"/> ${vacancies.size()}</vacancies-number>
     </div>
 
-    <table class="table table-dark table-bordered border-dark mt-4 offset-2" style="width: 70%">
+    <table class="table table-dark table-bordered border-secondary mt-4 offset-2" style="width: 70%">
         <thead>
         <tr>
             <th scope="col"><fmt:message key="vacancy_position"/></th>
