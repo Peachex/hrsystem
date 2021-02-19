@@ -14,7 +14,7 @@ public class ChangeLanguageCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         HttpSession session = request.getSession();
-        CommandResult result = new CommandResult((String) session.getAttribute(SessionAttribute.PREVIOUS_PAGE), CommandResult.Type.FORWARD);
+        CommandResult result = new CommandResult(CommandResult.Type.RETURN);
         String newLocaleStr = request.getParameter(RequestParameter.NEW_LOCALE);
         Locale newLocale = Locale.defineLocale(newLocaleStr);
         session.setAttribute(SessionAttribute.CURRENT_LOCALE, newLocale.getLocale());

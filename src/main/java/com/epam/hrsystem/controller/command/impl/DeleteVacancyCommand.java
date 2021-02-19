@@ -31,8 +31,7 @@ public class DeleteVacancyCommand implements ActionCommand {
             boolean isDeleted = service.deleteVacancy(id);
             if (!isDeleted) {
                 HttpSession session = request.getSession();
-                String previousPage = (String) session.getAttribute(SessionAttribute.PREVIOUS_PAGE);
-                result = new CommandResult(previousPage, CommandResult.Type.FORWARD);
+                result = new CommandResult(CommandResult.Type.RETURN);
                 request.setAttribute(Constant.ERROR_VACANCY_DELETE_ATTRIBUTE, Constant.ERROR_VACANCY_DELETE_MESSAGE);
             }
         } catch (ServiceException | NumberFormatException e) {

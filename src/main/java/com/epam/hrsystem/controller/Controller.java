@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller;
 
+import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.UrlPattern;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandProvider;
@@ -53,6 +54,11 @@ public class Controller extends HttpServlet {
                 }
                 case REDIRECT: {
                     response.sendRedirect(request.getContextPath() + urlPath);
+                    break;
+                }
+                case RETURN: {
+                    String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
+                    response.sendRedirect(previousUrl);
                     break;
                 }
             }

@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.filter;
 
+import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -47,7 +48,8 @@ public class DoublePostingPreventingFilter implements Filter {
                 chain.doFilter(servletRequest, servletResponse);
             } else {
                 logger.log(Level.ERROR, "Couldn't execute double post servletRequest");
-                RequestDispatcher dispatcher = servletRequest.getRequestDispatcher((String) session.getAttribute(SessionAttribute.CURRENT_PAGE));
+                HttpServletRequest request = (HttpServletRequest) servletRequest;
+                RequestDispatcher dispatcher = servletRequest.getRequestDispatcher(request.getHeader(RequestParameter.HEADER_REFERER));
                 dispatcher.forward(servletRequest, servletResponse);
             }
         }

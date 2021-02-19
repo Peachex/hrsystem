@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ToLoginCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        //fixme
         CommandResult result = new CommandResult(PagePath.LOGIN, CommandResult.Type.FORWARD);
         return result;
     }

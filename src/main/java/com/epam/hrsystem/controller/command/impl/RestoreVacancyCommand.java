@@ -30,9 +30,7 @@ public class RestoreVacancyCommand implements ActionCommand {
             long id = Long.parseLong(vacancyId);
             boolean isRestored = service.restoreVacancy(id);
             if (!isRestored) {
-                HttpSession session = request.getSession();
-                String previousPage = (String) session.getAttribute(SessionAttribute.PREVIOUS_PAGE);
-                result = new CommandResult(previousPage, CommandResult.Type.FORWARD);
+                result = new CommandResult(CommandResult.Type.RETURN);
                 request.setAttribute(Constant.ERROR_VACANCY_RESTORE_ATTRIBUTE, Constant.ERROR_VACANCY_RESTORE_MESSAGE);
             }
         } catch (ServiceException | NumberFormatException e) {

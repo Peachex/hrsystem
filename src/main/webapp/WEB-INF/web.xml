@@ -39,15 +39,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <filter>
-        <filter-name>SaveUrlFilter</filter-name>
-        <filter-class>com.epam.hrsystem.controller.filter.PageTrackFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>SaveUrlFilter</filter-name>
-        <url-pattern>*.do</url-pattern>
-    </filter-mapping>
-
     <listener>
         <listener-class>com.epam.hrsystem.controller.listener.SessionListener</listener-class>
     </listener>

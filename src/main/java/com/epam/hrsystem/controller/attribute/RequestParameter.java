@@ -31,6 +31,8 @@ public class RequestParameter {
     //Different
     public static final String NEW_LOCALE = "newLocale";
 
+    public static final String HEADER_REFERER = "REFERER";
+
     private RequestParameter() {
     }
 

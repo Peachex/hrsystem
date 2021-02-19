@@ -11,6 +11,7 @@ public class CommandResult {
     public enum Type {
         FORWARD,
         REDIRECT,
+        RETURN,
     }
 
     public CommandResult(String path, Type type) {
@@ -21,6 +22,10 @@ public class CommandResult {
     public CommandResult(String path) {
         this.path = path;
         this.type = Type.FORWARD;
+    }
+
+    public CommandResult(Type type) {
+        this.type = type;
     }
 
     public String getPath() {
