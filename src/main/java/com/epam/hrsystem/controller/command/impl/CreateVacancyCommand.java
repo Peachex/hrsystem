@@ -1,6 +1,5 @@
 package com.epam.hrsystem.controller.command.impl;
 
-import com.epam.hrsystem.controller.attribute.CommandName;
 import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
@@ -8,7 +7,6 @@ import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
-import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
 import org.apache.logging.log4j.Level;
@@ -32,8 +30,7 @@ public class CreateVacancyCommand implements ActionCommand {
         String city = request.getParameter(RequestParameter.CITY);
 
         HttpSession session = request.getSession();
-        User employee = (User) session.getAttribute(SessionAttribute.USER);
-        long employeeId = employee.getId();
+        long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
 
         Map<String, String> fields = new LinkedHashMap<>();
         fields.put(RequestParameter.POSITION, position);
@@ -42,7 +39,7 @@ public class CreateVacancyCommand implements ActionCommand {
         fields.put(RequestParameter.CITY, city);
 
         VacancyService service = VacancyServiceImpl.INSTANCE;
-        CommandResult result = new CommandResult(CommandName.TO_VACANCIES, CommandResult.Type.FORWARD);
+        CommandResult result = new CommandResult(CommandResult.Type.RETURN_WITH_REDIRECT);
         try {
             if (!service.createVacancy(fields, employeeId)) {
                 request.setAttribute(RequestParameter.POSITION, fields.get(RequestParameter.POSITION));
