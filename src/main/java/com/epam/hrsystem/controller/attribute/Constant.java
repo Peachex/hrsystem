@@ -19,7 +19,11 @@ public class Constant {
     public static final String CREATION_APPLICANT_REQUEST_MAIL_TEXT = "Hello! Thanks for the application you left. Wait for telephone interview, our recruiter will contact you. Good luck!";
 
     public static final String NO_VACANCIES_ATTRIBUTE = "noVacancies";
-    public static final String NO_VACANCIES_MESSAGE = "No vacancies by your request, so we show you all vacancies";
+    public static final String NO_VACANCIES_BY_REQUEST_MESSAGE = "No vacancies by your request, so we show you all vacancies";
+    public static final String NO_VACANCIES_MESSAGE = "No vacancies";
+
+    public static final String SUCCESS_VACANCY_CREATION_ATTRIBUTE = "successVacancyCreation";
+    public static final String SUCCESS_VACANCY_CREATION_MESSAGE = "Successfully created";
 
     public static final String PERCENT_SIGN = "%";
 

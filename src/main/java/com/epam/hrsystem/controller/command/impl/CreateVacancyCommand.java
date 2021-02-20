@@ -23,7 +23,6 @@ public class CreateVacancyCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        //fixme
         String position = request.getParameter(RequestParameter.POSITION);
         String description = request.getParameter(RequestParameter.DESCRIPTION);
         String country = request.getParameter(RequestParameter.COUNTRY);
@@ -55,4 +54,3 @@ public class CreateVacancyCommand implements ActionCommand {
         return result;
     }
 }
-

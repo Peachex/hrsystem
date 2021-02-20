@@ -73,29 +73,30 @@ public class SqlQuery {
 
     public static final String SQL_SELECT_EMPLOYEE_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
-            " JOIN users ON user_id_fk = user_id WHERE user_id_fk = ? ORDER BY creation_date DESC;";
+            " JOIN users ON user_id_fk = user_id WHERE user_id_fk = ? ORDER BY creation_date DESC, position ASC;";
 
     public static final String SQL_SELECT_ACTIVE_EMPLOYEE_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
-            " JOIN users ON user_id_fk = user_id WHERE user_id_fk = ? AND is_available = '1' ORDER BY creation_date DESC;";
+            " JOIN users ON user_id_fk = user_id WHERE user_id_fk = ? AND is_available = '1' ORDER BY creation_date DESC, position ASC;";
 
     public static final String SQL_SELECT_DELETED_EMPLOYEE_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
-            " JOIN users ON user_id_fk = user_id WHERE user_id_fk = ? AND is_available = '0' ORDER BY creation_date DESC;";
+            " JOIN users ON user_id_fk = user_id WHERE user_id_fk = ? AND is_available = '0' ORDER BY creation_date DESC, position ASC;";
 
     public static final String SQL_SELECT_EMPLOYEE_VACANCIES_WITH_APPLICANTS_REQUESTS = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
-            " JOIN users ON user_id_fk = user_id JOIN applicant_requests ON vacancy_id = vacancy_id_fk WHERE vacancies.user_id_fk = ? ORDER BY creation_date DESC;"; //fixme be careful with applicant_state value
+            " JOIN users ON user_id_fk = user_id JOIN applicant_requests ON vacancy_id = vacancy_id_fk WHERE vacancies.user_id_fk = ? ORDER BY creation_date DESC," +
+            " position ASC;"; //fixme be careful with applicant_state value
 
     public static final String SQL_SELECT_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
             " JOIN users ON user_id_fk = user_id JOIN applicant_requests ON vacancy_id = vacancy_id_fk WHERE vacancies.user_id_fk = ? AND" +
-            " applicant_state != 'PASSED' AND applicant_state != 'FAILED' ORDER BY creation_date DESC;"; //fixme be careful with applicant_state value
+            " applicant_state != 'PASSED' AND applicant_state != 'FAILED' ORDER BY creation_date DESC, position ASC;"; //fixme be careful with applicant_state value
 
     public static final String SQL_SELECT_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
             " JOIN users ON user_id_fk = user_id JOIN applicant_requests ON vacancy_id = vacancy_id_fk WHERE vacancies.user_id_fk = ? AND" +
-            " applicant_state = 'PASSED' OR applicant_state = 'FAILED' ORDER BY creation_date DESC;"; //fixme be careful with applicant_state value
+            " (applicant_state = 'PASSED' OR applicant_state = 'FAILED') ORDER BY creation_date DESC, position ASC;"; //fixme be careful with applicant_state value
 
     public static final String SQL_UPDATE_VACANCY_INFO = "UPDATE vacancies SET position = ?, description = ?," +
             " country_id_fk = ?, city_id_fk = ? WHERE vacancy_id = ?;";

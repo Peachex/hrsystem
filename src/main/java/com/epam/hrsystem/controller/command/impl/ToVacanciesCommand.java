@@ -24,7 +24,7 @@ public class ToVacanciesCommand implements ActionCommand {
             if (vacancies.size() > 0) {
                 request.setAttribute(RequestParameter.VACANCIES, vacancies);
             } else {
-                request.setAttribute(Constant.NO_VACANCIES_ATTRIBUTE, Constant.NO_VACANCIES_MESSAGE);
+                request.setAttribute(Constant.NO_VACANCIES_ATTRIBUTE, Constant.NO_VACANCIES_BY_REQUEST_MESSAGE);
             }
         } catch (ServiceException e) {
             throw new CommandException(e);
