@@ -25,17 +25,94 @@
     <%@ include file="../home/header.jsp" %>
     <c:set var="vacancies" scope="request" value="${vacancies}"/>
 
-    <div class="row align-items-start" style="margin-top: 3%">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-outline-secondary mt-5" style="margin-left: 30.7%; width: 40%"
+            data-bs-toggle="modal" data-bs-target="#createVacancyModal">
+        <fmt:message key="button.createVacancy"/>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="createVacancyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><fmt:message key="create_vacancy_modal.title"/></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form name="create-vacancy-form" method="POST" action="create_vacancy.do">
+                        <label for="inputPosition"><fmt:message
+                                key="create_vacancy_modal.inputPosition"/> </label>
+                        <div class="form-group">
+                            <input type="text" class="form-control field" id="inputPosition" name="position"
+                                   value="${position}" placeholder=
+                                           "<fmt:message key="create_vacancy_modal.inputPositionPlaceholder"/>"
+                                   required pattern="[А-Яа-я\w\s\p{Punct}]{3,1000}">
+                        </div>
+
+                        <div class="mt-3">
+                            <label for="inputDescription"><fmt:message
+                                    key="create_vacancy_modal.inputDescription"/> </label>
+                        </div>
+                        <div class="form-group">
+                                    <textarea class="form-control" rows="5" id="inputDescription"
+                                              name="description" placeholder="<fmt:message
+                                             key="create_vacancy_modal.inputDescriptionPlaceholder"/>"
+                                              required></textarea>
+                        </div>
+
+                        <div class="mt-3">
+                            <label for="inputCountry"><fmt:message
+                                    key="create_vacancy_modal.inputCountry"/> </label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control field" id="inputCountry" name="country"
+                                   value="${country}" placeholder=
+                                           "<fmt:message key="create_vacancy_modal.inputCountryPlaceholder"/>"
+                                   required pattern="[a-zA-Zа-яА-я\s]{3,50}">
+                        </div>
+
+                        <div class="mt-3">
+                            <label for="inputCity"><fmt:message
+                                    key="create_vacancy_modal.inputCity"/> </label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control field" id="inputCity" name="city"
+                                   value="${city}" placeholder=
+                                           "<fmt:message key="create_vacancy_modal.inputCityPlaceholder"/>"
+                                   required pattern="[a-zA-Zа-яА-я\s]{2,50}">
+                        </div>
+
+                        <div class="col-4">
+                            <button class="btn btn-outline-success button mt-4" style="margin-left: 100%" type="submit"><fmt:message
+                                    key="button.create"/></button>
+                        </div>
+                        <input name="ctoken" type="hidden" value="${stoken}"/>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><fmt:message
+                            key="button.close"/></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row align-items-start" style="margin-top: 2%">
         <div class="col-2 offset-3" style="display: flex; justify-content: center">
-            <a class="btn btn-secondary" href="to_employee_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-outline-secondary" href="to_employee_vacancies.do" role="button"><fmt:message
                     key="button.seeAllVacancies"/> </a>
         </div>
         <div class="col-2" style="display: flex; justify-content: center">
-            <a class="btn btn-secondary" href="see_active_employee_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-outline-secondary" href="see_active_employee_vacancies.do" role="button"><fmt:message
                     key="button.seeActiveVacancies"/> </a>
         </div>
         <div class="col-2" style="display: flex; justify-content: center">
-            <a class="btn btn-secondary" href="see_deleted_employee_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-outline-secondary" href="see_deleted_employee_vacancies.do" role="button"><fmt:message
                     key="button.seeDeletedVacancies"/> </a>
         </div>
     </div>
@@ -46,7 +123,8 @@
     </div>
 
     <div class="mt-3">
-        <vacancies-number><fmt:message key="vacancy_vacanciesAmount"/> ${vacancies.size()}</vacancies-number>
+        <vacancies-number><fmt:message
+                key="vacancy_vacanciesAmount"/> ${vacancies.size()}</vacancies-number>
     </div>
 
     <table class="table table-dark table-bordered border-secondary mt-4 offset-2" style="width: 70%">
