@@ -141,6 +141,9 @@
         <wrong-message>
             ${errorVacancyCreation}
         </wrong-message>
+        <wrong-message>
+            ${noVacancies}
+        </wrong-message>
     </div>
 
     <div class="mt-3">
