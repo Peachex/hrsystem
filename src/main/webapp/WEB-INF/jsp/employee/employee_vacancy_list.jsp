@@ -45,7 +45,7 @@
                     <form name="create-vacancy-form" method="POST" action="create_vacancy.do">
                         <label for="inputPosition"><fmt:message
                                 key="create_vacancy_modal.inputPosition"/> </label>
-                        <div class="form-group">
+                        <div class="form-group mt-1">
                             <input type="text" class="form-control field" id="inputPosition" name="position"
                                    value="${position}" placeholder=
                                            "<fmt:message key="create_vacancy_modal.inputPositionPlaceholder"/>"
@@ -56,7 +56,7 @@
                             <label for="inputDescription"><fmt:message
                                     key="create_vacancy_modal.inputDescription"/> </label>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-1">
                                     <textarea class="form-control" rows="5" id="inputDescription"
                                               name="description" placeholder="<fmt:message
                                              key="create_vacancy_modal.inputDescriptionPlaceholder"/>"
@@ -67,7 +67,7 @@
                             <label for="inputCountry"><fmt:message
                                     key="create_vacancy_modal.inputCountry"/> </label>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-1">
                             <input type="text" class="form-control field" id="inputCountry" name="country"
                                    value="${country}" placeholder=
                                            "<fmt:message key="create_vacancy_modal.inputCountryPlaceholder"/>"
@@ -78,7 +78,7 @@
                             <label for="inputCity"><fmt:message
                                     key="create_vacancy_modal.inputCity"/> </label>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-1">
                             <input type="text" class="form-control field" id="inputCity" name="city"
                                    value="${city}" placeholder=
                                            "<fmt:message key="create_vacancy_modal.inputCityPlaceholder"/>"
