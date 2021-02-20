@@ -11,8 +11,6 @@ import com.epam.hrsystem.controller.command.impl.RegisterCommand;
 import com.epam.hrsystem.controller.command.impl.RestoreVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.SeeAllVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.SortVacanciesByDateCommand;
-import com.epam.hrsystem.controller.command.impl.ToLoginCommand;
-import com.epam.hrsystem.controller.command.impl.ToRegisterCommand;
 import com.epam.hrsystem.controller.command.impl.VacancyInfoCommand;
 import com.epam.hrsystem.controller.command.impl.ToVacanciesCommand;
 
@@ -20,14 +18,8 @@ public enum CommandEnum {
     REGISTER {{
         this.command = new RegisterCommand();
     }},
-    TO_REGISTER {{
-        this.command = new ToRegisterCommand();
-    }},
     LOGIN {{
         this.command = new LoginCommand();
-    }},
-    TO_LOGIN {{
-        this.command = new ToLoginCommand();
     }},
     LOGOUT {{
         this.command = new LogoutCommand();

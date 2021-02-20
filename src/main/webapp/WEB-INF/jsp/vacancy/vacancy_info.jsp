@@ -68,7 +68,7 @@
     </c:if>
 
     <c:if test="${role.toString().equals(guest)}">
-        <a class="btn btn-primary col-2 offset-3" href="to_login.do" role="button" style="margin-top: 2%;
+        <a class="btn btn-primary col-2 offset-3" href="login" role="button" style="margin-top: 2%;
     width: 10%;"><fmt:message
                 key="button.createVacancyRequest"/> </a>
     </c:if>

@@ -26,7 +26,11 @@
     <c:set var="vacancies" scope="application" value="${vacancies}"/>
 
     <div class="row align-items-start" style="margin-top: 3%">
-        <div class="col-3 offset-3">
+        <div class="col-2 offset-2" style="display: flex;justify-content: center">
+            <a class="btn btn-secondary" href="to_vacancies.do" role="button"><fmt:message
+                    key="button.seeAllVacancies"/> </a>
+        </div>
+        <div class="col-3">
             <form name="find-vacancy-from" method="GET" action="find_vacancies_by_key_word.do">
                 <div class="d-flex">
                     <input class="form-control me-2" type="search"

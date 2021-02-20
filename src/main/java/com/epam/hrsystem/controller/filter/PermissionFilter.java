@@ -43,8 +43,6 @@ public class PermissionFilter implements Filter {
         List<CommandEnum> guestCommands = new ArrayList<>(sameCommands);
         guestCommands.add(CommandEnum.REGISTER);
         guestCommands.add(CommandEnum.LOGIN);
-        guestCommands.add(CommandEnum.TO_LOGIN);
-        guestCommands.add(CommandEnum.TO_REGISTER);
 
         List<CommandEnum> applicantCommands = new ArrayList<>(sameCommands);
         applicantCommands.add(CommandEnum.LOGOUT);

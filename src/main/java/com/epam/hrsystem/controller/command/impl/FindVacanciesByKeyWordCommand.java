@@ -16,17 +16,17 @@ import java.util.List;
 
 public class FindVacanciesByKeyWordCommand implements ActionCommand {
     @Override
+    //fixme find from page instead database
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         VacancyService service = VacancyServiceImpl.INSTANCE;
         CommandResult result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD);
         try {
             String keyWord = request.getParameter(RequestParameter.KEY_WORD);
             List<Vacancy> vacancies = service.findVacanciesByKeyWord(keyWord);
-            if (vacancies.size() > 0) {
-                request.setAttribute(RequestParameter.VACANCIES, vacancies);
-            } else {
+            if (vacancies.size() == 0) {
                 request.setAttribute(Constant.NO_VACANCIES_ATTRIBUTE, Constant.NO_VACANCIES_MESSAGE);
             }
+            request.setAttribute(RequestParameter.VACANCIES, vacancies);
             request.setAttribute(RequestParameter.KEY_WORD, keyWord);
         } catch (ServiceException e) {
             throw new CommandException(e);

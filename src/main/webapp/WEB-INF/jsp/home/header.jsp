@@ -48,9 +48,9 @@
             </li>
 
             <c:if test="${role.toString().equals(guest)}">
-                <a class="nav-link header-link offset-1" href="to_register.do"><fmt:message
+                <a class="nav-link header-link offset-1" href="register"><fmt:message
                         key="header.register"/></a>
-                <a class="nav-link header-link offset-1" href="to_login.do"><fmt:message
+                <a class="nav-link header-link offset-1" href="login"><fmt:message
                         key="header.login"/></a>
             </c:if>
 

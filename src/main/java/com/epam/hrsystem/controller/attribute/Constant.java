@@ -21,6 +21,8 @@ public class Constant {
     public static final String NO_VACANCIES_ATTRIBUTE = "noVacancies";
     public static final String NO_VACANCIES_MESSAGE = "No vacancies by your request, so we show you all vacancies";
 
+    public static final String PERCENT_SIGN = "%";
+
     private Constant() {
     }
 }
