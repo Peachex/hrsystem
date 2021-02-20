@@ -16,6 +16,8 @@ public interface VacancyDao {
 
     List<Vacancy> findVacanciesByKeyWord(String keyWord) throws DaoException;
 
+    List<Vacancy> findEmployeeVacanciesByQuery(long employeeId, String sqlQuery) throws DaoException;
+
     boolean updateVacancyInfo(Vacancy vacancy) throws DaoException;
 
     Optional<Vacancy> findVacancyById(long vacancyId) throws DaoException;

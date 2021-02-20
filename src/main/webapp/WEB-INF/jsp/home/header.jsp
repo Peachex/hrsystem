@@ -68,7 +68,7 @@
                                     key="user.requests"/></a></li>
                         </c:if>
                         <c:if test="${!role.toString().equals(applicant)}">
-                            <li><a class="dropdown-item" href="home"><fmt:message
+                            <li><a class="dropdown-item" href="to_employee_vacancies.do"><fmt:message
                                     key="user.employeeVacancies"/></a></li>
                         </c:if>
                         <c:if test="${role.toString().equals(admin)}">

@@ -30,6 +30,7 @@ public class LoginCommand implements ActionCommand {
                 HttpSession session = request.getSession();
                 session.setAttribute(SessionAttribute.USER, user);
                 session.setAttribute(SessionAttribute.CURRENT_ROLE, user.getRole());
+                session.setAttribute(SessionAttribute.USER_ID, user.getId());
                 result = new CommandResult(UrlPattern.HOME, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute(RequestParameter.EMAIL, email);

@@ -16,7 +16,6 @@ import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.validator.VacancyValidator;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -97,6 +96,36 @@ public enum VacancyServiceImpl implements VacancyService {
     public List<Vacancy> findAvailableVacancies() throws ServiceException {
         try {
             List<Vacancy> vacancies = dao.findVacanciesBySqlQuery(SqlQuery.SQL_SELECT_AVAILABLE_VACANCIES);
+            return vacancies;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Vacancy> findEmployeeVacancies(long employeeId) throws ServiceException {
+        try {
+            List<Vacancy> vacancies = dao.findEmployeeVacanciesByQuery(employeeId, SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES);
+            return vacancies;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Vacancy> findActiveEmployeeVacancies(long employeeId) throws ServiceException {
+        try {
+            List<Vacancy> vacancies = dao.findEmployeeVacanciesByQuery(employeeId, SqlQuery.SQL_SELECT_ACTIVE_EMPLOYEE_VACANCIES);
+            return vacancies;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Vacancy> findDeletedEmployeeVacancies(long employeeId) throws ServiceException {
+        try {
+            List<Vacancy> vacancies = dao.findEmployeeVacanciesByQuery(employeeId, SqlQuery.SQL_SELECT_DELETED_EMPLOYEE_VACANCIES);
             return vacancies;
         } catch (DaoException e) {
             throw new ServiceException(e);

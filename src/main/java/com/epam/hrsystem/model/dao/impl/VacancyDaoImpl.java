@@ -95,6 +95,24 @@ public enum VacancyDaoImpl implements VacancyDao {
     }
 
     @Override
+    public List<Vacancy> findEmployeeVacanciesByQuery(long employeeId, String sqlQuery) throws DaoException {
+        List<Vacancy> vacancies = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setLong(1, employeeId);
+            statement.executeQuery();
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                Vacancy vacancy = createVacancyFromResultSet(resultSet);
+                vacancies.add(vacancy);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return vacancies;
+    }
+
+    @Override
     public boolean updateVacancyInfo(Vacancy vacancy) throws DaoException {
         boolean result;
         try (Connection connection = pool.takeConnection();

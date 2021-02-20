@@ -20,6 +20,12 @@ public interface VacancyService {
 
     List<Vacancy> findAvailableVacancies() throws ServiceException;
 
+    List<Vacancy> findEmployeeVacancies(long employeeId) throws ServiceException;
+
+    List<Vacancy> findActiveEmployeeVacancies(long employeeId) throws ServiceException;
+
+    List<Vacancy> findDeletedEmployeeVacancies(long employeeId) throws ServiceException;
+
     boolean updateVacancyInfo(long vacancyId, Map<String, String> fields) throws ServiceException;
 
     boolean vacancyExists(Vacancy vacancy) throws ServiceException;

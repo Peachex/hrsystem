@@ -9,8 +9,11 @@ import com.epam.hrsystem.controller.command.impl.LoginCommand;
 import com.epam.hrsystem.controller.command.impl.LogoutCommand;
 import com.epam.hrsystem.controller.command.impl.RegisterCommand;
 import com.epam.hrsystem.controller.command.impl.RestoreVacancyCommand;
+import com.epam.hrsystem.controller.command.impl.SeeActiveEmployeeVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.SeeAllVacanciesCommand;
+import com.epam.hrsystem.controller.command.impl.SeeDeletedEmployeeVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.SortVacanciesByDateCommand;
+import com.epam.hrsystem.controller.command.impl.ToEmployeeVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.VacancyInfoCommand;
 import com.epam.hrsystem.controller.command.impl.ToVacanciesCommand;
 
@@ -30,6 +33,9 @@ public enum CommandEnum {
     TO_VACANCIES {{
         this.command = new ToVacanciesCommand();
     }},
+    TO_EMPLOYEE_VACANCIES {{
+        this.command = new ToEmployeeVacanciesCommand();
+    }},
     VACANCY_INFO {{
         this.command = new VacancyInfoCommand();
     }},
@@ -44,6 +50,12 @@ public enum CommandEnum {
     }},
     SEE_ALL_VACANCIES {{
         this.command = new SeeAllVacanciesCommand();
+    }},
+    SEE_ACTIVE_EMPLOYEE_VACANCIES {{
+        this.command = new SeeActiveEmployeeVacanciesCommand();
+    }},
+    SEE_DELETED_EMPLOYEE_VACANCIES {{
+        this.command = new SeeDeletedEmployeeVacanciesCommand();
     }},
     DELETE_VACANCY {{
         this.command = new DeleteVacancyCommand();
