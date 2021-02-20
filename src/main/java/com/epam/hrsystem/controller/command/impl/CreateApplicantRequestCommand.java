@@ -45,7 +45,7 @@ public class CreateApplicantRequestCommand implements ActionCommand {
                 mailSender.send();
                 result = new CommandResult(CommandName.TO_VACANCIES, CommandResult.Type.FORWARD);
             } else {
-                result = new CommandResult(CommandResult.Type.RETURN);
+                result = new CommandResult(CommandResult.Type.RETURN_WITH_REDIRECT);
                 request.setAttribute(Constant.ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE, Constant.ERROR_APPLICANT_REQUEST_CREATION_MESSAGE);
             }
         } catch (ServiceException e) {

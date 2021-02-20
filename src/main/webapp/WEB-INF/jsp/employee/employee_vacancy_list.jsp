@@ -139,7 +139,7 @@
     </div>
     <div class="mt-3">
         <wrong-message>
-            ${noVacancies}
+            ${errorVacancyCreation}
         </wrong-message>
     </div>
 

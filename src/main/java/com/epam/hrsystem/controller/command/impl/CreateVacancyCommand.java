@@ -46,10 +46,10 @@ public class CreateVacancyCommand implements ActionCommand {
         try {
             if (!service.createVacancy(fields, employeeId)) {
                 request.setAttribute(RequestParameter.POSITION, fields.get(RequestParameter.POSITION));
-                request.setAttribute(RequestParameter.DESCRIPTION, fields.get(RequestParameter.DESCRIPTION));
                 request.setAttribute(RequestParameter.COUNTRY, fields.get(RequestParameter.COUNTRY));
                 request.setAttribute(RequestParameter.CITY, fields.get(RequestParameter.CITY));
                 request.setAttribute(Constant.ERROR_VACANCY_CREATION_ATTRIBUTE, Constant.ERROR_VACANCY_CREATION_MESSAGE);
+                result = new CommandResult(CommandResult.Type.RETURN_WITH_FORWARD);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, "Couldn't create vacancy");

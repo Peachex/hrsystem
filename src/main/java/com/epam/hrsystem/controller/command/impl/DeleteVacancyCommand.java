@@ -3,7 +3,6 @@ package com.epam.hrsystem.controller.command.impl;
 import com.epam.hrsystem.controller.attribute.CommandName;
 import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
-import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
@@ -31,7 +30,7 @@ public class DeleteVacancyCommand implements ActionCommand {
             boolean isDeleted = service.deleteVacancy(id);
             if (!isDeleted) {
                 HttpSession session = request.getSession();
-                result = new CommandResult(CommandResult.Type.RETURN);
+                result = new CommandResult(CommandResult.Type.RETURN_WITH_REDIRECT);
                 request.setAttribute(Constant.ERROR_VACANCY_DELETE_ATTRIBUTE, Constant.ERROR_VACANCY_DELETE_MESSAGE);
             }
         } catch (ServiceException | NumberFormatException e) {
