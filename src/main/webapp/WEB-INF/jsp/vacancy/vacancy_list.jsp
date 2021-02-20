@@ -23,7 +23,7 @@
 <body>
 <div class="main-container">
     <%@ include file="../home/header.jsp" %>
-    <c:set var="vacancies" scope="application" value="${vacancies}"/>
+    <c:set var="vacancies" scope="session" value="${vacancies}"/>
 
     <div class="row align-items-start" style="margin-top: 3%">
         <div class="col-2 offset-2" style="display: flex;justify-content: center">
@@ -50,10 +50,10 @@
                     <fmt:message key="button.sortByDate"/>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="sortDropDown">
-                    <li><a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=asc"><fmt:message
-                            key="button.sortAsc"/> </a></li>
                     <li><a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=desc"><fmt:message
                             key="button.sortDesc"/> </a></li>
+                    <li><a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=asc"><fmt:message
+                            key="button.sortAsc"/> </a></li>
                 </ul>
             </div>
         </div>
