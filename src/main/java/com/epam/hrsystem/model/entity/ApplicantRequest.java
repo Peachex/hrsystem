@@ -21,8 +21,6 @@ public class ApplicantRequest {
     public ApplicantRequest(String summary, ApplicantState applicantState) {
         this.summary = summary;
         this.applicantState = applicantState;
-        this.applicant = applicant;
-        this.vacancy = vacancy;
     }
 
     public long getId() {

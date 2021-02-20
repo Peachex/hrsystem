@@ -12,6 +12,9 @@ import com.epam.hrsystem.controller.command.impl.RestoreVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.SeeActiveEmployeeVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.SeeAllVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.SeeDeletedEmployeeVacanciesCommand;
+import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithActiveApplicantsRequestsCommand;
+import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithApplicantsRequestsCommand;
+import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithNotActiveApplicantsRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.SortVacanciesByDateCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.VacancyInfoCommand;
@@ -56,6 +59,15 @@ public enum CommandEnum {
     }},
     SEE_DELETED_EMPLOYEE_VACANCIES {{
         this.command = new SeeDeletedEmployeeVacanciesCommand();
+    }},
+    SEE_EMPLOYEE_VACANCIES_WITH_APPLICANTS_REQUESTS {{
+        this.command = new SeeEmployeeVacanciesWithApplicantsRequestsCommand();
+    }},
+    SEE_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS {{
+        this.command = new SeeEmployeeVacanciesWithActiveApplicantsRequestsCommand();
+    }},
+    SEE_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS {{
+        this.command = new SeeEmployeeVacanciesWithNotActiveApplicantsRequestsCommand();
     }},
     DELETE_VACANCY {{
         this.command = new DeleteVacancyCommand();

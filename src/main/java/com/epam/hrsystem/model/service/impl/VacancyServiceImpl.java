@@ -133,6 +133,36 @@ public enum VacancyServiceImpl implements VacancyService {
     }
 
     @Override
+    public List<Vacancy> findEmployeeVacanciesWithApplicantsRequests(long employeeId) throws ServiceException {
+        try {
+            List<Vacancy> vacancies = dao.findEmployeeVacanciesByQuery(employeeId, SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES_WITH_APPLICANTS_REQUESTS);
+            return vacancies;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Vacancy> findEmployeeVacanciesWithActiveApplicantsRequests(long employeeId) throws ServiceException {
+        try {
+            List<Vacancy> vacancies = dao.findEmployeeVacanciesByQuery(employeeId, SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS);
+            return vacancies;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Vacancy> findEmployeeVacanciesWithNotActiveApplicantsRequests(long employeeId) throws ServiceException {
+        try {
+            List<Vacancy> vacancies = dao.findEmployeeVacanciesByQuery(employeeId, SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS);
+            return vacancies;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public boolean updateVacancyInfo(long vacancyId, Map<String, String> fields) throws ServiceException {
         boolean result = false;
         try {

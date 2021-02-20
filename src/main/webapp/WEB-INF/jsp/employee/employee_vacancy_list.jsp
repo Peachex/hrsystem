@@ -86,8 +86,9 @@
                         </div>
 
                         <div class="col-4">
-                            <button class="btn btn-outline-success button mt-4" style="margin-left: 100%" type="submit"><fmt:message
-                                    key="button.create"/></button>
+                            <button class="btn btn-outline-success button mt-4" style="margin-left: 100%" type="submit">
+                                <fmt:message
+                                        key="button.create"/></button>
                         </div>
                         <input name="ctoken" type="hidden" value="${stoken}"/>
                     </form>
@@ -103,9 +104,29 @@
 
 
     <div class="row align-items-start" style="margin-top: 2%">
-        <div class="col-2 offset-3" style="display: flex; justify-content: center">
+        <div class="col-2 offset-2" style="display: flex; justify-content: center">
             <a class="btn btn-outline-secondary" href="to_employee_vacancies.do" role="button"><fmt:message
                     key="button.seeAllVacancies"/> </a>
+        </div>
+        <div class="col-2" style="display: flex;justify-content: center">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropDown"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <fmt:message key="button.seeVacanciesWithApplicantsRequests"/>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="sortDropDown">
+                    <li><a class="dropdown-item"
+                           href="see_employee_vacancies_with_active_applicants_requests.do"><fmt:message
+                            key="button.seeVacanciesWithActiveApplicantsRequests"/> </a></li>
+                    <li><a class="dropdown-item"
+                           href="see_employee_vacancies_with_not_active_applicants_requests.do"><fmt:message
+                            key="button.seeVacanciesWithNotActiveApplicantsRequests"/> </a></li>
+                    <li><a class="dropdown-item"
+                           href="see_employee_vacancies_with_applicants_requests.do"><fmt:message
+                            key="button.seeVacanciesWithBothActiveApplicantsRequests"/> </a></li>
+                </ul>
+            </div>
         </div>
         <div class="col-2" style="display: flex; justify-content: center">
             <a class="btn btn-outline-secondary" href="see_active_employee_vacancies.do" role="button"><fmt:message
