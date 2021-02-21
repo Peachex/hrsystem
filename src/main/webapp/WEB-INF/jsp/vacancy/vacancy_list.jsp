@@ -85,7 +85,7 @@
             <th scope="row">${vacancy.country}</th>
             <th scope="row">${vacancy.city}</th>
             <th scope="row">${vacancy.creationDate}</th>
-            <th scope="row"><a href="<c:url value="vacancy_info.do?vacancyId=${vacancy.id}"/>"><fmt:message
+            <th scope="row"><a href="<c:url value="to_vacancy_info.do?vacancyId=${vacancy.id}"/>"><fmt:message
                     key="link.moreInfo"/></a></th>
         <tr>
             </c:forEach>

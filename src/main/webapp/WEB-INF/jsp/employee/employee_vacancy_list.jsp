@@ -23,7 +23,7 @@
 <body>
 <div class="main-container">
     <%@ include file="../home/header.jsp" %>
-    <c:set var="vacancies" scope="request" value="${vacancies}"/>
+    <c:set var="employeeVacancies" scope="request" value="${employeeVacancies}"/>
 
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-outline-secondary mt-5" style="margin-left: 30.7%; width: 40%"
@@ -166,7 +166,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="vacancy" items="${vacancies}">
+        <c:forEach var="vacancy" items="${employeeVacancies}">
         <tr class="table-secondary">
             <th scope="row">${vacancy.position}</th>
             <th scope="row">${vacancy.country}</th>

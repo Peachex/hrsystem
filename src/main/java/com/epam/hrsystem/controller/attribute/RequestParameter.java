@@ -24,6 +24,7 @@ public class RequestParameter {
     public static final String KEY_WORD = "keyWord";
     public static final String SORT_SEQUENCE = "sortSequence";
     public static final String VACANCY = "vacancy";
+    public static final String EMPLOYEE_VACANCIES = "employeeVacancies";
 
     //Vacancy request
     public static final String SUMMARY = "summary";

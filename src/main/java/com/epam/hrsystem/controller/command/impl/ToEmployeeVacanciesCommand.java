@@ -26,7 +26,7 @@ public class ToEmployeeVacanciesCommand implements ActionCommand {
             long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
             List<Vacancy> vacancies = service.findEmployeeVacancies(employeeId);
             if (vacancies.size() > 0) {
-                request.setAttribute(RequestParameter.VACANCIES, vacancies);
+                request.setAttribute(RequestParameter.EMPLOYEE_VACANCIES, vacancies);
             } else {
                 request.setAttribute(Constant.NO_VACANCIES_ATTRIBUTE, Constant.NO_VACANCIES_MESSAGE);
             }

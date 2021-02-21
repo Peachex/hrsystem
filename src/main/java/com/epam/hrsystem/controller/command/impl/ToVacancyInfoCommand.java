@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
-public class VacancyInfoCommand implements ActionCommand {
+public class ToVacancyInfoCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
