@@ -144,12 +144,16 @@
         <wrong-message>
             ${noVacancies}
         </wrong-message>
+        <wrond-message>
+            ${noVacancy}
+        </wrond-message>
+        <wrong-message>
+            ${errorVacancyDelete}
+            ${errorVacancyRestore}
+        </wrong-message>
     </div>
-
-    <div class="mt-3">
-        <vacancies-number><fmt:message
-                key="vacancy_vacanciesAmount"/> ${vacancies.size()}</vacancies-number>
-    </div>
+    <vacancies-number><fmt:message
+            key="vacancy_vacanciesAmount"/> ${vacancies.size()}</vacancies-number>
 
     <table class="table table-dark table-bordered border-secondary mt-4 offset-2" style="width: 70%">
         <thead>
@@ -168,7 +172,7 @@
             <th scope="row">${vacancy.country}</th>
             <th scope="row">${vacancy.city}</th>
             <th scope="row">${vacancy.creationDate}</th>
-            <th scope="row"><a href="<c:url value="vacancy_info.do?vacancyId=${vacancy.id}"/>"><fmt:message
+            <th scope="row"><a href="<c:url value="to_employee_vacancy_info.do?vacancyId=${vacancy.id}"/>"><fmt:message
                     key="link.moreInfo"/></a></th>
         <tr>
             </c:forEach>

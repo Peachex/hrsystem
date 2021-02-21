@@ -1,6 +1,7 @@
 package com.epam.hrsystem.controller.command.impl;
 
 import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -45,7 +46,7 @@ public class CreateVacancyCommand implements ActionCommand {
                 request.setAttribute(RequestParameter.COUNTRY, fields.get(RequestParameter.COUNTRY));
                 request.setAttribute(RequestParameter.CITY, fields.get(RequestParameter.CITY));
                 request.setAttribute(Constant.ERROR_VACANCY_CREATION_ATTRIBUTE, Constant.ERROR_VACANCY_CREATION_MESSAGE);
-                result = new CommandResult(CommandResult.Type.RETURN_WITH_FORWARD);
+                result = new CommandResult(PagePath.EMPLOYEE_VACANCY_LIST, CommandResult.Type.FORWARD);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, "Couldn't create vacancy");

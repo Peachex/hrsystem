@@ -3,10 +3,14 @@ package com.epam.hrsystem.controller.command.impl;
 import com.epam.hrsystem.controller.attribute.CommandName;
 import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
+import com.epam.hrsystem.controller.attribute.SessionAttribute;
+import com.epam.hrsystem.controller.attribute.UrlPattern;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
+import com.epam.hrsystem.model.entity.User;
+import com.epam.hrsystem.model.entity.UserRole;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
 import org.apache.logging.log4j.Level;
@@ -21,20 +25,27 @@ public class DeleteVacancyCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        //fixme
         VacancyService service = VacancyServiceImpl.INSTANCE;
-        CommandResult result = new CommandResult(CommandName.TO_VACANCIES, CommandResult.Type.FORWARD);
+        HttpSession session = request.getSession();
+        CommandResult result;
+        String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
         try {
-            String vacancyId = request.getParameter(RequestParameter.VACANCY_ID);
-            long id = Long.parseLong(vacancyId);
-            boolean isDeleted = service.deleteVacancy(id);
-            if (!isDeleted) {
-                HttpSession session = request.getSession();
+            long vacancyId = Long.parseLong(vacancyIdStr);
+            long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
+            boolean isDeleted = service.deleteVacancy(vacancyId, employeeId);
+            if (isDeleted) {
                 result = new CommandResult(CommandResult.Type.RETURN_WITH_REDIRECT);
+            } else {
+                User user = (User) session.getAttribute(SessionAttribute.USER);
+                if (user.getRole().equals(UserRole.EMPLOYEE)) {
+                    result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.FORWARD);
+                } else {
+                    result = new CommandResult(UrlPattern.HOME, CommandResult.Type.REDIRECT); //todo add admin vacancies management page
+                }
                 request.setAttribute(Constant.ERROR_VACANCY_DELETE_ATTRIBUTE, Constant.ERROR_VACANCY_DELETE_MESSAGE);
             }
         } catch (ServiceException | NumberFormatException e) {
-            logger.log(Level.ERROR, "Couldn't delete vacancy");
+            logger.log(Level.ERROR, "Couldn't delete vacancy with id = " + vacancyIdStr + ": " + e);
             throw new CommandException(e);
         }
         return result;

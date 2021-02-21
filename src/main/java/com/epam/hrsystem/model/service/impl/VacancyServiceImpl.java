@@ -51,10 +51,13 @@ public enum VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public boolean deleteVacancy(long vacancyId) throws ServiceException {
-        boolean result;
+    public boolean deleteVacancy(long vacancyId, long employeeId) throws ServiceException {
+        boolean result = false;
         try {
-            result = dao.updateVacancyAvailability(vacancyId, (byte) 0);
+            Optional<Vacancy> vacancy = dao.findVacancyById(vacancyId);
+            if (vacancy.isPresent() && vacancy.get().getEmployee().getId() == employeeId) {
+                result = dao.updateVacancyAvailability(vacancyId, (byte) 0);
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -62,10 +65,13 @@ public enum VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public boolean restoreVacancy(long vacancyId) throws ServiceException {
-        boolean result;
+    public boolean restoreVacancy(long vacancyId, long employeeId) throws ServiceException {
+        boolean result = false;
         try {
-            result = dao.updateVacancyAvailability(vacancyId, (byte) 1);
+            Optional<Vacancy> vacancy = dao.findVacancyById(vacancyId);
+            if (vacancy.isPresent() && vacancy.get().getEmployee().getId() == employeeId) {
+                result = dao.updateVacancyAvailability(vacancyId, (byte) 1);
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

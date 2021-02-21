@@ -10,9 +10,9 @@ import java.util.Optional;
 public interface VacancyService {
     boolean createVacancy(Map<String, String> fields, long employeeId) throws ServiceException;
 
-    boolean deleteVacancy(long vacancyId) throws ServiceException;
+    boolean deleteVacancy(long vacancyId, long employeeId) throws ServiceException;
 
-    boolean restoreVacancy(long vacancyId) throws ServiceException;
+    boolean restoreVacancy(long vacancyId, long employeeId) throws ServiceException;
 
     List<Vacancy> findAllVacancies() throws ServiceException;
 

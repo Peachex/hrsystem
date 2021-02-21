@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -16,34 +17,30 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
-public class VacancyInfoCommand implements ActionCommand {
+public class ToEmployeeVacancyInfoCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        //fixme
         String vacancyId = request.getParameter(RequestParameter.VACANCY_ID);
         VacancyService service = VacancyServiceImpl.INSTANCE;
         CommandResult result;
         try {
-            try {
-                long id = Long.parseLong(vacancyId);
-                Optional<Vacancy> vacancyOptional = service.findVacancyById(id);
-                if (vacancyOptional.isPresent()) {
-                    Vacancy vacancy = vacancyOptional.get();
-                    request.setAttribute("vacancy", vacancy);
-                    result = new CommandResult(PagePath.CURRENT_VACANCY_INFO, CommandResult.Type.FORWARD);
-                } else {
-                    result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.REDIRECT);
-                    //todo error message
-                }
-            } catch (NumberFormatException e) {
-                logger.log(Level.ERROR, e);
-                {
-                    result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.REDIRECT);
-                }
+            long id = Long.parseLong(vacancyId);
+            Optional<Vacancy> vacancyOptional = service.findVacancyById(id);
+            if (vacancyOptional.isPresent()) {
+                Vacancy vacancy = vacancyOptional.get();
+                request.setAttribute(RequestParameter.VACANCY, vacancy);
+                result = new CommandResult(PagePath.EMPLOYEE_CURRENT_VACANCY_INFO, CommandResult.Type.FORWARD);
+            } else {
+                result = new CommandResult(PagePath.EMPLOYEE_VACANCY_LIST, CommandResult.Type.FORWARD);
+                request.setAttribute(Constant.NO_VACANCY_ATTRIBUTE, Constant.NO_VACANCY_MESSAGE);
             }
+        } catch (NumberFormatException e) {
+            logger.log(Level.ERROR, "Couldn't convert from string to long str = " + vacancyId + ": " + e);
+            result = new CommandResult(PagePath.EMPLOYEE_VACANCY_LIST, CommandResult.Type.REDIRECT);
         } catch (ServiceException e) {
+            logger.log(Level.ERROR, e);
             throw new CommandException(e);
         }
         return result;

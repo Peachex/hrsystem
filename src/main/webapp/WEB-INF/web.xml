@@ -70,4 +70,13 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>EmployeeVacancyList</servlet-name>
+        <jsp-file>/WEB-INF/jsp/employee/employee_vacancy_list.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EmployeeVacancyList</servlet-name>
+        <url-pattern>/vacancy_list</url-pattern>
+    </servlet-mapping>
+
 </web-app>

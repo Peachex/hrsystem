@@ -25,6 +25,15 @@ public class Constant {
     public static final String NO_VACANCIES_BY_REQUEST_MESSAGE = "No vacancies by your request, so we show you all vacancies";
     public static final String NO_VACANCIES_MESSAGE = "No vacancies";
 
+    public static final String NO_VACANCY_ATTRIBUTE = "noVacancy";
+    public static final String NO_VACANCY_MESSAGE = "No vacancy";
+
+    public static final String DELETE_SUCCESSFUL_ATTRIBUTE = "deleteSuccessful";
+    public static final String DELETE_SUCCESSFUL_MESSAGE = "Successful deleted";
+
+    public static final String RESTORE_SUCCESSFUL_ATTRIBUTE = "restoreSuccessful";
+    public static final String RESTORE_SUCCESSFUL_MESSAGE = "Successful restored";
+
     public static final String PERCENT_SIGN = "%";
 
     private Constant() {
