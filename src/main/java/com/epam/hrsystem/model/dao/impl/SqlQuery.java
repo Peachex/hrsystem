@@ -88,15 +88,17 @@ public class SqlQuery {
             " JOIN users ON user_id_fk = user_id JOIN applicant_requests ON vacancy_id = vacancy_id_fk WHERE vacancies.user_id_fk = ? ORDER BY creation_date DESC," +
             " position ASC;"; //fixme be careful with applicant_state value
 
-    public static final String SQL_SELECT_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS = "SELECT DISTINCT vacancy_id, is_available, position, description, creation_date," +
-            " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
+    public static final String SQL_SELECT_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS = "SELECT DISTINCT vacancy_id, is_available, position, description," +
+            " creation_date, country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
             " JOIN users ON user_id_fk = user_id JOIN applicant_requests ON vacancy_id = vacancy_id_fk WHERE vacancies.user_id_fk = ? AND" +
-            " applicant_state != 'PASSED' AND applicant_state != 'FAILED' ORDER BY creation_date DESC, position ASC;"; //fixme be careful with applicant_state value
+            " EXISTS(SELECT NULL FROM applicant_requests WHERE vacancy_id_fk = vacancy_id AND applicant_state = 'LEFT_REQUEST') ORDER BY creation_date DESC," +
+            " position ASC;"; //fixme be careful with applicant_state value and add all other applicant state besides FAILED and PASSED
 
-    public static final String SQL_SELECT_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS = "SELECT DISTINCT vacancy_id, is_available, position, description, creation_date," +
-            " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
+    public static final String SQL_SELECT_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS = "SELECT DISTINCT vacancy_id, is_available, position, description," +
+            " creation_date, country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
             " JOIN users ON user_id_fk = user_id JOIN applicant_requests ON vacancy_id = vacancy_id_fk WHERE vacancies.user_id_fk = ? AND" +
-            " (applicant_state = 'PASSED' OR applicant_state = 'FAILED') ORDER BY creation_date DESC, position ASC;"; //fixme be careful with applicant_state value
+            " NOT EXISTS(SELECT NULL FROM applicant_requests WHERE vacancy_id_fk = vacancy_id AND applicant_state = 'LEFT_REQUEST') ORDER BY creation_date DESC," +
+            " position ASC;"; //fixme be careful with applicant_state value and add all other applicant state besides FAILED and PASSED
 
     public static final String SQL_UPDATE_VACANCY_INFO = "UPDATE vacancies SET position = ?, description = ?," +
             " country_id_fk = ?, city_id_fk = ? WHERE vacancy_id = ?;";
