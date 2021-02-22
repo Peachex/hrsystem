@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller;
 
+import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.UrlPattern;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(urlPatterns = UrlPattern.CONTROLLER, name = "Controller")
+@WebServlet(urlPatterns = UrlPattern.CONTROLLER, name = Constant.MAIN_SERVLET_NAME)
 public class Controller extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 
@@ -69,7 +70,6 @@ public class Controller extends HttpServlet {
             }
         } catch (CommandException e) {
             logger.log(Level.ERROR, "Couldn't process request: " + e);
-            //todo redirect to error page (500)
             throw new ServletException(e);
         }
     }

@@ -12,10 +12,10 @@
         <error-code>404</error-code>
         <location>/WEB-INF/jsp/error/404_error.jsp</location>
     </error-page>
-    <!--<error-page>
-        <exception-type>java.lang.RuntimeException</exception-type>
-        <location>/jsp/error.jsp</location>
-    </error-page>-->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/jsp/error/500_error.jsp</location>
+    </error-page>
 
     <filter>
         <filter-name>EncodingFilter</filter-name>
