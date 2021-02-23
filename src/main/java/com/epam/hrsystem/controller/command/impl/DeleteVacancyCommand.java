@@ -4,14 +4,10 @@ import com.epam.hrsystem.controller.attribute.CommandName;
 import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
-import com.epam.hrsystem.controller.attribute.UrlPattern;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
-import com.epam.hrsystem.model.entity.User;
-import com.epam.hrsystem.model.entity.UserRole;
-import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
 import org.apache.logging.log4j.Level;
@@ -20,7 +16,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 public class DeleteVacancyCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
@@ -35,19 +30,10 @@ public class DeleteVacancyCommand implements ActionCommand {
             long vacancyId = Long.parseLong(vacancyIdStr);
             long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
             boolean isDeleted = service.deleteVacancy(vacancyId, employeeId);
-            User user = (User) session.getAttribute(SessionAttribute.USER);
             if (isDeleted) {
-                if (user.getRole().equals(UserRole.EMPLOYEE)) {
-                    result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT);
-                } else {
-                    result = new CommandResult(UrlPattern.HOME, CommandResult.Type.REDIRECT); //todo add admin vacancies management page
-                }
+                result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT);
             } else {
-                if (user.getRole().equals(UserRole.EMPLOYEE)) {
-                    result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.FORWARD);
-                } else {
-                    result = new CommandResult(UrlPattern.HOME, CommandResult.Type.REDIRECT); //todo add admin vacancies management page
-                }
+                result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.FORWARD);
                 request.setAttribute(Constant.ERROR_VACANCY_DELETE_ATTRIBUTE, Constant.ERROR_VACANCY_DELETE_MESSAGE);
             }
         } catch (ServiceException | NumberFormatException e) {
