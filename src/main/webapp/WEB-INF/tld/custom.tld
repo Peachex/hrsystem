@@ -8,8 +8,8 @@
     <short-name>ctg</short-name>
     <uri>customtags</uri>
     <tag>
-        <name>info-time</name>
-        <tag-class>com.epam.hrsystem.controller.tag.InfoTimeTag</tag-class>
-        <body-content>empty</body-content>
+        <name>user-name</name>
+        <tag-class>com.epam.hrsystem.controller.tag.UserNameTag</tag-class>
+        <body-content>scriptless</body-content>
     </tag>
 </taglib>

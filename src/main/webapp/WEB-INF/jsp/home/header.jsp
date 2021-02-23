@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <fmt:setLocale value="${sessionScope.currentLocale}"/>
 <fmt:setBundle basename="locale.page_content"/>
 
@@ -54,7 +55,7 @@
                         key="header.login"/></a>
             </c:if>
 
-            <c:if test="${!role.toString().equals(guest)}">
+            <ctg:user-name>
                 <li class="nav-item dropdown offset-1">
                     <a class="nav-link dropdown-toggle header-link" id="navbarDropdownUser" data-bs-toggle="dropdown"
                        aria-expanded="false">
@@ -92,10 +93,9 @@
                              class="avatar"> --%>
                     </c:otherwise>
                 </c:choose>
-            </c:if>
+            </ctg:user-name>
         </nav>
     </div>
 </div>
-
 </body>
 </html>
