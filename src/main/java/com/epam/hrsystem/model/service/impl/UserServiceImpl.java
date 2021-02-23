@@ -1,5 +1,6 @@
 package com.epam.hrsystem.model.service.impl;
 
+import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
@@ -48,14 +49,21 @@ public enum UserServiceImpl implements UserService {
     public boolean register(Map<String, String> fields) throws ServiceException {
         boolean result = false;
         Creator<User> creator = UserCreator.INSTANCE;
-        Optional<User> user = creator.create(fields);
+        Optional<User> userOptional = creator.create(fields);
         try {
-            String password = fields.get(RequestParameter.PASSWORD);
-            if (UserValidator.isPasswordValid(password) && user.isPresent()) {
-                String passwordRepeat = fields.get(RequestParameter.REPEATED_PASSWORD);
-                if (UserValidator.isRepeatPasswordValid(password, passwordRepeat)) {
-                    String encryptedPassword = Encryptor.encrypt(password);
-                    result = dao.add(user.get(), encryptedPassword);
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                if (dao.isEmailAvailable(user.getEmail())) {
+                    String password = fields.get(RequestParameter.PASSWORD);
+                    if (UserValidator.isPasswordValid(password)) {
+                        String passwordRepeat = fields.get(RequestParameter.REPEATED_PASSWORD);
+                        if (UserValidator.isRepeatPasswordValid(password, passwordRepeat)) {
+                            String encryptedPassword = Encryptor.encrypt(password);
+                            result = dao.add(userOptional.get(), encryptedPassword);
+                        }
+                    }
+                } else {
+                    fields.put(RequestParameter.EMAIL, Constant.EMAIL_AVAILABLE_ERROR_MESSAGE);
                 }
             }
         } catch (DaoException e) {

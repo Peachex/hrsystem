@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -31,11 +32,11 @@ public class ToVacancyInfoCommand implements ActionCommand {
                 Optional<Vacancy> vacancyOptional = service.findVacancyById(id);
                 if (vacancyOptional.isPresent()) {
                     Vacancy vacancy = vacancyOptional.get();
-                    request.setAttribute("vacancy", vacancy);
+                    request.setAttribute(RequestParameter.VACANCY, vacancy);
                     result = new CommandResult(PagePath.CURRENT_VACANCY_INFO, CommandResult.Type.FORWARD);
                 } else {
-                    result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.REDIRECT);
-                    //todo error message
+                    result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD);
+                    request.setAttribute(Constant.NO_VACANCY_ATTRIBUTE, Constant.NO_VACANCY_MESSAGE);
                 }
             } catch (NumberFormatException e) {
                 logger.log(Level.ERROR, e);

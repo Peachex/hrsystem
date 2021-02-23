@@ -61,6 +61,7 @@
     <div class="mt-3">
         <wrong-message>
             ${noVacancies}
+            ${noVacancy}
         </wrong-message>
     </div>
 

@@ -37,6 +37,9 @@ public class Constant {
 
     public static final String SORT_SEQUENCE_ASC = "ASC";
 
+    public static final String EMAIL_AVAILABLE_ERROR_MESSAGE = "Email is unavailable, try another one!";
+    public static final String INVALID_INPUT_DATA_MESSAGE = "Invalid input!";
+
     private Constant() {
     }
 }

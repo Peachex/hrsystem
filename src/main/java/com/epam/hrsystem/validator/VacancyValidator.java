@@ -1,5 +1,6 @@
 package com.epam.hrsystem.validator;
 
+import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -23,22 +24,22 @@ public class VacancyValidator {
         boolean result = true;
         String position = fields.get(RequestParameter.POSITION);
         if (!isPositionValid(position)) {
-            fields.put(RequestParameter.POSITION, "Invalid input!");
+            fields.put(RequestParameter.POSITION, Constant.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String description = fields.get(RequestParameter.DESCRIPTION);
         if (!isDescriptionValid(description)) {
-            fields.put(RequestParameter.DESCRIPTION, "Invalid input!");
+            fields.put(RequestParameter.DESCRIPTION, Constant.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String country = fields.get(RequestParameter.COUNTRY);
         if (!isCountryValid(country)) {
-            fields.put(RequestParameter.COUNTRY, "Invalid input!");
+            fields.put(RequestParameter.COUNTRY, Constant.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String city = fields.get(RequestParameter.CITY);
         if (!isCityValid(city)) {
-            fields.put(RequestParameter.CITY, "Invalid input!");
+            fields.put(RequestParameter.CITY, Constant.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         return result;
