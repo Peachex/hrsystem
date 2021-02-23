@@ -60,6 +60,7 @@ public class PermissionFilter implements Filter {
         employeeCommands.add(CommandEnum.SEE_EMPLOYEE_VACANCIES_WITH_APPLICANTS_REQUESTS);
         employeeCommands.add(CommandEnum.SEE_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS);
         employeeCommands.add(CommandEnum.SEE_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS);
+        employeeCommands.add(CommandEnum.EDIT_VACANCY_INFO);
 
         List<CommandEnum> adminCommands = new ArrayList<>(sameCommands);
         adminCommands.add(CommandEnum.LOGOUT);

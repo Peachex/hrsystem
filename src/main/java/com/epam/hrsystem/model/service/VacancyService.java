@@ -32,7 +32,7 @@ public interface VacancyService {
 
     List<Vacancy> findEmployeeVacanciesWithNotActiveApplicantsRequests(long employeeId) throws ServiceException;
 
-    boolean updateVacancyInfo(long vacancyId, Map<String, String> fields) throws ServiceException;
+    boolean updateVacancyInfo(long vacancyId, long employeeId, Map<String, String> fields) throws ServiceException;
 
     boolean vacancyExists(Vacancy vacancy) throws ServiceException;
 

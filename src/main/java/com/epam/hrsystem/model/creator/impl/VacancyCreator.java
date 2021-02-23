@@ -7,7 +7,7 @@ import com.epam.hrsystem.model.entity.Vacancy;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.epam.hrsystem.validator.VacancyValidator.isCreationVacancyFormValid;
+import static com.epam.hrsystem.validator.VacancyValidator.isVacancyFormValid;
 
 public enum VacancyCreator implements Creator<Vacancy> {
     INSTANCE;
@@ -16,7 +16,7 @@ public enum VacancyCreator implements Creator<Vacancy> {
     @Override
     public Optional<Vacancy> create(Map<String, String> fields) {
         Optional<Vacancy> result = Optional.empty();
-        if (isCreationVacancyFormValid(fields)) {
+        if (isVacancyFormValid(fields)) {
             String position = fields.get(RequestParameter.POSITION);
             String description = fields.get(RequestParameter.DESCRIPTION);
             String country = fields.get(RequestParameter.COUNTRY);

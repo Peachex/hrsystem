@@ -169,15 +169,17 @@ public enum VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public boolean updateVacancyInfo(long vacancyId, Map<String, String> fields) throws ServiceException {
+    public boolean updateVacancyInfo(long vacancyId, long employeeId, Map<String, String> fields) throws ServiceException {
         boolean result = false;
         try {
-            Optional<Vacancy> vacancyOptional = dao.findVacancyById(vacancyId);
-            if (vacancyOptional.isPresent()) {
-                Vacancy vacancy = vacancyOptional.get();
-                updateVacancyInfo(vacancy, fields);
-                if (addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity())) {
-                    result = dao.updateVacancyInfo(vacancy);
+            if (VacancyValidator.isVacancyFormValid(fields)) {
+                Optional<Vacancy> vacancyOptional = dao.findVacancyById(vacancyId);
+                if (vacancyOptional.isPresent() && vacancyOptional.get().getEmployee().getId() == employeeId) {
+                    Vacancy vacancy = vacancyOptional.get();
+                    updateVacancyInfo(vacancy, fields);
+                    if (addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity())) {
+                        result = dao.updateVacancyInfo(vacancy);
+                    }
                 }
             }
         } catch (DaoException e) {

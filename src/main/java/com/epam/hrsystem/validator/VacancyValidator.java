@@ -19,7 +19,7 @@ public class VacancyValidator {
     private VacancyValidator() {
     }
 
-    public static boolean isCreationVacancyFormValid(Map<String, String> fields) {
+    public static boolean isVacancyFormValid(Map<String, String> fields) {
         boolean result = true;
         String position = fields.get(RequestParameter.POSITION);
         if (!isPositionValid(position)) {

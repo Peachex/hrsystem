@@ -10,6 +10,9 @@ public class Constant {
     public static final String ERROR_VACANCY_RESTORE_ATTRIBUTE = "errorVacancyRestore";
     public static final String ERROR_VACANCY_RESTORE_MESSAGE = "Couldn't restore vacancy, try one more time";
 
+    public static final String ERROR_VACANCY_UPDATING_ATTRIBUTE = "errorVacancyUpdate";
+    public static final String ERROR_VACANCY_UPDATING_MESSAGE = "Couldn't edit vacancy, try one more time";
+
     public static final String ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE = "errorApplicantRequestCreation";
     public static final String ERROR_APPLICANT_REQUEST_CREATION_MESSAGE = "Couldn't create applicant request, check input data" +
             " or you have already created request";
@@ -29,7 +32,7 @@ public class Constant {
     public static final String NO_VACANCY_MESSAGE = "No vacancy";
 
     public static final String MAIN_SERVLET_NAME = "Controller";
-    
+
     public static final String PERCENT_SIGN = "%";
 
     private Constant() {

@@ -4,6 +4,7 @@ import com.epam.hrsystem.controller.command.impl.ChangeLanguageCommand;
 import com.epam.hrsystem.controller.command.impl.CreateVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.CreateApplicantRequestCommand;
 import com.epam.hrsystem.controller.command.impl.DeleteVacancyCommand;
+import com.epam.hrsystem.controller.command.impl.EditVacancyInfoCommand;
 import com.epam.hrsystem.controller.command.impl.FindVacanciesByKeyWordCommand;
 import com.epam.hrsystem.controller.command.impl.LoginCommand;
 import com.epam.hrsystem.controller.command.impl.LogoutCommand;
@@ -48,6 +49,9 @@ public enum CommandEnum {
     }},
     CREATE_VACANCY {{
         this.command = new CreateVacancyCommand();
+    }},
+    EDIT_VACANCY_INFO {{
+        this.command = new EditVacancyInfoCommand();
     }},
     FIND_VACANCIES_BY_KEY_WORD {{
         this.command = new FindVacanciesByKeyWordCommand();
