@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class ApplicantRequestValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final Pattern SUMMARY_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{3,10000}");
-    //fixme change pattern
+
     private ApplicantRequestValidator() {
     }
 

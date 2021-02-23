@@ -16,7 +16,6 @@ import java.util.List;
 
 public class FindVacanciesByKeyWordCommand implements ActionCommand {
     @Override
-    //fixme find from page instead database
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         VacancyService service = VacancyServiceImpl.INSTANCE;
         CommandResult result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD);

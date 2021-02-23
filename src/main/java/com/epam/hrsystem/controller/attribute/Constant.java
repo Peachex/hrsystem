@@ -25,7 +25,7 @@ public class Constant {
             " telephone interview, our recruiter will contact you. Good luck!";
 
     public static final String NO_VACANCIES_ATTRIBUTE = "noVacancies";
-    public static final String NO_VACANCIES_BY_REQUEST_MESSAGE = "No vacancies by your request, so we show you all vacancies";
+    public static final String NO_VACANCIES_BY_REQUEST_MESSAGE = "No vacancies by your request";
     public static final String NO_VACANCIES_MESSAGE = "No vacancies";
 
     public static final String NO_VACANCY_ATTRIBUTE = "noVacancy";
@@ -34,6 +34,8 @@ public class Constant {
     public static final String MAIN_SERVLET_NAME = "Controller";
 
     public static final String PERCENT_SIGN = "%";
+
+    public static final String SORT_SEQUENCE_ASC = "ASC";
 
     private Constant() {
     }
