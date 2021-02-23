@@ -105,7 +105,7 @@
                                     <textarea class="form-control" rows="5" id="inputDescription"
                                               name="description" placeholder="<fmt:message
                                              key="create_vacancy_modal.inputDescriptionPlaceholder"/>"
-                                              required <%--minlength="3"--%> maxlength="10000"></textarea>
+                                              required minlength="3" maxlength="10000"></textarea>
                                     </div>
 
                                     <div class="mt-3">
@@ -159,11 +159,11 @@
                     key="button.back"/> </a>
         </div>
     </div>
-    <div class="mt-3">
-        <wrong-message>
-            ${errorVacancyUpdate}
-        </wrong-message>
-    </div>
+        <div class="mt-3">
+            <wrong-message>
+                ${errorVacancyUpdate}
+            </wrong-message>
+        </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
             crossorigin="anonymous"></script>

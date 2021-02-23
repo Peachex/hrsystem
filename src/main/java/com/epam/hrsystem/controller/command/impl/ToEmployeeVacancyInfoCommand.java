@@ -3,6 +3,7 @@ package com.epam.hrsystem.controller.command.impl;
 import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
+import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
@@ -15,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class ToEmployeeVacancyInfoCommand implements ActionCommand {
@@ -29,9 +31,15 @@ public class ToEmployeeVacancyInfoCommand implements ActionCommand {
             long id = Long.parseLong(vacancyId);
             Optional<Vacancy> vacancyOptional = service.findVacancyById(id);
             if (vacancyOptional.isPresent()) {
+                HttpSession session = request.getSession();
                 Vacancy vacancy = vacancyOptional.get();
-                request.setAttribute(RequestParameter.VACANCY, vacancy);
-                result = new CommandResult(PagePath.EMPLOYEE_CURRENT_VACANCY_INFO, CommandResult.Type.FORWARD);
+                if (vacancy.getEmployee().getId() == (long) session.getAttribute(SessionAttribute.USER_ID)) {
+                    request.setAttribute(RequestParameter.VACANCY, vacancy);
+                    result = new CommandResult(PagePath.EMPLOYEE_CURRENT_VACANCY_INFO, CommandResult.Type.FORWARD);
+                } else {
+                    result = new CommandResult(PagePath.EMPLOYEE_VACANCY_LIST, CommandResult.Type.FORWARD);
+                    request.setAttribute(Constant.NO_VACANCY_ATTRIBUTE, Constant.NO_VACANCY_MESSAGE);
+                }
             } else {
                 result = new CommandResult(PagePath.EMPLOYEE_VACANCY_LIST, CommandResult.Type.FORWARD);
                 request.setAttribute(Constant.NO_VACANCY_ATTRIBUTE, Constant.NO_VACANCY_MESSAGE);

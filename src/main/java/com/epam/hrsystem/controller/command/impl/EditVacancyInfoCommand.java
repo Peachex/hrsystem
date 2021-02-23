@@ -51,11 +51,7 @@ public class EditVacancyInfoCommand implements ActionCommand {
                 request.setAttribute(RequestParameter.CITY, fields.get(RequestParameter.CITY));
                 request.setAttribute(Constant.ERROR_VACANCY_UPDATING_ATTRIBUTE, Constant.ERROR_VACANCY_UPDATING_MESSAGE);
                 Optional<Vacancy> vacancyOptional = service.findVacancyById(vacancyId);
-                if (vacancyOptional.isPresent() && vacancyOptional.get().getEmployee().getId() == employeeId) {
-                    result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.FORWARD);
-                } else {
-                    result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.REDIRECT);
-                }
+                result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.FORWARD);
             }
         } catch (ServiceException | NumberFormatException e) {
             logger.log(Level.ERROR, "Couldn't create vacancy");

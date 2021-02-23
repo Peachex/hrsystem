@@ -144,16 +144,16 @@
         <wrong-message>
             ${noVacancies}
         </wrong-message>
-        <wrond-message>
+        <wrong-message>
             ${noVacancy}
-        </wrond-message>
+        </wrong-message>
         <wrong-message>
             ${errorVacancyDelete}
             ${errorVacancyRestore}
         </wrong-message>
     </div>
     <vacancies-number><fmt:message
-            key="vacancy_vacanciesAmount"/> ${vacancies.size()}</vacancies-number>
+            key="vacancy_vacanciesAmount"/> ${employeeVacancies.size()}</vacancies-number>
 
     <table class="table table-dark table-bordered border-secondary mt-4 offset-2" style="width: 70%">
         <thead>
