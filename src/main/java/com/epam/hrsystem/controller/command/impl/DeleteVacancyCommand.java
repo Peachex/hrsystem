@@ -11,6 +11,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserRole;
+import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
 import org.apache.logging.log4j.Level;
@@ -19,6 +20,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 public class DeleteVacancyCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
@@ -33,10 +35,14 @@ public class DeleteVacancyCommand implements ActionCommand {
             long vacancyId = Long.parseLong(vacancyIdStr);
             long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
             boolean isDeleted = service.deleteVacancy(vacancyId, employeeId);
+            User user = (User) session.getAttribute(SessionAttribute.USER);
             if (isDeleted) {
-                result = new CommandResult(CommandResult.Type.RETURN_WITH_REDIRECT);
+                if (user.getRole().equals(UserRole.EMPLOYEE)) {
+                    result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT);
+                } else {
+                    result = new CommandResult(UrlPattern.HOME, CommandResult.Type.REDIRECT); //todo add admin vacancies management page
+                }
             } else {
-                User user = (User) session.getAttribute(SessionAttribute.USER);
                 if (user.getRole().equals(UserRole.EMPLOYEE)) {
                     result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.FORWARD);
                 } else {
