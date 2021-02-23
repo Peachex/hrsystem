@@ -14,6 +14,7 @@ public class LogoutCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         HttpSession session = request.getSession();
+        session.removeAttribute(SessionAttribute.USER_ID);
         session.removeAttribute(SessionAttribute.USER);
         session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.GUEST);
         CommandResult result = new CommandResult(UrlPattern.HOME, CommandResult.Type.REDIRECT);

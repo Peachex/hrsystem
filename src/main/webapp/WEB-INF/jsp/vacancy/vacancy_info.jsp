@@ -44,29 +44,6 @@
         </div>
     </div>
 
-    <c:if test="${user.id == vacancy.employee.id || role.toString().equals(admin)}">
-        <c:if test="${vacancy.isAvailable}">
-            <form name="delete_vacancy" method="POST" action="delete_vacancy.do">
-                <input type="hidden" name="vacancyId" value="${vacancy.id}">
-                <div class="col-2 offset-3">
-                    <input class="btn btn-primary button" style="margin-top: 10%;" type="submit"
-                           value="<fmt:message key="button.delete"/>">
-                </div>
-                <input name="ctoken" type="hidden" value="${stoken}"/>
-            </form>
-        </c:if>
-        <c:if test="${!vacancy.isAvailable}">
-            <form name="restore_vacancy" method="POST" action="restore_vacancy.do">
-                <input type="hidden" name="vacancyId" value="${vacancy.id}">
-                <div class="col-2 offset-3">
-                    <input class="btn btn-primary button" style="margin-top: 10%;" type="submit"
-                           value="<fmt:message key="button.restore"/>">
-                </div>
-                <input name="ctoken" type="hidden" value="${stoken}"/>
-            </form>
-        </c:if>
-    </c:if>
-
     <c:if test="${role.toString().equals(guest)}">
         <a class="btn btn-primary col-2 offset-3" href="login" role="button" style="margin-top: 2%;
     width: 10%;"><fmt:message
@@ -122,8 +99,6 @@
     </c:if>
 
     <wrong-message>
-        ${errorVacancyDelete}
-        ${errorVacancyRestore}
         ${errorApplicantRequestCreation}
     </wrong-message>
 
