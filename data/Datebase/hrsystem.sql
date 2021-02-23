@@ -25,15 +25,23 @@ DROP TABLE IF EXISTS `applicant_requests`;
 CREATE TABLE `applicant_requests` (
   `applicant_request_id` bigint NOT NULL AUTO_INCREMENT,
   `summary` text COLLATE utf8_unicode_ci NOT NULL,
-  `applicant_state` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `basic_interview_result_id_fk` bigint DEFAULT NULL,
+  `technical_interview_result_id_fk` bigint DEFAULT NULL,
   `user_id_fk` bigint NOT NULL,
   `vacancy_id_fk` bigint NOT NULL,
+  `applicant_state_id_fk` bigint NOT NULL,
   PRIMARY KEY (`applicant_request_id`),
   KEY `applicant_requests_user_id_idx` (`user_id_fk`),
   KEY `applicant_requests_vacancy_id_idx` (`vacancy_id_fk`),
+  KEY `state_idx` (`applicant_state_id_fk`),
+  KEY `applicant_requests_basic_interview_result_id_fk_idx` (`basic_interview_result_id_fk`),
+  KEY `applicant_requests_technical_interview_result_id_fk_idx` (`technical_interview_result_id_fk`),
+  CONSTRAINT `applicant_requests_applicant_state_id` FOREIGN KEY (`applicant_state_id_fk`) REFERENCES `applicant_states` (`applicant_state_id`),
+  CONSTRAINT `applicant_requests_basic_interview_result_id_fk` FOREIGN KEY (`basic_interview_result_id_fk`) REFERENCES `interview_results` (`interview_result_id`),
+  CONSTRAINT `applicant_requests_technical_interview_result_id_fk` FOREIGN KEY (`technical_interview_result_id_fk`) REFERENCES `interview_results` (`interview_result_id`),
   CONSTRAINT `applicant_requests_user_id` FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`),
   CONSTRAINT `applicant_requests_vacancy_id` FOREIGN KEY (`vacancy_id_fk`) REFERENCES `vacancies` (`vacancy_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,8 +50,31 @@ CREATE TABLE `applicant_requests` (
 
 LOCK TABLES `applicant_requests` WRITE;
 /*!40000 ALTER TABLE `applicant_requests` DISABLE KEYS */;
-INSERT INTO `applicant_requests` VALUES (1,'Привет, я Джек.','PASSED',10,2),(2,'Test','FAILED',10,8),(3,'I want to work!','PASSED',10,4),(4,'wdwd','LEFT_REQUEST',10,6),(5,'awfawf','PASSED',10,11),(6,'dwadawdwad','LEFT_REQUEST',12,5),(7,'sadsafas','FAILED',12,2),(8,'dawagfaw','LEFT_REQUEST',12,3),(9,'Hello','LEFT_REQUEST',10,24),(10,'Bad','FAILED',9,24),(11,'Good','PASSED',4,24),(12,'Good','PASSED',6,24),(13,'Good','PASSED',6,25),(14,'Good','PASSED',3,25),(15,'Good','PASSED',3,25);
 /*!40000 ALTER TABLE `applicant_requests` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `applicant_states`
+--
+
+DROP TABLE IF EXISTS `applicant_states`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `applicant_states` (
+  `applicant_state_id` bigint NOT NULL AUTO_INCREMENT,
+  `state` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`applicant_state_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `applicant_states`
+--
+
+LOCK TABLES `applicant_states` WRITE;
+/*!40000 ALTER TABLE `applicant_states` DISABLE KEYS */;
+INSERT INTO `applicant_states` VALUES (1,'LEFT_REQUEST'),(2,'READY_FOR_TECHNICAL_INTERVIEW'),(3,'PASSED'),(4,'FAILED');
+/*!40000 ALTER TABLE `applicant_states` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -105,10 +136,7 @@ CREATE TABLE `interview_results` (
   `interview_result_id` bigint NOT NULL AUTO_INCREMENT,
   `rating` tinyint unsigned NOT NULL,
   `comment` text COLLATE utf8_unicode_ci NOT NULL,
-  `applicant_request_id_fk` bigint NOT NULL,
-  PRIMARY KEY (`interview_result_id`),
-  KEY `interview_results_applicant_request_id_idx` (`applicant_request_id_fk`),
-  CONSTRAINT `interview_results_applicant_request_id` FOREIGN KEY (`applicant_request_id_fk`) REFERENCES `applicant_requests` (`applicant_request_id`)
+  PRIMARY KEY (`interview_result_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -211,7 +239,7 @@ CREATE TABLE `vacancies` (
 
 LOCK TABLES `vacancies` WRITE;
 /*!40000 ALTER TABLE `vacancies` DISABLE KEYS */;
-INSERT INTO `vacancies` VALUES (1,_binary '\0','Senior Java Developer','MyCompany — продуктовая компания основанная в США. Мы разрабатываем приложения с момента основания App Store, наши приложения неоднократно были профичерены компаниями Apple & Google. Наши приоритеты это создание высококачественных продуктов на основе многолетнего опыта с использованием новейших технологий iOS & Android. Наши мобильные приложения полагаются на мощный, масштабируемый и надежный backend и мы расширяем нашу серверную команду.','2021-02-09',1,1,1),(2,_binary '\0','Senior Android Engineer','We\'re (GoodCompany) an end-to-end provider of premium products and services for global sport and media operators. We push boundaries every day to offer the most reliable, scalable, engaging end-to-end offerings that continually meet and exceed fan expectations and maximise client value. Underpinned by data we\'re able to determine the best experiences to drive business growth. Deltatre provides strategy, planning, consultancy across all stages of our client\'s lifecycle.','2021-02-09',1,1,1),(3,_binary '','Middle Java Developer','We\'re (GoodCompany) an end-to-end provider of premium products and services for global sport and media operators. We push boundaries every day to offer the most reliable, scalable, engaging end-to-end offerings that continually meet and exceed fan expectations and maximise client value. Underpinned by data we\'re able to determine the best experiences to drive business growth. Deltatre provides strategy, planning, consultancy across all stages of our client\'s lifecycle.','2021-02-09',1,2,1),(4,_binary '','Junior Recruiting/HR','Join one of Inc 5000’s fastest-growing companies as an IT Recruiter. A top-rated Google Marketing Platform Partner, DELVE is a strategic partner for site-side analytics, campaign management, and advanced marketing science.\n\nJoin and expand our team of analysts, data engineers, data scientists, and media traders that drives client growth through a data-driven mindset that converts digital inefficiency into hard ROI.\n\nIn this role you will collaborate directly with hiring managers to understand who they need, when, why, etc. and prioritize a list of hiring needs, per department, per optimal start date, based on known forecasts of inflowing biz.','2021-02-09',2,3,1),(5,_binary '','Test','Join one of Inc 5000’s fastest-growing companies as an IT Recruiter. A top-rated Google Marketing Platform Partner, DELVE is a strategic partner for site-side analytics, campaign management, and advanced marketing science.\n\nJoin and expand our team of analysts, data engineers, data scientists, and media traders that drives client growth through a data-driven mindset that converts digital inefficiency into hard ROI.\n\nIn this role you will collaborate directly with hiring managers to understand who they need, when, why, etc. and prioritize a list of hiring needs, per department, per optimal start date, based on known forecasts of inflowing biz.','2021-02-14',2,3,11),(6,_binary '\0','Test','Join one of Inc 5000’s fastest-growing companies as an IT Recruiter. A top-rated Google Marketing Platform Partner, DELVE is a strategic partner for site-side analytics, campaign management, and advanced marketing science.\n\nJoin and expand our team of analysts, data engineers, data scientists, and media traders that drives client growth through a data-driven mindset that converts digital inefficiency into hard ROI.\n\nIn this role you will collaborate directly with hiring managers to understand who they need, when, why, etc. and prioritize a list of hiring needs, per department, per optimal start date, based on known forecasts of inflowing biz.','2021-02-14',1,1,11),(7,_binary '\0','Test Position #1','Test Position #1','2021-02-14',3,1,11),(8,_binary '\0','Test Position #2','Test Position #2','2021-02-14',1,1,11),(9,_binary '\0','Vacancy #15022021','DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription','2021-02-14',1,1,11),(10,_binary '\0','NEW VACANCY','Something interesting','2021-02-14',1,1,11),(11,_binary '','Специалист','dawdwadwad','2021-02-14',4,4,11),(12,_binary '','dawdawfaw','webjavadeveloper','2021-02-14',5,5,11),(13,_binary '','Martin Vacancy','Something','2021-02-16',1,6,11),(14,_binary '\0','Мартин джуниор','Привет hello','2021-02-20',1,1,11),(15,_binary '\0','Мартин джуниор #2','Dgaiushf uahsfisajifsa','2021-02-20',1,1,11),(16,_binary '','Test Position #114235','Вцфпфц','2021-02-21',3,7,11),(17,_binary '\0','Test Position #1a','dawfaw','2021-02-21',1,1,11),(18,_binary '','NEW VACANCY #12','sageagawg','2021-02-21',3,7,11),(19,_binary '\0','Специалист #2','aawgawg','2021-02-21',1,1,11),(20,_binary '\0','Test Position #1a24','afawg','2021-02-21',1,1,11),(21,_binary '\0','Test Position #125432','fdasfsa','2021-02-21',1,1,11),(22,_binary '\0','NEW MARTIN VACANCY','fhgaweh','2021-02-21',1,1,11),(23,_binary '\0','AAA','BBB','2021-02-21',1,1,11),(24,_binary '','ALICE VACANCY #1','This is Alice vacancy','2021-02-21',1,1,14),(25,_binary '','ALICE VACANCY #2','Another Alice vacancy','2021-02-21',3,7,14),(26,_binary '\0','ALICE VACANCY #3','Alice new vacancy.','2021-02-22',1,6,14),(27,_binary '','ALICE VACANCY #4','Maybe the last one.','2021-02-22',1,1,14),(28,_binary '','ALICE VACANCY #5','Last one.','2021-02-22',1,1,14),(29,_binary '','ALICE VACANCY #6','The last!','2021-02-22',1,1,14),(30,_binary '\0','ALICE VACANCY #7','Something interesting.','2021-02-22',1,8,14),(31,_binary '','Специалист','dwdwd','2021-02-22',1,1,11),(32,_binary '','ALICE VACANCY #8','LAST OF LAST','2021-02-22',1,1,14),(33,_binary '','Специалист','ddd','2021-02-22',3,1,11);
+INSERT INTO `vacancies` VALUES (1,_binary '\0','Senior Java Developer','MyCompany — продуктовая компания основанная в США. Мы разрабатываем приложения с момента основания App Store, наши приложения неоднократно были профичерены компаниями Apple & Google. Наши приоритеты это создание высококачественных продуктов на основе многолетнего опыта с использованием новейших технологий iOS & Android. Наши мобильные приложения полагаются на мощный, масштабируемый и надежный backend и мы расширяем нашу серверную команду.','2021-02-09',1,1,1),(2,_binary '\0','Senior Android Engineer','We\'re (GoodCompany) an end-to-end provider of premium products and services for global sport and media operators. We push boundaries every day to offer the most reliable, scalable, engaging end-to-end offerings that continually meet and exceed fan expectations and maximise client value. Underpinned by data we\'re able to determine the best experiences to drive business growth. Deltatre provides strategy, planning, consultancy across all stages of our client\'s lifecycle.','2021-02-09',1,1,1),(3,_binary '','Middle Java Developer','We\'re (GoodCompany) an end-to-end provider of premium products and services for global sport and media operators. We push boundaries every day to offer the most reliable, scalable, engaging end-to-end offerings that continually meet and exceed fan expectations and maximise client value. Underpinned by data we\'re able to determine the best experiences to drive business growth. Deltatre provides strategy, planning, consultancy across all stages of our client\'s lifecycle.','2021-02-09',1,2,1),(4,_binary '','Junior Recruiting/HR','Join one of Inc 5000’s fastest-growing companies as an IT Recruiter. A top-rated Google Marketing Platform Partner, DELVE is a strategic partner for site-side analytics, campaign management, and advanced marketing science.\n\nJoin and expand our team of analysts, data engineers, data scientists, and media traders that drives client growth through a data-driven mindset that converts digital inefficiency into hard ROI.\n\nIn this role you will collaborate directly with hiring managers to understand who they need, when, why, etc. and prioritize a list of hiring needs, per department, per optimal start date, based on known forecasts of inflowing biz.','2021-02-09',2,3,1),(5,_binary '','Test','Join one of Inc 5000’s fastest-growing companies as an IT Recruiter. A top-rated Google Marketing Platform Partner, DELVE is a strategic partner for site-side analytics, campaign management, and advanced marketing science.\n\nJoin and expand our team of analysts, data engineers, data scientists, and media traders that drives client growth through a data-driven mindset that converts digital inefficiency into hard ROI.\n\nIn this role you will collaborate directly with hiring managers to understand who they need, when, why, etc. and prioritize a list of hiring needs, per department, per optimal start date, based on known forecasts of inflowing biz.','2021-02-14',2,3,11),(6,_binary '\0','Test','Join one of Inc 5000’s fastest-growing companies as an IT Recruiter. A top-rated Google Marketing Platform Partner, DELVE is a strategic partner for site-side analytics, campaign management, and advanced marketing science.\n\nJoin and expand our team of analysts, data engineers, data scientists, and media traders that drives client growth through a data-driven mindset that converts digital inefficiency into hard ROI.\n\nIn this role you will collaborate directly with hiring managers to understand who they need, when, why, etc. and prioritize a list of hiring needs, per department, per optimal start date, based on known forecasts of inflowing biz.','2021-02-14',1,1,11),(7,_binary '\0','Test Position #1','Test Position #1','2021-02-14',3,1,11),(8,_binary '\0','Test Position #2','Test Position #2','2021-02-14',1,1,11),(9,_binary '\0','Vacancy #15022021','DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription','2021-02-14',1,1,11),(10,_binary '\0','NEW VACANCY','Something interesting','2021-02-14',1,1,11),(11,_binary '','Специалист','dawdwadwad','2021-02-14',4,4,11),(12,_binary '','dawdawfaw','webjavadeveloper','2021-02-14',5,5,11),(13,_binary '','Martin Vacancy','Something','2021-02-16',1,6,11),(14,_binary '\0','Мартин джуниор','Привет hello','2021-02-20',1,1,11),(15,_binary '\0','Мартин джуниор #2','Dgaiushf uahsfisajifsa','2021-02-20',1,1,11),(16,_binary '','Test Position #114235','Вцфпфц','2021-02-21',3,7,11),(17,_binary '\0','Test Position #1a','dawfaw','2021-02-21',1,1,11),(18,_binary '','NEW VACANCY #12','sageagawg','2021-02-21',3,7,11),(19,_binary '\0','Специалист #2','aawgawg','2021-02-21',1,1,11),(20,_binary '\0','Test Position #1a24','afawg','2021-02-21',1,1,11),(21,_binary '\0','Test Position #125432','fdasfsa','2021-02-21',1,1,11),(22,_binary '\0','NEW MARTIN VACANCY','fhgaweh','2021-02-21',1,1,11),(23,_binary '\0','AAA','BBB','2021-02-21',1,1,11),(24,_binary '','ALICE VACANCY #1','This is Alice first vacancy!','2021-02-21',1,1,14),(25,_binary '','ALICE VACANCY #2','Another Alice vacancy','2021-02-21',3,7,14),(26,_binary '','ALICE VACANCY #3','Alice test vacancy update','2021-02-22',1,6,14),(27,_binary '','ALICE VACANCY #4','Maybe the last one.','2021-02-22',1,1,14),(28,_binary '','ALICE VACANCY #5','Last one.','2021-02-22',1,1,14),(29,_binary '','ALICE VACANCY #6','The last!','2021-02-22',1,1,14),(30,_binary '\0','ALICE VACANCY #7','Something interesting.','2021-02-22',1,8,14),(31,_binary '','Специалист','Test','2021-02-22',1,1,11),(32,_binary '','ALICE VACANCY #8','LAST OF LAST','2021-02-22',1,1,14),(33,_binary '','Специалист','ddd','2021-02-22',3,1,11);
 /*!40000 ALTER TABLE `vacancies` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -224,4 +252,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-23  0:19:19
+-- Dump completed on 2021-02-23 20:26:10
