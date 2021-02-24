@@ -22,7 +22,6 @@ public class ToVacancyInfoCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        //fixme
         String vacancyId = request.getParameter(RequestParameter.VACANCY_ID);
         VacancyService service = VacancyServiceImpl.INSTANCE;
         CommandResult result;
@@ -39,12 +38,11 @@ public class ToVacancyInfoCommand implements ActionCommand {
                     request.setAttribute(Constant.NO_VACANCY_ATTRIBUTE, Constant.NO_VACANCY_MESSAGE);
                 }
             } catch (NumberFormatException e) {
-                logger.log(Level.ERROR, e);
-                {
-                    result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.REDIRECT);
-                }
+                logger.log(Level.ERROR, "Couldn't convert from string to long str = " + vacancyId + ": " + e);
+                result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.REDIRECT);
             }
         } catch (ServiceException e) {
+            logger.log(Level.ERROR, e);
             throw new CommandException(e);
         }
         return result;

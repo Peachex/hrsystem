@@ -20,7 +20,7 @@ public class Constant {
     public static final String ERROR_INPUT_DATA_ATTRIBUTE = "errorInputData";
     public static final String ERROR_INPUT_DATA_MESSAGE = "Input data isn't valid, check fields";
 
-    public static final String CREATION_APPLICANT_REQUEST_MAIL_SUBJECT = "HR-SYSTEM";
+    public static final String HR_SYSTEM_MAIL_SUBJECT = "HR-SYSTEM";
     public static final String CREATION_APPLICANT_REQUEST_MAIL_TEXT = "Hello! Thanks for the application you left. Wait for" +
             " telephone interview, our recruiter will contact you. Good luck!";
 

@@ -40,7 +40,7 @@ public class CreateApplicantRequestCommand implements ActionCommand {
             if (service.createApplicantRequest(fields, applicant)) {
                 MailSender mailSender = MailSender.INSTANCE;
                 mailSender.setSendToEmail(applicant.getEmail());
-                mailSender.setMailSubject(Constant.CREATION_APPLICANT_REQUEST_MAIL_SUBJECT);
+                mailSender.setMailSubject(Constant.HR_SYSTEM_MAIL_SUBJECT);
                 mailSender.setMailText(Constant.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
                 mailSender.send();
                 result = new CommandResult(CommandName.TO_VACANCIES, CommandResult.Type.FORWARD);
