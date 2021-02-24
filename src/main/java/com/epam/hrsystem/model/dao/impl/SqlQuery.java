@@ -117,6 +117,10 @@ public class SqlQuery {
 
     public static final String SQL_FIND_APPLICANT_STATE_ID_BY_NAME = "SELECT applicant_state_id FROM applicant_states WHERE state = ?;";
 
+    public static final String SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID = "SELECT applicant_request_id, summary, state, user_id_fk, vacancy_id_fk," +
+            " basic_interview_result_id_fk, technical_interview_result_id_fk FROM applicant_requests JOIN applicant_states ON applicant_state_id_fk = applicant_state_id" +
+            " WHERE vacancy_id_fk = ?;";
+
     private SqlQuery() {
     }
 }

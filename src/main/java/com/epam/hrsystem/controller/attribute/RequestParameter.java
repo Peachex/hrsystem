@@ -29,6 +29,9 @@ public class RequestParameter {
     //Vacancy request
     public static final String SUMMARY = "summary";
 
+    //Applicant requests
+    public static final String APPLICANT_REQUESTS = "applicantRequests";
+
     //Different
     public static final String NEW_LOCALE = "newLocale";
 

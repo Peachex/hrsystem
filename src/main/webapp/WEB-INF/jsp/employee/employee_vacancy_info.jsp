@@ -163,8 +163,42 @@
             ${errorVacancyUpdate}
         </wrong-message>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-            crossorigin="anonymous"></script>
+
+    <div class="mt-3">
+        <wrong-message>
+            ${noApplicantRequests}
+        </wrong-message>
+    </div>
+
+    <vacancies-number><fmt:message
+            key="applicant_request.requestsAmount"/> ${applicantRequests.size()}</vacancies-number>
+
+    <table class="table table-dark table-bordered border-secondary mt-5 offset-2" style="width: 67%">
+        <thead>
+        <tr>
+            <th scope="col"><fmt:message key="profile.firstName"/></th>
+            <th scope="col"><fmt:message key="profile.lastName"/></th>
+            <th scope="col"><fmt:message key="profile.email"/></th>
+            <th scope="col"><fmt:message key="applicant_request.applicantState"/></th>
+            <th scope="col"><fmt:message key="table_action"/></th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="applicantRequest" items="${applicantRequests}">
+        <tr class="table-secondary">
+            <th scope="row">${applicantRequest.applicant.firstName}</th>
+            <th scope="row">${applicantRequest.applicant.lastName}</th>
+            <th scope="row">${applicantRequest.applicant.email}</th>
+            <th scope="row">${applicantRequest.applicantState}</th>
+            <th scope="row"><a href="<c:url value="home"/>"><fmt:message
+                    key="link.moreInfo"/></a></th>
+        <tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
 </body>
 </html>

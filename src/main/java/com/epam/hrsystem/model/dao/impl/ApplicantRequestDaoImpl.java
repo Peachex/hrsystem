@@ -4,12 +4,19 @@ import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.dao.ApplicantRequestDao;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
+import com.epam.hrsystem.model.entity.ApplicantState;
+import com.epam.hrsystem.model.entity.InterviewResult;
+import com.epam.hrsystem.model.entity.User;
+import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.pool.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
@@ -48,6 +55,24 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
     }
 
     @Override
+    public List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId, String sqlQuery) throws DaoException {
+        List<ApplicantRequest> applicantRequests = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setLong(1, vacancyId);
+            statement.executeQuery();
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                ApplicantRequest applicantRequest = createApplicantRequestFromResultSet(resultSet);
+                applicantRequests.add(applicantRequest);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return applicantRequests;
+    }
+
+    @Override
     public Optional<Long> findApplicantStateIdByName(String name) throws DaoException {
         Optional<Long> id = Optional.empty();
         try (Connection connection = pool.takeConnection();
@@ -61,5 +86,23 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
             throw new DaoException(e);
         }
         return id;
+    }
+
+    private ApplicantRequest createApplicantRequestFromResultSet(ResultSet resultSet) throws SQLException, DaoException {
+        long id = resultSet.getLong(1);
+        String summary = resultSet.getString(2);
+        ApplicantState applicantState = ApplicantState.valueOf(resultSet.getString(3));//fixme
+        long applicantId = resultSet.getLong(4);
+        User applicant = UserDaoImpl.INSTANCE.findUserById(applicantId).orElseThrow(() -> new DaoException("Invalid id"));
+        long vacancyId = resultSet.getLong(5);
+        Vacancy vacancy = VacancyDaoImpl.INSTANCE.findVacancyById(vacancyId).orElseThrow(() -> new DaoException("Invalid id"));
+        //long basicInterviewResultId = fixme add interview result dao method
+        InterviewResult basicInterviewResult = null;
+        //long technicalInterviewResultId =
+        InterviewResult technicalInterviewResult = null;
+
+        ApplicantRequest applicantRequest = new ApplicantRequest(id, summary, applicantState, applicant, vacancy, basicInterviewResult,
+                technicalInterviewResult);
+        return applicantRequest;
     }
 }

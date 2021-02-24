@@ -8,8 +8,11 @@ import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
+import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.Vacancy;
+import com.epam.hrsystem.model.service.ApplicantRequestService;
 import com.epam.hrsystem.model.service.VacancyService;
+import com.epam.hrsystem.model.service.impl.ApplicantRequestServiceImpl;
 import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +20,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 public class ToEmployeeVacancyInfoCommand implements ActionCommand {
@@ -25,15 +29,22 @@ public class ToEmployeeVacancyInfoCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
         String vacancyId = request.getParameter(RequestParameter.VACANCY_ID);
-        VacancyService service = VacancyServiceImpl.INSTANCE;
+        VacancyService vacancyService = VacancyServiceImpl.INSTANCE;
+        ApplicantRequestService applicantRequestService = ApplicantRequestServiceImpl.INSTANCE;
         CommandResult result;
         try {
             long id = Long.parseLong(vacancyId);
-            Optional<Vacancy> vacancyOptional = service.findVacancyById(id);
+            Optional<Vacancy> vacancyOptional = vacancyService.findVacancyById(id);
             if (vacancyOptional.isPresent()) {
                 HttpSession session = request.getSession();
                 Vacancy vacancy = vacancyOptional.get();
                 if (vacancy.getEmployee().getId() == (long) session.getAttribute(SessionAttribute.USER_ID)) {
+                    List<ApplicantRequest> applicantRequests = applicantRequestService.findApplicantRequestsByVacancyId(vacancy.getId());
+                    if (applicantRequests.size() > 0) {
+                        request.setAttribute(RequestParameter.APPLICANT_REQUESTS, applicantRequests);
+                    } else {
+                        request.setAttribute(Constant.NO_APPLICANT_REQUESTS_ATTRIBUTE, Constant.NO_APPLICANT_REQUESTS_MESSAGE);
+                    }
                     request.setAttribute(RequestParameter.VACANCY, vacancy);
                     result = new CommandResult(PagePath.EMPLOYEE_CURRENT_VACANCY_INFO, CommandResult.Type.FORWARD);
                 } else {

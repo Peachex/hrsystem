@@ -7,11 +7,13 @@ import com.epam.hrsystem.model.creator.Creator;
 import com.epam.hrsystem.model.creator.impl.ApplicantRequestCreator;
 import com.epam.hrsystem.model.dao.ApplicantRequestDao;
 import com.epam.hrsystem.model.dao.impl.ApplicantRequestDaoImpl;
+import com.epam.hrsystem.model.dao.impl.SqlQuery;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -41,6 +43,17 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
             throw new ServiceException(e);
         }
         return result;
+    }
+
+    @Override
+    public List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId) throws ServiceException {
+        List<ApplicantRequest> applicantRequests;
+        try {
+            applicantRequests = dao.findApplicantRequestsByVacancyId(vacancyId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return applicantRequests;
     }
 
     @Override
