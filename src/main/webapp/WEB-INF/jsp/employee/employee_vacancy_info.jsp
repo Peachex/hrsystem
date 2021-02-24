@@ -25,24 +25,24 @@
     <c:set var="vacancy" scope="request" value="${vacancy}"/>
 
     <div class="card text-dark bg-light offset-3" style="margin-top: 3%;max-width: 50%;">
-        <div class="card-header" style="display: flex"><h4><fmt:message
+        <div class="card-header" style="display: flex"><h3><fmt:message
                 key="vacancy_info.title"/> #${vacancy.id} <c:if test="${!vacancy.isAvailable}"><fmt:message
-                key="vacancy_deleted"/></c:if></h4>
+                key="vacancy_deleted"/></c:if></h3>
         </div>
         <div class="card-body">
-            <h3 class="card-title"><fmt:message key="vacancy_position"/></h3>
+            <h4 class="card-title"><fmt:message key="vacancy_position"/></h4>
             <p class="card-text">${vacancy.position}</p>
         </div>
         <div class="card-body">
-            <h3 class="card-title"><fmt:message key="vacancy_description"/></h3>
+            <h4 class="card-title"><fmt:message key="vacancy_description"/></h4>
             <p class="card-text">${vacancy.description}</p>
         </div>
         <div class="card-body">
-            <h3 class="card-title"><fmt:message key="vacancy_country"/></h3>
+            <h4 class="card-title"><fmt:message key="vacancy_country"/></h4>
             <p class="card-text">${vacancy.country}</p>
         </div>
         <div class="card-body">
-            <h3 class="card-title"><fmt:message key="vacancy_city"/></h3>
+            <h4 class="card-title"><fmt:message key="vacancy_city"/></h4>
             <p class="card-text">${vacancy.city}</p>
         </div>
         <div class="col-4 offset-4" style="display: flex;justify-content: center;">

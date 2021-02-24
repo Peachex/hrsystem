@@ -25,25 +25,25 @@
     <c:set var="applicantRequests" scope="request" value="${applicantRequests}"/>
 
     <div class="card text-dark bg-light offset-3" style="margin-top: 3%;max-width: 50%;">
-        <div class="card-header"><h4><fmt:message key="profile.title"/></h4></div>
+        <div class="card-header"><h3><fmt:message key="profile.title"/></h3></div>
         <div class="card-body">
-            <h3 class="card-title"><fmt:message key="profile.firstName"/></h3>
+            <h4 class="card-title"><fmt:message key="profile.firstName"/></h4>
             <p class="card-text">${user.firstName}</p>
         </div>
         <div class="card-body">
-            <h3 class="card-title"><fmt:message key="profile.lastName"/></h3>
+            <h4 class="card-title"><fmt:message key="profile.lastName"/></h4>
             <p class="card-text">${user.lastName}</p>
         </div>
         <div class="card-body">
-            <h3 class="card-title"><fmt:message key="profile.dateOfBirth"/></h3>
+            <h4 class="card-title"><fmt:message key="profile.dateOfBirth"/></h4>
             <p class="card-text">${user.dateOfBirth}</p>
         </div>
         <div class="card-body">
-            <h3 class="card-title"><fmt:message key="profile.phoneNumber"/></h3>
+            <h4 class="card-title"><fmt:message key="profile.phoneNumber"/></h4>
             <p class="card-text">${user.phoneNumber}</p>
         </div>
         <div class="card-body">
-            <h3 class="card-title"><fmt:message key="profile.email"/></h3>
+            <h4 class="card-title"><fmt:message key="profile.email"/></h4>
             <p class="card-text">${user.email}</p>
         </div>
         <!-- Button trigger modal -->
