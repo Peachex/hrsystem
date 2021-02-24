@@ -42,6 +42,12 @@
             <h3 class="card-title"><fmt:message key="vacancy_city"/></h3>
             <p class="card-text">${vacancy.city}</p>
         </div>
+        <div class="col-4 offset-4" style="display: flex;justify-content: center;">
+            <a class="btn btn-outline-secondary col-8 mb-4"
+               style="display: flex;justify-content: center"
+               href="to_vacancies.do" role="button"><fmt:message
+                    key="button.back"/> </a>
+        </div>
     </div>
 
     <c:if test="${role.toString().equals(guest)}">
