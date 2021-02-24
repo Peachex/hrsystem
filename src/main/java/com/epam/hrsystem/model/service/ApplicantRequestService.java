@@ -12,5 +12,7 @@ public interface ApplicantRequestService {
 
     List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId) throws ServiceException;
 
+    List<ApplicantRequest> findApplicantRequestsByApplicant(long applicantId) throws ServiceException;
+
     boolean isApplicantRequestExists(ApplicantRequest request) throws ServiceException;
 }

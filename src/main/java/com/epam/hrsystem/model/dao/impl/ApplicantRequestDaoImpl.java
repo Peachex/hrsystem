@@ -72,6 +72,24 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
     }
 
     @Override
+    public List<ApplicantRequest> findApplicantRequestsByApplicantId(long applicantId, String sqlQuery) throws DaoException {
+        List<ApplicantRequest> applicantRequests = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setLong(1, applicantId);
+            statement.executeQuery();
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                ApplicantRequest applicantRequest = createApplicantRequestFromResultSet(resultSet);
+                applicantRequests.add(applicantRequest);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return applicantRequests;
+    }
+
+    @Override
     public Optional<Long> findApplicantStateIdByName(String name) throws DaoException {
         Optional<Long> id = Optional.empty();
         try (Connection connection = pool.takeConnection();
@@ -90,7 +108,7 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
     private ApplicantRequest createApplicantRequestFromResultSet(ResultSet resultSet) throws SQLException, DaoException {
         long id = resultSet.getLong(1);
         String summary = resultSet.getString(2);
-        ApplicantState applicantState = ApplicantState.valueOf(resultSet.getString(3));//fixme
+        ApplicantState applicantState = ApplicantState.valueOf(resultSet.getString(3));
         long applicantId = resultSet.getLong(4);
         User applicant = UserDaoImpl.INSTANCE.findUserById(applicantId).orElseThrow(() -> new DaoException("Invalid id"));
         long vacancyId = resultSet.getLong(5);

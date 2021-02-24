@@ -18,6 +18,7 @@ import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithActiveA
 import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithApplicantsRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithNotActiveApplicantsRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.SortVacanciesByDateCommand;
+import com.epam.hrsystem.controller.command.impl.ToApplicantRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeVacancyInfoCommand;
 import com.epam.hrsystem.controller.command.impl.ToUserProfileCommand;
@@ -41,7 +42,10 @@ public enum CommandEnum {
         this.command = new ChangeLanguageCommand();
     }},
     TO_USER_PROFILE {{
-       this.command = new ToUserProfileCommand();
+        this.command = new ToUserProfileCommand();
+    }},
+    TO_APPLICANT_REQUESTS {{
+        this.command = new ToApplicantRequestsCommand();
     }},
     TO_VACANCIES {{
         this.command = new ToVacanciesCommand();

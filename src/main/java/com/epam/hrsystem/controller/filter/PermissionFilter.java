@@ -49,6 +49,7 @@ public class PermissionFilter implements Filter {
         applicantCommands.add(CommandEnum.CREATE_APPLICANT_REQUEST);
         applicantCommands.add(CommandEnum.TO_USER_PROFILE);
         applicantCommands.add(CommandEnum.EDIT_USER_PROFILE);
+        applicantCommands.add(CommandEnum.TO_APPLICANT_REQUESTS);
 
         List<CommandEnum> employeeCommands = new ArrayList<>(sameCommands);
         employeeCommands.add(CommandEnum.LOGOUT);

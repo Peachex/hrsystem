@@ -65,7 +65,7 @@
                         <li><a class="dropdown-item" href="to_user_profile.do"><fmt:message
                                 key="user.profile"/></a></li>
                         <c:if test="${role.toString().equals(applicant)}">
-                            <li><a class="dropdown-item" href="home"><fmt:message
+                            <li><a class="dropdown-item" href="to_applicant_requests.do"><fmt:message
                                     key="user.requests"/></a></li>
                         </c:if>
                         <c:if test="${!role.toString().equals(applicant)}">
