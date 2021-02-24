@@ -45,17 +45,17 @@
     </div>
 
     <c:if test="${role.toString().equals(guest)}">
-        <a class="btn btn-primary col-2 offset-3" href="login" role="button" style="margin-top: 2%;
-    width: 10%;"><fmt:message
-                key="button.createVacancyRequest"/> </a>
+        <a class="btn btn-primary col-2 offset-5" href="login" role="button" style="margin-top: 2%;
+    margin-bottom: 2%"><fmt:message
+                key="button.createApplicantRequest"/> </a>
     </c:if>
 
     <c:if test="${role.toString().equals(applicant)}">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary col-2 offset-3" style="margin-top: 2%;
-    width: 10%;     margin-bottom: 2%;" data-bs-toggle="modal"
+        <button type="button" class="btn btn-primary col-2 offset-5" style="margin-top: 2%; margin-bottom: 2%;"
+                data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
-            <fmt:message key="button.createVacancyRequest"/>
+            <fmt:message key="button.createApplicantRequest"/>
         </button>
 
         <!-- Modal -->
@@ -64,27 +64,26 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel"><fmt:message
-                                key="button.createVacancyRequest"/></h5>
+                                key="applicant_request.request"/></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form name="create_applicant_request" method="POST" action="create_applicant_request.do">
                             <input type="hidden" name="vacancyId" value="${vacancy.id}">
-                            <div class="offset-1">
-                                <label for="inputSummary"><fmt:message
-                                        key="create_vacancy_request.inputSummary"/> </label>
+                            <label for="inputSummary"><fmt:message
+                                    key="create_applicant_request.inputSummary"/> </label>
+                            <div class="form-group mt-1">
+                                    <textarea class="form-control" rows="5" id="inputSummary"
+                                              name="summary" placeholder="<fmt:message
+                                             key="create_applicant_request.inputSummaryPlaceholder"/>"
+                                              required minlength="3" maxlength="10000"></textarea>
                             </div>
-                            <div class="form-group">
-                                  <textarea class="form-control" rows="5" id="inputSummary"
-                                            name="summary" placeholder="<fmt:message
-                                             key="create_vacancy_request.inputSummaryPlaceholder"/>"
-                                            required></textarea>
-                            </div>
-                            <div class="mb-3 row">
-                                <div class="offset-3" style="margin-top: 5%;width: 93%;">
-                                    <button class="btn btn-primary button" type="submit"><fmt:message
-                                            key="button.createVacancyRequest"/></button>
-                                </div>
+
+                            <div class="col-4">
+                                <button class="btn btn-outline-success button mt-4" style="margin-left: 100%"
+                                        type="submit">
+                                    <fmt:message
+                                            key="button.createApplicantRequest"/></button>
                             </div>
                             <input name="ctoken" type="hidden" value="${stoken}"/>
                         </form>
