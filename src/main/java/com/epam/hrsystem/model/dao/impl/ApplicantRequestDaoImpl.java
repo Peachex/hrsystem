@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
     INSTANCE;
@@ -21,7 +22,7 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_INSERT_APPLICANT_REQUEST)) {
             statement.setString(1, request.getSummary());
-            statement.setString(2, request.getApplicantState().toString());
+            statement.setLong(2, findApplicantStateIdByName(request.getApplicantState().toString()).orElseThrow(() -> new DaoException("Invalid applicant state")));
             statement.setLong(3, request.getApplicant().getId());
             statement.setLong(4, request.getVacancy().getId());
             result = statement.executeUpdate() == 1;
@@ -44,5 +45,21 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
             throw new DaoException(e);
         }
         return result;
+    }
+
+    @Override
+    public Optional<Long> findApplicantStateIdByName(String name) throws DaoException {
+        Optional<Long> id = Optional.empty();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_APPLICANT_STATE_ID_BY_NAME)) {
+            statement.setString(1, name);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                id = Optional.of(resultSet.getLong(1));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return id;
     }
 }

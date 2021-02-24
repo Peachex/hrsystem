@@ -26,10 +26,9 @@ public class CreateApplicantRequestCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws CommandException {
-        //fixme
-        String summary = request.getParameter(RequestParameter.SUMMARY);
         HttpSession session = request.getSession();
         User applicant = (User) session.getAttribute(SessionAttribute.USER);
+        String summary = request.getParameter(RequestParameter.SUMMARY);
         String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
         Map<String, String> fields = new LinkedHashMap<>();
         fields.put(RequestParameter.SUMMARY, summary);
@@ -43,9 +42,9 @@ public class CreateApplicantRequestCommand implements ActionCommand {
                 mailSender.setMailSubject(Constant.HR_SYSTEM_MAIL_SUBJECT);
                 mailSender.setMailText(Constant.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
                 mailSender.send();
-                result = new CommandResult(CommandName.TO_VACANCIES, CommandResult.Type.FORWARD);
+                result = new CommandResult(CommandName.TO_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT); //fixme redirect to user requests list
             } else {
-                result = new CommandResult(CommandResult.Type.RETURN_WITH_REDIRECT);
+                result = new CommandResult(CommandName.TO_VACANCY_INFO + vacancyIdStr, CommandResult.Type.FORWARD);
                 request.setAttribute(Constant.ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE, Constant.ERROR_APPLICANT_REQUEST_CREATION_MESSAGE);
             }
         } catch (ServiceException e) {

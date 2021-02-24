@@ -109,11 +109,13 @@ public class SqlQuery {
             " AND description = ? AND country_id_fk = ? AND city_id_fk = ?;";
 
     //APPLICANT_REQUEST QUERIES
-    public static final String SQL_INSERT_APPLICANT_REQUEST = "INSERT INTO applicant_requests(summary, applicant_state, user_id_fk, vacancy_id_fk)" +
+    public static final String SQL_INSERT_APPLICANT_REQUEST = "INSERT INTO applicant_requests(summary, applicant_state_id_fk, user_id_fk, vacancy_id_fk)" +
             " VALUES (?, ?, ?, ?);";
 
     public static final String SQL_CHECK_APPLICANT_REQUEST_FOR_EXISTENCE = "SELECT applicant_request_id FROM applicant_requests WHERE" +
             " user_id_fk = ? AND vacancy_id_fk = ?;";
+
+    public static final String SQL_FIND_APPLICANT_STATE_ID_BY_NAME = "SELECT applicant_state_id FROM applicant_states WHERE state = ?;";
 
     private SqlQuery() {
     }
