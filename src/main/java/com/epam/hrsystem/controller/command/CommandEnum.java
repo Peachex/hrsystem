@@ -4,6 +4,7 @@ import com.epam.hrsystem.controller.command.impl.ChangeLanguageCommand;
 import com.epam.hrsystem.controller.command.impl.CreateVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.CreateApplicantRequestCommand;
 import com.epam.hrsystem.controller.command.impl.DeleteVacancyCommand;
+import com.epam.hrsystem.controller.command.impl.EditUserProfileCommand;
 import com.epam.hrsystem.controller.command.impl.EditVacancyInfoCommand;
 import com.epam.hrsystem.controller.command.impl.FindVacanciesByKeyWordCommand;
 import com.epam.hrsystem.controller.command.impl.LoginCommand;
@@ -19,6 +20,7 @@ import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithNotActi
 import com.epam.hrsystem.controller.command.impl.SortVacanciesByDateCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeVacancyInfoCommand;
+import com.epam.hrsystem.controller.command.impl.ToUserProfileCommand;
 import com.epam.hrsystem.controller.command.impl.ToVacancyInfoCommand;
 import com.epam.hrsystem.controller.command.impl.ToVacanciesCommand;
 
@@ -32,8 +34,14 @@ public enum CommandEnum {
     LOGOUT {{
         this.command = new LogoutCommand();
     }},
+    EDIT_USER_PROFILE {{
+        this.command = new EditUserProfileCommand();
+    }},
     CHANGE_LANGUAGE {{
         this.command = new ChangeLanguageCommand();
+    }},
+    TO_USER_PROFILE {{
+       this.command = new ToUserProfileCommand();
     }},
     TO_VACANCIES {{
         this.command = new ToVacanciesCommand();

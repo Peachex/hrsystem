@@ -47,6 +47,8 @@ public class PermissionFilter implements Filter {
         List<CommandEnum> applicantCommands = new ArrayList<>(sameCommands);
         applicantCommands.add(CommandEnum.LOGOUT);
         applicantCommands.add(CommandEnum.CREATE_APPLICANT_REQUEST);
+        applicantCommands.add(CommandEnum.TO_USER_PROFILE);
+        applicantCommands.add(CommandEnum.EDIT_USER_PROFILE);
 
         List<CommandEnum> employeeCommands = new ArrayList<>(sameCommands);
         employeeCommands.add(CommandEnum.LOGOUT);
@@ -61,6 +63,8 @@ public class PermissionFilter implements Filter {
         employeeCommands.add(CommandEnum.SEE_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS);
         employeeCommands.add(CommandEnum.SEE_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS);
         employeeCommands.add(CommandEnum.EDIT_VACANCY_INFO);
+        employeeCommands.add(CommandEnum.TO_USER_PROFILE);
+        employeeCommands.add(CommandEnum.EDIT_USER_PROFILE);
 
         List<CommandEnum> adminCommands = new ArrayList<>(sameCommands);
         adminCommands.add(CommandEnum.LOGOUT);
@@ -68,6 +72,8 @@ public class PermissionFilter implements Filter {
         adminCommands.add(CommandEnum.SEE_ALL_VACANCIES);
         adminCommands.add(CommandEnum.DELETE_VACANCY);
         adminCommands.add(CommandEnum.RESTORE_VACANCY);
+        adminCommands.add(CommandEnum.TO_USER_PROFILE);
+        adminCommands.add(CommandEnum.EDIT_USER_PROFILE);
 
         permissionCommands.put(UserRole.GUEST, guestCommands);
         permissionCommands.put(UserRole.APPLICANT, applicantCommands);

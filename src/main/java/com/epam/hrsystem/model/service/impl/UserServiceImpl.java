@@ -166,19 +166,21 @@ public enum UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateProfile(long userId, Map<String, String> fields) throws ServiceException {
-        boolean result = false;
+    public Optional<User> updateProfile(long userId, Map<String, String> fields) throws ServiceException {
         try {
             Optional<User> userOptional = dao.findUserById(userId);
-            if (userOptional.isPresent()) {
+            if (userOptional.isPresent() && UserValidator.isEditFormValid(fields)) {
                 User user = userOptional.get();
-                updateUserFields(user, fields);
-                result = dao.updateProfile(user);
+                if (dao.isEmailAvailable(fields.get(RequestParameter.EMAIL)) || user.getEmail().equals(fields.get(RequestParameter.EMAIL))) {
+                    updateUserFields(user, fields);
+                    if (dao.updateProfile(user))
+                        return Optional.of(user);
+                }
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
+        return Optional.empty();
     }
 
     private void updateUserFields(User user, Map<String, String> fields) {

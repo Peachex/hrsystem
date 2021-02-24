@@ -56,7 +56,6 @@
                     <li>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-outline-secondary dropdown-item"
-                                style=""
                                 data-bs-toggle="modal" data-bs-target="#editVacancyModal">
                             <fmt:message key="button.edit"/>
                         </button>
@@ -159,11 +158,11 @@
                     key="button.back"/> </a>
         </div>
     </div>
-        <div class="mt-3">
-            <wrong-message>
-                ${errorVacancyUpdate}
-            </wrong-message>
-        </div>
+    <div class="mt-3">
+        <wrong-message>
+            ${errorVacancyUpdate}
+        </wrong-message>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
             crossorigin="anonymous"></script>
