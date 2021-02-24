@@ -42,7 +42,7 @@ public class CreateApplicantRequestCommand implements ActionCommand {
                 mailSender.setMailSubject(Constant.HR_SYSTEM_MAIL_SUBJECT);
                 mailSender.setMailText(Constant.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
                 mailSender.send();
-                result = new CommandResult(CommandName.TO_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT); //fixme redirect to user requests list
+                result = new CommandResult(CommandName.TO_APPLICANT_REQUESTS, CommandResult.Type.REDIRECT); //fixme redirect to user requests list
             } else {
                 result = new CommandResult(CommandName.TO_VACANCY_INFO + vacancyIdStr, CommandResult.Type.FORWARD);
                 request.setAttribute(Constant.ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE, Constant.ERROR_APPLICANT_REQUEST_CREATION_MESSAGE);
