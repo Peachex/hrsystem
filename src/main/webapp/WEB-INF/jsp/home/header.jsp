@@ -59,7 +59,7 @@
                 <li class="nav-item dropdown offset-1">
                     <a class="nav-link dropdown-toggle header-link" id="navbarDropdownUser" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                            ${user.firstName} ${user.lastName}
+                            ${user.firstName} ${user.lastName} (${user.role.toString().toLowerCase()})
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownUser">
                         <li><a class="dropdown-item" href="to_user_profile.do"><fmt:message
