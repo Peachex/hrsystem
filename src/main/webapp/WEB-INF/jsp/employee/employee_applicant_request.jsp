@@ -221,7 +221,7 @@
             <div class="col-4 offset-4" style="display: flex;justify-content: center;">
                 <a class="btn btn-outline-secondary col-8 mb-1"
                    style="display: flex;justify-content: center; margin-top: 10%;"
-                   href="to_employee_vacancy_info.do?vacancyId=${applicantRequest.vacancy.id}.do"
+                   href="to_employee_vacancy_info.do?vacancyId=${applicantRequest.vacancy.id}"
                    role="button"><fmt:message
                         key="button.back"/> </a>
             </div>
