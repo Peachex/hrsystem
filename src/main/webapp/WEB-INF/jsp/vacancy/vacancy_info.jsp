@@ -51,7 +51,7 @@
     </div>
 
     <c:if test="${role.toString().equals(guest)}">
-        <a class="btn btn-primary col-2 offset-5" href="login" role="button" style="margin-top: 2%;
+        <a class="btn btn-outline-success col-2 offset-5" href="login" role="button" style="margin-top: 2%;
     margin-bottom: 2%"><fmt:message
                 key="button.createApplicantRequest"/> </a>
     </c:if>

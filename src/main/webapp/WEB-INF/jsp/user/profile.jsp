@@ -48,7 +48,7 @@
         </div>
         <!-- Button trigger modal -->
         <div class="col-4 offset-4" style="display: flex;justify-content: center; margin-bottom: 5%">
-            <button type="button" class="btn btn-outline-secondary"
+            <button type="button" class="btn btn-outline-secondary button"
                     data-bs-toggle="modal" data-bs-target="#editProfileModal">
                 <fmt:message key="button.edit"/>
             </button>
