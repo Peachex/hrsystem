@@ -24,140 +24,165 @@
     <%@ include file="../home/header.jsp" %>
     <c:set var="vacancy" scope="request" value="${vacancy}"/>
 
-    <div class="card text-dark bg-light offset-3" style="margin-top: 3%;max-width: 50%;">
-        <div class="card-header" style="display: flex"><h3><fmt:message
-                key="vacancy_info.title"/> #${vacancy.id} <c:if test="${!vacancy.isAvailable}"><fmt:message
-                key="vacancy_deleted"/></c:if></h3>
-        </div>
-        <div class="card-body">
-            <h4 class="card-title"><fmt:message key="vacancy_position"/></h4>
-            <p class="card-text">${vacancy.position}</p>
-        </div>
-        <div class="card-body">
-            <h4 class="card-title"><fmt:message key="vacancy_description"/></h4>
-            <p class="card-text">${vacancy.description}</p>
-        </div>
-        <div class="card-body">
-            <h4 class="card-title"><fmt:message key="vacancy_country"/></h4>
-            <p class="card-text">${vacancy.country}</p>
-        </div>
-        <div class="card-body">
-            <h4 class="card-title"><fmt:message key="vacancy_city"/></h4>
-            <p class="card-text">${vacancy.city}</p>
-        </div>
-        <div class="col-4 offset-4" style="display: flex;justify-content: center;">
-            <div class="dropdown col-8 mb-4">
-                <button class="btn btn-outline-secondary dropdown-toggle button mt-3" type="button" id="actionDropDown"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                    <fmt:message key="button.action"/>
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="btn btn-outline-secondary col-2 offset-5 mb-1 collapsed" style="margin-top: 3%" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false"
+                        aria-controls="flush-collapseOne">
+                    <fmt:message key="vacancy_info.title"/>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-dark" style="width: 100%" aria-labelledby="actionDropDown">
-                    <li>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-outline-secondary dropdown-item"
-                                data-bs-toggle="modal" data-bs-target="#editVacancyModal">
-                            <fmt:message key="button.edit"/>
-                        </button>
-                    </li>
-                    <c:if test="${vacancy.isAvailable}">
-                        <li><a class="dropdown-item"
-                               href="delete_vacancy.do?vacancyId=${vacancy.id}"><fmt:message
-                                key="button.delete"/> </a></li>
-                    </c:if>
-                    <c:if test="${!vacancy.isAvailable}">
-                        <li><a class="dropdown-item"
-                               href="restore_vacancy.do?vacancyId=${vacancy.id}"><fmt:message
-                                key="button.restore"/> </a></li>
-                    </c:if>
-                </ul>
-                <!-- Modal -->
-                <div class="modal fade" id="editVacancyModal" data-bs-backdrop="static"
-                     data-bs-keyboard="false" tabindex="-1"
-                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title"><fmt:message key="create_vacancy_modal.title"/></h4>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                 aria-labelledby="flush-headingOne"
+                 data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="card text-dark bg-light offset-3" style="margin-top: 1%;max-width: 50%;">
+                        <div class="card-header" style="display: flex"><h3><fmt:message
+                                key="vacancy_info.title"/> #${vacancy.id} <c:if
+                                test="${!vacancy.isAvailable}"><fmt:message
+                                key="vacancy_deleted"/></c:if></h3>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title"><fmt:message key="vacancy_position"/></h4>
+                            <p class="card-text">${vacancy.position}</p>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title"><fmt:message key="vacancy_description"/></h4>
+                            <p class="card-text">${vacancy.description}</p>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title"><fmt:message key="vacancy_country"/></h4>
+                            <p class="card-text">${vacancy.country}</p>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title"><fmt:message key="vacancy_city"/></h4>
+                            <p class="card-text">${vacancy.city}</p>
+                        </div>
+                        <div class="col-4 offset-4" style="display: flex;justify-content: center;">
+                            <div class="dropdown col-8 mb-4">
+                                <button class="btn btn-outline-secondary dropdown-toggle button mt-3" type="button"
+                                        id="actionDropDown"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    <fmt:message key="button.action"/>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark" style="width: 100%"
+                                    aria-labelledby="actionDropDown">
+                                    <li>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-outline-secondary dropdown-item"
+                                                data-bs-toggle="modal" data-bs-target="#editVacancyModal">
+                                            <fmt:message key="button.edit"/>
+                                        </button>
+                                    </li>
+                                    <c:if test="${vacancy.isAvailable}">
+                                        <li><a class="dropdown-item"
+                                               href="delete_vacancy.do?vacancyId=${vacancy.id}"><fmt:message
+                                                key="button.delete"/> </a></li>
+                                    </c:if>
+                                    <c:if test="${!vacancy.isAvailable}">
+                                        <li><a class="dropdown-item"
+                                               href="restore_vacancy.do?vacancyId=${vacancy.id}"><fmt:message
+                                                key="button.restore"/> </a></li>
+                                    </c:if>
+                                </ul>
+                                <!-- Modal -->
+                                <div class="modal fade" id="editVacancyModal" data-bs-backdrop="static"
+                                     data-bs-keyboard="false" tabindex="-1"
+                                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title"><fmt:message
+                                                        key="create_vacancy_modal.title"/></h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
 
-                            <div class="modal-body">
-                                <form name="edit-vacancy-form" method="POST"
-                                      action="edit_vacancy_info.do?vacancyId=${vacancy.id}">
-                                    <label for="inputPosition"><fmt:message
-                                            key="create_vacancy_modal.inputPosition"/> </label>
-                                    <div class="form-group mt-1">
-                                        <input type="text" class="form-control field" id="inputPosition"
-                                               name="position"
-                                               value="${vacancy.position}" placeholder=
-                                                       "<fmt:message key="create_vacancy_modal.inputPositionPlaceholder"/>"
-                                               required pattern="[А-Яа-я\w\s\p{Punct}]{3,1000}">
-                                    </div>
+                                            <div class="modal-body">
+                                                <form name="edit-vacancy-form" method="POST"
+                                                      action="edit_vacancy_info.do?vacancyId=${vacancy.id}">
+                                                    <label for="inputPosition"><fmt:message
+                                                            key="create_vacancy_modal.inputPosition"/> </label>
+                                                    <div class="form-group mt-1">
+                                                        <input type="text" class="form-control field" id="inputPosition"
+                                                               name="position"
+                                                               value="${vacancy.position}" placeholder=
+                                                                       "<fmt:message key="create_vacancy_modal.inputPositionPlaceholder"/>"
+                                                               required pattern="[А-Яа-я\w\s\p{Punct}]{3,1000}">
+                                                    </div>
 
-                                    <div class="mt-3">
-                                        <label for="inputDescription"><fmt:message
-                                                key="create_vacancy_modal.inputDescription"/> </label>
-                                    </div>
-                                    <div class="form-group mt-1">
+                                                    <div class="mt-3">
+                                                        <label for="inputDescription"><fmt:message
+                                                                key="create_vacancy_modal.inputDescription"/> </label>
+                                                    </div>
+                                                    <div class="form-group mt-1">
                                     <textarea class="form-control" rows="5" id="inputDescription"
                                               name="description" placeholder="<fmt:message
                                              key="create_vacancy_modal.inputDescriptionPlaceholder"/>"
                                               required minlength="3" maxlength="10000"></textarea>
-                                    </div>
+                                                    </div>
 
-                                    <div class="mt-3">
-                                        <label for="inputCountry"><fmt:message
-                                                key="create_vacancy_modal.inputCountry"/> </label>
-                                    </div>
-                                    <div class="form-group mt-1">
-                                        <input type="text" class="form-control field" id="inputCountry"
-                                               name="country"
-                                               value="${vacancy.country}" placeholder=
-                                                       "<fmt:message key="create_vacancy_modal.inputCountryPlaceholder"/>"
-                                               required pattern="[a-zA-Zа-яА-я\s]{3,50}">
-                                    </div>
+                                                    <div class="mt-3">
+                                                        <label for="inputCountry"><fmt:message
+                                                                key="create_vacancy_modal.inputCountry"/> </label>
+                                                    </div>
+                                                    <div class="form-group mt-1">
+                                                        <input type="text" class="form-control field" id="inputCountry"
+                                                               name="country"
+                                                               value="${vacancy.country}" placeholder=
+                                                                       "<fmt:message key="create_vacancy_modal.inputCountryPlaceholder"/>"
+                                                               required pattern="[a-zA-Zа-яА-я\s]{3,50}">
+                                                    </div>
 
-                                    <div class="mt-3">
-                                        <label for="inputCity"><fmt:message
-                                                key="create_vacancy_modal.inputCity"/> </label>
-                                    </div>
-                                    <div class="form-group mt-1">
-                                        <input type="text" class="form-control field" id="inputCity" name="city"
-                                               value="${vacancy.city}" placeholder=
-                                                       "<fmt:message key="create_vacancy_modal.inputCityPlaceholder"/>"
-                                               required pattern="[a-zA-Zа-яА-я\s]{2,50}">
-                                    </div>
+                                                    <div class="mt-3">
+                                                        <label for="inputCity"><fmt:message
+                                                                key="create_vacancy_modal.inputCity"/> </label>
+                                                    </div>
+                                                    <div class="form-group mt-1">
+                                                        <input type="text" class="form-control field" id="inputCity"
+                                                               name="city"
+                                                               value="${vacancy.city}" placeholder=
+                                                                       "<fmt:message key="create_vacancy_modal.inputCityPlaceholder"/>"
+                                                               required pattern="[a-zA-Zа-яА-я\s]{2,50}">
+                                                    </div>
 
-                                    <div class="col-4">
-                                        <button class="btn btn-outline-success button mt-4"
-                                                style="margin-left: 100%" type="submit">
-                                            <fmt:message
-                                                    key="button.save"/></button>
+                                                    <div class="col-4">
+                                                        <button class="btn btn-outline-success button mt-4"
+                                                                style="margin-left: 100%" type="submit">
+                                                            <fmt:message
+                                                                    key="button.save"/></button>
+                                                    </div>
+                                                    <input name="ctoken" type="hidden" value="${stoken}"/>
+                                                </form>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-danger"
+                                                        data-bs-dismiss="modal">
+                                                    <fmt:message
+                                                            key="button.close"/></button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <input name="ctoken" type="hidden" value="${stoken}"/>
-                                </form>
+                                </div>
                             </div>
+                        </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
-                                    <fmt:message
-                                            key="button.close"/></button>
-                            </div>
+                        <div class="col-4 offset-4" style="display: flex;justify-content: center;">
+                            <a class="btn btn-outline-secondary col-8 mb-4"
+                               style="display: flex;justify-content: center"
+                               href="to_employee_vacancies.do" role="button"><fmt:message
+                                    key="button.back"/> </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-4 offset-4" style="display: flex;justify-content: center;">
-            <a class="btn btn-outline-secondary col-8 mb-4"
-               style="display: flex;justify-content: center"
-               href="to_employee_vacancies.do" role="button"><fmt:message
-                    key="button.back"/> </a>
-        </div>
     </div>
+
+
     <div class="mt-3">
         <wrong-message>
             ${errorVacancyUpdate}
