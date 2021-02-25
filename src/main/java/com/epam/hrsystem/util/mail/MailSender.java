@@ -36,16 +36,6 @@ public enum MailSender {
     private String mailSubject;
     private String mailText;
 
-    /*public MailSender(String sendToEmail, String mailSubject, String mailText) {
-        this.sendToEmail = sendToEmail;
-        this.mailSubject = mailSubject;
-        this.mailText = mailText;
-    }
-
-    public MailSender() {
-
-    }*/
-
     public String getSendToEmail() {
         return sendToEmail;
     }
@@ -67,6 +57,12 @@ public enum MailSender {
     }
 
     public void setMailText(String mailText) {
+        this.mailText = mailText;
+    }
+
+    public void setupEmail(String sendToEmail, String mailSubject, String mailText) {
+        this.sendToEmail = sendToEmail;
+        this.mailSubject = mailSubject;
         this.mailText = mailText;
     }
 

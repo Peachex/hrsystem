@@ -12,6 +12,7 @@ import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
 import com.epam.hrsystem.model.service.impl.ApplicantRequestServiceImpl;
 import com.epam.hrsystem.util.mail.MailSender;
+import com.epam.hrsystem.validator.ApplicantRequestValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,14 +39,17 @@ public class CreateApplicantRequestCommand implements ActionCommand {
             ApplicantRequestService service = ApplicantRequestServiceImpl.INSTANCE;
             if (service.createApplicantRequest(fields, applicant)) {
                 MailSender mailSender = MailSender.INSTANCE;
-                mailSender.setSendToEmail(applicant.getEmail());
-                mailSender.setMailSubject(Constant.HR_SYSTEM_MAIL_SUBJECT);
-                mailSender.setMailText(Constant.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
+                String applicantEmail = applicant.getEmail();
+                mailSender.setupEmail(applicantEmail, Constant.HR_SYSTEM_MAIL_SUBJECT, Constant.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
                 mailSender.send();
                 result = new CommandResult(CommandName.TO_APPLICANT_REQUESTS, CommandResult.Type.REDIRECT);
             } else {
+                if (ApplicantRequestValidator.isSummaryValid(summary)) {
+                    request.setAttribute(Constant.ERROR_DUPLICATE_ATTRIBUTE, Constant.ERROR_APPLICANT_REQUEST_DUPLICATE_MESSAGE);
+                } else {
+                    request.setAttribute(Constant.ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE, Constant.ERROR_APPLICANT_REQUEST_CREATION_MESSAGE);
+                }
                 result = new CommandResult(CommandName.TO_VACANCY_INFO + vacancyIdStr, CommandResult.Type.FORWARD);
-                request.setAttribute(Constant.ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE, Constant.ERROR_APPLICANT_REQUEST_CREATION_MESSAGE);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, "Couldn't create applicant request");

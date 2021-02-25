@@ -16,8 +16,8 @@ public class Constant {
     public static final String ERROR_VACANCY_UPDATING_MESSAGE = "Couldn't edit vacancy, try one more time";
 
     public static final String ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE = "errorApplicantRequestCreation";
-    public static final String ERROR_APPLICANT_REQUEST_CREATION_MESSAGE = "Couldn't create applicant request, check input data" +
-            " or you have already created request";
+    public static final String ERROR_APPLICANT_REQUEST_CREATION_MESSAGE = "Couldn't create applicant request, check input data";
+    public static final String ERROR_APPLICANT_REQUEST_DUPLICATE_MESSAGE = "Couldn't apply cause you have already applied";
 
     public static final String ERROR_INPUT_DATA_ATTRIBUTE = "errorInputData";
     public static final String ERROR_INPUT_DATA_MESSAGE = "Input data isn't valid, check fields";

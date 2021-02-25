@@ -105,6 +105,7 @@
 
     <wrong-message>
         ${errorApplicantRequestCreation}
+        ${errorDuplicate}
     </wrong-message>
 
 </div>
