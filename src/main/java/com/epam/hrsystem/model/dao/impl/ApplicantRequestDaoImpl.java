@@ -133,9 +133,12 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
         long vacancyId = resultSet.getLong(5);
         Vacancy vacancy = VacancyDaoImpl.INSTANCE.findVacancyById(vacancyId).orElseThrow(() -> new DaoException("Invalid id"));
         //long basicInterviewResultId = fixme add interview result dao method
-        InterviewResult basicInterviewResult = null;
+        //InterviewResult basicInterviewResult = null;
         //long technicalInterviewResultId =
-        InterviewResult technicalInterviewResult = null;
+        //InterviewResult technicalInterviewResult = null;
+
+        InterviewResult basicInterviewResult = new InterviewResult((byte) 10, "Very good student. Very good student. Very good student.");
+        InterviewResult technicalInterviewResult = new InterviewResult((byte) 2, "Bad student. Bad student. Bad student.");
 
         ApplicantRequest applicantRequest = new ApplicantRequest(id, summary, applicantState, applicant, vacancy, basicInterviewResult,
                 technicalInterviewResult);

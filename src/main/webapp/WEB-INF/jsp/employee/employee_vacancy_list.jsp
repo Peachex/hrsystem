@@ -140,6 +140,7 @@
     <div class="mt-3">
         <wrong-message>
             ${errorVacancyCreation}
+            ${noApplicantRequest}
         </wrong-message>
         <wrong-message>
             ${noVacancies}
