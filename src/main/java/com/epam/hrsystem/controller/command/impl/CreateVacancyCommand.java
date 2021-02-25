@@ -10,6 +10,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
+import com.epam.hrsystem.validator.VacancyValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,13 +40,17 @@ public class CreateVacancyCommand implements ActionCommand {
         fields.put(RequestParameter.CITY, city);
 
         VacancyService service = VacancyServiceImpl.INSTANCE;
-        CommandResult result = new CommandResult( CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.REDIRECT);
+        CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.REDIRECT);
         try {
             if (!service.createVacancy(fields, employeeId)) {
-                request.setAttribute(RequestParameter.POSITION, fields.get(RequestParameter.POSITION));
-                request.setAttribute(RequestParameter.COUNTRY, fields.get(RequestParameter.COUNTRY));
-                request.setAttribute(RequestParameter.CITY, fields.get(RequestParameter.CITY));
-                request.setAttribute(Constant.ERROR_VACANCY_CREATION_ATTRIBUTE, Constant.ERROR_VACANCY_CREATION_MESSAGE);
+                if (VacancyValidator.isVacancyFormValid(fields)) {
+                    request.setAttribute(Constant.ERROR_DUPLICATE_ATTRIBUTE, Constant.ERROR_VACANCY_DUPLICATE_MESSAGE);
+                } else {
+                    request.setAttribute(RequestParameter.POSITION, fields.get(RequestParameter.POSITION));
+                    request.setAttribute(RequestParameter.COUNTRY, fields.get(RequestParameter.COUNTRY));
+                    request.setAttribute(RequestParameter.CITY, fields.get(RequestParameter.CITY));
+                    request.setAttribute(Constant.ERROR_VACANCY_CREATION_ATTRIBUTE, Constant.ERROR_VACANCY_CREATION_MESSAGE);
+                }
                 result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.FORWARD);
             }
         } catch (ServiceException e) {
@@ -55,6 +60,3 @@ public class CreateVacancyCommand implements ActionCommand {
         return result;
     }
 }
-
-
-

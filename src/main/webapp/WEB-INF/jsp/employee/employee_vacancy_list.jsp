@@ -144,6 +144,7 @@
         </wrong-message>
         <wrong-message>
             ${noVacancies}
+            ${errorDuplicate}
         </wrong-message>
         <wrong-message>
             ${noVacancy}

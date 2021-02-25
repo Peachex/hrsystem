@@ -2,13 +2,15 @@ package com.epam.hrsystem.controller.attribute;
 
 public class Constant {
     public static final String ERROR_VACANCY_CREATION_ATTRIBUTE = "errorVacancyCreation";
-    public static final String ERROR_VACANCY_CREATION_MESSAGE = "Couldn't create vacancy, check input data or there is same active" +
-            " vacancy";
+    public static final String ERROR_VACANCY_CREATION_MESSAGE = "Couldn't create vacancy, check input data";
 
     public static final String ERROR_VACANCY_DELETE_ATTRIBUTE = "errorVacancyDelete";
     public static final String ERROR_VACANCY_DELETE_MESSAGE = "Couldn't delete vacancy, try one more time";
     public static final String ERROR_VACANCY_RESTORE_ATTRIBUTE = "errorVacancyRestore";
     public static final String ERROR_VACANCY_RESTORE_MESSAGE = "Couldn't restore vacancy, try one more time";
+
+    public static final String ERROR_DUPLICATE_ATTRIBUTE = "errorDuplicate";
+    public static final String ERROR_VACANCY_DUPLICATE_MESSAGE = "Couldn't create vacancy cause there is same active vacancy";
 
     public static final String ERROR_VACANCY_UPDATING_ATTRIBUTE = "errorVacancyUpdate";
     public static final String ERROR_VACANCY_UPDATING_MESSAGE = "Couldn't edit vacancy, try one more time";
@@ -44,7 +46,7 @@ public class Constant {
     public static final String SORT_SEQUENCE_ASC = "ASC";
 
     public static final String EMAIL_AVAILABLE_ERROR_MESSAGE = "Email is unavailable, try another one!";
-    public static final String INVALID_INPUT_DATA_MESSAGE = "Invalid input!";
+    public static final String INVALID_INPUT_DATA_MESSAGE = "";
 
     private Constant() {
     }
