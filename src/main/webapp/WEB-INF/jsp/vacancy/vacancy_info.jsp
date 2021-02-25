@@ -58,7 +58,7 @@
 
     <c:if test="${role.toString().equals(applicant)}">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary col-2 offset-5" style="margin-top: 2%; margin-bottom: 2%;"
+        <button type="button" class="btn btn-outline-success col-2 offset-5" style="margin-top: 2%; margin-bottom: 2%;"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
             <fmt:message key="button.createApplicantRequest"/>
