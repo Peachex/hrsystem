@@ -1,9 +1,12 @@
 package com.epam.hrsystem.validator;
 
+import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.RequestParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +16,21 @@ public class InterviewResultValidator {
     private static final Pattern COMMENT_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{1,25000}");
 
     private InterviewResultValidator() {
+    }
+
+    public static boolean isInterviewResultFormValid(Map<String, String> fields) {
+        boolean result = true;
+        String rating = fields.get(RequestParameter.INTERVIEW_RESULT_RATING);
+        if (!isRatingValid(rating)) {
+            fields.put(RequestParameter.INTERVIEW_RESULT_RATING, Constant.INVALID_INPUT_DATA_MESSAGE);
+            result = false;
+        }
+        String comment = fields.get(RequestParameter.INTERVIEW_RESULT_COMMENT);
+        if (!isCommentValid(comment)) {
+            fields.put(RequestParameter.INTERVIEW_RESULT_COMMENT, Constant.INVALID_INPUT_DATA_MESSAGE);
+            result = false;
+        }
+        return result;
     }
 
     public static boolean isRatingValid(String rating) {

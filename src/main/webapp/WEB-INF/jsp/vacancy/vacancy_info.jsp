@@ -95,7 +95,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><fmt:message
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><fmt:message
                                 key="button.close"/></button>
                     </div>
                 </div>
