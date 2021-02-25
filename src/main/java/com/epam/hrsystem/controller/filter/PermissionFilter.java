@@ -3,7 +3,7 @@ package com.epam.hrsystem.controller.filter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.attribute.UrlPattern;
 import com.epam.hrsystem.controller.command.ActionCommand;
-import com.epam.hrsystem.controller.command.CommandEnum;
+import com.epam.hrsystem.controller.command.CommandType;
 import com.epam.hrsystem.controller.command.CommandProvider;
 import com.epam.hrsystem.model.entity.UserRole;
 import org.apache.logging.log4j.Level;
@@ -29,52 +29,53 @@ import java.util.Optional;
 
 public class PermissionFilter implements Filter {
     private static final Logger logger = LogManager.getLogger();
-    private static final Map<UserRole, List<CommandEnum>> permissionCommands = new HashMap<>();
+    private static final Map<UserRole, List<CommandType>> permissionCommands = new HashMap<>();
 
     @Override
     public void init(FilterConfig filterConfig) {
-        List<CommandEnum> sameCommands = new ArrayList<>();
-        sameCommands.add(CommandEnum.CHANGE_LANGUAGE);
-        sameCommands.add(CommandEnum.TO_VACANCIES);
-        sameCommands.add(CommandEnum.TO_VACANCY_INFO);
-        sameCommands.add(CommandEnum.FIND_VACANCIES_BY_KEY_WORD);
-        sameCommands.add(CommandEnum.SORT_VACANCIES_BY_DATE);
+        List<CommandType> sameCommands = new ArrayList<>();
+        sameCommands.add(CommandType.CHANGE_LANGUAGE);
+        sameCommands.add(CommandType.TO_VACANCIES);
+        sameCommands.add(CommandType.TO_VACANCY_INFO);
+        sameCommands.add(CommandType.FIND_VACANCIES_BY_KEY_WORD);
+        sameCommands.add(CommandType.SORT_VACANCIES_BY_DATE);
 
-        List<CommandEnum> guestCommands = new ArrayList<>(sameCommands);
-        guestCommands.add(CommandEnum.REGISTER);
-        guestCommands.add(CommandEnum.LOGIN);
+        List<CommandType> guestCommands = new ArrayList<>(sameCommands);
+        guestCommands.add(CommandType.REGISTER);
+        guestCommands.add(CommandType.LOGIN);
 
-        List<CommandEnum> applicantCommands = new ArrayList<>(sameCommands);
-        applicantCommands.add(CommandEnum.LOGOUT);
-        applicantCommands.add(CommandEnum.CREATE_APPLICANT_REQUEST);
-        applicantCommands.add(CommandEnum.TO_USER_PROFILE);
-        applicantCommands.add(CommandEnum.EDIT_USER_PROFILE);
-        applicantCommands.add(CommandEnum.TO_APPLICANT_REQUESTS);
+        List<CommandType> applicantCommands = new ArrayList<>(sameCommands);
+        applicantCommands.add(CommandType.LOGOUT);
+        applicantCommands.add(CommandType.CREATE_APPLICANT_REQUEST);
+        applicantCommands.add(CommandType.TO_USER_PROFILE);
+        applicantCommands.add(CommandType.EDIT_USER_PROFILE);
+        applicantCommands.add(CommandType.TO_APPLICANT_REQUESTS);
 
-        List<CommandEnum> employeeCommands = new ArrayList<>(sameCommands);
-        employeeCommands.add(CommandEnum.LOGOUT);
-        employeeCommands.add(CommandEnum.CREATE_VACANCY);
-        employeeCommands.add(CommandEnum.DELETE_VACANCY);
-        employeeCommands.add(CommandEnum.RESTORE_VACANCY);
-        employeeCommands.add(CommandEnum.TO_EMPLOYEE_VACANCIES);
-        employeeCommands.add(CommandEnum.TO_EMPLOYEE_VACANCY_INFO);
-        employeeCommands.add(CommandEnum.SEE_ACTIVE_EMPLOYEE_VACANCIES);
-        employeeCommands.add(CommandEnum.SEE_DELETED_EMPLOYEE_VACANCIES);
-        employeeCommands.add(CommandEnum.SEE_EMPLOYEE_VACANCIES_WITH_APPLICANTS_REQUESTS);
-        employeeCommands.add(CommandEnum.SEE_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS);
-        employeeCommands.add(CommandEnum.SEE_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS);
-        employeeCommands.add(CommandEnum.EDIT_VACANCY_INFO);
-        employeeCommands.add(CommandEnum.TO_USER_PROFILE);
-        employeeCommands.add(CommandEnum.EDIT_USER_PROFILE);
+        List<CommandType> employeeCommands = new ArrayList<>(sameCommands);
+        employeeCommands.add(CommandType.LOGOUT);
+        employeeCommands.add(CommandType.CREATE_VACANCY);
+        employeeCommands.add(CommandType.DELETE_VACANCY);
+        employeeCommands.add(CommandType.RESTORE_VACANCY);
+        employeeCommands.add(CommandType.TO_EMPLOYEE_VACANCIES);
+        employeeCommands.add(CommandType.TO_EMPLOYEE_VACANCY_INFO);
+        employeeCommands.add(CommandType.SEE_ACTIVE_EMPLOYEE_VACANCIES);
+        employeeCommands.add(CommandType.SEE_DELETED_EMPLOYEE_VACANCIES);
+        employeeCommands.add(CommandType.SEE_EMPLOYEE_VACANCIES_WITH_APPLICANTS_REQUESTS);
+        employeeCommands.add(CommandType.SEE_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS);
+        employeeCommands.add(CommandType.SEE_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS);
+        employeeCommands.add(CommandType.EDIT_VACANCY_INFO);
+        employeeCommands.add(CommandType.TO_USER_PROFILE);
+        employeeCommands.add(CommandType.EDIT_USER_PROFILE);
+        employeeCommands.add(CommandType.TO_EMPLOYEE_APPLICANT_REQUEST);
 
-        List<CommandEnum> adminCommands = new ArrayList<>(sameCommands);
-        adminCommands.add(CommandEnum.LOGOUT);
-        adminCommands.add(CommandEnum.CREATE_VACANCY);
-        adminCommands.add(CommandEnum.SEE_ALL_VACANCIES);
-        adminCommands.add(CommandEnum.DELETE_VACANCY);
-        adminCommands.add(CommandEnum.RESTORE_VACANCY);
-        adminCommands.add(CommandEnum.TO_USER_PROFILE);
-        adminCommands.add(CommandEnum.EDIT_USER_PROFILE);
+        List<CommandType> adminCommands = new ArrayList<>(sameCommands);
+        adminCommands.add(CommandType.LOGOUT);
+        adminCommands.add(CommandType.CREATE_VACANCY);
+        adminCommands.add(CommandType.SEE_ALL_VACANCIES);
+        adminCommands.add(CommandType.DELETE_VACANCY);
+        adminCommands.add(CommandType.RESTORE_VACANCY);
+        adminCommands.add(CommandType.TO_USER_PROFILE);
+        adminCommands.add(CommandType.EDIT_USER_PROFILE);
 
         permissionCommands.put(UserRole.GUEST, guestCommands);
         permissionCommands.put(UserRole.APPLICANT, applicantCommands);
@@ -93,8 +94,8 @@ public class PermissionFilter implements Filter {
             filterChain.doFilter(request, response);
             return;
         }
-        List<CommandEnum> commands = permissionCommands.get(role);
-        CommandEnum command = CommandProvider.defineCommandType(request).get();
+        List<CommandType> commands = permissionCommands.get(role);
+        CommandType command = CommandProvider.defineCommandType(request).get();
         if (commands == null || !commands.contains(command)) {
             logger.log(Level.ERROR, "User hasn't got permission to execute command = " + command);
             RequestDispatcher dispatcher = request.getRequestDispatcher(UrlPattern.HOME);

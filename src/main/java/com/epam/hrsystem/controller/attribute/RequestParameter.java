@@ -31,6 +31,8 @@ public class RequestParameter {
 
     //Applicant requests
     public static final String APPLICANT_REQUESTS = "applicantRequests";
+    public static final String APPLICANT_REQUEST = "applicantRequest";
+    public static final String APPLICANT_ID = "applicantId";
 
     //Different
     public static final String NEW_LOCALE = "newLocale";

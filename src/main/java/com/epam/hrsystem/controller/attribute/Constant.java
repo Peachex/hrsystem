@@ -31,6 +31,9 @@ public class Constant {
     public static final String NO_APPLICANT_REQUESTS_ATTRIBUTE = "noApplicantRequests";
     public static final String NO_APPLICANT_REQUESTS_MESSAGE = "No applicant requests";
 
+    public static final String NO_APPLICANT_REQUEST_ATTRIBUTE = "noApplicantRequest";
+    public static final String NO_APPLICANT_REQUEST_MESSAGE = "No applicant request";
+
     public static final String NO_VACANCY_ATTRIBUTE = "noVacancy";
     public static final String NO_VACANCY_MESSAGE = "No vacancy";
 

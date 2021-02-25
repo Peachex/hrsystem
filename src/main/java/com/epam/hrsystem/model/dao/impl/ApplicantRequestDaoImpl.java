@@ -90,6 +90,25 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
     }
 
     @Override
+    public Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws DaoException {
+        Optional<ApplicantRequest> applicantRequestOptional = Optional.empty();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID_AND_APPLICANT_ID)) {
+            statement.setLong(1, vacancyId);
+            statement.setLong(2, applicantId);
+            statement.executeQuery();
+            ResultSet resultSet = statement.getResultSet();
+            if (resultSet.next()) {
+                ApplicantRequest applicantRequest = createApplicantRequestFromResultSet(resultSet);
+                applicantRequestOptional = Optional.of(applicantRequest);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return applicantRequestOptional;
+    }
+
+    @Override
     public Optional<Long> findApplicantStateIdByName(String name) throws DaoException {
         Optional<Long> id = Optional.empty();
         try (Connection connection = pool.takeConnection();

@@ -125,6 +125,10 @@ public class SqlQuery {
             " basic_interview_result_id_fk, technical_interview_result_id_fk FROM applicant_requests JOIN applicant_states ON applicant_state_id_fk = applicant_state_id" +
             " JOIN vacancies ON vacancy_id_fk = vacancy_id WHERE applicant_requests.user_id_fk = ? ORDER BY creation_date DESC;";
 
+    public static final String SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID_AND_APPLICANT_ID = "SELECT applicant_request_id, summary, state, applicant_requests.user_id_fk, vacancy_id_fk," +
+            " basic_interview_result_id_fk, technical_interview_result_id_fk FROM applicant_requests JOIN applicant_states ON applicant_state_id_fk = applicant_state_id" +
+            " WHERE vacancy_id_fk = ? AND user_id_fk = ?;";
+
     private SqlQuery() {
     }
 }

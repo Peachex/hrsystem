@@ -15,5 +15,7 @@ public interface ApplicantRequestDao {
 
     List<ApplicantRequest> findApplicantRequestsByApplicantId(long applicantId, String sqlQuery) throws DaoException;
 
+    Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws DaoException;
+
     Optional<Long> findApplicantStateIdByName(String name) throws DaoException;
 }

@@ -6,6 +6,7 @@ import com.epam.hrsystem.model.entity.User;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface ApplicantRequestService {
     boolean createApplicantRequest(Map<String, String> fields, User applicant) throws ServiceException;
@@ -13,6 +14,8 @@ public interface ApplicantRequestService {
     List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId) throws ServiceException;
 
     List<ApplicantRequest> findApplicantRequestsByApplicant(long applicantId) throws ServiceException;
+
+    Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws ServiceException;
 
     boolean isApplicantRequestExists(ApplicantRequest request) throws ServiceException;
 }

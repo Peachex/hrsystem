@@ -9,6 +9,7 @@ public class PagePath {
     public static final String EMPLOYEE_VACANCY_LIST = "/WEB-INF/jsp/employee/employee_vacancy_list.jsp";
     public static final String USER_PROFILE = "/WEB-INF/jsp/user/profile.jsp";
     public static final String APPLICANT_REQUESTS = "/WEB-INF/jsp/applicant/applicant_requests.jsp";
+    public static final String EMPLOYEE_APPLICANT_REQUEST = "/WEB-INF/jsp/employee/employee_applicant_request.jsp";
 
     private PagePath() {
     }

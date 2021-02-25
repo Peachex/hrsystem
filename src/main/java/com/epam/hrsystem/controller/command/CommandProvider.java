@@ -22,8 +22,8 @@ public class CommandProvider {
         String stringCommand = parseCommandName(url);
         if (stringCommand != null && !stringCommand.isEmpty()) {
             try {
-                CommandEnum commandEnum = CommandEnum.valueOf(stringCommand.toUpperCase());
-                ActionCommand command = commandEnum.getCurrentCommand();
+                CommandType commandType = CommandType.valueOf(stringCommand.toUpperCase());
+                ActionCommand command = commandType.getCurrentCommand();
                 result = Optional.of(command);
             } catch (IllegalArgumentException e) {
                 logger.log(Level.ERROR, "Command " + stringCommand + "isn't correct: " + e);
@@ -33,12 +33,12 @@ public class CommandProvider {
         return result;
     }
 
-    public static Optional<CommandEnum> defineCommandType(HttpServletRequest request) {
-        Optional<CommandEnum> result = Optional.empty();
+    public static Optional<CommandType> defineCommandType(HttpServletRequest request) {
+        Optional<CommandType> result = Optional.empty();
         String url = request.getRequestURI();
         String stringCommand = parseCommandName(url);
         if (stringCommand != null) {
-            CommandEnum command = CommandEnum.valueOf(stringCommand.toUpperCase(Locale.ROOT));
+            CommandType command = CommandType.valueOf(stringCommand.toUpperCase(Locale.ROOT));
             result = Optional.of(command);
         }
         return result;

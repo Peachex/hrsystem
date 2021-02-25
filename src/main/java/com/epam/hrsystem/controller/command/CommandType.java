@@ -19,13 +19,14 @@ import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithApplica
 import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithNotActiveApplicantsRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.SortVacanciesByDateCommand;
 import com.epam.hrsystem.controller.command.impl.ToApplicantRequestsCommand;
+import com.epam.hrsystem.controller.command.impl.ToEmployeeApplicantRequestCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeVacancyInfoCommand;
 import com.epam.hrsystem.controller.command.impl.ToUserProfileCommand;
 import com.epam.hrsystem.controller.command.impl.ToVacancyInfoCommand;
 import com.epam.hrsystem.controller.command.impl.ToVacanciesCommand;
 
-public enum CommandEnum {
+public enum CommandType {
     REGISTER {{
         this.command = new RegisterCommand();
     }},
@@ -55,6 +56,9 @@ public enum CommandEnum {
     }},
     TO_EMPLOYEE_VACANCY_INFO {{
         this.command = new ToEmployeeVacancyInfoCommand();
+    }},
+    TO_EMPLOYEE_APPLICANT_REQUEST {{
+        this.command = new ToEmployeeApplicantRequestCommand();
     }},
     TO_VACANCY_INFO {{
         this.command = new ToVacancyInfoCommand();

@@ -68,6 +68,17 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
     }
 
     @Override
+    public Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws ServiceException {
+        Optional<ApplicantRequest> applicantRequest;
+        try {
+            applicantRequest = dao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return applicantRequest;
+    }
+
+    @Override
     public boolean isApplicantRequestExists(ApplicantRequest request) throws ServiceException {
         boolean result;
         try {
