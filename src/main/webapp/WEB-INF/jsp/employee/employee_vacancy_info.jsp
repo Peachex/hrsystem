@@ -27,7 +27,8 @@
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
-                <button class="btn btn-outline-secondary col-2 offset-5 mb-1 collapsed" style="margin-top: 3%" type="button" data-bs-toggle="collapse"
+                <button class="btn btn-outline-secondary col-2 offset-5 mb-1 collapsed" style="margin-top: 3%"
+                        type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false"
                         aria-controls="flush-collapseOne">
                     <fmt:message key="vacancy_info.title"/>
@@ -169,19 +170,15 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-4 offset-4" style="display: flex;justify-content: center;">
-                            <a class="btn btn-outline-secondary col-8 mb-4"
-                               style="display: flex;justify-content: center"
-                               href="to_employee_vacancies.do" role="button"><fmt:message
-                                    key="button.back"/> </a>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <a class="btn btn-outline-secondary col-2 offset-5 mb-1" style="margin-top: 1%" href="to_employee_vacancies.do"
+       role="button"><fmt:message
+            key="button.back"/></a>
 
     <div class="mt-3">
         <wrong-message>
