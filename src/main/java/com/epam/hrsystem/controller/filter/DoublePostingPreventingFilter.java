@@ -35,7 +35,6 @@ public class DoublePostingPreventingFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain chain) throws IOException, ServletException {
         httpRequest = (HttpServletRequest) servletRequest;
-        session = httpRequest.getSession(true);
         if (httpRequest.getMethod().equals(NAME_OF_GET_METHOD)) {
             session = httpRequest.getSession(true);
             session.setAttribute(SessionAttribute.SERVER_TOKEN, new Random().nextInt(MAX_RANDOM_RANGE));
