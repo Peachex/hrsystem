@@ -9,6 +9,7 @@ import com.epam.hrsystem.controller.command.impl.EditVacancyInfoCommand;
 import com.epam.hrsystem.controller.command.impl.FindVacanciesByKeyWordCommand;
 import com.epam.hrsystem.controller.command.impl.LoginCommand;
 import com.epam.hrsystem.controller.command.impl.LogoutCommand;
+import com.epam.hrsystem.controller.command.impl.ProvideImageCommand;
 import com.epam.hrsystem.controller.command.impl.RegisterCommand;
 import com.epam.hrsystem.controller.command.impl.RestoreVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.SeeActiveEmployeeVacanciesCommand;
@@ -101,6 +102,9 @@ public enum CommandType {
     }},
     CREATE_APPLICANT_REQUEST {{
         this.command = new CreateApplicantRequestCommand();
+    }},
+    PROVIDE_IMAGE{{
+        this.command = new ProvideImageCommand();
     }};
 
     ActionCommand command;

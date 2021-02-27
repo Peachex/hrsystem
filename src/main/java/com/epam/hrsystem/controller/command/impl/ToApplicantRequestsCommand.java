@@ -13,12 +13,13 @@ import com.epam.hrsystem.model.service.ApplicantRequestService;
 import com.epam.hrsystem.model.service.impl.ApplicantRequestServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class ToApplicantRequestsCommand implements ActionCommand {
     @Override
-    public CommandResult execute(HttpServletRequest request) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         ApplicantRequestService service = ApplicantRequestServiceImpl.INSTANCE;
         HttpSession session = request.getSession();
         CommandResult result = new CommandResult(PagePath.APPLICANT_REQUESTS, CommandResult.Type.FORWARD);

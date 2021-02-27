@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class ToEmployeeApplicantRequestCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public CommandResult execute(HttpServletRequest request) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String applicantIdStr = request.getParameter(RequestParameter.APPLICANT_ID);
         String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
         ApplicantRequestService applicantRequestService = ApplicantRequestServiceImpl.INSTANCE;

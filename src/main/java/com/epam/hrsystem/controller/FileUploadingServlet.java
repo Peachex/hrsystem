@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import java.io.*;
 import java.util.UUID;
 
@@ -16,8 +18,9 @@ import java.util.UUID;
         maxFileSize = 1024 * 1024 * 5,
         maxRequestSize = 1024 * 1024 * 5 * 5)
 public class FileUploadingServlet extends HttpServlet {
-    private static final String UPLOAD_FILE_PATH = "C:" + File.separator + "Users" + File.separator + "Peachex" + File.separator +
-            "IdeaProjects" + File.separator + "hrsystem" + File.separator + "uploads" + File.separator;
+    public static final String UPLOAD_FILE_PATH = "C:" + File.separator + "Users" + File.separator + "Peachex" + File.separator +
+            "IdeaProjects" + File.separator + "hrsystem" + File.separator + "src" + File.separator + "main" + File.separator +
+            "webapp" + File.separator + "img" + File.separator + "avatar" + File.separator;
 
     @Override
     protected void doPost(HttpServletRequest request,
@@ -27,17 +30,39 @@ public class FileUploadingServlet extends HttpServlet {
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdirs();
         }
-        request.getParts().stream().forEach(part -> {
-            try {
-                part.write(UPLOAD_FILE_PATH + part.getSubmittedFileName());//.substring(2)
-                String path = part.getSubmittedFileName();
-                String randFilename = UUID.randomUUID() + path.substring(path.lastIndexOf("."));//
-                part.write(UPLOAD_FILE_PATH + randFilename);
-                request.setAttribute("upload_result", " upload successfully ");
-            } catch (IOException e) {
-                request.setAttribute("upload_result", " upload failed ");
+        try {
+            Part part = request.getPart("file");
+            String path = part.getSubmittedFileName();
+            String randFilename = UUID.randomUUID() + path.substring(path.lastIndexOf("."));//
+            try (InputStream inputStream = part.getInputStream()) {
+                boolean isSuccess = uploadFile(inputStream, UPLOAD_FILE_PATH + randFilename);
+                if (isSuccess) {
+                    request.setAttribute("error", " upload successfully ");
+                    HttpSession session = request.getSession();
+                    session.setAttribute("avatar", randFilename);
+                } else {
+                    request.setAttribute("error", " upload failed ");
+                }
             }
-        }); //fixme setup servlet
-        request.getRequestDispatcher("!!!!!!!!!!!!").forward(request, response);
+        } catch (IOException e) {
+            request.setAttribute("error", " upload failed ");
+        }
+        response.sendRedirect(request.getContextPath() + "/test");
+        //request.getRequestDispatcher("/test").forward(request, response);
+    }
+
+    private boolean uploadFile(InputStream inputStream, String path) throws ServletException {
+        try {
+            byte[] bytes = new byte[inputStream.available()];
+            int result = inputStream.read(bytes);
+            if (result != -1) {
+                try (FileOutputStream fops = new FileOutputStream(path)) {
+                    fops.write(bytes);
+                }
+            }
+        } catch (IOException e) {
+            throw new ServletException(e);
+        }
+        return true;
     }
 }

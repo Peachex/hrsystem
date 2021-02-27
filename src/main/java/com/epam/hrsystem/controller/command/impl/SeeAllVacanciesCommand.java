@@ -12,11 +12,12 @@ import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class SeeAllVacanciesCommand implements ActionCommand {
     @Override
-    public CommandResult execute(HttpServletRequest request) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         //fixme
         VacancyService service = VacancyServiceImpl.INSTANCE;
         CommandResult result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD);

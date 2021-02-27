@@ -19,6 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +28,7 @@ public class ToEmployeeVacancyInfoCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public CommandResult execute(HttpServletRequest request) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String vacancyId = request.getParameter(RequestParameter.VACANCY_ID);
         VacancyService vacancyService = VacancyServiceImpl.INSTANCE;
         ApplicantRequestService applicantRequestService = ApplicantRequestServiceImpl.INSTANCE;

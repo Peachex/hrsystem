@@ -15,13 +15,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 public class ToVacancyInfoCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public CommandResult execute(HttpServletRequest request) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String vacancyId = request.getParameter(RequestParameter.VACANCY_ID);
         VacancyService service = VacancyServiceImpl.INSTANCE;
         CommandResult result;

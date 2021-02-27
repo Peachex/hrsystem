@@ -8,11 +8,12 @@ import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ChangeLanguageCommand implements ActionCommand {
     @Override
-    public CommandResult execute(HttpServletRequest request) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         HttpSession session = request.getSession();
         CommandResult result = new CommandResult(CommandResult.Type.RETURN_WITH_REDIRECT);
         String newLocaleStr = request.getParameter(RequestParameter.NEW_LOCALE);

@@ -43,7 +43,7 @@ public class Controller extends HttpServlet {
             CommandResult commandResult;
             if (commandOptional.isPresent()) {
                 ActionCommand command = commandOptional.get();
-                commandResult = command.execute(request);
+                commandResult = command.execute(request, response);
             } else {
                 commandResult = new CommandResult(CommandResult.DEFAULT_PATH);
             }

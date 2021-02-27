@@ -11,13 +11,14 @@ import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.entity.comparator.VacancyComparator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Comparator;
 import java.util.List;
 
 public class SortVacanciesByDateCommand implements ActionCommand {
     @Override
-    public CommandResult execute(HttpServletRequest request) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         CommandResult result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD);
         Comparator<Vacancy> comparator = VacancyComparator.VACANCY_CREATION_DATE;
         HttpSession session = request.getSession();

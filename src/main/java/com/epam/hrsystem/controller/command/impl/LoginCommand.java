@@ -14,11 +14,12 @@ import com.epam.hrsystem.model.service.UserService;
 import com.epam.hrsystem.model.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class LoginCommand implements ActionCommand {
-    public CommandResult execute(HttpServletRequest request) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String email = request.getParameter(RequestParameter.EMAIL);
         String password = request.getParameter(RequestParameter.PASSWORD);
         UserService service = UserServiceImpl.INSTANCE;

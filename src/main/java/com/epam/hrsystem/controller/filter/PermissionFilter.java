@@ -39,6 +39,7 @@ public class PermissionFilter implements Filter {
         sameCommands.add(CommandType.TO_VACANCY_INFO);
         sameCommands.add(CommandType.FIND_VACANCIES_BY_KEY_WORD);
         sameCommands.add(CommandType.SORT_VACANCIES_BY_DATE);
+        sameCommands.add(CommandType.PROVIDE_IMAGE);
 
         List<CommandType> guestCommands = new ArrayList<>(sameCommands);
         guestCommands.add(CommandType.REGISTER);

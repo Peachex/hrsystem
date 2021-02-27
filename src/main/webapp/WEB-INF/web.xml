@@ -36,7 +36,8 @@
     </filter>
     <filter-mapping>
         <filter-name>DoublePostingPreventingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>*.do</url-pattern>
+        <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -77,6 +78,15 @@
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Test</servlet-name>
+        <jsp-file>/WEB-INF/jsp/test.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Test</servlet-name>
+        <url-pattern>/test</url-pattern>
     </servlet-mapping>
 
 </web-app>

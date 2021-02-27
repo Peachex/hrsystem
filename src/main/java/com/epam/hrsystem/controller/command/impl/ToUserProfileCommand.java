@@ -9,11 +9,12 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.model.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ToUserProfileCommand implements ActionCommand {
     @Override
-    public CommandResult execute(HttpServletRequest request) throws CommandException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(SessionAttribute.USER);
         CommandResult result = new CommandResult(PagePath.USER_PROFILE, CommandResult.Type.FORWARD);
