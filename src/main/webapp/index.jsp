@@ -5,7 +5,6 @@
     <title>Index</title>
 </head>
 <body>
-<%--<jsp:forward page="/home"/>--%>
-<jsp:forward page="/test"/>
+<jsp:forward page="/home"/>
 </body>
 </html>

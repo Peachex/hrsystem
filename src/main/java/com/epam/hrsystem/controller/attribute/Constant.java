@@ -1,5 +1,7 @@
 package com.epam.hrsystem.controller.attribute;
 
+import java.io.File;
+
 public class Constant {
     public static final String ERROR_VACANCY_CREATION_ATTRIBUTE = "errorVacancyCreation";
     public static final String ERROR_VACANCY_CREATION_MESSAGE = "Couldn't create vacancy, check input data";
@@ -39,7 +41,9 @@ public class Constant {
     public static final String NO_VACANCY_ATTRIBUTE = "noVacancy";
     public static final String NO_VACANCY_MESSAGE = "No vacancy";
 
-    public static final String MAIN_SERVLET_NAME = "Controller";
+    public static final String CONTROLLER_SERVLET_NAME = "Controller";
+    public static final String FILE_UPLOADING_SERVLET_NAME = "FileUploadingServlet";
+
 
     public static final String PERCENT_SIGN = "%";
 
@@ -47,6 +51,12 @@ public class Constant {
 
     public static final String EMAIL_AVAILABLE_ERROR_MESSAGE = "Email is unavailable, try another one!";
     public static final String INVALID_INPUT_DATA_MESSAGE = "";
+
+    public static final String UPLOAD_AVATAR_PATH = "C:" + File.separator + "Users" + File.separator + "Peachex" + File.separator +
+            "IdeaProjects" + File.separator + "hrsystem" + File.separator + "src" + File.separator + "main" + File.separator +
+            "webapp" + File.separator + "img" + File.separator + "avatar" + File.separator;
+
+    public static final String DOT_SYMBOL = ".";
 
     private Constant() {
     }

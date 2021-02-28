@@ -1,6 +1,7 @@
 package com.epam.hrsystem.controller.command.impl;
 
 import com.epam.hrsystem.controller.FileUploadingServlet;
+import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
@@ -18,7 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ProvideImageCommand implements ActionCommand {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -27,7 +28,7 @@ public class ProvideImageCommand implements ActionCommand {
             try (ServletOutputStream outputStream = response.getOutputStream()) {
                 outputStream.write(readFile(fileName));
             } catch (IOException | ServiceException e) {
-                LOGGER.log(Level.ERROR, e);
+              logger.log(Level.ERROR, e);
             }
         }
         return null;
@@ -35,7 +36,7 @@ public class ProvideImageCommand implements ActionCommand {
 
     private byte[] readFile(String fileName) throws ServiceException {
         byte[] result;
-        String fileUri = FileUploadingServlet.UPLOAD_FILE_PATH + fileName;
+        String fileUri = Constant.UPLOAD_AVATAR_PATH + fileName;
         Path filePath = Paths.get(fileUri);
         if (Files.exists(filePath)) {
             try {

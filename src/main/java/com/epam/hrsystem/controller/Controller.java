@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(urlPatterns = UrlPattern.CONTROLLER, name = Constant.MAIN_SERVLET_NAME)
+@WebServlet(urlPatterns = UrlPattern.CONTROLLER, name = Constant.CONTROLLER_SERVLET_NAME)
 public class Controller extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 

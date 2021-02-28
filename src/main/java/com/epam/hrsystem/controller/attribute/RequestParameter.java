@@ -41,6 +41,8 @@ public class RequestParameter {
 
     public static final String HEADER_REFERER = "REFERER";
 
+    public static final String FILE_UPLOADING = "file";
+
     private RequestParameter() {
     }
 

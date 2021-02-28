@@ -39,7 +39,6 @@ public class PermissionFilter implements Filter {
         sameCommands.add(CommandType.TO_VACANCY_INFO);
         sameCommands.add(CommandType.FIND_VACANCIES_BY_KEY_WORD);
         sameCommands.add(CommandType.SORT_VACANCIES_BY_DATE);
-        sameCommands.add(CommandType.PROVIDE_IMAGE);
 
         List<CommandType> guestCommands = new ArrayList<>(sameCommands);
         guestCommands.add(CommandType.REGISTER);
@@ -51,6 +50,7 @@ public class PermissionFilter implements Filter {
         applicantCommands.add(CommandType.TO_USER_PROFILE);
         applicantCommands.add(CommandType.EDIT_USER_PROFILE);
         applicantCommands.add(CommandType.TO_APPLICANT_REQUESTS);
+        applicantCommands.add(CommandType.PROVIDE_IMAGE);
 
         List<CommandType> employeeCommands = new ArrayList<>(sameCommands);
         employeeCommands.add(CommandType.LOGOUT);
@@ -68,6 +68,7 @@ public class PermissionFilter implements Filter {
         employeeCommands.add(CommandType.TO_USER_PROFILE);
         employeeCommands.add(CommandType.EDIT_USER_PROFILE);
         employeeCommands.add(CommandType.TO_EMPLOYEE_APPLICANT_REQUEST);
+        employeeCommands.add(CommandType.PROVIDE_IMAGE);
 
         List<CommandType> adminCommands = new ArrayList<>(sameCommands);
         adminCommands.add(CommandType.LOGOUT);
@@ -77,6 +78,7 @@ public class PermissionFilter implements Filter {
         adminCommands.add(CommandType.RESTORE_VACANCY);
         adminCommands.add(CommandType.TO_USER_PROFILE);
         adminCommands.add(CommandType.EDIT_USER_PROFILE);
+        adminCommands.add(CommandType.PROVIDE_IMAGE);
 
         permissionCommands.put(UserRole.GUEST, guestCommands);
         permissionCommands.put(UserRole.APPLICANT, applicantCommands);

@@ -84,13 +84,13 @@
                     </ul>
                 </li>
                 <c:choose>
-                    <c:when test="${userPhotoName == null}">
+                    <c:when test="${user.photoName == null}">
                         <img src="${pageContext.request.contextPath}/img/default_avatar.png" width="72" height="64"
                              class="rounded-circle avatar">
                     </c:when>
                     <c:otherwise>
-                        <%--<img src="${pageContext.request.contextPath}/img/${userPhotoName}" width="128" height="128"
-                             class="avatar"> --%>
+                        <img src="${pageContext.request.contextPath}/provide_image.do?fileName=${sessionScope.user.photoName}" width="72" height="64"
+                             class="rounded-circle avatar">
                     </c:otherwise>
                 </c:choose>
             </ctg:user-name>

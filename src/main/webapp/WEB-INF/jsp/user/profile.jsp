@@ -139,6 +139,26 @@
             </div>
         </div>
     </div>
+
+    <div class="offset-4 mt-5">
+        <c:choose>
+            <c:when test="${user.photoName == null}">
+                <img src="${pageContext.request.contextPath}/img/default_avatar.png" width="72" height="64"
+                     class="rounded-circle avatar">
+            </c:when>
+            <c:otherwise>
+                <img src="${pageContext.request.contextPath}/provide_image.do?fileName=${sessionScope.user.photoName}"
+                     width="72" height="64"
+                     class="rounded-circle avatar">
+            </c:otherwise>
+        </c:choose>
+
+        <form action="avatar.upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" class="form-control-file"/>
+            <input type="submit" class="btn btn-primary m-1" value="<fmt:message key="button.save"/>"/>
+        </form>
+    </div>
+
     <div class="mt-3">
         <wrong-message>
             ${errorInputData}
