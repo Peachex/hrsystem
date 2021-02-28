@@ -22,9 +22,7 @@ public class ProvideImageCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        //String fileName = (String) request.getAttribute("fileName");
         String fileName = request.getParameter("fileName");
-        System.out.println(fileName);
         if (!fileName.isEmpty()) {
             try (ServletOutputStream outputStream = response.getOutputStream()) {
                 outputStream.write(readFile(fileName));
@@ -46,7 +44,7 @@ public class ProvideImageCommand implements ActionCommand {
                 throw new ServiceException(e);
             }
         } else {
-            throw new ServiceException("provide image error");
+            throw new ServiceException("Provide image error");
         }
         return result;
     }

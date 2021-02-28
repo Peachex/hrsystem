@@ -1,6 +1,7 @@
 package com.epam.hrsystem.controller;
 
 import com.epam.hrsystem.controller.attribute.UrlPattern;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -31,17 +32,19 @@ public class FileUploadingServlet extends HttpServlet {
             fileSaveDir.mkdirs();
         }
         try {
-            Part part = request.getPart("file");
-            String path = part.getSubmittedFileName();
-            String randFilename = UUID.randomUUID() + path.substring(path.lastIndexOf("."));//
-            try (InputStream inputStream = part.getInputStream()) {
-                boolean isSuccess = uploadFile(inputStream, UPLOAD_FILE_PATH + randFilename);
-                if (isSuccess) {
-                    request.setAttribute("error", " upload successfully ");
-                    HttpSession session = request.getSession();
-                    session.setAttribute("avatar", randFilename);
-                } else {
-                    request.setAttribute("error", " upload failed ");
+            if (ServletFileUpload.isMultipartContent(request)) {
+                Part part = request.getPart("file");
+                String path = part.getSubmittedFileName();
+                String randFilename = UUID.randomUUID() + path.substring(path.lastIndexOf("."));//
+                try (InputStream inputStream = part.getInputStream()) {
+                    boolean isSuccess = uploadFile(inputStream, UPLOAD_FILE_PATH + randFilename);
+                    if (isSuccess) {
+                        request.setAttribute("error", " upload successfully ");
+                        HttpSession session = request.getSession();
+                        session.setAttribute("avatar", randFilename);
+                    } else {
+                        request.setAttribute("error", " upload failed ");
+                    }
                 }
             }
         } catch (IOException e) {
