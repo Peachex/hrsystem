@@ -29,7 +29,6 @@
     </form>
 
     <img src="${pageContext.request.contextPath}/provide_image.do?fileName=${sessionScope.avatar}" class="img-fluid" alt="...">
-
     <div class="mt-3">
         <wrong-message>
             ${error}
