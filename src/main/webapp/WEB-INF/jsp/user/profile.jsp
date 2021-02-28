@@ -141,17 +141,9 @@
     </div>
 
     <div class="offset-4 mt-5">
-        <c:choose>
-            <c:when test="${user.photoName == null}">
-                <img src="${pageContext.request.contextPath}/img/default_avatar.png" width="72" height="64"
-                     class="rounded-circle avatar">
-            </c:when>
-            <c:otherwise>
-                <img src="${pageContext.request.contextPath}/provide_image.do?fileName=${sessionScope.user.photoName}"
-                     width="72" height="64"
-                     class="rounded-circle avatar">
-            </c:otherwise>
-        </c:choose>
+        <img src="${pageContext.request.contextPath}/provide_image.do?fileName=${sessionScope.user.photoName}"
+             width="72" height="64"
+             class="rounded-circle avatar">
 
         <form action="avatar.upload" method="post" enctype="multipart/form-data">
             <input type="file" name="file" class="form-control-file"/>

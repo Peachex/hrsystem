@@ -83,16 +83,9 @@
                                 key="header.logout"/></a></li>
                     </ul>
                 </li>
-                <c:choose>
-                    <c:when test="${user.photoName == null}">
-                        <img src="${pageContext.request.contextPath}/img/default_avatar.png" width="72" height="64"
-                             class="rounded-circle avatar">
-                    </c:when>
-                    <c:otherwise>
-                        <img src="${pageContext.request.contextPath}/provide_image.do?fileName=${sessionScope.user.photoName}" width="72" height="64"
-                             class="rounded-circle avatar">
-                    </c:otherwise>
-                </c:choose>
+                <img src="${pageContext.request.contextPath}/provide_image.do?fileName=${sessionScope.user.photoName}"
+                     width="64" height="64"
+                     class="rounded-circle avatar">
             </ctg:user-name>
         </nav>
     </div>

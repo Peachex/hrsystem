@@ -1,7 +1,7 @@
 package com.epam.hrsystem.controller.command.impl;
 
-import com.epam.hrsystem.controller.FileUploadingServlet;
 import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
@@ -23,12 +23,12 @@ public class ProvideImageCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        String fileName = request.getParameter("fileName");
+        String fileName = request.getParameter(RequestParameter.FILE_NAME);
         if (!fileName.isEmpty()) {
             try (ServletOutputStream outputStream = response.getOutputStream()) {
                 outputStream.write(readFile(fileName));
             } catch (IOException | ServiceException e) {
-              logger.log(Level.ERROR, e);
+                logger.log(Level.ERROR, e);
             }
         }
         return null;
