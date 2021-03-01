@@ -1,10 +1,25 @@
 ## HR-SYSTEM
-* [General Info](#general-info)
 * [Project Description](#project-description)
-
-## General Info
-General info
+* [Roles](#roles)
+* [Guest's scope](#guests-scope)
+* [Applicant's scope](#applicants-scope)
+* [Employee's scope](#employees-scope)
+* [Admin's scope](#admins-scope)
 
 ## Project Description
-Description
-	
+about project
+
+## Roles
+roles
+
+## Guest's scope
+commands
+
+## Applicant's scope
+commands
+
+## Employee's scope
+commands
+
+## Admin's scope
+commands
