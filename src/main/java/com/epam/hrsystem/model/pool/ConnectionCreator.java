@@ -36,11 +36,11 @@ public class ConnectionCreator {
 
     }
 
-    public static String getPoolSize() {
+    static String getPoolSize() {
         return POOL_SIZE;
     }
 
-    public static Connection createConnection() throws SQLException {
+    static Connection createConnection() throws SQLException {
         return DriverManager.getConnection(DATABASE_URL, properties);
     }
 }

@@ -171,7 +171,7 @@ public enum UserServiceImpl implements UserService {
             Optional<User> userOptional = dao.findUserById(userId);
             if (userOptional.isPresent() && UserValidator.isEditFormValid(fields)) {
                 User user = userOptional.get();
-                if (dao.isEmailAvailable(fields.get(RequestParameter.EMAIL)) || user.getEmail().equals(fields.get(RequestParameter.EMAIL))) {
+                if (user.getEmail().equals(fields.get(RequestParameter.EMAIL)) || dao.isEmailAvailable(fields.get(RequestParameter.EMAIL))) {
                     updateUserFields(user, fields);
                     if (dao.updateProfile(user))
                         return Optional.of(user);

@@ -16,9 +16,9 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 public enum ConnectionPool {
     POOL;
-    private final Logger logger = LogManager.getLogger();
     public static final int DEFAULT_POOL_SIZE = 10;
     public static final int FATAL_CONNECTION_ERROR_NUMBER = 5;
+    private final Logger logger = LogManager.getLogger();
     private final BlockingQueue<ProxyConnection> freeConnections;
     private final Queue<ProxyConnection> givenConnections;
 
@@ -66,7 +66,6 @@ public enum ConnectionPool {
             freeConnections.offer((ProxyConnection) connection);
         } else {
             logger.log(Level.ERROR, "Couldn't release connection");
-            throw new RuntimeException("Couldn't release connection");
         }
     }
 
