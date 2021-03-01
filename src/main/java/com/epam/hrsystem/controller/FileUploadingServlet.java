@@ -47,18 +47,21 @@ public class FileUploadingServlet extends HttpServlet {
                 if (user != null) {
                     Part part = request.getPart(RequestParameter.FILE_UPLOADING);
                     String path = part.getSubmittedFileName();
-                    String randomFilename = UUID.randomUUID() + path.substring(path.lastIndexOf(Constant.DOT_SYMBOL));
-                    try (InputStream inputStream = part.getInputStream()) {
-                        boolean isSuccess = uploadFile(inputStream, Constant.UPLOAD_AVATAR_PATH + randomFilename);
-                        if (isSuccess) {
-                            UserService service = UserServiceImpl.INSTANCE;
-                            try {
-                                service.changePhoto(user.getId(), randomFilename);
-                                user.setPhotoName(randomFilename);
-                                session.setAttribute(SessionAttribute.USER, user);
-                            } catch (ServiceException e) {
-                                logger.log(Level.ERROR, "Couldn't upload file: " + e);
-                                throw new ServletException(e);
+                    if (path != null && !path.isEmpty()) {
+                        String randomFilename = UUID.randomUUID() + path.substring(path.lastIndexOf(Constant.DOT_SYMBOL));
+                        try (InputStream inputStream = part.getInputStream()) {
+                            System.out.println(inputStream.available());
+                            boolean isSuccess = uploadFile(inputStream, Constant.UPLOAD_AVATAR_PATH + randomFilename);
+                            if (isSuccess) {
+                                UserService service = UserServiceImpl.INSTANCE;
+                                try {
+                                    service.changePhoto(user.getId(), randomFilename);
+                                    user.setPhotoName(randomFilename);
+                                    session.setAttribute(SessionAttribute.USER, user);
+                                } catch (ServiceException e) {
+                                    logger.log(Level.ERROR, "Couldn't upload file: " + e);
+                                    throw new ServletException(e);
+                                }
                             }
                         }
                     }

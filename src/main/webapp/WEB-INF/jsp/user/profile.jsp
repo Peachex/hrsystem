@@ -46,8 +46,20 @@
             <h4 class="card-title"><fmt:message key="profile.email"/></h4>
             <p class="card-text">${user.email}</p>
         </div>
+
+        <div class="card-body">
+            <h4 class="card-title"><fmt:message key="profile.avatar"/></h4>
+            <p class="card-text"><img
+                    src="${pageContext.request.contextPath}/provide_image.do?fileName=${sessionScope.user.photoName}"
+                    width="128" height="128" class="rounded" alt="..."></p>
+            <form action="avatar.upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" class="form-control-file"/>
+                <input type="submit" class="btn btn-outline-secondary" value="<fmt:message key="button.upload"/>"/>
+            </form>
+        </div>
+
         <!-- Button trigger modal -->
-        <div class="col-4 offset-4" style="display: flex;justify-content: center; margin-bottom: 5%">
+        <div class="col-4 offset-4 mt-3" style="display: flex;justify-content: center; margin-bottom: 5%">
             <button type="button" class="btn btn-outline-secondary button"
                     data-bs-toggle="modal" data-bs-target="#editProfileModal">
                 <fmt:message key="button.edit"/>
@@ -138,17 +150,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="offset-4 mt-5">
-        <img src="${pageContext.request.contextPath}/provide_image.do?fileName=${sessionScope.user.photoName}"
-             width="72" height="64"
-             class="rounded-circle avatar">
-
-        <form action="avatar.upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" class="form-control-file"/>
-            <input type="submit" class="btn btn-primary m-1" value="<fmt:message key="button.save"/>"/>
-        </form>
     </div>
 
     <div class="mt-3">
