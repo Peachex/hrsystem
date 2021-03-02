@@ -14,7 +14,7 @@ import java.util.Optional;
 public enum UserCreator implements Creator<User> {
     INSTANCE;
     private static final UserRole DEFAULT_ROLE = UserRole.APPLICANT;
-    private static final String DEFAULT_PHOTO_NAME = "avatar_photo_name";
+    private static final String DEFAULT_PHOTO_NAME = "default_avatar.png";
     private static final boolean DEFAULT_ACTIVE_VALUE = true;
 
     @Override
