@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 public class ToEmployeeApplicantRequestCommand implements ActionCommand {
@@ -38,6 +39,7 @@ public class ToEmployeeApplicantRequestCommand implements ActionCommand {
                 long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
                 ApplicantRequest applicantRequest = applicantRequestOptional.get();
                 if (applicantRequest.getVacancy().getEmployee().getId() == employeeId) {
+                    applicantRequest.setSummary(applicantRequest.getSummary().replaceAll("\n", "<br>")); //fixme !!!!
                     request.setAttribute(RequestParameter.APPLICANT_REQUEST, applicantRequest);
                     result = new CommandResult(PagePath.EMPLOYEE_APPLICANT_REQUEST, CommandResult.Type.FORWARD);
                 } else {

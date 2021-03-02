@@ -90,7 +90,6 @@
                                 <fmt:message
                                         key="button.create"/></button>
                         </div>
-                        <input name="ctoken" type="hidden" value="${stoken}"/>
                     </form>
                 </div>
 

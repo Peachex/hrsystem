@@ -155,7 +155,6 @@
                                                             <fmt:message
                                                                     key="button.save"/></button>
                                                     </div>
-                                                    <input name="ctoken" type="hidden" value="${stoken}"/>
                                                 </form>
                                             </div>
 

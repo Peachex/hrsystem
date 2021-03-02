@@ -35,16 +35,6 @@
     </filter-mapping>
 
     <filter>
-        <filter-name>DoublePostingPreventingFilter</filter-name>
-        <filter-class>com.epam.hrsystem.controller.filter.DoublePostingPreventingFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>DoublePostingPreventingFilter</filter-name>
-        <url-pattern>*.do</url-pattern>
-        <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>
-
-    <filter>
         <filter-name>PermissionFilter</filter-name>
         <filter-class>com.epam.hrsystem.controller.filter.PermissionFilter</filter-class>
     </filter>

@@ -91,7 +91,6 @@
                                     <fmt:message
                                             key="button.createApplicantRequest"/></button>
                             </div>
-                            <input name="ctoken" type="hidden" value="${stoken}"/>
                         </form>
                     </div>
                     <div class="modal-footer">
