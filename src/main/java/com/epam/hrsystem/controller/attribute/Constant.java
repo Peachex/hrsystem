@@ -57,6 +57,9 @@ public class Constant {
             "webapp" + File.separator + "img" + File.separator + "avatar" + File.separator;
 
     public static final String DOT_SYMBOL = ".";
+    public static final String NEW_LINE_SYMBOL = "\n";
+    public static final String NEW_LINE_HTML_TAG = "<br>";
+    public static final String EMPTY_SYMBOL = "";
 
     private Constant() {
     }
