@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `applicant_requests`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `applicant_requests` (
   `applicant_request_id` bigint NOT NULL AUTO_INCREMENT,
-  `summary` text COLLATE utf8_unicode_ci NOT NULL,
+  `summary` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `basic_interview_result_id_fk` bigint DEFAULT NULL,
   `technical_interview_result_id_fk` bigint DEFAULT NULL,
   `user_id_fk` bigint NOT NULL,
@@ -63,7 +63,7 @@ DROP TABLE IF EXISTS `applicant_states`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `applicant_states` (
   `applicant_state_id` bigint NOT NULL AUTO_INCREMENT,
-  `state` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `state` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`applicant_state_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -87,7 +87,7 @@ DROP TABLE IF EXISTS `cities`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cities` (
   `city_id` bigint NOT NULL AUTO_INCREMENT,
-  `city` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `city` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`city_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -111,7 +111,7 @@ DROP TABLE IF EXISTS `countries`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `countries` (
   `country_id` bigint NOT NULL AUTO_INCREMENT,
-  `country` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `country` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`country_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -136,7 +136,7 @@ DROP TABLE IF EXISTS `interview_results`;
 CREATE TABLE `interview_results` (
   `interview_result_id` bigint NOT NULL AUTO_INCREMENT,
   `rating` tinyint unsigned NOT NULL,
-  `comment` text COLLATE utf8_unicode_ci NOT NULL,
+  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`interview_result_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -161,7 +161,7 @@ CREATE TABLE `user_roles` (
   `user_role_id` bigint NOT NULL AUTO_INCREMENT,
   `role` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`user_role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,13 +183,13 @@ DROP TABLE IF EXISTS `users`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `user_id` bigint NOT NULL AUTO_INCREMENT,
-  `photo_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `first_name` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
-  `last_name` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
+  `photo_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(35) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(35) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `date_of_birth` date NOT NULL,
-  `phone_number` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `phone_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `is_active` bit(1) NOT NULL,
   `role_id_fk` bigint NOT NULL,
   PRIMARY KEY (`user_id`),
@@ -204,7 +204,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (21,'avatar_photo_name','Aleksey','Klevitov','2000-11-11','+375-29-333-00-13','admin@gmail.com','$2a$10$ETxACUzFSpptry7zDDq/AekRfyPGIiFSvd1McR9zMOYckw2e4uUca',_binary '',1),(22,'avatar_photo_name','Alice','Green','1998-06-23','+375-44-297-23-12','alice@gmail.com','$2a$10$MIhonBMDh9q8xxHf1xli/u1ESTSpw8.PpmwIP3lEZjgY9FGApykTa',_binary '',3),(23,'avatar_photo_name','David','Winter','2003-06-11','+375-29-101-32-16','david@gmail.com','$2a$10$AELWSt1FXeDA.nxD2uuVcuMqiTZaTuyP99f4OoPeiKxfqRc2kQkAy',_binary '',2),(24,'avatar_photo_name','Nina','Martin','1998-09-14','+375441113322','martin@gmail.com','$2a$10$IIRKVNGuiwXAKf/mANj/B.erJ7JWRKWkE3BHjD7ENG3bRvbdpuWY.',_binary '',3),(25,'avatar_photo_name','Jack','Brown','2003-10-16','80293214233','jack@gmail.com','$2a$10$dQzxfGoy3KfMqqCZMWmtsOhKqEQ7Yh7HZ5HjGmexuEQuBHO1RPckq',_binary '',2);
+INSERT INTO `users` VALUES (21,'default_avatar.png','Aleksey','Klevitov','2000-11-11','+375-29-333-00-13','admin@gmail.com','$2a$10$ETxACUzFSpptry7zDDq/AekRfyPGIiFSvd1McR9zMOYckw2e4uUca',_binary '',1),(22,'default_avatar.png','Alice','Green','1998-06-23','+375-44-297-23-12','alice@gmail.com','$2a$10$MIhonBMDh9q8xxHf1xli/u1ESTSpw8.PpmwIP3lEZjgY9FGApykTa',_binary '',3),(23,'760bd76e-5acb-4d30-83c3-58494298a551.jpg','David','Winter','2003-06-11','+375-29-101-32-16','david@gmail.com','$2a$10$AELWSt1FXeDA.nxD2uuVcuMqiTZaTuyP99f4OoPeiKxfqRc2kQkAy',_binary '',2),(24,'default_avatar.png','Nina','Martin','1998-09-14','+375441113322','martin@gmail.com','$2a$10$IIRKVNGuiwXAKf/mANj/B.erJ7JWRKWkE3BHjD7ENG3bRvbdpuWY.',_binary '',3),(25,'default_avatar.png','Jack','Brown','2003-10-16','80293214233','jack@gmail.com','$2a$10$dQzxfGoy3KfMqqCZMWmtsOhKqEQ7Yh7HZ5HjGmexuEQuBHO1RPckq',_binary '',2);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,8 +218,8 @@ DROP TABLE IF EXISTS `vacancies`;
 CREATE TABLE `vacancies` (
   `vacancy_id` bigint NOT NULL AUTO_INCREMENT,
   `is_available` bit(1) NOT NULL,
-  `position` text COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `position` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `creation_date` date NOT NULL,
   `country_id_fk` bigint NOT NULL,
   `city_id_fk` bigint NOT NULL,
@@ -253,4 +253,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-26  0:20:28
+-- Dump completed on 2021-03-02 11:42:00
