@@ -9,7 +9,17 @@
     <uri>customtags</uri>
     <tag>
         <name>user-name</name>
-        <tag-class>com.epam.hrsystem.controller.tag.UserNameTag</tag-class>
+        <tag-class>com.epam.hrsystem.controller.tag.PermissionTag</tag-class>
         <body-content>scriptless</body-content>
+    </tag>
+    <tag>
+        <name>text</name>
+        <tag-class>com.epam.hrsystem.controller.tag.TextDisplayTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>text</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 </taglib>

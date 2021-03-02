@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <fmt:setLocale value="${sessionScope.currentLocale}"/>
 <fmt:setBundle basename="locale.page_content"/>
 <html>
@@ -122,7 +123,7 @@
                                     <textarea class="form-control" rows="5" id="inputDescription"
                                               name="description" placeholder="<fmt:message
                                              key="create_vacancy_modal.inputDescriptionPlaceholder"/>"
-                                              required minlength="3" maxlength="10000">${vacancy.description.replaceAll("<br>", "")}</textarea>
+                                              required minlength="3" maxlength="10000"><ctg:text text="${vacancy.description}"/><%-- ${vacancy.description.replaceAll("<br>", "")}--%></textarea>
                                                     </div>
 
                                                     <div class="mt-3">
