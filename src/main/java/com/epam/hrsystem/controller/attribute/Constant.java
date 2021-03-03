@@ -58,8 +58,7 @@ public class Constant {
 
     public static final String DOT_SYMBOL = ".";
     public static final String NEW_LINE_SYMBOL = "\n";
-    public static final String NEW_LINE_HTML_TAG = "<br>";
-    public static final String EMPTY_SYMBOL = "";
+    public static final String NEW_LINE_HTML_SYMBOL = "<br>";
     public static final String SPACE_SYMBOL = "\\s";
     public static final String SPACE_HTML_SYMBOL = "&nbsp";
     public static final String GREATER_THAN_SYMBOL = ">";

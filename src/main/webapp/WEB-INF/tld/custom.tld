@@ -22,14 +22,4 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
-    <tag>
-        <name>text-input-format</name>
-        <tag-class>com.epam.hrsystem.controller.tag.TextDisplayInputFormatTag</tag-class>
-        <body-content>scriptless</body-content>
-        <attribute>
-            <name>text</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
 </taglib>
