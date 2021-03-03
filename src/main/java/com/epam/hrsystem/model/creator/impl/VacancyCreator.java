@@ -19,7 +19,7 @@ public enum VacancyCreator implements Creator<Vacancy> {
         Optional<Vacancy> result = Optional.empty();
         if (isVacancyFormValid(fields)) {
             String position = fields.get(RequestParameter.POSITION);
-            String description = fields.get(RequestParameter.DESCRIPTION).replaceAll(Constant.NEW_LINE_SYMBOL, Constant.NEW_LINE_HTML_TAG);
+            String description = fields.get(RequestParameter.DESCRIPTION);
             String country = fields.get(RequestParameter.COUNTRY);
             String city = fields.get(RequestParameter.CITY);
             Vacancy vacancy = new Vacancy(DEFAULT_AVAILABILITY_VALUE, position, description, country, city);

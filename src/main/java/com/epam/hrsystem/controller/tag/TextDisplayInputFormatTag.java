@@ -1,11 +1,12 @@
 package com.epam.hrsystem.controller.tag;
 
 import com.epam.hrsystem.controller.attribute.Constant;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 
-public class TextDisplayTag extends TagSupport {
+public class TextDisplayInputFormatTag extends TagSupport {
     private String text;
 
     public void setText(String text) {
@@ -14,7 +15,7 @@ public class TextDisplayTag extends TagSupport {
 
     @Override
     public int doStartTag() throws JspException {
-        String result = text.replaceAll(Constant.NEW_LINE_HTML_TAG, Constant.EMPTY_SYMBOL);
+        String result = text.replaceAll(Constant.NEW_LINE_SYMBOL, Constant.NEW_LINE_HTML_TAG);
         try {
             pageContext.getOut().write(result);
         } catch (IOException e) {
@@ -23,6 +24,3 @@ public class TextDisplayTag extends TagSupport {
         return SKIP_BODY;
     }
 }
-
-
-

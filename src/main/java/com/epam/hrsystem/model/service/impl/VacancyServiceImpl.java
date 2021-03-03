@@ -246,7 +246,7 @@ public enum VacancyServiceImpl implements VacancyService {
         }
         String newDescription = fields.get(RequestParameter.DESCRIPTION);
         if (VacancyValidator.isDescriptionValid(newDescription)) {
-            vacancy.setDescription(newDescription.replaceAll(Constant.NEW_LINE_SYMBOL, Constant.NEW_LINE_HTML_TAG));
+            vacancy.setDescription(newDescription);
         }
         String newCountry = fields.get(RequestParameter.COUNTRY);
         if (VacancyValidator.isCountryValid(newCountry)) {
