@@ -15,7 +15,7 @@ public class TextDisplayInputFormatTag extends TagSupport {
 
     @Override
     public int doStartTag() throws JspException {
-        String result = text.replaceAll(Constant.NEW_LINE_SYMBOL, Constant.NEW_LINE_HTML_TAG);
+        String result = text.replaceAll(Constant.NEW_LINE_HTML_TAG, Constant.EMPTY_SYMBOL);
         try {
             pageContext.getOut().write(result);
         } catch (IOException e) {

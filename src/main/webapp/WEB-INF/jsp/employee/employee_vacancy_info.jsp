@@ -51,7 +51,7 @@
                         </div>
                         <div class="card-body">
                             <h4 class="card-title"><fmt:message key="vacancy_description"/></h4>
-                            <p class="card-text"><ctg:text-input-format text="${vacancy.description}"/></p>
+                            <p class="card-text"><ctg:text text="${vacancy.description}"/></p>
                         </div>
                         <div class="card-body">
                             <h4 class="card-title"><fmt:message key="vacancy_country"/></h4>
@@ -123,7 +123,7 @@
                                     <textarea class="form-control" rows="5" id="inputDescription"
                                               name="description" placeholder="<fmt:message
                                              key="create_vacancy_modal.inputDescriptionPlaceholder"/>"
-                                              required minlength="3" maxlength="10000"><ctg:text text="${vacancy.description}"/><%-- ${vacancy.description.replaceAll("<br>", "")}--%></textarea>
+                                              required minlength="3" maxlength="10000"><ctg:text-input-format text="${vacancy.description}"/><%-- ${vacancy.description.replaceAll("<br>", "")}--%></textarea>
                                                     </div>
 
                                                     <div class="mt-3">
