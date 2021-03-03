@@ -39,7 +39,6 @@ public class ToEmployeeVacancyInfoCommand implements ActionCommand {
             if (vacancyOptional.isPresent()) {
                 HttpSession session = request.getSession();
                 Vacancy vacancy = vacancyOptional.get();
-                //vacancy.setDescription(vacancy.getDescription().replaceAll(Constant.NEW_LINE_HTML_TAG, Constant.EMPTY_SYMBOL));
                 if (vacancy.getEmployee().getId() == (long) session.getAttribute(SessionAttribute.USER_ID)) {
                     List<ApplicantRequest> applicantRequests = applicantRequestService.findApplicantRequestsByVacancyId(vacancy.getId());
                     if (applicantRequests.size() > 0) {
