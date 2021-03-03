@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <fmt:setLocale value="${sessionScope.currentLocale}"/>
 <fmt:setBundle basename="locale.page_content"/>
 <html>
@@ -35,31 +36,31 @@
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.firstName"/></h4>
-            <p class="card-text">${applicantRequest.applicant.firstName}</p>
+            <p class="card-text"><ctg:text text="${applicantRequest.applicant.firstName}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.lastName"/></h4>
-            <p class="card-text">${applicantRequest.applicant.lastName}</p>
+            <p class="card-text"><ctg:text text="${applicantRequest.applicant.lastName}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.dateOfBirth"/></h4>
-            <p class="card-text">${applicantRequest.applicant.dateOfBirth}</p>
+            <p class="card-text"><ctg:text text="${applicantRequest.applicant.dateOfBirth}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.phoneNumber"/></h4>
-            <p class="card-text">${applicantRequest.applicant.phoneNumber}</p>
+            <p class="card-text"><ctg:text text="${applicantRequest.applicant.phoneNumber}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.email"/></h4>
-            <p class="card-text">${applicantRequest.applicant.email}</p>
+            <p class="card-text"><ctg:text text="${applicantRequest.applicant.email}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="applicant_request.applicantState"/></h4>
-            <p class="card-text">${applicantRequest.applicantState}</p>
+            <p class="card-text"><ctg:text text="${applicantRequest.applicantState}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="employee_applicant_request.applicantSummary"/></h4>
-            <p class="card-text">${applicantRequest.summary}</p>
+            <p class="card-text"><ctg:text text="${applicantRequest.summary}"/></p>
         </div>
         <c:if test="${applicantRequest.basicInterviewResult != null && applicantRequest.technicalInterviewResult != null}">
         <div class="card-body">
@@ -79,9 +80,9 @@
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <strong><fmt:message key="employee_applicant_request.interviewResultRating"/>
-                                        ${applicantRequest.basicInterviewResult.rating}</strong>
+                                    <ctg:text text="${applicantRequest.basicInterviewResult.rating}"/></strong>
                                 <div>
-                                        ${applicantRequest.basicInterviewResult.comment}
+                                    <ctg:text text="${applicantRequest.basicInterviewResult.comment}"/>
                                 </div>
                             </div>
                         </div>
@@ -102,9 +103,9 @@
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <strong><fmt:message key="employee_applicant_request.interviewResultRating"/>
-                                        ${applicantRequest.technicalInterviewResult.rating}</strong>
+                                    <ctg:text text="${applicantRequest.technicalInterviewResult.rating}"/></strong>
                                 <div>
-                                        ${applicantRequest.technicalInterviewResult.comment}
+                                    <ctg:text text="${applicantRequest.technicalInterviewResult.comment}"/>
                                 </div>
                             </div>
                         </div>
@@ -112,110 +113,6 @@
                 </c:if>
             </div>
             </c:if>
-            <%--<div class="col-4 offset-4" style="display: flex;justify-content: center;">
-                <div class="dropdown col-8 mb-4">
-                    <button class="btn btn-outline-secondary dropdown-toggle button mt-3" type="button" id="actionDropDown"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                        <fmt:message key="button.action"/>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark" style="width: 100%" aria-labelledby="actionDropDown">
-                        <li>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-outline-secondary dropdown-item"
-                                    data-bs-toggle="modal" data-bs-target="#editVacancyModal">
-                                <fmt:message key="button.edit"/>
-                            </button>
-                        </li>
-                        <c:if test="${vacancy.isAvailable}">
-                            <li><a class="dropdown-item"
-                                   href="delete_vacancy.do?vacancyId=${vacancy.id}"><fmt:message
-                                    key="button.delete"/> </a></li>
-                        </c:if>
-                        <c:if test="${!vacancy.isAvailable}">
-                            <li><a class="dropdown-item"
-                                   href="restore_vacancy.do?vacancyId=${vacancy.id}"><fmt:message
-                                    key="button.restore"/> </a></li>
-                        </c:if>
-                    </ul>
-                    <!-- Modal -->
-                    <div class="modal fade" id="editVacancyModal" data-bs-backdrop="static"
-                         data-bs-keyboard="false" tabindex="-1"
-                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title"><fmt:message key="create_vacancy_modal.title"/></h4>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <form name="edit-vacancy-form" method="POST"
-                                          action="edit_vacancy_info.do?vacancyId=${vacancy.id}">
-                                        <label for="inputPosition"><fmt:message
-                                                key="create_vacancy_modal.inputPosition"/> </label>
-                                        <div class="form-group mt-1">
-                                            <input type="text" class="form-control field" id="inputPosition"
-                                                   name="position"
-                                                   value="${vacancy.position}" placeholder=
-                                                           "<fmt:message key="create_vacancy_modal.inputPositionPlaceholder"/>"
-                                                   required pattern="[А-Яа-я\w\s\p{Punct}]{3,1000}">
-                                        </div>
-
-                                        <div class="mt-3">
-                                            <label for="inputDescription"><fmt:message
-                                                    key="create_vacancy_modal.inputDescription"/> </label>
-                                        </div>
-                                        <div class="form-group mt-1">
-                                        <textarea class="form-control" rows="5" id="inputDescription"
-                                                  name="description" placeholder="<fmt:message
-                                                 key="create_vacancy_modal.inputDescriptionPlaceholder"/>"
-                                                  required minlength="3" maxlength="10000"></textarea>
-                                        </div>
-
-                                        <div class="mt-3">
-                                            <label for="inputCountry"><fmt:message
-                                                    key="create_vacancy_modal.inputCountry"/> </label>
-                                        </div>
-                                        <div class="form-group mt-1">
-                                            <input type="text" class="form-control field" id="inputCountry"
-                                                   name="country"
-                                                   value="${vacancy.country}" placeholder=
-                                                           "<fmt:message key="create_vacancy_modal.inputCountryPlaceholder"/>"
-                                                   required pattern="[a-zA-Zа-яА-я\s]{3,50}">
-                                        </div>
-
-                                        <div class="mt-3">
-                                            <label for="inputCity"><fmt:message
-                                                    key="create_vacancy_modal.inputCity"/> </label>
-                                        </div>
-                                        <div class="form-group mt-1">
-                                            <input type="text" class="form-control field" id="inputCity" name="city"
-                                                   value="${vacancy.city}" placeholder=
-                                                           "<fmt:message key="create_vacancy_modal.inputCityPlaceholder"/>"
-                                                   required pattern="[a-zA-Zа-яА-я\s]{2,50}">
-                                        </div>
-
-                                        <div class="col-4">
-                                            <button class="btn btn-outline-success button mt-4"
-                                                    style="margin-left: 100%" type="submit">
-                                                <fmt:message
-                                                        key="button.save"/></button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
-                                        <fmt:message
-                                                key="button.close"/></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>--%>
 
             <div class="col-4 offset-4" style="display: flex;justify-content: center;">
                 <a class="btn btn-outline-secondary col-8 mb-1"

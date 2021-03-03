@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <fmt:setLocale value="${sessionScope.currentLocale}"/>
 <fmt:setBundle basename="locale.page_content"/>
 
@@ -47,12 +48,13 @@
         <tbody>
         <c:forEach var="applicantRequest" items="${applicantRequests}">
         <tr class="table-secondary">
-            <th scope="row">${applicantRequest.vacancy.position}</th>
-            <th scope="row">${applicantRequest.vacancy.country}</th>
-            <th scope="row">${applicantRequest.vacancy.city}</th>
-            <th scope="row">${applicantRequest.vacancy.creationDate}</th>
-            <th scope="row">${applicantRequest.applicantState}</th>
-            <th scope="row"><a href="<c:url value="to_vacancy_info.do?vacancyId=${applicantRequest.vacancy.id}"/>"><fmt:message
+            <th scope="row"><ctg:text text="${applicantRequest.vacancy.position}"/></th>
+            <th scope="row"><ctg:text text="${applicantRequest.vacancy.country}"/></th>
+            <th scope="row"><ctg:text text="${applicantRequest.vacancy.city}"/></th>
+            <th scope="row"><ctg:text text="${applicantRequest.vacancy.creationDate}"/></th>
+            <th scope="row"><ctg:text text="${applicantRequest.applicantState}"/></th>
+            <th scope="row"><a
+                    href="<c:url value="to_vacancy_info.do?vacancyId=${applicantRequest.vacancy.id}"/>"><fmt:message
                     key="link.moreInfo"/></a></th>
         <tr>
             </c:forEach>

@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <fmt:setLocale value="${sessionScope.currentLocale}"/>
 <fmt:setBundle basename="locale.page_content"/>
 
@@ -82,10 +83,10 @@
         <tbody>
         <c:forEach var="vacancy" items="${vacancies}">
         <tr class="table-secondary">
-            <th scope="row">${vacancy.position}</th>
-            <th scope="row">${vacancy.country}</th>
-            <th scope="row">${vacancy.city}</th>
-            <th scope="row">${vacancy.creationDate}</th>
+            <th scope="row"><ctg:text text="${vacancy.position}"/></th>
+            <th scope="row"><ctg:text text="${vacancy.country}"/></th>
+            <th scope="row"><ctg:text text="${vacancy.city}"/></th>
+            <th scope="row"><ctg:text text="${vacancy.creationDate}"/></th>
             <th scope="row"><a href="<c:url value="to_vacancy_info.do?vacancyId=${vacancy.id}"/>"><fmt:message
                     key="link.moreInfo"/></a></th>
         <tr>

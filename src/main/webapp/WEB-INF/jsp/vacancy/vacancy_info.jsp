@@ -8,8 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <fmt:setLocale value="${sessionScope.currentLocale}"/>
 <fmt:setBundle basename="locale.page_content"/>
+
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -28,19 +30,19 @@
         <div class="card-header"><h3><fmt:message key="vacancy_info.title"/> #${vacancy.id}</h3></div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="vacancy_position"/></h4>
-            <p class="card-text">${vacancy.position}</p>
+            <p class="card-text"><ctg:text text="${vacancy.position}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="vacancy_description"/></h4>
-            <p class="card-text">${vacancy.description}</p>
+            <p class="card-text"><ctg:text text="${vacancy.description}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="vacancy_country"/></h4>
-            <p class="card-text">${vacancy.country}</p>
+            <p class="card-text"><ctg:text text="${vacancy.country}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="vacancy_city"/></h4>
-            <p class="card-text">${vacancy.city}</p>
+            <p class="card-text"><ctg:text text="${vacancy.city}"/></p>
         </div>
         <div class="col-4 offset-4" style="display: flex;justify-content: center;">
             <a class="btn btn-outline-secondary col-8 mb-4"

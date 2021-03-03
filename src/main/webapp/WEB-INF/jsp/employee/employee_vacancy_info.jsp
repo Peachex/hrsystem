@@ -47,7 +47,7 @@
                         </div>
                         <div class="card-body">
                             <h4 class="card-title"><fmt:message key="vacancy_position"/></h4>
-                            <p class="card-text">${vacancy.position}</p>
+                            <p class="card-text"><ctg:text text="${vacancy.position}"/></p>
                         </div>
                         <div class="card-body">
                             <h4 class="card-title"><fmt:message key="vacancy_description"/></h4>
@@ -55,11 +55,11 @@
                         </div>
                         <div class="card-body">
                             <h4 class="card-title"><fmt:message key="vacancy_country"/></h4>
-                            <p class="card-text">${vacancy.country}</p>
+                            <p class="card-text"><ctg:text text="${vacancy.country}"/></p>
                         </div>
                         <div class="card-body">
                             <h4 class="card-title"><fmt:message key="vacancy_city"/></h4>
-                            <p class="card-text">${vacancy.city}</p>
+                            <p class="card-text"><ctg:text text="${vacancy.city}"/></p>
                         </div>
                         <div class="col-4 offset-4" style="display: flex;justify-content: center;">
                             <div class="dropdown col-8 mb-4">
@@ -208,10 +208,14 @@
         <tbody>
         <c:forEach var="applicantRequest" items="${applicantRequests}">
         <tr class="table-secondary">
-            <th scope="row">${applicantRequest.applicant.firstName}</th>
-            <th scope="row">${applicantRequest.applicant.lastName}</th>
-            <th scope="row">${applicantRequest.applicant.email}</th>
-            <th scope="row">${applicantRequest.applicantState}</th>
+            <th scope="row"><ctg:text
+                    text="${applicantRequest.applicant.firstName}"/></th>
+            <th scope="row"><ctg:text
+                    text="${applicantRequest.applicant.lastName}"/></th>
+            <th scope="row"><ctg:text
+                    text="${applicantRequest.applicant.email}"/></th>
+            <th scope="row"><ctg:text
+                    text="${applicantRequest.applicantState}"/></th>
             <th scope="row"><a
                     href="<c:url value="to_employee_applicant_request.do?vacancyId=${applicantRequest.vacancy.id}&applicantId=${applicantRequest.applicant.id}"/>">
                 <fmt:message key="link.moreInfo"/></a></th>

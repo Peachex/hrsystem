@@ -8,8 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <fmt:setLocale value="${sessionScope.currentLocale}"/>
 <fmt:setBundle basename="locale.page_content"/>
+
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -28,23 +30,23 @@
         <div class="card-header"><h3><fmt:message key="profile.title"/></h3></div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.firstName"/></h4>
-            <p class="card-text">${user.firstName}</p>
+            <p class="card-text"><ctg:text text="${user.firstName}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.lastName"/></h4>
-            <p class="card-text">${user.lastName}</p>
+            <p class="card-text"><ctg:text text="${user.lastName}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.dateOfBirth"/></h4>
-            <p class="card-text">${user.dateOfBirth}</p>
+            <p class="card-text"><ctg:text text="${user.dateOfBirth}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.phoneNumber"/></h4>
-            <p class="card-text">${user.phoneNumber}</p>
+            <p class="card-text"><ctg:text text="${user.phoneNumber}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.email"/></h4>
-            <p class="card-text">${user.email}</p>
+            <p class="card-text"><ctg:text text="${user.email}"/></p>
         </div>
 
         <div class="card-body">
