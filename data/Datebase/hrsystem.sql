@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `applicant_requests`;
 CREATE TABLE `applicant_requests` (
   `applicant_request_id` bigint NOT NULL AUTO_INCREMENT,
   `summary` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `technical_interview_date` date DEFAULT NULL,
   `basic_interview_result_id_fk` bigint DEFAULT NULL,
   `technical_interview_result_id_fk` bigint DEFAULT NULL,
   `user_id_fk` bigint NOT NULL,
@@ -41,7 +42,7 @@ CREATE TABLE `applicant_requests` (
   CONSTRAINT `applicant_requests_technical_interview_result_id_fk` FOREIGN KEY (`technical_interview_result_id_fk`) REFERENCES `interview_results` (`interview_result_id`),
   CONSTRAINT `applicant_requests_user_id` FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`),
   CONSTRAINT `applicant_requests_vacancy_id` FOREIGN KEY (`vacancy_id_fk`) REFERENCES `vacancies` (`vacancy_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,7 +51,6 @@ CREATE TABLE `applicant_requests` (
 
 LOCK TABLES `applicant_requests` WRITE;
 /*!40000 ALTER TABLE `applicant_requests` DISABLE KEYS */;
-INSERT INTO `applicant_requests` VALUES (33,'Профессиональные навыки:\r\n- Отличное знание ПК и офисных программ;\r\n- Владение офисной техникой;\r\n- Грамотность речи и письма;\r\n- Знание принципов документооборота;\r\n- Владение языками: русский свободно; английский - базовый (разговорный).\r\nЛичные качества:\r\nОрганизованность, коммуникабельность, внимательность, ответственность, аккуратность,  развитое логическое мышление, умение работать с большими объемами информации.',NULL,NULL,23,37,1);
 /*!40000 ALTER TABLE `applicant_requests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,7 +98,7 @@ CREATE TABLE `cities` (
 
 LOCK TABLES `cities` WRITE;
 /*!40000 ALTER TABLE `cities` DISABLE KEYS */;
-INSERT INTO `cities` VALUES (1,'MINSK'),(2,'MOGILEV'),(3,'DRESDEN'),(4,'DWAD'),(5,'FWAFWAF'),(6,'HOMEL'),(7,'NEW YORK'),(8,'BREST'),(9,'GRODNO'),(10,'TEST');
+INSERT INTO `cities` VALUES (1,'MINSK'),(2,'MOGILEV'),(6,'HOMEL'),(8,'BREST'),(9,'GRODNO');
 /*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +122,7 @@ CREATE TABLE `countries` (
 
 LOCK TABLES `countries` WRITE;
 /*!40000 ALTER TABLE `countries` DISABLE KEYS */;
-INSERT INTO `countries` VALUES (6,'BELARUS'),(7,'TEST');
+INSERT INTO `countries` VALUES (6,'BELARUS');
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -195,7 +195,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`user_id`),
   KEY `users_role_id_idx` (`role_id_fk`),
   CONSTRAINT `users_role_id` FOREIGN KEY (`role_id_fk`) REFERENCES `user_roles` (`user_role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,7 +204,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (21,'default_avatar.png','Aleksey','Klevitov','2000-11-11','+375-29-333-00-13','admin@gmail.com','$2a$10$ETxACUzFSpptry7zDDq/AekRfyPGIiFSvd1McR9zMOYckw2e4uUca',_binary '',1),(22,'default_avatar.png','Alice','Green','1998-06-23','+375-44-297-23-12','alice@gmail.com','$2a$10$MIhonBMDh9q8xxHf1xli/u1ESTSpw8.PpmwIP3lEZjgY9FGApykTa',_binary '',3),(23,'760bd76e-5acb-4d30-83c3-58494298a551.jpg','David','Winter','2003-06-11','+375-29-101-32-16','david@gmail.com','$2a$10$AELWSt1FXeDA.nxD2uuVcuMqiTZaTuyP99f4OoPeiKxfqRc2kQkAy',_binary '',2),(24,'default_avatar.png','Nina','Martin','1998-09-14','+375441113322','martin@gmail.com','$2a$10$IIRKVNGuiwXAKf/mANj/B.erJ7JWRKWkE3BHjD7ENG3bRvbdpuWY.',_binary '',3),(25,'default_avatar.png','Jack','Brown','2003-10-16','80293214233','jack@gmail.com','$2a$10$dQzxfGoy3KfMqqCZMWmtsOhKqEQ7Yh7HZ5HjGmexuEQuBHO1RPckq',_binary '',2);
+INSERT INTO `users` VALUES (21,'default_avatar.png','Aleksey','Klevitov','2000-11-11','+375-29-333-00-13','admin@gmail.com','$2a$10$ETxACUzFSpptry7zDDq/AekRfyPGIiFSvd1McR9zMOYckw2e4uUca',_binary '',1),(22,'default_avatar.png','Alice','Green','1998-06-23','+375-44-297-23-12','alice@gmail.com','$2a$10$MIhonBMDh9q8xxHf1xli/u1ESTSpw8.PpmwIP3lEZjgY9FGApykTa',_binary '',3),(23,'default_avatar.png','David','Winter','2003-06-11','+375-29-101-32-16','david@gmail.com','$2a$10$AELWSt1FXeDA.nxD2uuVcuMqiTZaTuyP99f4OoPeiKxfqRc2kQkAy',_binary '',2),(24,'default_avatar.png','Nina','Martin','1998-09-14','+375441113322','martin@gmail.com','$2a$10$IIRKVNGuiwXAKf/mANj/B.erJ7JWRKWkE3BHjD7ENG3bRvbdpuWY.',_binary '',3),(25,'default_avatar.png','Jack','Brown','2003-10-16','80293214233','jack@gmail.com','$2a$10$dQzxfGoy3KfMqqCZMWmtsOhKqEQ7Yh7HZ5HjGmexuEQuBHO1RPckq',_binary '',2);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,7 +231,7 @@ CREATE TABLE `vacancies` (
   CONSTRAINT `vacancies_city_id` FOREIGN KEY (`city_id_fk`) REFERENCES `cities` (`city_id`),
   CONSTRAINT `vacancies_country_id` FOREIGN KEY (`country_id_fk`) REFERENCES `countries` (`country_id`),
   CONSTRAINT `vacancies_user_id` FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,7 +240,7 @@ CREATE TABLE `vacancies` (
 
 LOCK TABLES `vacancies` WRITE;
 /*!40000 ALTER TABLE `vacancies` DISABLE KEYS */;
-INSERT INTO `vacancies` VALUES (37,_binary '','Senior Android Developer','CoolCompany - продуктовая компания основанная в США. Мы разрабатываем приложения с момента основания App Store, наши приложения неоднократно были профичерены компаниями Apple & Google. Наши приоритеты это создание высококачественных продуктов на основе многолетнего опыта с использованием новейших технологий iOS & Android.\r\n\r\nRequirements\r\n\r\n3+ years of Android development\r\nExpert in development and support of apps starting with Android 6.0\r\nExperience in creating apps with tablet support\r\nDeep knowledge of Material Design & implementation. Android design patterns\r\nStrong reliance on object-oriented analysis and development\r\nSolid knowledge of HTTP client programming\r\nMulti-threading\r\nAutomated testing and test-driven development\r\nAbility to work independently, estimate and deliver on time\r\nWritten English sufficient for communicating with native speakers via email and producing technical documentation.\r\nGood to have\r\n\r\nExperience in the development of B2C products\r\nCompensation\r\n\r\nSalary: from $2,500 with performance-based bonuses\r\nGuaranteed vacation and holidays\r\nStable full-time employment\r\nFlexible work schedule\r\nWorking in a team with friendly people who created winning apps and services, no-nonsense, pure creation atmosphere','2021-02-25',6,1,22),(38,_binary '','Senior/Lead DevOps Engineer','GreatRiver develops custom software solutions for corporate clients in Austria, Germany, Italy, Slovakia and USA. For doing this we have sales and service divisions in the local markets and development centers in Belarus (Minsk and Grodno). \r\n\r\nCurrently we are seeking for a Senior DevOps Engineer to join our fast-growing team located in Grodno. Partner description: Money Bank is a specialist provider of retail financial services and a leader in non-proprietary automotive and consumer finance. \r\n\r\nOur corporate group, Banco Santander, is the largest banking group in the Eurozone and one of the world\'s best banks. The goal is to build a state-of-the-art banking architecture with scalable, flexible and data-driven technology stack. Cooperation with a third-party consulting company with separated responsibilities. You will have a unique opportunity to act as innovator in DevOps space to make sure that build and delivery mechanisms are reliable, transparent, scalable and transportable.','2021-02-25',6,9,22),(39,_binary '','Software Tester','Our team.\r\n\r\nWe are the Quality Assurance team. We are software testing engineers who execute high-quality tests to refine our wide range of products and services. We look after the quality, usability, and stability of our websites and trading platforms to deliver a world-class experience to our end users.\r\n\r\nYour role.\r\n\r\nAs a Software Tester at Vired, you will engage in quality control throughout the product development lifecycle of all our products, services, and systems. You will help come up with test plans and ensure their execution on each stage, from planning until release. We process over a million transactions per day, and we need you to help deliver the best version of every product, fully optimised, free from bugs, and polished for client utilisation. ','2021-02-25',6,8,22),(40,_binary '','Senior System Administrator','Little City - одно из самых больших интернет-издательств в мире. Мы ежедневно создаем и публикуем сотни развлекательных и познавательных статей и видео для 850+ миллионов подписчиков по всему миру. Вы наверняка видели наши проекты в YouTube, Facebook и Instagram: 5-Minute Crafts, Bright Side, AdMe, La La Life, 123 GO!, Slick Slime Sam, Avocado Couple и т.д. Эти и десятки других проектов - результат работы нашей международной креативной команды.\r\n\r\nНаша IT-команда работает над самыми разнообразными проектами:\r\n- Высоконагруженная система управления производством контента\r\n               \r\n- Облачные решения для видео- и анимационного производства\r\n             \r\n- Внутренний электронный документооборот и система расчетов\r\n               \r\n- Корпоративная система аналитики\r\n         \r\nПрямо сейчас мы в поиске опытного Senior System Administrator, который обеспечит бесперебойную работу новой видеостудий и будет применять свою сильную техническую экспертизу в решений нестандартных задач.\r\n      ','2021-02-25',6,1,24),(41,_binary '','Test','Test','2021-02-25',6,1,24),(42,_binary '','Test','>>>>','2021-02-25',7,10,24);
+INSERT INTO `vacancies` VALUES (37,_binary '','Senior Android Developer','CoolCompany - продуктовая компания основанная в США. Мы разрабатываем приложения с момента основания App Store, наши приложения неоднократно были профичерены компаниями Apple & Google. Наши приоритеты это создание высококачественных продуктов на основе многолетнего опыта с использованием новейших технологий iOS & Android.\r\n\r\nRequirements\r\n\r\n3+ years of Android development\r\nExpert in development and support of apps starting with Android 6.0\r\nExperience in creating apps with tablet support\r\nDeep knowledge of Material Design & implementation. Android design patterns\r\nStrong reliance on object-oriented analysis and development\r\nSolid knowledge of HTTP client programming\r\nMulti-threading\r\nAutomated testing and test-driven development\r\nAbility to work independently, estimate and deliver on time\r\nWritten English sufficient for communicating with native speakers via email and producing technical documentation.\r\nGood to have\r\n\r\nExperience in the development of B2C products\r\nCompensation\r\n\r\nSalary: from $2,500 with performance-based bonuses\r\nGuaranteed vacation and holidays\r\nStable full-time employment\r\nFlexible work schedule\r\nWorking in a team with friendly people who created winning apps and services, no-nonsense, pure creation atmosphere','2021-02-25',6,1,22),(38,_binary '','Senior/Lead DevOps Engineer','GreatRiver develops custom software solutions for corporate clients in Austria, Germany, Italy, Slovakia and USA. For doing this we have sales and service divisions in the local markets and development centers in Belarus (Minsk and Grodno). \r\n\r\nCurrently we are seeking for a Senior DevOps Engineer to join our fast-growing team located in Grodno. Partner description: Money Bank is a specialist provider of retail financial services and a leader in non-proprietary automotive and consumer finance. \r\n\r\nOur corporate group, Banco Santander, is the largest banking group in the Eurozone and one of the world\'s best banks. The goal is to build a state-of-the-art banking architecture with scalable, flexible and data-driven technology stack. Cooperation with a third-party consulting company with separated responsibilities. You will have a unique opportunity to act as innovator in DevOps space to make sure that build and delivery mechanisms are reliable, transparent, scalable and transportable.','2021-02-25',6,9,22),(39,_binary '','Software Tester','Our team.\r\n\r\nWe are the Quality Assurance team. We are software testing engineers who execute high-quality tests to refine our wide range of products and services. We look after the quality, usability, and stability of our websites and trading platforms to deliver a world-class experience to our end users.\r\n\r\nYour role.\r\n\r\nAs a Software Tester at Vired, you will engage in quality control throughout the product development lifecycle of all our products, services, and systems. You will help come up with test plans and ensure their execution on each stage, from planning until release. We process over a million transactions per day, and we need you to help deliver the best version of every product, fully optimised, free from bugs, and polished for client utilisation. ','2021-02-25',6,8,22),(40,_binary '','Senior System Administrator','Little City - одно из самых больших интернет-издательств в мире. Мы ежедневно создаем и публикуем сотни развлекательных и познавательных статей и видео для 850+ миллионов подписчиков по всему миру. Вы наверняка видели наши проекты в YouTube, Facebook и Instagram: 5-Minute Crafts, Bright Side, AdMe, La La Life, 123 GO!, Slick Slime Sam, Avocado Couple и т.д. Эти и десятки других проектов - результат работы нашей международной креативной команды.\r<br>\r<br>Наша IT-команда работает над самыми разнообразными проектами:\r<br>- Высоконагруженная система управления производством контента\r<br>               \r<br>- Облачные решения для видео- и анимационного производства\r<br>             \r<br>- Внутренний электронный документооборот и система расчетов\r<br>               \r<br>- Корпоративная система аналитики\r<br>         \r<br>Прямо сейчас мы в поиске опытного Senior System Administrator, который обеспечит бесперебойную работу новой видеостудий и будет применять свою сильную техническую экспертизу в решений нестандартных задач.\r<br>      ','2021-02-25',6,1,24);
 /*!40000 ALTER TABLE `vacancies` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -253,4 +253,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-02 11:42:00
+-- Dump completed on 2021-03-04 20:39:06
