@@ -1,7 +1,8 @@
 package com.epam.hrsystem.controller.command.impl;
 
 import com.epam.hrsystem.controller.attribute.CommandName;
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
+import com.epam.hrsystem.controller.attribute.MailMessage;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -41,14 +42,14 @@ public class CreateApplicantRequestCommand implements ActionCommand {
             if (service.createApplicantRequest(fields, applicant)) {
                 MailSender mailSender = MailSender.INSTANCE;
                 String applicantEmail = applicant.getEmail();
-                mailSender.setupEmail(applicantEmail, Constant.HR_SYSTEM_MAIL_SUBJECT, Constant.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
+                mailSender.setupEmail(applicantEmail, MailMessage.HR_SYSTEM_MAIL_SUBJECT, MailMessage.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
                 mailSender.send();
                 result = new CommandResult(CommandName.TO_APPLICANT_REQUESTS, CommandResult.Type.REDIRECT);
             } else {
                 if (ApplicantRequestValidator.isSummaryValid(summary)) {
-                    request.setAttribute(Constant.ERROR_DUPLICATE_ATTRIBUTE, Constant.ERROR_APPLICANT_REQUEST_DUPLICATE_MESSAGE);
+                    request.setAttribute(JspAttribute.ERROR_DUPLICATE_ATTRIBUTE, JspAttribute.ERROR_APPLICANT_REQUEST_DUPLICATE_MESSAGE);
                 } else {
-                    request.setAttribute(Constant.ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE, Constant.ERROR_APPLICANT_REQUEST_CREATION_MESSAGE);
+                    request.setAttribute(JspAttribute.ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE, JspAttribute.ERROR_APPLICANT_REQUEST_CREATION_MESSAGE);
                 }
                 result = new CommandResult(CommandName.TO_VACANCY_INFO + vacancyIdStr, CommandResult.Type.FORWARD);
             }

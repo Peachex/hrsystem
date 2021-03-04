@@ -1,6 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
-import com.epam.hrsystem.controller.attribute.UrlPattern;
+import com.epam.hrsystem.controller.attribute.ServletAttribute;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
@@ -18,7 +18,7 @@ public class LogoutCommand implements ActionCommand {
         session.removeAttribute(SessionAttribute.USER_ID);
         session.removeAttribute(SessionAttribute.USER);
         session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.GUEST);
-        CommandResult result = new CommandResult(UrlPattern.HOME, CommandResult.Type.REDIRECT);
+        CommandResult result = new CommandResult(ServletAttribute.HOME_URL_PATTERN, CommandResult.Type.REDIRECT);
         return result;
     }
 }

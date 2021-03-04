@@ -1,7 +1,7 @@
 package com.epam.hrsystem.controller.filter;
 
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
-import com.epam.hrsystem.controller.attribute.UrlPattern;
+import com.epam.hrsystem.controller.attribute.ServletAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandType;
 import com.epam.hrsystem.controller.command.CommandProvider;
@@ -101,7 +101,7 @@ public class PermissionFilter implements Filter {
         CommandType command = CommandProvider.defineCommandType(request).get();
         if (commands == null || !commands.contains(command)) {
             logger.log(Level.ERROR, "User hasn't got permission to execute command = " + command);
-            RequestDispatcher dispatcher = request.getRequestDispatcher(UrlPattern.HOME);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(ServletAttribute.HOME_URL_PATTERN);
             dispatcher.forward(request, response);
         } else {
             filterChain.doFilter(servletRequest, servletResponse);

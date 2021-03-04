@@ -1,6 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -28,7 +28,7 @@ public class SeeAllVacanciesCommand implements ActionCommand {
                 request.setAttribute(RequestParameter.VACANCIES, vacancies);
             } else {
                 //fixme magic text
-                request.setAttribute(Constant.NO_VACANCIES_ATTRIBUTE, "No vacancies");
+                request.setAttribute(JspAttribute.NO_VACANCIES_ATTRIBUTE, "No vacancies");
             }
         } catch (ServiceException e) {
             throw new CommandException(e);

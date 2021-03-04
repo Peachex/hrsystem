@@ -1,9 +1,9 @@
 package com.epam.hrsystem.controller.command.impl;
 
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;;
-import com.epam.hrsystem.controller.attribute.UrlPattern;
+import com.epam.hrsystem.controller.attribute.ServletAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
@@ -45,7 +45,7 @@ public class RegisterCommand implements ActionCommand {
         CommandResult result;
         try {
             if (service.register(fields)) {
-                result = new CommandResult(UrlPattern.LOGIN, CommandResult.Type.REDIRECT);
+                result = new CommandResult(ServletAttribute.LOGIN_URL_PATTERN, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute(RequestParameter.FIRST_NAME, fields.get(RequestParameter.FIRST_NAME));
                 request.setAttribute(RequestParameter.LAST_NAME, fields.get(RequestParameter.LAST_NAME));
@@ -54,7 +54,7 @@ public class RegisterCommand implements ActionCommand {
                 request.setAttribute(RequestParameter.EMAIL, fields.get(RequestParameter.EMAIL));
                 request.setAttribute(RequestParameter.PASSWORD, fields.get(RequestParameter.PASSWORD));
                 request.setAttribute(RequestParameter.REPEATED_PASSWORD, fields.get(RequestParameter.REPEATED_PASSWORD));
-                request.setAttribute(Constant.ERROR_INPUT_DATA_ATTRIBUTE, Constant.ERROR_INPUT_DATA_MESSAGE);
+                request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
                 result = new CommandResult(PagePath.REGISTER, CommandResult.Type.FORWARD);
             }
         } catch (ServiceException e) {

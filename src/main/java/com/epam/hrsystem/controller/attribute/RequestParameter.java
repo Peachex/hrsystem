@@ -10,17 +10,14 @@ public class RequestParameter {
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String REPEATED_PASSWORD = "repeatedPassword";
-    public static final String PHOTO_NAME = "photoName";
 
     //Vacancy
     public static final String POSITION = "position";
     public static final String DESCRIPTION = "description";
     public static final String COUNTRY = "country";
     public static final String CITY = "city";
-    public static final String PREVIOUS_URL = "previousUrl";
     public static final String VACANCIES = "vacancies";
     public static final String VACANCY_ID = "vacancyId";
-    public static final String EMPLOYEE_ID = "employeeId";
     public static final String KEY_WORD = "keyWord";
     public static final String SORT_SEQUENCE = "sortSequence";
     public static final String VACANCY = "vacancy";

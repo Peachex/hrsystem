@@ -1,6 +1,6 @@
 package com.epam.hrsystem.validator;
 
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.model.entity.UserRole;
 import org.apache.logging.log4j.Level;
@@ -31,27 +31,27 @@ public class UserValidator {
         boolean result = true;
         String firstName = fields.get(RequestParameter.FIRST_NAME);
         if (!isNameValid(firstName)) {
-            fields.put(RequestParameter.FIRST_NAME, Constant.INVALID_INPUT_DATA_MESSAGE);
+            fields.put(RequestParameter.FIRST_NAME, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String lastName = fields.get(RequestParameter.LAST_NAME);
         if (!isNameValid(lastName)) {
-            fields.put(RequestParameter.LAST_NAME, Constant.INVALID_INPUT_DATA_MESSAGE);
+            fields.put(RequestParameter.LAST_NAME, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String dateOfBirth = fields.get(RequestParameter.DATE_OF_BIRTH);
         if (!BaseValidator.isDateFormatValid(dateOfBirth)) {
-            fields.put(RequestParameter.DATE_OF_BIRTH, Constant.INVALID_INPUT_DATA_MESSAGE);
+            fields.put(RequestParameter.DATE_OF_BIRTH, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String phoneNumber = fields.get(RequestParameter.PHONE_NUMBER);
         if (!isPhoneNumberValid(phoneNumber)) {
-            fields.put(RequestParameter.PHONE_NUMBER, Constant.INVALID_INPUT_DATA_MESSAGE);
+            fields.put(RequestParameter.PHONE_NUMBER, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String email = fields.get(RequestParameter.EMAIL);
         if (!isEmailValid(email)) {
-            fields.put(RequestParameter.EMAIL, Constant.INVALID_INPUT_DATA_MESSAGE);
+            fields.put(RequestParameter.EMAIL, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String password = fields.get(RequestParameter.PASSWORD);
@@ -71,27 +71,27 @@ public class UserValidator {
         boolean result = true;
         String firstName = fields.get(RequestParameter.FIRST_NAME);
         if (!isNameValid(firstName)) {
-            fields.put(RequestParameter.FIRST_NAME, Constant.INVALID_INPUT_DATA_MESSAGE);
+            fields.put(RequestParameter.FIRST_NAME, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String lastName = fields.get(RequestParameter.LAST_NAME);
         if (!isNameValid(lastName)) {
-            fields.put(RequestParameter.LAST_NAME, Constant.INVALID_INPUT_DATA_MESSAGE);
+            fields.put(RequestParameter.LAST_NAME, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String dateOfBirth = fields.get(RequestParameter.DATE_OF_BIRTH);
         if (!BaseValidator.isDateFormatValid(dateOfBirth)) {
-            fields.put(RequestParameter.DATE_OF_BIRTH, Constant.INVALID_INPUT_DATA_MESSAGE);
+            fields.put(RequestParameter.DATE_OF_BIRTH, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String phoneNumber = fields.get(RequestParameter.PHONE_NUMBER);
         if (!isPhoneNumberValid(phoneNumber)) {
-            fields.put(RequestParameter.PHONE_NUMBER, Constant.INVALID_INPUT_DATA_MESSAGE);
+            fields.put(RequestParameter.PHONE_NUMBER, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String email = fields.get(RequestParameter.EMAIL);
         if (!isEmailValid(email)) {
-            fields.put(RequestParameter.EMAIL, Constant.INVALID_INPUT_DATA_MESSAGE);
+            fields.put(RequestParameter.EMAIL, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         return result;

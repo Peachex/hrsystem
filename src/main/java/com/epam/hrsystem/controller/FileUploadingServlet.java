@@ -1,10 +1,9 @@
 package com.epam.hrsystem.controller;
 
 import com.epam.hrsystem.controller.attribute.CommandName;
-import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
-import com.epam.hrsystem.controller.attribute.UrlPattern;
+import com.epam.hrsystem.controller.attribute.ServletAttribute;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.UserService;
@@ -22,21 +21,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.FileOutputStream;
 import java.util.UUID;
 
-@WebServlet(urlPatterns = UrlPattern.UPLOAD_SERVLET, name = Constant.FILE_UPLOADING_SERVLET_NAME)
+@WebServlet(urlPatterns = ServletAttribute.UPLOAD_SERVLET_URL_PATTERN, name = ServletAttribute.FILE_UPLOADING_SERVLET_NAME)
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5,
         maxRequestSize = 1024 * 1024 * 5 * 5)
 public class FileUploadingServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
+    public static final String UPLOAD_AVATAR_PATH = "C:" + File.separator + "Users" + File.separator + "Peachex" + File.separator +
+            "IdeaProjects" + File.separator + "hrsystem" + File.separator + "src" + File.separator + "main" + File.separator +
+            "webapp" + File.separator + "img" + File.separator + "avatar" + File.separator;
+    private static final String DOT_SYMBOL = ".";
 
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
-        File fileSaveDir = new File(Constant.UPLOAD_AVATAR_PATH);
+        File fileSaveDir = new File(UPLOAD_AVATAR_PATH);
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdirs();
         }
@@ -48,10 +54,10 @@ public class FileUploadingServlet extends HttpServlet {
                     Part part = request.getPart(RequestParameter.FILE_UPLOADING);
                     String path = part.getSubmittedFileName();
                     if (path != null && !path.isEmpty()) {
-                        String randomFilename = UUID.randomUUID() + path.substring(path.lastIndexOf(Constant.DOT_SYMBOL));
+                        String randomFilename = UUID.randomUUID() + path.substring(path.lastIndexOf(DOT_SYMBOL));
                         try (InputStream inputStream = part.getInputStream()) {
                             System.out.println(inputStream.available());
-                            boolean isSuccess = uploadFile(inputStream, Constant.UPLOAD_AVATAR_PATH + randomFilename);
+                            boolean isSuccess = uploadFile(inputStream, UPLOAD_AVATAR_PATH + randomFilename);
                             if (isSuccess) {
                                 UserService service = UserServiceImpl.INSTANCE;
                                 try {

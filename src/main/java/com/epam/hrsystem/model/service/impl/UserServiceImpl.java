@@ -1,6 +1,6 @@
 package com.epam.hrsystem.model.service.impl;
 
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
@@ -63,7 +63,7 @@ public enum UserServiceImpl implements UserService {
                         }
                     }
                 } else {
-                    fields.put(RequestParameter.EMAIL, Constant.EMAIL_AVAILABLE_ERROR_MESSAGE);
+                    fields.put(RequestParameter.EMAIL, JspAttribute.EMAIL_AVAILABLE_ERROR_MESSAGE);
                 }
             }
         } catch (DaoException e) {

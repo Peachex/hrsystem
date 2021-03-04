@@ -1,6 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
@@ -29,7 +29,7 @@ public class ToApplicantRequestsCommand implements ActionCommand {
             if (applicantRequests.size() > 0) {
                 request.setAttribute(RequestParameter.APPLICANT_REQUESTS, applicantRequests);
             } else {
-                request.setAttribute(Constant.NO_APPLICANT_REQUESTS_ATTRIBUTE, Constant.NO_APPLICANT_REQUESTS_MESSAGE);
+                request.setAttribute(JspAttribute.NO_APPLICANT_REQUESTS_ATTRIBUTE, JspAttribute.NO_APPLICANT_REQUESTS_MESSAGE);
             }
         } catch (ServiceException e) {
             throw new CommandException(e);

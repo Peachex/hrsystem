@@ -1,9 +1,9 @@
 package com.epam.hrsystem.controller.command;
 
-import com.epam.hrsystem.controller.attribute.UrlPattern;
+import com.epam.hrsystem.controller.attribute.ServletAttribute;
 
 public class CommandResult {
-    public static final String DEFAULT_PATH = UrlPattern.HOME;
+    public static final String DEFAULT_PATH = ServletAttribute.HOME_URL_PATTERN;
 
     private String path;
     private Type type;

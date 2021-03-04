@@ -1,7 +1,7 @@
 package com.epam.hrsystem.controller.command.impl;
 
 import com.epam.hrsystem.controller.attribute.CommandName;
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -35,7 +35,7 @@ public class RestoreVacancyCommand implements ActionCommand {
                 result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT);
             } else {
                 result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.FORWARD);
-                request.setAttribute(Constant.ERROR_VACANCY_RESTORE_ATTRIBUTE, Constant.ERROR_VACANCY_RESTORE_MESSAGE);
+                request.setAttribute(JspAttribute.ERROR_VACANCY_RESTORE_ATTRIBUTE, JspAttribute.ERROR_VACANCY_RESTORE_MESSAGE);
             }
         } catch (ServiceException | NumberFormatException e) {
             logger.log(Level.ERROR, "Couldn't restore vacancy with id = " + vacancyIdStr + ": " + e);

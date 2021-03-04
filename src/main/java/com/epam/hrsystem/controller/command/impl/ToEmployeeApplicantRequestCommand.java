@@ -1,6 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
@@ -41,10 +41,10 @@ public class ToEmployeeApplicantRequestCommand implements ActionCommand {
                     request.setAttribute(RequestParameter.APPLICANT_REQUEST, applicantRequest);
                     result = new CommandResult(PagePath.EMPLOYEE_APPLICANT_REQUEST, CommandResult.Type.FORWARD);
                 } else {
-                    request.setAttribute(Constant.NO_APPLICANT_REQUEST_ATTRIBUTE, Constant.NO_APPLICANT_REQUEST_MESSAGE);
+                    request.setAttribute(JspAttribute.NO_APPLICANT_REQUEST_ATTRIBUTE, JspAttribute.NO_APPLICANT_REQUEST_MESSAGE);
                 }
             } else {
-                request.setAttribute(Constant.NO_APPLICANT_REQUEST_ATTRIBUTE, Constant.NO_APPLICANT_REQUEST_MESSAGE);
+                request.setAttribute(JspAttribute.NO_APPLICANT_REQUEST_ATTRIBUTE, JspAttribute.NO_APPLICANT_REQUEST_MESSAGE);
             }
 
         } catch (NumberFormatException e) {

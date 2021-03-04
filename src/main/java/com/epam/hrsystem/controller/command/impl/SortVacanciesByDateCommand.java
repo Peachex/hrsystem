@@ -1,6 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
@@ -17,6 +17,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SortVacanciesByDateCommand implements ActionCommand {
+    private static final String SORT_SEQUENCE_ASC = "ASC";
+
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         CommandResult result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD);
@@ -25,14 +27,14 @@ public class SortVacanciesByDateCommand implements ActionCommand {
         List<Vacancy> vacancies = (List<Vacancy>) session.getAttribute(SessionAttribute.VACANCIES);
         String sortSequence = request.getParameter(RequestParameter.SORT_SEQUENCE);
         if (vacancies != null && vacancies.size() > 0 && sortSequence != null && !sortSequence.isEmpty()) {
-            if (sortSequence.equalsIgnoreCase(Constant.SORT_SEQUENCE_ASC)) {
+            if (sortSequence.equalsIgnoreCase(SORT_SEQUENCE_ASC)) {
                 vacancies.sort(comparator);
             } else {
                 vacancies.sort(comparator.reversed());
             }
             request.setAttribute(RequestParameter.VACANCIES, vacancies);
         } else {
-            request.setAttribute(Constant.NO_VACANCIES_ATTRIBUTE, Constant.NO_VACANCIES_MESSAGE);
+            request.setAttribute(JspAttribute.NO_VACANCIES_ATTRIBUTE, JspAttribute.NO_VACANCIES_MESSAGE);
         }
         return result;
     }

@@ -1,6 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
@@ -29,7 +29,7 @@ public class ToVacanciesCommand implements ActionCommand {
             } else {
                 HttpSession session = request.getSession();
                 session.removeAttribute(SessionAttribute.VACANCIES);
-                request.setAttribute(Constant.NO_VACANCIES_ATTRIBUTE, Constant.NO_VACANCIES_BY_REQUEST_MESSAGE);
+                request.setAttribute(JspAttribute.NO_VACANCIES_ATTRIBUTE, JspAttribute.NO_VACANCIES_BY_REQUEST_MESSAGE);
             }
         } catch (ServiceException e) {
             throw new CommandException(e);

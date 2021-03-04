@@ -1,6 +1,6 @@
 package com.epam.hrsystem.validator;
 
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -22,12 +22,12 @@ public class InterviewResultValidator {
         boolean result = true;
         String rating = fields.get(RequestParameter.INTERVIEW_RESULT_RATING);
         if (!isRatingValid(rating)) {
-            fields.put(RequestParameter.INTERVIEW_RESULT_RATING, Constant.INVALID_INPUT_DATA_MESSAGE);
+            fields.put(RequestParameter.INTERVIEW_RESULT_RATING, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         String comment = fields.get(RequestParameter.INTERVIEW_RESULT_COMMENT);
         if (!isCommentValid(comment)) {
-            fields.put(RequestParameter.INTERVIEW_RESULT_COMMENT, Constant.INVALID_INPUT_DATA_MESSAGE);
+            fields.put(RequestParameter.INTERVIEW_RESULT_COMMENT, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
         return result;

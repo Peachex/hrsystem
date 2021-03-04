@@ -1,7 +1,7 @@
 package com.epam.hrsystem.controller.command.impl;
 
 import com.epam.hrsystem.controller.attribute.CommandName;
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -51,7 +51,7 @@ public class EditUserProfileCommand implements ActionCommand {
                 session.setAttribute(SessionAttribute.USER, userOptional.get());
                 result = new CommandResult(CommandName.TO_USER_PROFILE, CommandResult.Type.REDIRECT);
             } else {
-                request.setAttribute(Constant.ERROR_INPUT_DATA_ATTRIBUTE, Constant.ERROR_INPUT_DATA_MESSAGE);
+                request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
                 result = new CommandResult(CommandName.TO_USER_PROFILE, CommandResult.Type.FORWARD);
             }
         } catch (ServiceException | NumberFormatException e) {

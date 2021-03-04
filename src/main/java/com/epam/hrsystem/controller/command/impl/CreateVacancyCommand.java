@@ -1,7 +1,7 @@
 package com.epam.hrsystem.controller.command.impl;
 
 import com.epam.hrsystem.controller.attribute.CommandName;
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -45,13 +45,13 @@ public class CreateVacancyCommand implements ActionCommand {
         try {
             if (!service.createVacancy(fields, employeeId)) {
                 if (VacancyValidator.isVacancyFormValid(fields)) {
-                    request.setAttribute(Constant.ERROR_DUPLICATE_ATTRIBUTE, Constant.ERROR_VACANCY_DUPLICATE_MESSAGE);
+                    request.setAttribute(JspAttribute.ERROR_DUPLICATE_ATTRIBUTE, JspAttribute.ERROR_VACANCY_DUPLICATE_MESSAGE);
                 } else {
                     request.setAttribute(RequestParameter.POSITION, fields.get(RequestParameter.POSITION));
                     request.setAttribute(RequestParameter.DESCRIPTION, fields.get(RequestParameter.DESCRIPTION));
                     request.setAttribute(RequestParameter.COUNTRY, fields.get(RequestParameter.COUNTRY));
                     request.setAttribute(RequestParameter.CITY, fields.get(RequestParameter.CITY));
-                    request.setAttribute(Constant.ERROR_VACANCY_CREATION_ATTRIBUTE, Constant.ERROR_VACANCY_CREATION_MESSAGE);
+                    request.setAttribute(JspAttribute.ERROR_VACANCY_CREATION_ATTRIBUTE, JspAttribute.ERROR_VACANCY_CREATION_MESSAGE);
                 }
                 result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.FORWARD);
             }

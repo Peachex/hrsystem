@@ -1,7 +1,7 @@
 package com.epam.hrsystem.controller.command.impl;
 
 import com.epam.hrsystem.controller.attribute.CommandName;
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -49,7 +49,7 @@ public class EditVacancyInfoCommand implements ActionCommand {
                 request.setAttribute(RequestParameter.DESCRIPTION, fields.get(RequestParameter.DESCRIPTION));
                 request.setAttribute(RequestParameter.COUNTRY, fields.get(RequestParameter.COUNTRY));
                 request.setAttribute(RequestParameter.CITY, fields.get(RequestParameter.CITY));
-                request.setAttribute(Constant.ERROR_VACANCY_UPDATING_ATTRIBUTE, Constant.ERROR_VACANCY_UPDATING_MESSAGE);
+                request.setAttribute(JspAttribute.ERROR_VACANCY_UPDATING_ATTRIBUTE, JspAttribute.ERROR_VACANCY_UPDATING_MESSAGE);
                 result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.FORWARD);
             }
         } catch (ServiceException | NumberFormatException e) {

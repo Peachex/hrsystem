@@ -1,6 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
-import com.epam.hrsystem.controller.attribute.Constant;
+import com.epam.hrsystem.controller.FileUploadingServlet;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
@@ -36,7 +36,7 @@ public class ProvideImageCommand implements ActionCommand {
 
     private byte[] readFile(String fileName) throws ServiceException {
         byte[] result;
-        String fileUri = Constant.UPLOAD_AVATAR_PATH + fileName;
+        String fileUri = FileUploadingServlet.UPLOAD_AVATAR_PATH + fileName;
         Path filePath = Paths.get(fileUri);
         if (Files.exists(filePath)) {
             try {

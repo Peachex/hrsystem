@@ -1,6 +1,5 @@
 package com.epam.hrsystem.model.service.impl;
 
-import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
@@ -24,6 +23,7 @@ import java.util.Optional;
 public enum VacancyServiceImpl implements VacancyService {
     INSTANCE;
     private static final VacancyDao dao = VacancyDaoImpl.INSTANCE;
+    private static final String PERCENT_SIGN = "%";
 
 
     @Override
@@ -213,7 +213,7 @@ public enum VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findVacanciesByKeyWord(String keyWord) throws ServiceException {
         try {
-            String keyWordForQuery = Constant.PERCENT_SIGN + keyWord + Constant.PERCENT_SIGN;
+            String keyWordForQuery = PERCENT_SIGN + keyWord + PERCENT_SIGN;
             List<Vacancy> vacancies = dao.findVacanciesByKeyWord(keyWordForQuery);
             return vacancies;
         } catch (DaoException e) {
