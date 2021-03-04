@@ -16,16 +16,25 @@ HR-SYSTEM allows employees to hire new people. Employees create and manage vacan
 * Admin
 
 ## Guest's scope
-* register
-* login
-* change language
-* see vacancies
+* Register
+* Login
+* Change language
+* View vacancies
 
 ## Applicant's scope
-commands
+* Create applicant request and apply for the selected vacancy
+* View applicant own requests
 
 ## Employee's scope
-commands
+* Manage vacancy (CRUD)
+* View applicants requests on certain vacancy
+* View applicant profiles
+* Create interview result
+* Schedule a technical interview
 
 ## Admin's scope
 commands
+
+## Authorized user's scope
+* Update profile
+* Change avatar
