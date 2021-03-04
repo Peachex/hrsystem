@@ -60,7 +60,7 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
     public List<ApplicantRequest> findApplicantRequestsByApplicant(long applicantId) throws ServiceException {
         List<ApplicantRequest> applicantRequests;
         try {
-            applicantRequests = dao.findApplicantRequestsByVacancyId(applicantId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID);
+            applicantRequests = dao.findApplicantRequestsByApplicantId(applicantId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

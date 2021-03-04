@@ -11,9 +11,11 @@ import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.pool.ConnectionPool;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -127,10 +129,12 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
     private ApplicantRequest createApplicantRequestFromResultSet(ResultSet resultSet) throws SQLException, DaoException {
         long id = resultSet.getLong(1);
         String summary = resultSet.getString(2);
-        ApplicantState applicantState = ApplicantState.valueOf(resultSet.getString(3));
-        long applicantId = resultSet.getLong(4);
+        Date sqlData = resultSet.getDate(3);
+        LocalDate technicalInterviewDate = sqlData != null ? sqlData.toLocalDate() : null;
+        ApplicantState applicantState = ApplicantState.valueOf(resultSet.getString(4));
+        long applicantId = resultSet.getLong(5);
         User applicant = UserDaoImpl.INSTANCE.findUserById(applicantId).orElseThrow(() -> new DaoException("Invalid id"));
-        long vacancyId = resultSet.getLong(5);
+        long vacancyId = resultSet.getLong(6);
         Vacancy vacancy = VacancyDaoImpl.INSTANCE.findVacancyById(vacancyId).orElseThrow(() -> new DaoException("Invalid id"));
         //long basicInterviewResultId = fixme add interview result dao method
         //InterviewResult basicInterviewResult = null;
@@ -142,6 +146,10 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
 
         ApplicantRequest applicantRequest = new ApplicantRequest(id, summary, applicantState, applicant, vacancy, basicInterviewResult,
                 technicalInterviewResult);
+
+        if (technicalInterviewDate != null) {
+            applicantRequest.setTechnicalInterviewDate(technicalInterviewDate);
+        }
         return applicantRequest;
     }
 }
