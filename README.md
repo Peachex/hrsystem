@@ -50,6 +50,8 @@ commands
 * Change avatar
 
 # Additional Info
-* default users password: `password`
-* don't forget to enter email address and password in the properties file for correct email sending
- 
+* Default users password: `password`
+* Don't forget to enter email address and password in the properties file (`mail.properties`) for correct email sending
+ ```java
+mail.user.name=yourEmail
+mail.user.password=yourPassword
