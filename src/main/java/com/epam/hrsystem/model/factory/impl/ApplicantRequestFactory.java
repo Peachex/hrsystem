@@ -1,8 +1,7 @@
-package com.epam.hrsystem.model.creator.impl;
+package com.epam.hrsystem.model.factory.impl;
 
-import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
-import com.epam.hrsystem.model.creator.Creator;
+import com.epam.hrsystem.model.factory.EntityFactory;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.ApplicantState;
 
@@ -11,8 +10,7 @@ import static com.epam.hrsystem.validator.ApplicantRequestValidator.isSummaryVal
 import java.util.Map;
 import java.util.Optional;
 
-public enum ApplicantRequestCreator implements Creator<ApplicantRequest> {
-    INSTANCE;
+public class ApplicantRequestFactory implements EntityFactory<ApplicantRequest> {
     private static final ApplicantState DEFAULT_APPLICANT_STATE = ApplicantState.LEFT_REQUEST;
 
     @Override

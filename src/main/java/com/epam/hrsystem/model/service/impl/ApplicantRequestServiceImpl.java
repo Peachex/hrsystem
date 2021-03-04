@@ -3,8 +3,8 @@ package com.epam.hrsystem.model.service.impl;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
-import com.epam.hrsystem.model.creator.Creator;
-import com.epam.hrsystem.model.creator.impl.ApplicantRequestCreator;
+import com.epam.hrsystem.model.factory.EntityFactory;
+import com.epam.hrsystem.model.factory.impl.ApplicantRequestFactory;
 import com.epam.hrsystem.model.dao.ApplicantRequestDao;
 import com.epam.hrsystem.model.dao.impl.ApplicantRequestDaoImpl;
 import com.epam.hrsystem.model.dao.impl.SqlQuery;
@@ -24,8 +24,8 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
     @Override
     public boolean createApplicantRequest(Map<String, String> fields, User applicant) throws ServiceException {
         boolean result = false;
-        Creator<ApplicantRequest> creator = ApplicantRequestCreator.INSTANCE;
-        Optional<ApplicantRequest> requestOptional = creator.create(fields);
+        EntityFactory<ApplicantRequest> factory = new ApplicantRequestFactory();
+        Optional<ApplicantRequest> requestOptional = factory.create(fields);
         try {
             if (requestOptional.isPresent()) {
                 long vacancyId = Long.parseLong(fields.get(RequestParameter.VACANCY_ID));

@@ -1,7 +1,7 @@
-package com.epam.hrsystem.model.creator.impl;
+package com.epam.hrsystem.model.factory.impl;
 
 import com.epam.hrsystem.controller.attribute.RequestParameter;
-import com.epam.hrsystem.model.creator.Creator;
+import com.epam.hrsystem.model.factory.EntityFactory;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserRole;
 
@@ -11,8 +11,7 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
-public enum UserCreator implements Creator<User> {
-    INSTANCE;
+public class UserFactory implements EntityFactory<User> {
     private static final UserRole DEFAULT_ROLE = UserRole.APPLICANT;
     private static final String DEFAULT_PHOTO_NAME = "default_avatar.png";
     private static final boolean DEFAULT_ACTIVE_VALUE = true;

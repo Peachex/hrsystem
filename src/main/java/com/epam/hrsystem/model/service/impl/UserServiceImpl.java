@@ -4,8 +4,8 @@ import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
-import com.epam.hrsystem.model.creator.Creator;
-import com.epam.hrsystem.model.creator.impl.UserCreator;
+import com.epam.hrsystem.model.factory.EntityFactory;
+import com.epam.hrsystem.model.factory.impl.UserFactory;
 import com.epam.hrsystem.model.dao.impl.SqlQuery;
 import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
@@ -48,8 +48,8 @@ public enum UserServiceImpl implements UserService {
     @Override
     public boolean register(Map<String, String> fields) throws ServiceException {
         boolean result = false;
-        Creator<User> creator = UserCreator.INSTANCE;
-        Optional<User> userOptional = creator.create(fields);
+        EntityFactory<User> factory = new UserFactory();
+        Optional<User> userOptional = factory.create(fields);
         try {
             if (userOptional.isPresent()) {
                 User user = userOptional.get();

@@ -1,8 +1,7 @@
-package com.epam.hrsystem.model.creator.impl;
+package com.epam.hrsystem.model.factory.impl;
 
-import com.epam.hrsystem.controller.attribute.Constant;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
-import com.epam.hrsystem.model.creator.Creator;
+import com.epam.hrsystem.model.factory.EntityFactory;
 import com.epam.hrsystem.model.entity.Vacancy;
 
 import java.util.Map;
@@ -10,8 +9,7 @@ import java.util.Optional;
 
 import static com.epam.hrsystem.validator.VacancyValidator.isVacancyFormValid;
 
-public enum VacancyCreator implements Creator<Vacancy> {
-    INSTANCE;
+public class VacancyFactory implements EntityFactory<Vacancy> {
     private static final boolean DEFAULT_AVAILABILITY_VALUE = true;
 
     @Override
