@@ -26,6 +26,8 @@
     <c:set var="applicantRequest" scope="request" value="${applicantRequest}"/>
     <c:set var="applicantStatePassed" scope="page" value="PASSED"/>
     <c:set var="applicantStateFailed" scope="page" value="FAILED"/>
+    <c:set var="applicantStateLeftRequest" scope="page" value="LEFT_REQUEST"/>
+    <c:set var="applicantStateReadyForTechnicalInterview" scope="page" value="READY_FOR_TECHNICAL_INTERVIEW"/>
 
     <div class="card text-dark bg-light offset-3" style="margin-top: 3%;max-width: 50%; margin-bottom: 5%">
         <div class="card-header" style="display: flex"><h3><fmt:message
@@ -62,7 +64,7 @@
             <h4 class="card-title"><fmt:message key="employee_applicant_request.applicantSummary"/></h4>
             <p class="card-text"><ctg:text text="${applicantRequest.summary}"/></p>
         </div>
-        <c:if test="${applicantRequest.basicInterviewResult != null && applicantRequest.technicalInterviewResult != null}">
+        <c:if test="${applicantRequest.basicInterviewResult != null || applicantRequest.technicalInterviewResult != null}">
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="employee_applicant_request.applicantInterviewResults"/></h4>
             <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -115,19 +117,150 @@
             </c:if>
 
             <div class="col-4 offset-4" style="display: flex;justify-content: center;">
-                <a class="btn btn-outline-secondary col-8 mb-1"
-                   style="display: flex;justify-content: center; margin-top: 10%;"
+                <button type="button" class="btn btn-outline-secondary col-8 mb-1"
+                        style="display: flex;justify-content: center; margin-top: 10%; width: 100%"
+                        data-bs-toggle="modal" data-bs-target="#createInterviewResultModal">
+                    <fmt:message key="button.createInterviewResult"/>
+                </button>
+            </div>
+
+            <div class="col-4 offset-4" style="display: flex;justify-content: center;">
+                <button type="button" class="btn btn-outline-secondary col-8 mb-1"
+                        style="display: flex;justify-content: center; margin-top: 10%; width: 100%"
+                        data-bs-toggle="modal" data-bs-target="#scheduleTechnicalInterviewModal">
+                    <fmt:message key="button.scheduleTechnicalInterview"/>
+                </button>
+            </div>
+
+
+            <%-- <c:if test="${applicantRequest.applicantState.equals(applicantStateLeftRequest) ||
+             (applicantRequest.applicantState.equals(applicantStateReadyForTechnicalInterview) &&
+             applicantRequest.technicalInterviewDate != null)}">
+                     <button type="button" class="btn btn-outline-secondary dropdown-item"
+                             data-bs-toggle="modal" data-bs-target="#createInterviewResultModal">
+                         <fmt:message key="button.createInterviewResult"/>
+                     </button>
+             </c:if>
+             <c:if test="${applicantRequest.applicantState.equals(applicantStateReadyForTechnicalInterview) &&
+             applicantRequest.technicalInterviewDate == null}">
+                        href="home"><fmt:message
+                         key="button.scheduleTechnicalInterview"/> </a></li>
+             </c:if>--%>
+
+            <!-- Modal -->
+            <div class="modal fade" id="createInterviewResultModal" data-bs-backdrop="static"
+                 data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><fmt:message
+                                    key="create_vacancy_modal.title"/></h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form name="create-interview-result-form" method="POST"
+                                  action="edit_vacancy_info.do?vacancyId=${vacancy.id}">
+                                <label for="inputRating"><fmt:message
+                                        key="create_vacancy_modal.inputPosition"/> </label>
+                                <div class="form-group mt-1">
+                                    <input type="text" class="form-control field" id="inputRating"
+                                           name="position"
+                                           value="${vacancy.position}" placeholder=
+                                                   "<fmt:message key="create_vacancy_modal.inputPositionPlaceholder"/>"
+                                           required pattern="[А-Яа-я\w\s\p{Punct}]{3,1000}">
+                                </div>
+
+                                <div class="mt-3">
+                                    <label for="inputComment"><fmt:message
+                                            key="create_vacancy_modal.inputDescription"/> </label>
+                                </div>
+                                <div class="form-group mt-1">
+                                    <textarea class="form-control" rows="5" id="inputComment"
+                                              name="description" placeholder="<fmt:message
+                                             key="create_vacancy_modal.inputDescriptionPlaceholder"/>"
+                                              required minlength="3" maxlength="10000">${vacancy.description}</textarea>
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-outline-success button mt-4"
+                                            style="margin-left: 100%" type="submit">
+                                        <fmt:message
+                                                key="button.save"/></button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger"
+                                    data-bs-dismiss="modal">
+                                <fmt:message
+                                        key="button.close"/></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="scheduleTechnicalInterviewModal" data-bs-backdrop="static"
+                 data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><fmt:message
+                                    key="create_vacancy_modal.title"/></h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form name="create-interview-result-form" method="POST"
+                                  action="edit_vacancy_info.do?vacancyId=${vacancy.id}">
+                                <label for="inputRating"><fmt:message
+                                        key="create_vacancy_modal.inputPosition"/> </label>
+                                <div class="form-group mt-1">
+                                    <input type="text" class="form-control field" id="inputRating"
+                                           name="position"
+                                           value="${vacancy.position}" placeholder=
+                                                   "<fmt:message key="create_vacancy_modal.inputPositionPlaceholder"/>"
+                                           required pattern="[А-Яа-я\w\s\p{Punct}]{3,1000}">
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-outline-success button mt-4"
+                                            style="margin-left: 100%" type="submit">
+                                        <fmt:message
+                                                key="button.save"/></button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger"
+                                    data-bs-dismiss="modal">
+                                <fmt:message
+                                        key="button.close"/></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4 offset-4" style="display: flex;justify-content: center;">
+                <a class="btn btn-outline-secondary col-8 mb-2"
+                   style="display: flex;justify-content: center; margin-top: 10%; width:100%"
                    href="to_employee_vacancy_info.do?vacancyId=${applicantRequest.vacancy.id}"
                    role="button"><fmt:message
                         key="button.back"/> </a>
             </div>
         </div>
-        <div class="mt-3">
-            <wrong-message>
-
-            </wrong-message>
-        </div>
     </div>
+</div>
+</div>
+<div class="mt-3">
+    <wrong-message>
+
+    </wrong-message>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
