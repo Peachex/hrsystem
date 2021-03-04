@@ -154,7 +154,7 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
         //long technicalInterviewResultId =
         //InterviewResultService technicalInterviewResult = null;
 
-        InterviewResult basicInterviewResult = new InterviewResult((byte) 10, "Very good student. Very good student. Very good student.");
+        InterviewResult basicInterviewResult = null; //new InterviewResult((byte) 10, "Very good student. Very good student. Very good student.");
         InterviewResult technicalInterviewResult = null;// new InterviewResultService((byte) 2, "Bad student. Bad student. Bad student.");
 
         ApplicantRequest applicantRequest = new ApplicantRequest(id, summary, applicantState, applicant, vacancy, basicInterviewResult,
