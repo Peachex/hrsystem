@@ -155,39 +155,39 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title"><fmt:message
-                                    key="create_vacancy_modal.title"/></h4>
+                                    key="interview_result_modal.title"/></h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                         </div>
 
                         <div class="modal-body">
                             <form name="create-interview-result-form" method="POST"
-                                  action="edit_vacancy_info.do?vacancyId=${vacancy.id}">
+                                  action="home">
                                 <label for="inputRating"><fmt:message
-                                        key="create_vacancy_modal.inputPosition"/> </label>
+                                        key="interview_result_modal.inputRating"/> </label>
                                 <div class="form-group mt-1">
                                     <input type="text" class="form-control field" id="inputRating"
-                                           name="position"
-                                           value="${vacancy.position}" placeholder=
-                                                   "<fmt:message key="create_vacancy_modal.inputPositionPlaceholder"/>"
-                                           required pattern="[А-Яа-я\w\s\p{Punct}]{3,1000}">
+                                           name="rating"
+                                           value="${rating}" placeholder=
+                                                   "<fmt:message key="interview_result_modal.inputRatingPlaceholder"/>"
+                                           required pattern="[1-9]|10">
                                 </div>
 
                                 <div class="mt-3">
                                     <label for="inputComment"><fmt:message
-                                            key="create_vacancy_modal.inputDescription"/> </label>
+                                            key="interview_result_modal.inputComment"/> </label>
                                 </div>
                                 <div class="form-group mt-1">
                                     <textarea class="form-control" rows="5" id="inputComment"
                                               name="description" placeholder="<fmt:message
-                                             key="create_vacancy_modal.inputDescriptionPlaceholder"/>"
-                                              required minlength="3" maxlength="10000">${vacancy.description}</textarea>
+                                             key="interview_result_modal.inputCommentPlaceholder"/>"
+                                              required minlength="1" maxlength="25000">${comment}</textarea>
                                 </div>
                                 <div class="col-4">
                                     <button class="btn btn-outline-success button mt-4"
                                             style="margin-left: 100%" type="submit">
                                         <fmt:message
-                                                key="button.save"/></button>
+                                                key="button.create"/></button>
                                 </div>
                             </form>
                         </div>
@@ -205,32 +205,30 @@
             <div class="modal fade" id="scheduleTechnicalInterviewModal" data-bs-backdrop="static"
                  data-bs-keyboard="false" tabindex="-1"
                  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title"><fmt:message
-                                    key="create_vacancy_modal.title"/></h4>
+                                    key="schedule_technical_interview_modal.title"/></h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                         </div>
 
                         <div class="modal-body">
-                            <form name="create-interview-result-form" method="POST"
-                                  action="edit_vacancy_info.do?vacancyId=${vacancy.id}">
-                                <label for="inputRating"><fmt:message
-                                        key="create_vacancy_modal.inputPosition"/> </label>
+                            <form name="schedule-technical-interview-form" method="POST"
+                                  action="home">
+                                <label for="inputDate"><fmt:message
+                                        key="schedule_technical_interview_modal.inputDate"/> </label>
                                 <div class="form-group mt-1">
-                                    <input type="text" class="form-control field" id="inputRating"
-                                           name="position"
-                                           value="${vacancy.position}" placeholder=
-                                                   "<fmt:message key="create_vacancy_modal.inputPositionPlaceholder"/>"
-                                           required pattern="[А-Яа-я\w\s\p{Punct}]{3,1000}">
+                                    <input type="date" id="inputDate" class="form-control" name="date"
+                                           required>
                                 </div>
+
                                 <div class="col-4">
                                     <button class="btn btn-outline-success button mt-4"
                                             style="margin-left: 100%" type="submit">
                                         <fmt:message
-                                                key="button.save"/></button>
+                                                key="button.schedule"/></button>
                                 </div>
                             </form>
                         </div>
