@@ -32,6 +32,7 @@ public class RequestParameter {
     public static final String APPLICANT_ID = "applicantId";
     public static final String INTERVIEW_RESULT_RATING = "rating";
     public static final String INTERVIEW_RESULT_COMMENT = "comment";
+    public static final String APPLICANT_STATE = "applicantState";
 
     //Different
     public static final String NEW_LOCALE = "newLocale";

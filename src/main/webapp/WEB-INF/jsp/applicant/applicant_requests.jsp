@@ -42,6 +42,7 @@
             <th scope="col"><fmt:message key="vacancy_city"/>
             <th scope="col"><fmt:message key="vacancy_creationDate"/></th>
             <th scope="col"><fmt:message key="applicant_request.applicantState"/></th>
+
             <th scope="col"><fmt:message key="table_action"/></th>
         </tr>
         </thead>

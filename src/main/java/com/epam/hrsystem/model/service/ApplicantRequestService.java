@@ -17,5 +17,7 @@ public interface ApplicantRequestService {
 
     Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws ServiceException;
 
+    boolean createInterviewResult(Map<String, String> fields, long vacancyId, long applicantId) throws ServiceException;
+
     boolean isApplicantRequestExists(ApplicantRequest request) throws ServiceException;
 }

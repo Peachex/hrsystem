@@ -129,6 +129,8 @@ public class SqlQuery {
             " basic_interview_result_id_fk, technical_interview_result_id_fk FROM applicant_requests JOIN applicant_states ON applicant_state_id_fk = applicant_state_id" +
             " WHERE vacancy_id_fk = ? AND user_id_fk = ?;";
 
+    public static final String SQL_UPDATE_APPLICANT_STATE = "UPDATE applicant_requests SET applicant_state_id_fk = '?' WHERE applicant_request_id = '?';";
+
     private SqlQuery() {
     }
 }

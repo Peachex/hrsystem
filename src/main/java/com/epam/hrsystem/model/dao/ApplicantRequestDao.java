@@ -2,6 +2,7 @@ package com.epam.hrsystem.model.dao;
 
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
+import com.epam.hrsystem.model.entity.ApplicantState;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +12,9 @@ public interface ApplicantRequestDao {
 
     boolean applicantRequestExists(ApplicantRequest request) throws DaoException;
 
-    List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId, String sqlQuery) throws DaoException;
+    boolean updateApplicantState(long applicantRequestId, String state) throws DaoException;
 
-    List<ApplicantRequest> findApplicantRequestsByApplicantId(long applicantId, String sqlQuery) throws DaoException;
+    List<ApplicantRequest> findApplicantRequestsByIdAndSqlQuery(long vacancyId, String sqlQuery) throws DaoException;
 
     Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws DaoException;
 

@@ -56,29 +56,25 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
     }
 
     @Override
-    public List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId, String sqlQuery) throws DaoException {
-        List<ApplicantRequest> applicantRequests = new ArrayList<>();
+    public boolean updateApplicantState(long applicantRequestId, String state) throws DaoException {
+        boolean result;
         try (Connection connection = pool.takeConnection();
-             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            statement.setLong(1, vacancyId);
-            statement.executeQuery();
-            ResultSet resultSet = statement.getResultSet();
-            while (resultSet.next()) {
-                ApplicantRequest applicantRequest = createApplicantRequestFromResultSet(resultSet);
-                applicantRequests.add(applicantRequest);
-            }
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_APPLICANT_STATE)) {
+            statement.setLong(1, findApplicantStateIdByName(state).orElseThrow(() -> new DaoException("Invalid applicant state")));
+            statement.setLong(2, applicantRequestId);
+            result = statement.executeUpdate() == 1;
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return applicantRequests;
+        return result;
     }
 
     @Override
-    public List<ApplicantRequest> findApplicantRequestsByApplicantId(long applicantId, String sqlQuery) throws DaoException {
+    public List<ApplicantRequest> findApplicantRequestsByIdAndSqlQuery(long id, String sqlQuery) throws DaoException {
         List<ApplicantRequest> applicantRequests = new ArrayList<>();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            statement.setLong(1, applicantId);
+            statement.setLong(1, id);
             statement.executeQuery();
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
@@ -137,12 +133,12 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
         long vacancyId = resultSet.getLong(6);
         Vacancy vacancy = VacancyDaoImpl.INSTANCE.findVacancyById(vacancyId).orElseThrow(() -> new DaoException("Invalid id"));
         //long basicInterviewResultId = fixme add interview result dao method
-        //InterviewResult basicInterviewResult = null;
+        //InterviewResultService basicInterviewResult = null;
         //long technicalInterviewResultId =
-        //InterviewResult technicalInterviewResult = null;
+        //InterviewResultService technicalInterviewResult = null;
 
         InterviewResult basicInterviewResult = new InterviewResult((byte) 10, "Very good student. Very good student. Very good student.");
-        InterviewResult technicalInterviewResult = null;// new InterviewResult((byte) 2, "Bad student. Bad student. Bad student.");
+        InterviewResult technicalInterviewResult = null;// new InterviewResultService((byte) 2, "Bad student. Bad student. Bad student.");
 
         ApplicantRequest applicantRequest = new ApplicantRequest(id, summary, applicantState, applicant, vacancy, basicInterviewResult,
                 technicalInterviewResult);

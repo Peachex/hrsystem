@@ -3,6 +3,8 @@ package com.epam.hrsystem.model.service.impl;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
+import com.epam.hrsystem.model.entity.ApplicantState;
+import com.epam.hrsystem.model.entity.InterviewResult;
 import com.epam.hrsystem.model.factory.EntityFactory;
 import com.epam.hrsystem.model.factory.impl.ApplicantRequestFactory;
 import com.epam.hrsystem.model.dao.ApplicantRequestDao;
@@ -11,6 +13,7 @@ import com.epam.hrsystem.model.dao.impl.SqlQuery;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
+import com.epam.hrsystem.model.factory.impl.InterviewResultFactory;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
 
 import java.util.List;
@@ -49,7 +52,7 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
     public List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId) throws ServiceException {
         List<ApplicantRequest> applicantRequests;
         try {
-            applicantRequests = dao.findApplicantRequestsByVacancyId(vacancyId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID);
+            applicantRequests = dao.findApplicantRequestsByIdAndSqlQuery(vacancyId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -60,7 +63,7 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
     public List<ApplicantRequest> findApplicantRequestsByApplicant(long applicantId) throws ServiceException {
         List<ApplicantRequest> applicantRequests;
         try {
-            applicantRequests = dao.findApplicantRequestsByApplicantId(applicantId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID);
+            applicantRequests = dao.findApplicantRequestsByIdAndSqlQuery(applicantId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -79,12 +82,51 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
     }
 
     @Override
+    public boolean createInterviewResult(Map<String, String> fields, long vacancyId, long applicantId) throws ServiceException {
+        boolean result = false;
+        Optional<ApplicantRequest> applicantRequestOptional;
+        try {
+            applicantRequestOptional = dao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
+            if (applicantRequestOptional.isPresent()) {
+                ApplicantRequest applicantRequest = applicantRequestOptional.get();
+                EntityFactory<InterviewResult> factory = new InterviewResultFactory();
+                Optional<InterviewResult> interviewResultOptional = factory.create(fields);
+                if (interviewResultOptional.isPresent()) {
+                    String newApplicantState = fields.get(RequestParameter.APPLICANT_STATE);
+                    InterviewResult interviewResult = interviewResultOptional.get();
+                    if (updateInterviewResult(applicantRequest, interviewResult)) {
+                        //dao
+                        result = dao.updateApplicantState(applicantRequest.getId(), newApplicantState);
+                    }
+                }
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
     public boolean isApplicantRequestExists(ApplicantRequest request) throws ServiceException {
         boolean result;
         try {
             result = dao.applicantRequestExists(request);
         } catch (DaoException e) {
             throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    private boolean updateInterviewResult(ApplicantRequest applicantRequest, InterviewResult interviewResult) {
+        boolean result = true;
+        if (applicantRequest.getBasicInterviewResult() == null) {
+            applicantRequest.setBasicInterviewResult(interviewResult);
+        } else {
+            if (applicantRequest.getTechnicalInterviewResult() == null) {
+                applicantRequest.setTechnicalInterviewResult(interviewResult);
+            } else {
+                result = false;
+            }
         }
         return result;
     }
