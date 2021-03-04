@@ -50,5 +50,6 @@ commands
 * Change avatar
 
 # Additional Info
-* default users password = "password";
+* default users password: `password`
 * don't forget to enter email address and password in the properties file for correct email sending
+ 
