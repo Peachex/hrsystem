@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,5 +39,18 @@ public class ApplicantRequestValidator {
             logger.log(Level.DEBUG, "Applicant state isn't valid: " + state);
         }
         return result;
+    }
+
+    public static boolean isTechnicalInterviewDateValid(String date) {
+        if (date == null) {
+            return false;
+        }
+        Matcher matcher = BaseValidator.DATE_FORMAT_PATTERN.matcher(date);
+        boolean result = matcher.matches() && LocalDate.parse(date).isAfter(LocalDate.now());
+        if (!result) {
+            logger.log(Level.DEBUG, "Date isn't valid: " + date);
+        }
+        return result;
+
     }
 }
