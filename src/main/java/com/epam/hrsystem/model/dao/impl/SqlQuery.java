@@ -112,6 +112,8 @@ public class SqlQuery {
     public static final String SQL_INSERT_APPLICANT_REQUEST = "INSERT INTO applicant_requests(summary, applicant_state_id_fk, user_id_fk, vacancy_id_fk)" +
             " VALUES (?, ?, ?, ?);";
 
+    public static final String SQL_INSERT_INTERVIEW_RESULT = "INSERT INTO interview_results(rating, comment) VALUES (?, ?);";
+
     public static final String SQL_CHECK_APPLICANT_REQUEST_FOR_EXISTENCE = "SELECT applicant_request_id FROM applicant_requests WHERE" +
             " user_id_fk = ? AND vacancy_id_fk = ?;";
 
@@ -130,6 +132,17 @@ public class SqlQuery {
             " WHERE vacancy_id_fk = ? AND user_id_fk = ?;";
 
     public static final String SQL_UPDATE_APPLICANT_STATE = "UPDATE applicant_requests SET applicant_state_id_fk = '?' WHERE applicant_request_id = '?';";
+
+    public static final String SQL_UPDATE_APPLICANT_REQUEST_WITH_NULL_TECHNICAL_INTERVIEW = "UPDATE applicant_requests SET summary = ?, technical_interview_date = ?, basic_interview_result_id_fk = ?, applicant_state_id_fk = ?" +
+            " WHERE applicant_request_id = ?;";
+
+    public static final String SQL_UPDATE_APPLICANT_REQUEST_WITH_NOT_NULL_TECHNICAL_INTERVIEW = "UPDATE applicant_requests SET summary = ?, technical_interview_date = ?, technical_interview_result_id_fk = ?, applicant_state_id_fk = ?" +
+            " WHERE applicant_request_id = ?;";
+
+    public static final String SQL_FIND_INTERVIEW_RESULT_ID_BY_INTERVIEW_RESULT = "SELECT interview_result_id FROM interview_results WHERE rating = ? AND comment = ?;";
+
+    public static final String SQL_FIND_INTERVIEW_RESULT_BY_ID = "SELECT rating, interview_result FROM interview_results WHERE interview_result_id = ?;";
+
 
     private SqlQuery() {
     }

@@ -3,6 +3,8 @@ package com.epam.hrsystem.model.service.impl;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
+import com.epam.hrsystem.model.dao.InterviewResultDao;
+import com.epam.hrsystem.model.dao.impl.InterviewResultDaoImpl;
 import com.epam.hrsystem.model.entity.ApplicantState;
 import com.epam.hrsystem.model.entity.InterviewResult;
 import com.epam.hrsystem.model.factory.EntityFactory;
@@ -22,7 +24,8 @@ import java.util.Optional;
 
 public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
     INSTANCE;
-    private static final ApplicantRequestDao dao = ApplicantRequestDaoImpl.INSTANCE;
+    private static final ApplicantRequestDao applicantRequestDao = ApplicantRequestDaoImpl.INSTANCE;
+    private static final InterviewResultDao interviewResultDao = InterviewResultDaoImpl.INSTANCE;
 
     @Override
     public boolean createApplicantRequest(Map<String, String> fields, User applicant) throws ServiceException {
@@ -38,7 +41,7 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
                     request.setApplicant(applicant);
                     request.setVacancy(vacancyOptional.get());
                     if (!isApplicantRequestExists(request)) {
-                        result = dao.add(request);
+                        result = applicantRequestDao.add(request);
                     }
                 }
             }
@@ -52,7 +55,7 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
     public List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId) throws ServiceException {
         List<ApplicantRequest> applicantRequests;
         try {
-            applicantRequests = dao.findApplicantRequestsByIdAndSqlQuery(vacancyId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID);
+            applicantRequests = applicantRequestDao.findApplicantRequestsByIdAndSqlQuery(vacancyId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -63,7 +66,7 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
     public List<ApplicantRequest> findApplicantRequestsByApplicant(long applicantId) throws ServiceException {
         List<ApplicantRequest> applicantRequests;
         try {
-            applicantRequests = dao.findApplicantRequestsByIdAndSqlQuery(applicantId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID);
+            applicantRequests = applicantRequestDao.findApplicantRequestsByIdAndSqlQuery(applicantId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -74,7 +77,7 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
     public Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws ServiceException {
         Optional<ApplicantRequest> applicantRequest;
         try {
-            applicantRequest = dao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
+            applicantRequest = applicantRequestDao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -86,7 +89,7 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
         boolean result = false;
         Optional<ApplicantRequest> applicantRequestOptional;
         try {
-            applicantRequestOptional = dao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
+            applicantRequestOptional = applicantRequestDao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
             if (applicantRequestOptional.isPresent()) {
                 ApplicantRequest applicantRequest = applicantRequestOptional.get();
                 EntityFactory<InterviewResult> factory = new InterviewResultFactory();
@@ -94,9 +97,10 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
                 if (interviewResultOptional.isPresent()) {
                     String newApplicantState = fields.get(RequestParameter.APPLICANT_STATE);
                     InterviewResult interviewResult = interviewResultOptional.get();
-                    if (updateInterviewResult(applicantRequest, interviewResult)) {
-                        //dao
-                        result = dao.updateApplicantState(applicantRequest.getId(), newApplicantState);
+                    if (updateInterviewResult(applicantRequest, interviewResult, newApplicantState)) {
+                        if (interviewResultDao.add(interviewResult)) {
+                            result = applicantRequestDao.updateApplicantRequest(applicantRequest);
+                        }
                     }
                 }
             }
@@ -110,14 +114,14 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
     public boolean isApplicantRequestExists(ApplicantRequest request) throws ServiceException {
         boolean result;
         try {
-            result = dao.applicantRequestExists(request);
+            result = applicantRequestDao.applicantRequestExists(request);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
         return result;
     }
 
-    private boolean updateInterviewResult(ApplicantRequest applicantRequest, InterviewResult interviewResult) {
+    private boolean updateInterviewResult(ApplicantRequest applicantRequest, InterviewResult interviewResult, String state) {
         boolean result = true;
         if (applicantRequest.getBasicInterviewResult() == null) {
             applicantRequest.setBasicInterviewResult(interviewResult);
@@ -127,6 +131,9 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
             } else {
                 result = false;
             }
+        }
+        if (result) {
+            applicantRequest.setApplicantState(ApplicantState.valueOf(state));
         }
         return result;
     }

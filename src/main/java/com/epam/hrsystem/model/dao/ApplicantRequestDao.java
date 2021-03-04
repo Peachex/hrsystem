@@ -3,6 +3,7 @@ package com.epam.hrsystem.model.dao;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.ApplicantState;
+import com.epam.hrsystem.model.entity.InterviewResult;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ public interface ApplicantRequestDao {
 
     boolean applicantRequestExists(ApplicantRequest request) throws DaoException;
 
-    boolean updateApplicantState(long applicantRequestId, String state) throws DaoException;
+    boolean updateApplicantRequest(ApplicantRequest applicantRequest) throws DaoException;
 
     List<ApplicantRequest> findApplicantRequestsByIdAndSqlQuery(long vacancyId, String sqlQuery) throws DaoException;
 

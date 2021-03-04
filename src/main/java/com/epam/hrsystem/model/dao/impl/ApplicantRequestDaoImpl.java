@@ -3,6 +3,7 @@ package com.epam.hrsystem.model.dao.impl;
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.dao.ApplicantRequestDao;
+import com.epam.hrsystem.model.dao.InterviewResultDao;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.ApplicantState;
 import com.epam.hrsystem.model.entity.InterviewResult;
@@ -23,6 +24,7 @@ import java.util.Optional;
 public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
     INSTANCE;
     private static final ConnectionPool pool = ConnectionPool.POOL;
+    private static final InterviewResultDao interviewResultDao = InterviewResultDaoImpl.INSTANCE;
 
     @Override
     public boolean add(ApplicantRequest request) throws DaoException {
@@ -56,12 +58,27 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
     }
 
     @Override
-    public boolean updateApplicantState(long applicantRequestId, String state) throws DaoException {
+    public boolean updateApplicantRequest(ApplicantRequest applicantRequest) throws DaoException {
         boolean result;
+        InterviewResult basicInterviewResult = applicantRequest.getBasicInterviewResult();
+        InterviewResult technicalInterviewResult = applicantRequest.getTechnicalInterviewResult();
+        LocalDate technicalInterviewDate = applicantRequest.getTechnicalInterviewDate();
+        String sqlQuery;
+        if (basicInterviewResult != null && technicalInterviewResult == null) {
+            sqlQuery = SqlQuery.SQL_UPDATE_APPLICANT_REQUEST_WITH_NULL_TECHNICAL_INTERVIEW;
+        } else {
+            sqlQuery = SqlQuery.SQL_UPDATE_APPLICANT_REQUEST_WITH_NOT_NULL_TECHNICAL_INTERVIEW;
+        }
         try (Connection connection = pool.takeConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_APPLICANT_STATE)) {
-            statement.setLong(1, findApplicantStateIdByName(state).orElseThrow(() -> new DaoException("Invalid applicant state")));
-            statement.setLong(2, applicantRequestId);
+             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setString(1, applicantRequest.getSummary());
+            statement.setDate(2, technicalInterviewDate != null ? Date.valueOf(technicalInterviewDate) : null);
+            statement.setLong(3, technicalInterviewResult == null ? interviewResultDao.findInterviewResultId(basicInterviewResult).orElseThrow(() ->
+                    new DaoException("Invalid interview result")) : interviewResultDao.findInterviewResultId(technicalInterviewResult).orElseThrow(() ->
+                    new DaoException("Invalid interview result")));
+            statement.setLong(4, findApplicantStateIdByName(applicantRequest.getApplicantState().name()).orElseThrow(() ->
+                    new DaoException("Invalid applicant state")));
+            statement.setLong(5, applicantRequest.getId());
             result = statement.executeUpdate() == 1;
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
