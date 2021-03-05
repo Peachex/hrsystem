@@ -13,14 +13,12 @@ public class ApplicantRequest {
     private LocalDate technicalInterviewDate;
 
     public ApplicantRequest(long id, String summary, ApplicantState applicantState, User applicant,
-                            Vacancy vacancy, InterviewResult basicInterviewResult, InterviewResult technicalInterviewResult) {
+                            Vacancy vacancy) {
         this.id = id;
         this.summary = summary;
         this.applicantState = applicantState;
         this.applicant = applicant;
         this.vacancy = vacancy;
-        this.basicInterviewResult = basicInterviewResult;
-        this.technicalInterviewResult = technicalInterviewResult;
     }
 
     public ApplicantRequest(String summary, ApplicantState applicantState) {
@@ -127,8 +125,8 @@ public class ApplicantRequest {
         sb.append("applicant state = ").append(applicantState).append("\n");
         sb.append("applicant id = ").append(applicant.getId()).append("\n");
         sb.append("vacancy id = ").append(vacancy.getId()).append("\n");
-        sb.append("basic interview result id = ").append(basicInterviewResult.getId()).append("\n");
-        sb.append("technical interview result id = ").append(technicalInterviewResult.getId()).append("\n");
+        sb.append("basic interview result = ").append(basicInterviewResult).append("\n");
+        sb.append("technical interview result = ").append(technicalInterviewResult).append("\n");
         sb.append("technical interview date = ").append(technicalInterviewDate).append("\n");
         return sb.toString();
     }

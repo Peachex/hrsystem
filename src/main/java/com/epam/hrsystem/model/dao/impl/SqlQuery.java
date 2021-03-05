@@ -139,7 +139,7 @@ public class SqlQuery {
 
     public static final String SQL_FIND_INTERVIEW_RESULT_ID_BY_INTERVIEW_RESULT = "SELECT interview_result_id FROM interview_results WHERE rating = ? AND comment = ?;";
 
-    public static final String SQL_FIND_INTERVIEW_RESULT_BY_ID = "SELECT rating, interview_result FROM interview_results WHERE interview_result_id = ?;";
+    public static final String SQL_FIND_INTERVIEW_RESULT_BY_ID = "SELECT interview_result_id, rating, comment FROM interview_results WHERE interview_result_id = ?;";
 
     private SqlQuery() {
     }

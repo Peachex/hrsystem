@@ -149,19 +149,20 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
         User applicant = UserDaoImpl.INSTANCE.findUserById(applicantId).orElseThrow(() -> new DaoException("Invalid id"));
         long vacancyId = resultSet.getLong(6);
         Vacancy vacancy = VacancyDaoImpl.INSTANCE.findVacancyById(vacancyId).orElseThrow(() -> new DaoException("Invalid id"));
-        //long basicInterviewResultId = fixme add interview result dao method
-        //InterviewResultService basicInterviewResult = null;
-        //long technicalInterviewResultId =
-        //InterviewResultService technicalInterviewResult = null;
-
-        InterviewResult basicInterviewResult = null; //new InterviewResult((byte) 10, "Very good student. Very good student. Very good student.");
-        InterviewResult technicalInterviewResult = null;// new InterviewResultService((byte) 2, "Bad student. Bad student. Bad student.");
-
-        ApplicantRequest applicantRequest = new ApplicantRequest(id, summary, applicantState, applicant, vacancy, basicInterviewResult,
-                technicalInterviewResult);
-
+        long basicInterviewResultId = resultSet.getLong(7);
+        long technicalInterviewResultId = resultSet.getLong(8);
+        //fixme add interview result dao method
+        ApplicantRequest applicantRequest = new ApplicantRequest(id, summary, applicantState, applicant, vacancy);
         if (technicalInterviewDate != null) {
             applicantRequest.setTechnicalInterviewDate(technicalInterviewDate);
+        }
+        if (basicInterviewResultId != 0) {
+            Optional<InterviewResult> basicInterviewResultOptional = interviewResultDao.findInterviewResultById(basicInterviewResultId);
+            basicInterviewResultOptional.ifPresent(applicantRequest::setBasicInterviewResult);
+        }
+        if (technicalInterviewResultId != 0) {
+            Optional<InterviewResult> technicalInterviewResultOptional = interviewResultDao.findInterviewResultById(technicalInterviewResultId);
+            technicalInterviewResultOptional.ifPresent(applicantRequest::setTechnicalInterviewResult);
         }
         return applicantRequest;
     }
