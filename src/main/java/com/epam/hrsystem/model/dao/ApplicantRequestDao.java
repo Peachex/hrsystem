@@ -2,8 +2,6 @@ package com.epam.hrsystem.model.dao;
 
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
-import com.epam.hrsystem.model.entity.ApplicantState;
-import com.epam.hrsystem.model.entity.InterviewResult;
 
 import java.util.List;
 import java.util.Optional;
