@@ -151,7 +151,6 @@ public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
         Vacancy vacancy = VacancyDaoImpl.INSTANCE.findVacancyById(vacancyId).orElseThrow(() -> new DaoException("Invalid id"));
         long basicInterviewResultId = resultSet.getLong(7);
         long technicalInterviewResultId = resultSet.getLong(8);
-        //fixme add interview result dao method
         ApplicantRequest applicantRequest = new ApplicantRequest(id, summary, applicantState, applicant, vacancy);
         if (technicalInterviewDate != null) {
             applicantRequest.setTechnicalInterviewDate(technicalInterviewDate);
