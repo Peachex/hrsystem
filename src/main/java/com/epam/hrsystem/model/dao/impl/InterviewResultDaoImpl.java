@@ -4,15 +4,12 @@ import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.dao.InterviewResultDao;
 import com.epam.hrsystem.model.entity.InterviewResult;
-import com.epam.hrsystem.model.entity.User;
-import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.pool.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.Optional;
 
 public enum InterviewResultDaoImpl implements InterviewResultDao {

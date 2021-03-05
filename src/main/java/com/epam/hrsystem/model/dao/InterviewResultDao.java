@@ -12,5 +12,4 @@ public interface InterviewResultDao {
     Optional<Long> findInterviewResultId(InterviewResult interviewResult) throws DaoException;
 
     Optional<InterviewResult> findInterviewResultById(long interviewResultId) throws DaoException;
-
 }

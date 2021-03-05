@@ -98,9 +98,11 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
                     String newApplicantState = fields.get(RequestParameter.APPLICANT_STATE);
                     InterviewResult interviewResult = interviewResultOptional.get();
                     if (updateInterviewResult(applicantRequest, interviewResult, newApplicantState)) {
-                        if (interviewResultDao.add(interviewResult)) {
-                            result = applicantRequestDao.updateApplicantRequest(applicantRequest);
+                        //todo add exist check
+                        if (!interviewResultDao.findInterviewResultId(interviewResult).isPresent()) {
+                            interviewResultDao.add(interviewResult);
                         }
+                        result = applicantRequestDao.updateApplicantRequest(applicantRequest);
                     }
                 }
             }

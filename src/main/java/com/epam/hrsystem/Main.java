@@ -2,7 +2,6 @@ package com.epam.hrsystem;
 
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.ServiceException;
-import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.service.impl.ApplicantRequestServiceImpl;
 
 import java.util.LinkedHashMap;
@@ -13,12 +12,12 @@ public class Main {
         //fixme delete main
         ApplicantRequestServiceImpl service = ApplicantRequestServiceImpl.INSTANCE;
         Map<String, String> fields = new LinkedHashMap<>();
-        fields.put(RequestParameter.INTERVIEW_RESULT_RATING, "2");
-        fields.put(RequestParameter.INTERVIEW_RESULT_COMMENT,"BAD");
-        fields.put(RequestParameter.APPLICANT_STATE, "FAILED");
-        //service.createInterviewResult(fields,39, 23);
-        ApplicantRequest applicantRequest = service.findApplicantRequestByVacancyIdAndApplicantId(39, 23).get();
-        System.out.println(applicantRequest);
-        
+        fields.put(RequestParameter.INTERVIEW_RESULT_RATING, "9");
+        fields.put(RequestParameter.INTERVIEW_RESULT_COMMENT, "BADDDD");
+        fields.put(RequestParameter.APPLICANT_STATE, "PASSED");
+        System.out.println(service.createInterviewResult(fields, 39, 23));
+        /*ApplicantRequest applicantRequest = service.findApplicantRequestByVacancyIdAndApplicantId(39, 23).get();
+        System.out.println(applicantRequest);*/
+
     }
 }
