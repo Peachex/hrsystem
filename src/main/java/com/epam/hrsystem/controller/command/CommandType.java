@@ -1,6 +1,7 @@
 package com.epam.hrsystem.controller.command;
 
 import com.epam.hrsystem.controller.command.impl.ChangeLanguageCommand;
+import com.epam.hrsystem.controller.command.impl.CreateInterviewResultCommand;
 import com.epam.hrsystem.controller.command.impl.CreateVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.CreateApplicantRequestCommand;
 import com.epam.hrsystem.controller.command.impl.DeleteVacancyCommand;
@@ -102,6 +103,9 @@ public enum CommandType {
     }},
     CREATE_APPLICANT_REQUEST {{
         this.command = new CreateApplicantRequestCommand();
+    }},
+    CREATE_INTERVIEW_RESULT {{
+        this.command = new CreateInterviewResultCommand();
     }},
     PROVIDE_IMAGE{{
         this.command = new ProvideImageCommand();

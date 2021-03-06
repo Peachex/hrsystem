@@ -69,6 +69,7 @@ public class PermissionFilter implements Filter {
         employeeCommands.add(CommandType.EDIT_USER_PROFILE);
         employeeCommands.add(CommandType.TO_EMPLOYEE_APPLICANT_REQUEST);
         employeeCommands.add(CommandType.PROVIDE_IMAGE);
+        employeeCommands.add(CommandType.CREATE_INTERVIEW_RESULT);
 
         List<CommandType> adminCommands = new ArrayList<>(sameCommands);
         adminCommands.add(CommandType.LOGOUT);

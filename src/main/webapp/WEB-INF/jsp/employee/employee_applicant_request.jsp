@@ -162,7 +162,7 @@
 
                         <div class="modal-body">
                             <form name="create-interview-result-form" method="POST"
-                                  action="home">
+                                  action="create_interview_result.do">
                                 <label for="inputRating"><fmt:message
                                         key="interview_result_modal.inputRating"/> </label>
                                 <div class="form-group mt-1">
@@ -183,6 +183,22 @@
                                              key="interview_result_modal.inputCommentPlaceholder"/>"
                                               required minlength="1" maxlength="25000">${comment}</textarea>
                                 </div>
+
+                                <div class="mt-3">
+                                    <label for="inputState"><fmt:message
+                                            key="interview_result_modal.updateState"/> </label>
+                                </div>
+                                <select class="form-select mt-1" id="inputState" name="applicantState"
+                                        aria-label="Default select example" required>
+                                    <option selected></option>
+                                    <option value="${applicantStateReadyForTechnicalInterview}"><fmt:message
+                                            key="interview_result_modal.applicantStateReadyForTechnicalInterview"/></option>
+                                    <option value="${applicantStatePassed}"><fmt:message
+                                            key="interview_result_modal.applicantStatePassed"/></option>
+                                    <option value="${applicantStateFailed}"><fmt:message
+                                            key="interview_result_modal.applicantStateFailed"/></option>
+                                </select>
+
                                 <div class="col-4">
                                     <button class="btn btn-outline-success button mt-4"
                                             style="margin-left: 100%" type="submit">
