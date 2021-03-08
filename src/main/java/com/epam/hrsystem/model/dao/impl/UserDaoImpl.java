@@ -137,12 +137,28 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findUsersBySqlQuery(String sqlQuery) throws DaoException {
+    public List<User> findUsersByActivity(boolean areActive) throws DaoException {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_USERS_BY_ACTIVITY)) {
+            statement.setByte(1, areActive ? (byte) 1 : 0);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User user = createUserFromResultSet(resultSet);
+                users.add(user);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> findAllUsers() throws DaoException {
         List<User> users = new ArrayList<>();
         try (Connection connection = pool.takeConnection();
              Statement statement = connection.createStatement()) {
-            statement.executeQuery(sqlQuery);
-            ResultSet resultSet = statement.getResultSet();
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SQL_SELECT_ALL_USERS);
             while (resultSet.next()) {
                 User user = createUserFromResultSet(resultSet);
                 users.add(user);

@@ -54,7 +54,7 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     @Override
     public List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId) throws ServiceException {
         List<ApplicantRequest> applicantRequests;
-        try {//fixme
+        try {
             applicantRequests = applicantRequestDao.findApplicantRequestsById(vacancyId, 0);
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -65,7 +65,7 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     @Override
     public List<ApplicantRequest> findApplicantRequestsByApplicantId(long applicantId) throws ServiceException {
         List<ApplicantRequest> applicantRequests;
-        try {//fixme
+        try {
             applicantRequests = applicantRequestDao.findApplicantRequestsById(0, applicantId);
         } catch (DaoException e) {
             throw new ServiceException(e);

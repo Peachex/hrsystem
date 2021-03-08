@@ -23,7 +23,9 @@ public interface UserDao {
 
     boolean updatePassword(long userId, String newPassword) throws DaoException;
 
-    List<User> findUsersBySqlQuery(String sqlQuery) throws DaoException;
+    List<User> findUsersByActivity(boolean areActive) throws DaoException;
+
+    List<User> findAllUsers() throws DaoException;
 
     boolean changeUserRole(long userId, UserRole role) throws DaoException;
 

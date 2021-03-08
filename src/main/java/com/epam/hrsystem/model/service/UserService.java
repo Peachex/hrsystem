@@ -25,7 +25,7 @@ public interface UserService {
 
     List<User> findBlockedUsers() throws ServiceException;
 
-    List<User> findNotBlockedUsers() throws ServiceException;
+    List<User> findActiveUsers() throws ServiceException;
 
     boolean changeUserRole(long userId, String role) throws ServiceException;
 
