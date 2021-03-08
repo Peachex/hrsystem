@@ -9,7 +9,7 @@ import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.service.VacancyService;
-import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
+import com.epam.hrsystem.model.service.impl.ServiceHolder;
 import com.epam.hrsystem.validator.VacancyValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -41,7 +41,7 @@ public class EditVacancyInfoCommand implements ActionCommand {
         HttpSession session = request.getSession();
         long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
 
-        VacancyService service = VacancyServiceImpl.INSTANCE;
+        VacancyService service = ServiceHolder.HOLDER.getVacancyService();
         CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT);
         try {
             long vacancyId = Long.parseLong(vacancyIdStr);

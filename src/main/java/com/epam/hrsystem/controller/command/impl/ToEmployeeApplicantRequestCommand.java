@@ -10,7 +10,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
-import com.epam.hrsystem.model.service.impl.ApplicantRequestServiceImpl;
+import com.epam.hrsystem.model.service.impl.ServiceHolder;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +27,7 @@ public class ToEmployeeApplicantRequestCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String applicantIdStr = request.getParameter(RequestParameter.APPLICANT_ID);
         String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
-        ApplicantRequestService applicantRequestService = ApplicantRequestServiceImpl.INSTANCE;
+        ApplicantRequestService applicantRequestService = ServiceHolder.HOLDER.getApplicantRequestService();
         CommandResult result = new CommandResult(PagePath.EMPLOYEE_VACANCY_LIST, CommandResult.Type.FORWARD);
         try {
             long applicantId = Long.parseLong(applicantIdStr);

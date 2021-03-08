@@ -10,7 +10,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
-import com.epam.hrsystem.model.service.impl.ApplicantRequestServiceImpl;
+import com.epam.hrsystem.model.service.impl.ServiceHolder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +20,7 @@ import java.util.List;
 public class ToApplicantRequestsCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        ApplicantRequestService service = ApplicantRequestServiceImpl.INSTANCE;
+        ApplicantRequestService service = ServiceHolder.HOLDER.getApplicantRequestService();
         HttpSession session = request.getSession();
         CommandResult result = new CommandResult(PagePath.APPLICANT_REQUESTS, CommandResult.Type.FORWARD);
         long applicantId = (long) session.getAttribute(SessionAttribute.USER_ID);

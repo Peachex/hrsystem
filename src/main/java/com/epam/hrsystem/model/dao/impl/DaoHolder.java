@@ -13,18 +13,18 @@ public enum DaoHolder {
     private final VacancyDao vacancyDao = new VacancyDaoImpl();
 
     public ApplicantRequestDao getApplicantRequestDao() {
-        return this.applicantRequestDao;
+        return applicantRequestDao;
     }
 
     public InterviewResultDao getInterviewResultDao() {
-        return this.interviewResultDao;
+        return interviewResultDao;
     }
 
     public UserDao getUserDao() {
-        return this.userDao;
+        return userDao;
     }
 
     public VacancyDao getVacancyDao() {
-        return this.vacancyDao;
+        return vacancyDao;
     }
 }

@@ -19,11 +19,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-public enum VacancyServiceImpl implements VacancyService {
-    INSTANCE;
+public class VacancyServiceImpl implements VacancyService {
     private static final VacancyDao dao = DaoHolder.HOLDER.getVacancyDao();
     private static final String PERCENT_SIGN = "%";
 
+    VacancyServiceImpl() {
+    }
 
     @Override
     public boolean createVacancy(Map<String, String> fields, long employeeId) throws ServiceException {

@@ -9,7 +9,7 @@ import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.service.VacancyService;
-import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
+import com.epam.hrsystem.model.service.impl.ServiceHolder;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +23,7 @@ public class RestoreVacancyCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        VacancyService service = VacancyServiceImpl.INSTANCE;
+        VacancyService service = ServiceHolder.HOLDER.getVacancyService();
         HttpSession session = request.getSession();
         CommandResult result;
         String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);

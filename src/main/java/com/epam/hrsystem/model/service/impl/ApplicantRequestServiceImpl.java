@@ -21,10 +21,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
-    INSTANCE;
+public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     private static final ApplicantRequestDao applicantRequestDao = DaoHolder.HOLDER.getApplicantRequestDao();
     private static final InterviewResultDao interviewResultDao = DaoHolder.HOLDER.getInterviewResultDao();
+
+    ApplicantRequestServiceImpl() {
+    }
 
     @Override
     public boolean createApplicantRequest(Map<String, String> fields, User applicant) throws ServiceException {
@@ -34,7 +36,7 @@ public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
         try {
             if (requestOptional.isPresent()) {
                 long vacancyId = Long.parseLong(fields.get(RequestParameter.VACANCY_ID));
-                Optional<Vacancy> vacancyOptional = VacancyServiceImpl.INSTANCE.findVacancyById(vacancyId);
+                Optional<Vacancy> vacancyOptional = ServiceHolder.HOLDER.getVacancyService().findVacancyById(vacancyId);
                 if (vacancyOptional.isPresent()) {
                     ApplicantRequest request = requestOptional.get();
                     request.setApplicant(applicant);

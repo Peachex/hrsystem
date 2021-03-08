@@ -8,7 +8,7 @@ import com.epam.hrsystem.controller.attribute.ServletAttribute;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.UserService;
-import com.epam.hrsystem.model.service.impl.UserServiceImpl;
+import com.epam.hrsystem.model.service.impl.ServiceHolder;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -56,7 +56,7 @@ public class FileUploadingServlet extends HttpServlet {
                             System.out.println(inputStream.available());
                             boolean isSuccess = uploadFile(inputStream, UPLOAD_AVATAR_PATH + randomFilename);
                             if (isSuccess) {
-                                UserService service = UserServiceImpl.INSTANCE;
+                                UserService service = ServiceHolder.HOLDER.getUserService();
                                 try {
                                     service.changePhoto(user.getId(), randomFilename);
                                     user.setPhotoName(randomFilename);

@@ -10,7 +10,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.UserService;
-import com.epam.hrsystem.model.service.impl.UserServiceImpl;
+import com.epam.hrsystem.model.service.impl.ServiceHolder;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,7 +43,7 @@ public class EditUserProfileCommand implements ActionCommand {
         fields.put(RequestParameter.PHONE_NUMBER, newPhoneNumber);
         fields.put(RequestParameter.EMAIL, newEmail);
 
-        UserService service = UserServiceImpl.INSTANCE;
+        UserService service = ServiceHolder.HOLDER.getUserService();
         CommandResult result;
         try {
             Optional<User> userOptional = service.updateProfile(userId, fields);

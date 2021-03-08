@@ -22,9 +22,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-public enum UserServiceImpl implements UserService {
-    INSTANCE;
+public class UserServiceImpl implements UserService {
     private static final UserDao dao = DaoHolder.HOLDER.getUserDao();
+
+    UserServiceImpl() {
+    }
 
     @Override
     public Optional<User> login(String email, String password) throws ServiceException {
