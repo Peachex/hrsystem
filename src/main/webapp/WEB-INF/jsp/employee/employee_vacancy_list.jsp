@@ -150,6 +150,7 @@
             ${noVacancy}
         </wrong-message>
         <wrong-message>
+            ${strangeVacancy}
             ${errorVacancyDelete}
             ${errorVacancyRestore}
         </wrong-message>

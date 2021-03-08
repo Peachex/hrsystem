@@ -41,7 +41,7 @@ public class ToEmployeeApplicantRequestCommand implements ActionCommand {
                     request.setAttribute(RequestParameter.APPLICANT_REQUEST, applicantRequest);
                     result = new CommandResult(PagePath.EMPLOYEE_APPLICANT_REQUEST, CommandResult.Type.FORWARD);
                 } else {
-                    request.setAttribute(JspAttribute.NO_APPLICANT_REQUEST_ATTRIBUTE, JspAttribute.NO_APPLICANT_REQUEST_MESSAGE);
+                    request.setAttribute(JspAttribute.ERROR_STRANGE_VACANCY_ATTRIBUTE, JspAttribute.ERROR_STRANGE_VACANCY_MESSAGE);
                 }
             } else {
                 request.setAttribute(JspAttribute.NO_APPLICANT_REQUEST_ATTRIBUTE, JspAttribute.NO_APPLICANT_REQUEST_MESSAGE);
@@ -50,6 +50,7 @@ public class ToEmployeeApplicantRequestCommand implements ActionCommand {
         } catch (NumberFormatException e) {
             logger.log(Level.ERROR, "Couldn't convert from string to long str = " + applicantIdStr + " or " + vacancyIdStr +
                     ": " + e);
+            request.setAttribute(JspAttribute.NO_VACANCY_ATTRIBUTE, JspAttribute.NO_VACANCY_MESSAGE);
             result = new CommandResult(PagePath.EMPLOYEE_VACANCY_LIST, CommandResult.Type.FORWARD);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

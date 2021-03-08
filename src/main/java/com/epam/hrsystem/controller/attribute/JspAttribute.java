@@ -9,6 +9,9 @@ public class JspAttribute {
     public static final String ERROR_VACANCY_RESTORE_ATTRIBUTE = "errorVacancyRestore";
     public static final String ERROR_VACANCY_RESTORE_MESSAGE = "Couldn't restore vacancy, try one more time";
 
+    public static final String ERROR_STRANGE_VACANCY_ATTRIBUTE = "strangeVacancy";
+    public static final String ERROR_STRANGE_VACANCY_MESSAGE = "This vacancy was created by another employee";
+
     public static final String ERROR_DUPLICATE_ATTRIBUTE = "errorDuplicate";
     public static final String ERROR_VACANCY_DUPLICATE_MESSAGE = "Couldn't create vacancy cause there is same active vacancy";
 
