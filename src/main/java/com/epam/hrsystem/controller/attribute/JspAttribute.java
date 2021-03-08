@@ -41,6 +41,8 @@ public class JspAttribute {
     public static final String EMAIL_AVAILABLE_ERROR_MESSAGE = "Email is unavailable, try another one!";
     public static final String INVALID_INPUT_DATA_MESSAGE = "";
 
+    public static final String ERROR_MESSAGE_INFO = "errorMessageInfo";
+
     private JspAttribute() {
     }
 }

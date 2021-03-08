@@ -27,6 +27,10 @@
     </h1>
     <h1 style="margin-bottom: 5%; margin-top: 3%; display: flex; justify-content: center">
         <fmt:message key="500_error.message"/></h1>
+
+    <h5 style="margin-bottom: 5%; margin-top: 3%; display: flex; color: red; justify-content: center">
+        ${errorMessageInfo}</h5>
+
     <div class="col-2 offset-5">
         <a class="btn btn-outline-secondary"
            style="width: 100%; display: flex; justify-content: center"

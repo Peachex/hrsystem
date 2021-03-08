@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller;
 
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.ServletAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
@@ -69,6 +70,7 @@ public class Controller extends HttpServlet {
             }
         } catch (CommandException e) {
             logger.log(Level.ERROR, "Couldn't process request: " + e);
+            request.setAttribute(JspAttribute.ERROR_MESSAGE_INFO, e.getMessage());
             throw new ServletException(e);
         }
     }

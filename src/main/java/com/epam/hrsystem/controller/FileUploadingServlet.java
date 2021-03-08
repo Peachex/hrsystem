@@ -1,6 +1,7 @@
 package com.epam.hrsystem.controller;
 
 import com.epam.hrsystem.controller.attribute.CommandName;
+import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.controller.attribute.ServletAttribute;
@@ -32,20 +33,16 @@ import java.util.UUID;
         maxFileSize = 1024 * 1024 * 5,
         maxRequestSize = 1024 * 1024 * 5 * 5)
 public class FileUploadingServlet extends HttpServlet {
-    private static final Logger logger = LogManager.getLogger();
     public static final String UPLOAD_AVATAR_PATH = "C:" + File.separator + "Users" + File.separator + "Peachex" + File.separator +
             "IdeaProjects" + File.separator + "hrsystem" + File.separator + "src" + File.separator + "main" + File.separator +
             "webapp" + File.separator + "img" + File.separator + "avatar" + File.separator;
+    private static final Logger logger = LogManager.getLogger();
     private static final String DOT_SYMBOL = ".";
 
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
-        File fileSaveDir = new File(UPLOAD_AVATAR_PATH);
-        if (!fileSaveDir.exists()) {
-            fileSaveDir.mkdirs();
-        }
         try {
             if (ServletFileUpload.isMultipartContent(request)) {
                 HttpSession session = request.getSession();
@@ -75,6 +72,7 @@ public class FileUploadingServlet extends HttpServlet {
             }
         } catch (ServletException e) {
             logger.log(Level.ERROR, "Couldn't upload file: " + e);
+            request.setAttribute(JspAttribute.ERROR_MESSAGE_INFO, e.getMessage());
             throw new ServletException(e);
         }
         response.sendRedirect(request.getContextPath() + CommandName.TO_USER_PROFILE);
