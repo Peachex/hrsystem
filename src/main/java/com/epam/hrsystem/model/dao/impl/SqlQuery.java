@@ -60,17 +60,9 @@ public class SqlQuery {
 
     public static final String SQL_UPDATE_VACANCY_AVAILABILITY = "UPDATE vacancies SET is_available = ? WHERE vacancy_id = ?;";
 
-    public static final String SQL_SELECT_DELETED_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
-            " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
-            " JOIN users ON user_id_fk = user_id WHERE is_available = '0';";
-
     public static final String SQL_FIND_VACANCIES_BY_KEY_WORD = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
             " JOIN users ON user_id_fk = user_id WHERE position LIKE ? OR description LIKE ? OR country LIKE ? OR city LIKE ? HAVING is_available = '1';";
-
-    public static final String SQL_SELECT_AVAILABLE_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
-            " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
-            " JOIN users ON user_id_fk = user_id WHERE is_available = '1';";
 
     public static final String SQL_SELECT_EMPLOYEE_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
@@ -79,14 +71,6 @@ public class SqlQuery {
     public static final String SQL_SELECT_EMPLOYEE_VACANCIES_BY_AVAILABILITY = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
             " JOIN users ON user_id_fk = user_id WHERE user_id_fk = ? AND is_available = ? ORDER BY creation_date DESC, position ASC;";
-
-    public static final String SQL_SELECT_ACTIVE_EMPLOYEE_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
-            " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
-            " JOIN users ON user_id_fk = user_id WHERE user_id_fk = ? AND is_available = '1' ORDER BY creation_date DESC, position ASC;";
-
-    public static final String SQL_SELECT_DELETED_EMPLOYEE_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
-            " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
-            " JOIN users ON user_id_fk = user_id WHERE user_id_fk = ? AND is_available = '0' ORDER BY creation_date DESC, position ASC;";
 
     public static final String SQL_SELECT_EMPLOYEE_VACANCIES_WITH_APPLICANTS_REQUESTS = "SELECT DISTINCT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +

@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
                     String passwordFromDatabase = dao.findPasswordByEmail(email).get();
                     Optional<Byte> activityValue = dao.findUserActivity(email);
                     if (Encryptor.check(password, passwordFromDatabase) && activityValue.get() == 1) {
-                        result = dao.login(email);
+                        result = dao.findUserByEmail(email);
                     }
                 }
             }

@@ -40,7 +40,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> login(String email) throws DaoException {
+    public Optional<User> findUserByEmail(String email) throws DaoException {
         Optional<User> user = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_USER_BY_EMAIL)) {

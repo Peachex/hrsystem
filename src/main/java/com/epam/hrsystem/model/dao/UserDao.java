@@ -11,7 +11,7 @@ public interface UserDao {
     //fixme delete unnecessary functions
     boolean isEmailAvailable(String email) throws DaoException;
 
-    Optional<User> login(String email) throws DaoException;
+    Optional<User> findUserByEmail(String email) throws DaoException;
 
     Optional<String> findPasswordByEmail(String email) throws DaoException;
 
