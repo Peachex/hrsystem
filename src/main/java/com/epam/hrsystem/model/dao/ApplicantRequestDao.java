@@ -13,7 +13,7 @@ public interface ApplicantRequestDao {
 
     boolean updateApplicantRequest(ApplicantRequest applicantRequest) throws DaoException;
 
-    List<ApplicantRequest> findApplicantRequestsByIdAndSqlQuery(long vacancyId, String sqlQuery) throws DaoException;
+    List<ApplicantRequest> findApplicantRequestsById(long vacancyId, long applicantId) throws DaoException;
 
     Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws DaoException;
 

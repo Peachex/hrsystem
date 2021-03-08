@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAllUsers() throws ServiceException {
-        try {
+        try {//fixme
             List<User> users = dao.findUsersBySqlQuery(SqlQuery.SQL_SELECT_ALL_USERS);
             return users;
         } catch (DaoException e) {
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findBlockedUsers() throws ServiceException {
-        try {
+        try {//fixme
             List<User> users = dao.findUsersBySqlQuery(SqlQuery.SQL_SELECT_BLOCKED_USERS);
             return users;
         } catch (DaoException e) {
@@ -145,7 +145,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findNotBlockedUsers() throws ServiceException {
-        try {
+        try {//fixme
             List<User> users = dao.findUsersBySqlQuery(SqlQuery.SQL_SELECT_NOT_BLOCKED_USERS);
             return users;
         } catch (DaoException e) {

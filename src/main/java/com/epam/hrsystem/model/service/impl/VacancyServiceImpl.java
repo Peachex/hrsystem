@@ -80,7 +80,7 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     public List<Vacancy> findAllVacancies() throws ServiceException {
-        try {
+        try {//fixme
             List<Vacancy> vacancies = dao.findVacanciesBySqlQuery(SqlQuery.SQL_SELECT_ALL_VACANCIES);
             return vacancies;
         } catch (DaoException e) {
@@ -90,7 +90,7 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     public List<Vacancy> findDeletedVacancies() throws ServiceException {
-        try {
+        try {//fixme
             List<Vacancy> vacancies = dao.findVacanciesBySqlQuery(SqlQuery.SQL_SELECT_DELETED_VACANCIES);
             return vacancies;
         } catch (DaoException e) {
@@ -100,7 +100,7 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     public List<Vacancy> findAvailableVacancies() throws ServiceException {
-        try {
+        try {//fixme
             List<Vacancy> vacancies = dao.findVacanciesBySqlQuery(SqlQuery.SQL_SELECT_AVAILABLE_VACANCIES);
             return vacancies;
         } catch (DaoException e) {
@@ -110,7 +110,7 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     public List<Vacancy> findEmployeeVacancies(long employeeId) throws ServiceException {
-        try {
+        try {//fixme
             List<Vacancy> vacancies = dao.findEmployeeVacanciesByQuery(employeeId, SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES);
             return vacancies;
         } catch (DaoException e) {
@@ -120,7 +120,7 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     public List<Vacancy> findActiveEmployeeVacancies(long employeeId) throws ServiceException {
-        try {
+        try {//fixme
             List<Vacancy> vacancies = dao.findEmployeeVacanciesByQuery(employeeId, SqlQuery.SQL_SELECT_ACTIVE_EMPLOYEE_VACANCIES);
             return vacancies;
         } catch (DaoException e) {
@@ -130,7 +130,7 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     public List<Vacancy> findDeletedEmployeeVacancies(long employeeId) throws ServiceException {
-        try {
+        try {//fixme
             List<Vacancy> vacancies = dao.findEmployeeVacanciesByQuery(employeeId, SqlQuery.SQL_SELECT_DELETED_EMPLOYEE_VACANCIES);
             return vacancies;
         } catch (DaoException e) {
@@ -140,7 +140,7 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     public List<Vacancy> findEmployeeVacanciesWithApplicantsRequests(long employeeId) throws ServiceException {
-        try {
+        try {//fixme
             List<Vacancy> vacancies = dao.findEmployeeVacanciesByQuery(employeeId, SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES_WITH_APPLICANTS_REQUESTS);
             return vacancies;
         } catch (DaoException e) {
@@ -150,7 +150,7 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     public List<Vacancy> findEmployeeVacanciesWithActiveApplicantsRequests(long employeeId) throws ServiceException {
-        try {
+        try {//fixme
             List<Vacancy> vacancies = dao.findEmployeeVacanciesByQuery(employeeId, SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS);
             return vacancies;
         } catch (DaoException e) {
@@ -160,7 +160,7 @@ public class VacancyServiceImpl implements VacancyService {
 
     @Override
     public List<Vacancy> findEmployeeVacanciesWithNotActiveApplicantsRequests(long employeeId) throws ServiceException {
-        try {
+        try {//fixme
             List<Vacancy> vacancies = dao.findEmployeeVacanciesByQuery(employeeId, SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS);
             return vacancies;
         } catch (DaoException e) {

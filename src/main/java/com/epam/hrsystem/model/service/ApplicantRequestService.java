@@ -13,7 +13,7 @@ public interface ApplicantRequestService {
 
     List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId) throws ServiceException;
 
-    List<ApplicantRequest> findApplicantRequestsByApplicant(long applicantId) throws ServiceException;
+    List<ApplicantRequest> findApplicantRequestsByApplicantId(long applicantId) throws ServiceException;
 
     Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws ServiceException;
 

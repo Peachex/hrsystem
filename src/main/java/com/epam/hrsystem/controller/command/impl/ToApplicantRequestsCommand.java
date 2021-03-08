@@ -25,7 +25,7 @@ public class ToApplicantRequestsCommand implements ActionCommand {
         CommandResult result = new CommandResult(PagePath.APPLICANT_REQUESTS, CommandResult.Type.FORWARD);
         long applicantId = (long) session.getAttribute(SessionAttribute.USER_ID);
         try {
-            List<ApplicantRequest> applicantRequests = service.findApplicantRequestsByApplicant(applicantId);
+            List<ApplicantRequest> applicantRequests = service.findApplicantRequestsByApplicantId(applicantId);
             if (applicantRequests.size() > 0) {
                 request.setAttribute(RequestParameter.APPLICANT_REQUESTS, applicantRequests);
             } else {

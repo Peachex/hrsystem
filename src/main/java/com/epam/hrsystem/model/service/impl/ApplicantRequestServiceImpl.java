@@ -14,7 +14,6 @@ import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.factory.impl.FactoryHolder;
-import com.epam.hrsystem.model.factory.impl.InterviewResultFactory;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
 
 import java.util.List;
@@ -55,8 +54,8 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     @Override
     public List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId) throws ServiceException {
         List<ApplicantRequest> applicantRequests;
-        try {
-            applicantRequests = applicantRequestDao.findApplicantRequestsByIdAndSqlQuery(vacancyId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID);
+        try {//fixme
+            applicantRequests = applicantRequestDao.findApplicantRequestsById(vacancyId, 0);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -64,10 +63,10 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     }
 
     @Override
-    public List<ApplicantRequest> findApplicantRequestsByApplicant(long applicantId) throws ServiceException {
+    public List<ApplicantRequest> findApplicantRequestsByApplicantId(long applicantId) throws ServiceException {
         List<ApplicantRequest> applicantRequests;
-        try {
-            applicantRequests = applicantRequestDao.findApplicantRequestsByIdAndSqlQuery(applicantId, SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID);
+        try {//fixme
+            applicantRequests = applicantRequestDao.findApplicantRequestsById(0, applicantId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

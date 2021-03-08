@@ -87,11 +87,17 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
     }
 
     @Override
-    public List<ApplicantRequest> findApplicantRequestsByIdAndSqlQuery(long id, String sqlQuery) throws DaoException {
+    public List<ApplicantRequest> findApplicantRequestsById(long vacancyId, long applicantId) throws DaoException {
         List<ApplicantRequest> applicantRequests = new ArrayList<>();
+        String sqlQuery = vacancyId != 0 ? SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID :
+                SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            statement.setLong(1, id);
+            if (vacancyId != 0) {
+                statement.setLong(1, vacancyId);
+            } else {
+                statement.setLong(1, applicantId);
+            }
             statement.executeQuery();
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
