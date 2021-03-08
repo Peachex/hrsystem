@@ -64,7 +64,6 @@ public class Controller extends HttpServlet {
                 }
                 case RETURN_WITH_REDIRECT: {
                     String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
-                    System.out.println(previousUrl);
                     response.sendRedirect(previousUrl);
                     break;
                 }

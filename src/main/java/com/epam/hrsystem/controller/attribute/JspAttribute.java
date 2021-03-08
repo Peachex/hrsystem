@@ -16,7 +16,7 @@ public class JspAttribute {
     public static final String ERROR_VACANCY_DUPLICATE_MESSAGE = "Couldn't create vacancy cause there is same active vacancy";
 
     public static final String ERROR_VACANCY_UPDATING_ATTRIBUTE = "errorVacancyUpdate";
-    public static final String ERROR_VACANCY_UPDATING_MESSAGE = "Couldn't edit vacancy, try one more time";
+    public static final String ERROR_VACANCY_UPDATING_MESSAGE = "Couldn't edit vacancy, there is same active vacancy";
 
     public static final String ERROR_APPLICANT_REQUEST_CREATION_ATTRIBUTE = "errorApplicantRequestCreation";
     public static final String ERROR_APPLICANT_REQUEST_CREATION_MESSAGE = "Couldn't create applicant request, check input data";

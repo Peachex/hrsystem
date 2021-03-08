@@ -10,6 +10,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
+import com.epam.hrsystem.validator.VacancyValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,11 +46,15 @@ public class EditVacancyInfoCommand implements ActionCommand {
         try {
             long vacancyId = Long.parseLong(vacancyIdStr);
             if (!service.updateVacancyInfo(vacancyId, employeeId, fields)) {
-                request.setAttribute(RequestParameter.POSITION, fields.get(RequestParameter.POSITION));
-                request.setAttribute(RequestParameter.DESCRIPTION, fields.get(RequestParameter.DESCRIPTION));
-                request.setAttribute(RequestParameter.COUNTRY, fields.get(RequestParameter.COUNTRY));
-                request.setAttribute(RequestParameter.CITY, fields.get(RequestParameter.CITY));
-                request.setAttribute(JspAttribute.ERROR_VACANCY_UPDATING_ATTRIBUTE, JspAttribute.ERROR_VACANCY_UPDATING_MESSAGE);
+                if (!VacancyValidator.isVacancyFormValid(fields)) {
+                    request.setAttribute(RequestParameter.POSITION, fields.get(RequestParameter.POSITION));
+                    request.setAttribute(RequestParameter.DESCRIPTION, fields.get(RequestParameter.DESCRIPTION));
+                    request.setAttribute(RequestParameter.COUNTRY, fields.get(RequestParameter.COUNTRY));
+                    request.setAttribute(RequestParameter.CITY, fields.get(RequestParameter.CITY));
+                    request.setAttribute(JspAttribute.ERROR_VACANCY_UPDATING_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
+                } else {
+                    request.setAttribute(JspAttribute.ERROR_VACANCY_UPDATING_ATTRIBUTE, JspAttribute.ERROR_VACANCY_UPDATING_MESSAGE);
+                }
                 result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.FORWARD);
             }
         } catch (ServiceException | NumberFormatException e) {

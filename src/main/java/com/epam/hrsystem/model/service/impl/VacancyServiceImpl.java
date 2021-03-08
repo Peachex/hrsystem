@@ -176,7 +176,7 @@ public enum VacancyServiceImpl implements VacancyService {
                 if (vacancyOptional.isPresent() && vacancyOptional.get().getEmployee().getId() == employeeId) {
                     Vacancy vacancy = vacancyOptional.get();
                     updateVacancyInfo(vacancy, fields);
-                    if (addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity())) {
+                    if (!vacancyExists(vacancy) && addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity())) {
                         result = dao.updateVacancyInfo(vacancy);
                     }
                 }
