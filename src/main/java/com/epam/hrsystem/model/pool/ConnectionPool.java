@@ -26,7 +26,7 @@ public class ConnectionPool {
         private final ConnectionPool connectionPool = new ConnectionPool();
 
         public ConnectionPool getConnectionPool() {
-            return this.connectionPool;
+            return connectionPool;
         }
     }
 

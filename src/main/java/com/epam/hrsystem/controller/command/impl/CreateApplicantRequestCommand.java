@@ -40,7 +40,7 @@ public class CreateApplicantRequestCommand implements ActionCommand {
         try {
             ApplicantRequestService service = ServiceHolder.HOLDER.getApplicantRequestService();
             if (service.createApplicantRequest(fields, applicant)) {
-                MailSender mailSender = MailSender.INSTANCE;
+                MailSender mailSender = MailSender.MailSenderHolder.HOLDER.getMailSender();
                 String applicantEmail = applicant.getEmail();
                 mailSender.setupEmail(applicantEmail, MailMessage.HR_SYSTEM_MAIL_SUBJECT, MailMessage.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
                 mailSender.send();
