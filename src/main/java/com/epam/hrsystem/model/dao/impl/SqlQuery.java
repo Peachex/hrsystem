@@ -50,6 +50,10 @@ public class SqlQuery {
 
     public static final String SQL_INSERT_CITY = "INSERT INTO cities(city) VALUES (?);";
 
+    public static final String SQL_FIND_VACANCIES_BY_AVAILABILITY = "SELECT vacancy_id, is_available, position, description, creation_date," +
+            " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
+            " JOIN users ON user_id_fk = user_id WHERE is_available = ?;";
+
     public static final String SQL_SELECT_ALL_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
             " JOIN users ON user_id_fk = user_id;";
@@ -71,6 +75,10 @@ public class SqlQuery {
     public static final String SQL_SELECT_EMPLOYEE_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
             " JOIN users ON user_id_fk = user_id WHERE user_id_fk = ? ORDER BY creation_date DESC, position ASC;";
+
+    public static final String SQL_SELECT_EMPLOYEE_VACANCIES_BY_AVAILABILITY = "SELECT vacancy_id, is_available, position, description, creation_date," +
+            " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +
+            " JOIN users ON user_id_fk = user_id WHERE user_id_fk = ? AND is_available = ? ORDER BY creation_date DESC, position ASC;";
 
     public static final String SQL_SELECT_ACTIVE_EMPLOYEE_VACANCIES = "SELECT vacancy_id, is_available, position, description, creation_date," +
             " country, city, user_id FROM vacancies JOIN countries ON country_id_fk = country_id JOIN cities ON city_id_fk = city_id" +

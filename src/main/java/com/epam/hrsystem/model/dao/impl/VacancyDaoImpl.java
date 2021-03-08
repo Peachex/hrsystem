@@ -71,7 +71,77 @@ public class VacancyDaoImpl implements VacancyDao {
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
+        return vacancies;
+    }
 
+    @Override
+    public List<Vacancy> findVacanciesByAvailability(boolean areAvailable) throws DaoException {
+        List<Vacancy> vacancies = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_VACANCIES_BY_AVAILABILITY)) {
+            statement.setByte(1, areAvailable ? (byte) 1 : 0);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Vacancy vacancy = createVacancyFromResultSet(resultSet);
+                vacancies.add(vacancy);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+
+        return vacancies;
+    }
+
+    @Override
+    public List<Vacancy> findEmployeeVacancies(long employeeId) throws DaoException {
+        List<Vacancy> vacancies = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES)) {
+            statement.setLong(1, employeeId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Vacancy vacancy = createVacancyFromResultSet(resultSet);
+                vacancies.add(vacancy);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return vacancies;
+    }
+
+    @Override
+    public List<Vacancy> findEmployeeVacanciesByAvailability(long employeeId, boolean areAvailable) throws DaoException {
+        List<Vacancy> vacancies = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES_BY_AVAILABILITY)) {
+            statement.setLong(1, employeeId);
+            statement.setByte(2, areAvailable ? (byte) 1 : 0);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Vacancy vacancy = createVacancyFromResultSet(resultSet);
+                vacancies.add(vacancy);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+
+        return vacancies;
+    }
+
+    @Override
+    public List<Vacancy> findAllVacancies() throws DaoException {
+        List<Vacancy> vacancies = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             Statement statement = connection.createStatement()) {
+            statement.executeQuery(SqlQuery.SQL_SELECT_ALL_VACANCIES);
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                Vacancy vacancy = createVacancyFromResultSet(resultSet);
+                vacancies.add(vacancy);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
         return vacancies;
     }
 
