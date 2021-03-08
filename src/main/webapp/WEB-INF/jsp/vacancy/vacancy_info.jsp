@@ -52,6 +52,11 @@
         </div>
     </div>
 
+    <wrong-message>
+        ${errorApplicantRequestCreation}
+        ${errorDuplicate}
+    </wrong-message>
+
     <c:if test="${role.toString().equals(guest)}">
         <a class="btn btn-outline-success col-2 offset-5" href="login" role="button" style="margin-top: 2%;
     margin-bottom: 2%"><fmt:message
@@ -76,8 +81,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form name="create_applicant_request" method="POST" action="create_applicant_request.do">
-                            <input type="hidden" name="vacancyId" value="${vacancy.id}">
+                        <form name="create_applicant_request" method="POST"
+                              action="create_applicant_request.do?vacancyId=${vacancy.id}">
                             <label for="inputSummary"><fmt:message
                                     key="create_applicant_request.inputSummary"/> </label>
                             <div class="form-group mt-1">
@@ -103,12 +108,6 @@
             </div>
         </div>
     </c:if>
-
-    <wrong-message>
-        ${errorApplicantRequestCreation}
-        ${errorDuplicate}
-    </wrong-message>
-
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
