@@ -20,7 +20,7 @@ import java.util.Optional;
 
 public enum VacancyDaoImpl implements VacancyDao {
     INSTANCE;
-    private static final ConnectionPool pool = ConnectionPool.POOL;
+    private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
 
     @Override
     public boolean add(Vacancy vacancy) throws DaoException {

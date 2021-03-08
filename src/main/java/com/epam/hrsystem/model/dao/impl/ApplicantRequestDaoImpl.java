@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public enum ApplicantRequestDaoImpl implements ApplicantRequestDao {
     INSTANCE;
-    private static final ConnectionPool pool = ConnectionPool.POOL;
+    private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
     private static final InterviewResultDao interviewResultDao = InterviewResultDaoImpl.INSTANCE;
 
     @Override

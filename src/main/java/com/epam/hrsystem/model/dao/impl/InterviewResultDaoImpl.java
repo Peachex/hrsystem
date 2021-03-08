@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public enum InterviewResultDaoImpl implements InterviewResultDao {
     INSTANCE;
-    private static final ConnectionPool pool = ConnectionPool.POOL;
+    private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
 
     @Override
     public boolean add(InterviewResult interviewResult) throws DaoException {

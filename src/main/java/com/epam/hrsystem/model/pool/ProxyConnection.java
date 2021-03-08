@@ -32,7 +32,7 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void close() throws SQLException {
-        ConnectionPool.POOL.releaseConnection(this);
+        ConnectionPool.ConnectionPoolHolder.POOL.connectionPool.releaseConnection(this);
     }
 
     @Override

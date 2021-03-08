@@ -14,15 +14,27 @@ import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public enum ConnectionPool {
-    POOL;
-    public static final int DEFAULT_POOL_SIZE = 10;
-    public static final int FATAL_CONNECTION_ERROR_NUMBER = 5;
+public class ConnectionPool {
+    private static final int DEFAULT_POOL_SIZE = 10;
+    private static final int FATAL_CONNECTION_ERROR_NUMBER = 5;
     private final Logger logger = LogManager.getLogger();
     private final BlockingQueue<ProxyConnection> freeConnections;
     private final Queue<ProxyConnection> givenConnections;
 
-    ConnectionPool() {
+    public enum ConnectionPoolHolder {
+        POOL;
+        ConnectionPool connectionPool;
+
+        ConnectionPoolHolder() {
+            this.connectionPool = new ConnectionPool();
+        }
+
+        public ConnectionPool getConnectionPool() {
+            return this.connectionPool;
+        }
+    }
+
+    private ConnectionPool() {
         freeConnections = new LinkedBlockingDeque<>();
         givenConnections = new ArrayDeque<>();
         int errorCounter = 0;

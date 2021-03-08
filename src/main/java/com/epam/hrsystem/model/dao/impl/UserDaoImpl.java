@@ -21,7 +21,7 @@ import java.util.Optional;
 
 public enum UserDaoImpl implements UserDao {
     INSTANCE;
-    private static final ConnectionPool pool = ConnectionPool.POOL;
+    private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
 
     @Override
     public boolean isEmailAvailable(String email) throws DaoException {
