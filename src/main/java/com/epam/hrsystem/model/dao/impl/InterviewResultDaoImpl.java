@@ -12,9 +12,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public enum InterviewResultDaoImpl implements InterviewResultDao {
-    INSTANCE;
+public class InterviewResultDaoImpl implements InterviewResultDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
+
+    InterviewResultDaoImpl() {
+    }
 
     @Override
     public boolean add(InterviewResult interviewResult) throws DaoException {

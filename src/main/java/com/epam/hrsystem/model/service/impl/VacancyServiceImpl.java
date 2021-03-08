@@ -3,12 +3,11 @@ package com.epam.hrsystem.model.service.impl;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
+import com.epam.hrsystem.model.dao.impl.DaoHolder;
 import com.epam.hrsystem.model.factory.EntityFactory;
 import com.epam.hrsystem.model.factory.impl.VacancyFactory;
 import com.epam.hrsystem.model.dao.impl.SqlQuery;
 import com.epam.hrsystem.model.dao.VacancyDao;
-import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
-import com.epam.hrsystem.model.dao.impl.VacancyDaoImpl;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.service.VacancyService;
@@ -22,7 +21,7 @@ import java.util.Optional;
 
 public enum VacancyServiceImpl implements VacancyService {
     INSTANCE;
-    private static final VacancyDao dao = VacancyDaoImpl.INSTANCE;
+    private static final VacancyDao dao = DaoHolder.HOLDER.getVacancyDao();
     private static final String PERCENT_SIGN = "%";
 
 
@@ -33,7 +32,7 @@ public enum VacancyServiceImpl implements VacancyService {
         Optional<Vacancy> vacancyOptional = factory.create(fields);
         try {
             if (vacancyOptional.isPresent()) {
-                Optional<User> employee = UserDaoImpl.INSTANCE.findUserById(employeeId);
+                Optional<User> employee = DaoHolder.HOLDER.getUserDao().findUserById(employeeId);
                 if (employee.isPresent()) {
                     Vacancy vacancy = vacancyOptional.get();
                     vacancy.setCreationDate(LocalDate.now());

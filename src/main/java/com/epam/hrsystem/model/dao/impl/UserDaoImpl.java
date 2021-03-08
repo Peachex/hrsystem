@@ -19,9 +19,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-public enum UserDaoImpl implements UserDao {
-    INSTANCE;
+public class UserDaoImpl implements UserDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
+
+    UserDaoImpl() {
+    }
 
     @Override
     public boolean isEmailAvailable(String email) throws DaoException {

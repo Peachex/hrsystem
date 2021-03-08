@@ -18,9 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public enum VacancyDaoImpl implements VacancyDao {
-    INSTANCE;
+public class VacancyDaoImpl implements VacancyDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
+
+    VacancyDaoImpl() {
+    }
 
     @Override
     public boolean add(Vacancy vacancy) throws DaoException {
@@ -229,7 +231,7 @@ public enum VacancyDaoImpl implements VacancyDao {
         String country = resultSet.getString(6);
         String city = resultSet.getString(7);
         long userId = resultSet.getLong(8);
-        User employee = UserDaoImpl.INSTANCE.findUserById(userId).orElseThrow(() -> new DaoException("Invalid id"));
+        User employee = DaoHolder.HOLDER.getUserDao().findUserById(userId).orElseThrow(() -> new DaoException("Invalid id"));
         Vacancy vacancy = new Vacancy(id, isAvailable, position, description, creationDate, country, city, employee);
         return vacancy;
     }

@@ -23,11 +23,7 @@ public class ConnectionPool {
 
     public enum ConnectionPoolHolder {
         POOL;
-        ConnectionPool connectionPool;
-
-        ConnectionPoolHolder() {
-            this.connectionPool = new ConnectionPool();
-        }
+        private final ConnectionPool connectionPool = new ConnectionPool();
 
         public ConnectionPool getConnectionPool() {
             return this.connectionPool;

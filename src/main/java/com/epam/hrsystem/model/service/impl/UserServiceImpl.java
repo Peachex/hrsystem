@@ -4,11 +4,11 @@ import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
+import com.epam.hrsystem.model.dao.impl.DaoHolder;
 import com.epam.hrsystem.model.factory.EntityFactory;
 import com.epam.hrsystem.model.factory.impl.UserFactory;
 import com.epam.hrsystem.model.dao.impl.SqlQuery;
 import com.epam.hrsystem.model.dao.UserDao;
-import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserRole;
 import com.epam.hrsystem.model.service.UserService;
@@ -24,7 +24,7 @@ import java.util.Optional;
 
 public enum UserServiceImpl implements UserService {
     INSTANCE;
-    private static final UserDao dao = UserDaoImpl.INSTANCE;
+    private static final UserDao dao = DaoHolder.HOLDER.getUserDao();
 
     @Override
     public Optional<User> login(String email, String password) throws ServiceException {

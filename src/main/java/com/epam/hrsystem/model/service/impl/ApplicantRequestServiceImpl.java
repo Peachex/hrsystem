@@ -4,13 +4,12 @@ import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.dao.InterviewResultDao;
-import com.epam.hrsystem.model.dao.impl.InterviewResultDaoImpl;
+import com.epam.hrsystem.model.dao.impl.DaoHolder;
 import com.epam.hrsystem.model.entity.ApplicantState;
 import com.epam.hrsystem.model.entity.InterviewResult;
 import com.epam.hrsystem.model.factory.EntityFactory;
 import com.epam.hrsystem.model.factory.impl.ApplicantRequestFactory;
 import com.epam.hrsystem.model.dao.ApplicantRequestDao;
-import com.epam.hrsystem.model.dao.impl.ApplicantRequestDaoImpl;
 import com.epam.hrsystem.model.dao.impl.SqlQuery;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.User;
@@ -24,8 +23,8 @@ import java.util.Optional;
 
 public enum ApplicantRequestServiceImpl implements ApplicantRequestService {
     INSTANCE;
-    private static final ApplicantRequestDao applicantRequestDao = ApplicantRequestDaoImpl.INSTANCE;
-    private static final InterviewResultDao interviewResultDao = InterviewResultDaoImpl.INSTANCE;
+    private static final ApplicantRequestDao applicantRequestDao = DaoHolder.HOLDER.getApplicantRequestDao();
+    private static final InterviewResultDao interviewResultDao = DaoHolder.HOLDER.getInterviewResultDao();
 
     @Override
     public boolean createApplicantRequest(Map<String, String> fields, User applicant) throws ServiceException {
