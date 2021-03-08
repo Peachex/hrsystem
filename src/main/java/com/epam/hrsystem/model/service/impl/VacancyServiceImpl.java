@@ -5,7 +5,7 @@ import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.dao.impl.DaoHolder;
 import com.epam.hrsystem.model.factory.EntityFactory;
-import com.epam.hrsystem.model.factory.impl.VacancyFactory;
+import com.epam.hrsystem.model.factory.impl.FactoryHolder;
 import com.epam.hrsystem.model.dao.impl.SqlQuery;
 import com.epam.hrsystem.model.dao.VacancyDao;
 import com.epam.hrsystem.model.entity.User;
@@ -29,7 +29,7 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public boolean createVacancy(Map<String, String> fields, long employeeId) throws ServiceException {
         boolean result = false;
-        EntityFactory<Vacancy> factory = new VacancyFactory();
+        EntityFactory<Vacancy> factory = FactoryHolder.HOLDER.getVacancyFactory();
         Optional<Vacancy> vacancyOptional = factory.create(fields);
         try {
             if (vacancyOptional.isPresent()) {

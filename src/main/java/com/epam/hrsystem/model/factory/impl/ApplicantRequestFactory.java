@@ -13,6 +13,9 @@ import java.util.Optional;
 public class ApplicantRequestFactory implements EntityFactory<ApplicantRequest> {
     private static final ApplicantState DEFAULT_APPLICANT_STATE = ApplicantState.LEFT_REQUEST;
 
+    ApplicantRequestFactory() {
+    }
+
     @Override
     public Optional<ApplicantRequest> create(Map<String, String> fields) {
         Optional<ApplicantRequest> result = Optional.empty();

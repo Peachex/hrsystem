@@ -6,7 +6,7 @@ import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.dao.impl.DaoHolder;
 import com.epam.hrsystem.model.factory.EntityFactory;
-import com.epam.hrsystem.model.factory.impl.UserFactory;
+import com.epam.hrsystem.model.factory.impl.FactoryHolder;
 import com.epam.hrsystem.model.dao.impl.SqlQuery;
 import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.entity.User;
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean register(Map<String, String> fields) throws ServiceException {
         boolean result = false;
-        EntityFactory<User> factory = new UserFactory();
+        EntityFactory<User> factory = FactoryHolder.HOLDER.getUserFactory();
         Optional<User> userOptional = factory.create(fields);
         try {
             if (userOptional.isPresent()) {

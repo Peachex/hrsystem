@@ -8,12 +8,12 @@ import com.epam.hrsystem.model.dao.impl.DaoHolder;
 import com.epam.hrsystem.model.entity.ApplicantState;
 import com.epam.hrsystem.model.entity.InterviewResult;
 import com.epam.hrsystem.model.factory.EntityFactory;
-import com.epam.hrsystem.model.factory.impl.ApplicantRequestFactory;
 import com.epam.hrsystem.model.dao.ApplicantRequestDao;
 import com.epam.hrsystem.model.dao.impl.SqlQuery;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
+import com.epam.hrsystem.model.factory.impl.FactoryHolder;
 import com.epam.hrsystem.model.factory.impl.InterviewResultFactory;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
 
@@ -31,7 +31,7 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     @Override
     public boolean createApplicantRequest(Map<String, String> fields, User applicant) throws ServiceException {
         boolean result = false;
-        EntityFactory<ApplicantRequest> factory = new ApplicantRequestFactory();
+        EntityFactory<ApplicantRequest> factory = FactoryHolder.HOLDER.getApplicantRequestFactory();
         Optional<ApplicantRequest> requestOptional = factory.create(fields);
         try {
             if (requestOptional.isPresent()) {
@@ -93,7 +93,7 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
             applicantRequestOptional = applicantRequestDao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
             if (applicantRequestOptional.isPresent()) {
                 ApplicantRequest applicantRequest = applicantRequestOptional.get();
-                EntityFactory<InterviewResult> factory = new InterviewResultFactory();
+                EntityFactory<InterviewResult> factory = FactoryHolder.HOLDER.getInterviewResultFactory();
                 Optional<InterviewResult> interviewResultOptional = factory.create(fields);
                 if (interviewResultOptional.isPresent()) {
                     String newApplicantState = fields.get(RequestParameter.APPLICANT_STATE);

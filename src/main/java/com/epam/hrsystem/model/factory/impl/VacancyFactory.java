@@ -12,6 +12,9 @@ import static com.epam.hrsystem.validator.VacancyValidator.isVacancyFormValid;
 public class VacancyFactory implements EntityFactory<Vacancy> {
     private static final boolean DEFAULT_AVAILABILITY_VALUE = true;
 
+    VacancyFactory() {
+    }
+
     @Override
     public Optional<Vacancy> create(Map<String, String> fields) {
         Optional<Vacancy> result = Optional.empty();

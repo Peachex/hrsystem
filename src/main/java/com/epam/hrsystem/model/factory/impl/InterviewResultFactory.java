@@ -11,6 +11,9 @@ import static com.epam.hrsystem.validator.InterviewResultValidator.isInterviewRe
 
 public class InterviewResultFactory implements EntityFactory<InterviewResult> {
 
+    InterviewResultFactory() {
+    }
+
     @Override
     public Optional<InterviewResult> create(Map<String, String> fields) {
         Optional<InterviewResult> result = Optional.empty();

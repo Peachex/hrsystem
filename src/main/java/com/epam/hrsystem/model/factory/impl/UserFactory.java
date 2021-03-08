@@ -16,6 +16,9 @@ public class UserFactory implements EntityFactory<User> {
     private static final String DEFAULT_PHOTO_NAME = "default_avatar.png";
     private static final boolean DEFAULT_ACTIVE_VALUE = true;
 
+    UserFactory() {
+    }
+
     @Override
     public Optional<User> create(Map<String, String> fields) {
         Optional<User> result = Optional.empty();
