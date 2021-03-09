@@ -46,7 +46,6 @@ public class ToEmployeeApplicantRequestCommand implements ActionCommand {
             } else {
                 request.setAttribute(JspAttribute.NO_APPLICANT_REQUEST_ATTRIBUTE, JspAttribute.NO_APPLICANT_REQUEST_MESSAGE);
             }
-
         } catch (NumberFormatException e) {
             logger.log(Level.ERROR, "Couldn't convert from string to long str = " + applicantIdStr + " or " + vacancyIdStr +
                     ": " + e);

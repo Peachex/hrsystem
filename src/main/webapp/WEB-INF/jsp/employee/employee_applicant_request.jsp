@@ -162,7 +162,7 @@
 
                         <div class="modal-body">
                             <form name="create-interview-result-form" method="POST"
-                                  action="create_interview_result.do">
+                                  action="create_interview_result.do?applicantId=${applicantRequest.applicant.id}&vacancyId=${applicantRequest.vacancy.id}">
                                 <label for="inputRating"><fmt:message
                                         key="interview_result_modal.inputRating"/> </label>
                                 <div class="form-group mt-1">
@@ -179,7 +179,7 @@
                                 </div>
                                 <div class="form-group mt-1">
                                     <textarea class="form-control" rows="5" id="inputComment"
-                                              name="description" placeholder="<fmt:message
+                                              name="comment" placeholder="<fmt:message
                                              key="interview_result_modal.inputCommentPlaceholder"/>"
                                               required minlength="1" maxlength="25000">${comment}</textarea>
                                 </div>
@@ -190,7 +190,6 @@
                                 </div>
                                 <select class="form-select mt-1" id="inputState" name="applicantState"
                                         aria-label="Default select example" required>
-                                    <option selected></option>
                                     <option value="${applicantStateReadyForTechnicalInterview}"><fmt:message
                                             key="interview_result_modal.applicantStateReadyForTechnicalInterview"/></option>
                                     <option value="${applicantStatePassed}"><fmt:message
@@ -268,13 +267,14 @@
             </div>
         </div>
     </div>
-</div>
-</div>
-<div class="mt-3">
-    <wrong-message>
-
-    </wrong-message>
-</div>
+    <div class="mt-3">
+        <wrong-message>
+            ${errorInputData}
+        </wrong-message>
+        <wrong-message>
+            ${errorInterviewResultCreation}
+        </wrong-message>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"

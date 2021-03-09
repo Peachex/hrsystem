@@ -38,6 +38,11 @@ public class JspAttribute {
     public static final String NO_VACANCY_ATTRIBUTE = "noVacancy";
     public static final String NO_VACANCY_MESSAGE = "No vacancy";
 
+    public static final String ERROR_INTERVIEW_RESULT_CREATION_ATTRIBUTE = "errorInterviewResultCreation";
+    public static final String ERROR_INTERVIEW_RESULT_DUPLICATE_CREATION_MESSAGE = "Couldn't create interview result cause you have" +
+            " already created";
+    public static final String ERROR_INTERVIEW_RESULT_CREATION_MESSAGE = "Couldn't create interview result";
+
     public static final String EMAIL_AVAILABLE_ERROR_MESSAGE = "Email is unavailable, try another one!";
     public static final String INVALID_INPUT_DATA_MESSAGE = "";
 
