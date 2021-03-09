@@ -31,20 +31,12 @@ public class CreateInterviewResultCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        ApplicantRequest applicantRequest = (ApplicantRequest) request.getAttribute(RequestParameter.APPLICANT_REQUEST);
-
-        //String applicantIdStr = request.getParameter(RequestParameter.APPLICANT_ID);
-        //String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
-        //String rating = request.getParameter(RequestParameter.INTERVIEW_RESULT_RATING);
-        //String comment = request.getParameter(RequestParameter.INTERVIEW_RESULT_COMMENT);
-        //String newApplicantState = request.getParameter(RequestParameter.APPLICANT_STATE);
-
-        String applicantIdStr = String.valueOf(applicantRequest.getApplicant().getId());
-        String vacancyIdStr = String.valueOf(applicantRequest.getVacancy().getId());
+        //fixme rewrite function
+        String applicantIdStr = request.getParameter(RequestParameter.APPLICANT_ID);
+        String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
         String rating = request.getParameter(RequestParameter.INTERVIEW_RESULT_RATING);
         String comment = request.getParameter(RequestParameter.INTERVIEW_RESULT_COMMENT);
         String newApplicantState = request.getParameter(RequestParameter.APPLICANT_STATE);
-
 
         Map<String, String> fields = new HashMap<>();
         fields.put(RequestParameter.INTERVIEW_RESULT_RATING, rating);
