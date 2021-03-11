@@ -91,18 +91,21 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
             applicantRequestOptional = applicantRequestDao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
             if (applicantRequestOptional.isPresent()) {
                 ApplicantRequest applicantRequest = applicantRequestOptional.get();
-                EntityFactory<InterviewResult> factory = FactoryHolder.HOLDER.getInterviewResultFactory();
-                Optional<InterviewResult> interviewResultOptional = factory.create(fields);
-                if (interviewResultOptional.isPresent()) {
-                    String newApplicantState = fields.get(RequestParameter.APPLICANT_STATE);
-                    InterviewResult interviewResult = interviewResultOptional.get();
-                    if (updateInterviewResult(applicantRequest, interviewResult, newApplicantState)) {
-                        if (!interviewResultDao.findInterviewResultId(interviewResult).isPresent()) {
-                            if (interviewResultDao.add(interviewResult)) {
+                ApplicantState currentState = applicantRequest.getApplicantState();
+                if (currentState != ApplicantState.PASSED && currentState != ApplicantState.FAILED) {
+                    EntityFactory<InterviewResult> factory = FactoryHolder.HOLDER.getInterviewResultFactory();
+                    Optional<InterviewResult> interviewResultOptional = factory.create(fields);
+                    if (interviewResultOptional.isPresent()) {
+                        String newApplicantState = fields.get(RequestParameter.APPLICANT_STATE);
+                        InterviewResult interviewResult = interviewResultOptional.get();
+                        if (updateInterviewResult(applicantRequest, interviewResult, newApplicantState)) {
+                            if (!interviewResultDao.findInterviewResultId(interviewResult).isPresent()) {
+                                if (interviewResultDao.add(interviewResult)) {
+                                    result = applicantRequestDao.updateApplicantRequest(applicantRequest);
+                                }
+                            } else {
                                 result = applicantRequestDao.updateApplicantRequest(applicantRequest);
                             }
-                        } else {
-                            result = applicantRequestDao.updateApplicantRequest(applicantRequest);
                         }
                     }
                 }
