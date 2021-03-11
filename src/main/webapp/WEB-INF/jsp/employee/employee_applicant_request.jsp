@@ -165,6 +165,7 @@
                                   action="create_interview_result.do">
                                 <input type="hidden" name="applicantId" value="${applicantRequest.applicant.id}">
                                 <input type="hidden" name="vacancyId" value="${applicantRequest.vacancy.id}">
+                                <input type="hidden" name="email" value="${applicantRequest.applicant.email}">
                                 <label for="inputRating"><fmt:message
                                         key="interview_result_modal.inputRating"/> </label>
                                 <div class="form-group mt-1">

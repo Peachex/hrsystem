@@ -41,7 +41,7 @@ public class CreateVacancyCommand implements ActionCommand {
         fields.put(RequestParameter.CITY, city);
 
         VacancyService service = ServiceHolder.HOLDER.getVacancyService();
-        CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.REDIRECT);
+        CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES, CommandResult.Type.REDIRECT);
         try {
             if (!service.createVacancy(fields, employeeId)) {
                 if (VacancyValidator.isVacancyFormValid(fields)) {
@@ -53,7 +53,7 @@ public class CreateVacancyCommand implements ActionCommand {
                     request.setAttribute(RequestParameter.CITY, fields.get(RequestParameter.CITY));
                     request.setAttribute(JspAttribute.ERROR_VACANCY_CREATION_ATTRIBUTE, JspAttribute.ERROR_VACANCY_CREATION_MESSAGE);
                 }
-                result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.FORWARD);
+                result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES, CommandResult.Type.FORWARD);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, "Couldn't create vacancy");

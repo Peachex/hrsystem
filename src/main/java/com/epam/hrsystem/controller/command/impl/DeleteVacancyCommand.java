@@ -34,7 +34,7 @@ public class DeleteVacancyCommand implements ActionCommand {
             if (isDeleted) {
                 result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT);
             } else {
-                result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES + employeeId, CommandResult.Type.FORWARD);
+                result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES, CommandResult.Type.FORWARD);
                 request.setAttribute(JspAttribute.ERROR_VACANCY_DELETE_ATTRIBUTE, JspAttribute.ERROR_VACANCY_DELETE_MESSAGE);
             }
         } catch (ServiceException | NumberFormatException e) {
