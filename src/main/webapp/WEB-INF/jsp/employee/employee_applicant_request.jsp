@@ -29,7 +29,7 @@
     <c:set var="applicantStateLeftRequest" scope="page" value="LEFT_REQUEST"/>
     <c:set var="applicantStateReadyForTechnicalInterview" scope="page" value="READY_FOR_TECHNICAL_INTERVIEW"/>
 
-    <div class="card text-dark bg-light offset-3" style="margin-top: 3%;max-width: 50%; margin-bottom: 5%">
+    <div class="card text-dark bg-light offset-3" style="margin-top: 3%;max-width: 50%; margin-bottom: 2%">
         <div class="card-header" style="display: flex"><h3><fmt:message
                 key="employee_applicant_request.title"/> <c:if
                 test="${applicantRequest.applicantState.toString().equals(applicantStatePassed) ||
@@ -162,7 +162,9 @@
 
                         <div class="modal-body">
                             <form name="create-interview-result-form" method="POST"
-                                  action="create_interview_result.do?applicantId=${applicantRequest.applicant.id}&vacancyId=${applicantRequest.vacancy.id}">
+                                  action="create_interview_result.do">
+                                <input type="hidden" name="applicantId" value="${applicantRequest.applicant.id}">
+                                <input type="hidden" name="vacancyId" value="${applicantRequest.vacancy.id}">
                                 <label for="inputRating"><fmt:message
                                         key="interview_result_modal.inputRating"/> </label>
                                 <div class="form-group mt-1">
@@ -267,7 +269,7 @@
             </div>
         </div>
     </div>
-    <div class="mt-3">
+    <div class="mt-3" style="margin-bottom: 2%">
         <wrong-message>
             ${errorInputData}
         </wrong-message>
