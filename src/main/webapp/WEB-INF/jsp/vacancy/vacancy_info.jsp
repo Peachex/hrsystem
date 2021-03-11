@@ -16,9 +16,8 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
-
     <title><fmt:message key="vacancy_info.title"/></title>
 </head>
 <body>
@@ -53,20 +52,23 @@
 
             <c:if test="${role.toString().equals(applicant)}">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-success mb-4" style="margin-top: 2%; margin-bottom: 2%; width: 60%"
+                <button type="button" class="btn btn-outline-success mb-4"
+                        style="margin-top: 2%; margin-bottom: 2%; width: 60%"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                     <fmt:message key="button.createApplicantRequest"/>
                 </button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel"><fmt:message
                                         key="applicant_request.request"/></h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form name="create_applicant_request" method="POST"
@@ -89,8 +91,9 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><fmt:message
-                                        key="button.close"/></button>
+                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
+                                    <fmt:message
+                                            key="button.close"/></button>
                             </div>
                         </div>
                     </div>
