@@ -127,7 +127,7 @@
                     </button>
                 </div>
             </c:if>
-            
+
             <c:if test="${applicantRequest.applicantState.toString().equals(applicantStateReadyForTechnicalInterview) &&
              applicantRequest.technicalInterviewDate == null}">
                 <div class="col-4 offset-4" style="display: flex;justify-content: center;">

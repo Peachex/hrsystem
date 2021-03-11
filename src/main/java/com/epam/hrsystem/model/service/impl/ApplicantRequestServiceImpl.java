@@ -92,7 +92,8 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
             if (applicantRequestOptional.isPresent()) {
                 ApplicantRequest applicantRequest = applicantRequestOptional.get();
                 ApplicantState currentState = applicantRequest.getApplicantState();
-                if (currentState != ApplicantState.PASSED && currentState != ApplicantState.FAILED) {
+                if (currentState == ApplicantState.LEFT_REQUEST || currentState == ApplicantState.READY_FOR_TECHNICAL_INTERVIEW &&
+                        applicantRequest.getTechnicalInterviewDate() != null) {
                     EntityFactory<InterviewResult> factory = FactoryHolder.HOLDER.getInterviewResultFactory();
                     Optional<InterviewResult> interviewResultOptional = factory.create(fields);
                     if (interviewResultOptional.isPresent()) {
