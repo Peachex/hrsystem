@@ -116,36 +116,28 @@
             </div>
             </c:if>
 
-            <div class="col-4 offset-4" style="display: flex;justify-content: center;">
-                <button type="button" class="btn btn-outline-secondary col-8 mb-1"
-                        style="display: flex;justify-content: center; margin-top: 10%; width: 100%"
-                        data-bs-toggle="modal" data-bs-target="#createInterviewResultModal">
-                    <fmt:message key="button.createInterviewResult"/>
-                </button>
-            </div>
-
-            <div class="col-4 offset-4" style="display: flex;justify-content: center;">
-                <button type="button" class="btn btn-outline-secondary col-8 mb-1"
-                        style="display: flex;justify-content: center; margin-top: 10%; width: 100%"
-                        data-bs-toggle="modal" data-bs-target="#scheduleTechnicalInterviewModal">
-                    <fmt:message key="button.scheduleTechnicalInterview"/>
-                </button>
-            </div>
-
-
-            <%-- <c:if test="${applicantRequest.applicantState.equals(applicantStateLeftRequest) ||
-             (applicantRequest.applicantState.equals(applicantStateReadyForTechnicalInterview) &&
+            <c:if test="${applicantRequest.applicantState.toString().equals(applicantStateLeftRequest) ||
+             (applicantRequest.applicantState.toString().equals(applicantStateReadyForTechnicalInterview) &&
              applicantRequest.technicalInterviewDate != null)}">
-                     <button type="button" class="btn btn-outline-secondary dropdown-item"
-                             data-bs-toggle="modal" data-bs-target="#createInterviewResultModal">
-                         <fmt:message key="button.createInterviewResult"/>
-                     </button>
-             </c:if>
-             <c:if test="${applicantRequest.applicantState.equals(applicantStateReadyForTechnicalInterview) &&
+                <div class="col-4 offset-4" style="display: flex;justify-content: center;">
+                    <button type="button" class="btn btn-outline-secondary col-8 mb-1"
+                            style="display: flex;justify-content: center; margin-top: 10%; width: 100%"
+                            data-bs-toggle="modal" data-bs-target="#createInterviewResultModal">
+                        <fmt:message key="button.createInterviewResult"/>
+                    </button>
+                </div>
+            </c:if>
+            
+            <c:if test="${applicantRequest.applicantState.toString().equals(applicantStateReadyForTechnicalInterview) &&
              applicantRequest.technicalInterviewDate == null}">
-                        href="home"><fmt:message
-                         key="button.scheduleTechnicalInterview"/> </a></li>
-             </c:if>--%>
+                <div class="col-4 offset-4" style="display: flex;justify-content: center;">
+                    <button type="button" class="btn btn-outline-secondary col-8 mb-1"
+                            style="display: flex;justify-content: center; margin-top: 10%; width: 100%"
+                            data-bs-toggle="modal" data-bs-target="#scheduleTechnicalInterviewModal">
+                        <fmt:message key="button.scheduleTechnicalInterview"/>
+                    </button>
+                </div>
+            </c:if>
 
             <!-- Modal -->
             <div class="modal fade" id="createInterviewResultModal" data-bs-backdrop="static"
