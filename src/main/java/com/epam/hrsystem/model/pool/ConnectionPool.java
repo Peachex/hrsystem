@@ -1,5 +1,6 @@
 package com.epam.hrsystem.model.pool;
 
+import com.epam.hrsystem.controller.Controller;
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -20,15 +21,6 @@ public class ConnectionPool {
     private final Logger logger = LogManager.getLogger();
     private final BlockingQueue<ProxyConnection> freeConnections;
     private final Queue<ProxyConnection> givenConnections;
-
-    public enum ConnectionPoolHolder {
-        POOL;
-        private final ConnectionPool connectionPool = new ConnectionPool();
-
-        public ConnectionPool getConnectionPool() {
-            return connectionPool;
-        }
-    }
 
     private ConnectionPool() {
         freeConnections = new LinkedBlockingDeque<>();
@@ -77,17 +69,21 @@ public class ConnectionPool {
         }
     }
 
-    public void destroyPool() throws ConnectionPoolException {
-        try {
-            for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
-                ProxyConnection proxyConnection = freeConnections.take();
-                proxyConnection.reallyClose();
+    public void destroyPool(Object object) throws ConnectionPoolException {
+        if (object.getClass() == Controller.class) {
+            try {
+                for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
+                    ProxyConnection proxyConnection = freeConnections.take();
+                    proxyConnection.reallyClose();
+                }
+            } catch (InterruptedException | SQLException e) {
+                logger.log(Level.ERROR, "Couldn't destroy connection pool: " + e);
+                throw new ConnectionPoolException(e);
+            } finally {
+                deregisterDrivers();
             }
-        } catch (InterruptedException | SQLException e) {
-            logger.log(Level.ERROR, "Couldn't destroy connection pool: " + e);
-            throw new ConnectionPoolException(e);
-        } finally {
-            deregisterDrivers();
+        } else {
+            logger.log(Level.WARN, "Couldn't destroy pool cause method was called not from controller");
         }
     }
 
@@ -100,6 +96,15 @@ public class ConnectionPool {
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Couldn't deregister drivers: " + e);
             throw new ConnectionPoolException(e);
+        }
+    }
+
+    public enum ConnectionPoolHolder {
+        POOL;
+        private final ConnectionPool connectionPool = new ConnectionPool();
+
+        public ConnectionPool getConnectionPool() {
+            return connectionPool;
         }
     }
 }
