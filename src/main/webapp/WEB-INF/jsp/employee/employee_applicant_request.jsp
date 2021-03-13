@@ -191,14 +191,15 @@
                                 </div>
                                 <select class="form-select mt-1" id="inputState" name="applicantState"
                                         aria-label="Default select example" required>
-                                    <option value="${applicantStateReadyForTechnicalInterview}"><fmt:message
-                                            key="interview_result_modal.applicantStateReadyForTechnicalInterview"/></option>
+                                    <c:if test="${applicantRequest.applicantState.toString().equals(applicantStateLeftRequest)}">
+                                        <option value="${applicantStateReadyForTechnicalInterview}"><fmt:message
+                                                key="interview_result_modal.applicantStateReadyForTechnicalInterview"/></option>
+                                    </c:if>
                                     <option value="${applicantStatePassed}"><fmt:message
                                             key="interview_result_modal.applicantStatePassed"/></option>
                                     <option value="${applicantStateFailed}"><fmt:message
                                             key="interview_result_modal.applicantStateFailed"/></option>
                                 </select>
-
                                 <div class="col-4">
                                     <button class="btn btn-outline-success button mt-4"
                                             style="margin-left: 100%" type="submit">
