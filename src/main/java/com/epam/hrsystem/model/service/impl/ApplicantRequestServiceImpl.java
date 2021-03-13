@@ -94,12 +94,14 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
             if (applicantRequestOptional.isPresent()) {
                 ApplicantRequest applicantRequest = applicantRequestOptional.get();
                 ApplicantState currentState = applicantRequest.getApplicantState();
+                String newApplicantState = fields.get(RequestParameter.APPLICANT_STATE);
                 if (currentState == ApplicantState.LEFT_REQUEST || currentState == ApplicantState.READY_FOR_TECHNICAL_INTERVIEW &&
-                        applicantRequest.getTechnicalInterviewDate() != null) {
+                        applicantRequest.getTechnicalInterviewDate() != null &&
+                        !newApplicantState.equals(ApplicantState.READY_FOR_TECHNICAL_INTERVIEW.name()) &&
+                        !newApplicantState.equals(ApplicantState.LEFT_REQUEST.name())) {
                     EntityFactory<InterviewResult> factory = FactoryHolder.HOLDER.getInterviewResultFactory();
                     Optional<InterviewResult> interviewResultOptional = factory.create(fields);
                     if (interviewResultOptional.isPresent()) {
-                        String newApplicantState = fields.get(RequestParameter.APPLICANT_STATE);
                         InterviewResult interviewResult = interviewResultOptional.get();
                         if (updateInterviewResult(applicantRequest, interviewResult, newApplicantState)) {
                             if (!interviewResultDao.findInterviewResultId(interviewResult).isPresent()) {
