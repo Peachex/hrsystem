@@ -49,7 +49,8 @@ public class PermissionFilter implements Filter {
                 CommandType.SEE_EMPLOYEE_VACANCIES_WITH_APPLICANTS_REQUESTS, CommandType.CREATE_INTERVIEW_RESULT,
                 CommandType.SEE_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS, CommandType.EDIT_VACANCY_INFO,
                 CommandType.TO_USER_PROFILE, CommandType.EDIT_USER_PROFILE, CommandType.TO_EMPLOYEE_APPLICANT_REQUEST,
-                CommandType.SEE_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS, CommandType.PROVIDE_IMAGE);
+                CommandType.SEE_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS, CommandType.PROVIDE_IMAGE,
+                CommandType.SCHEDULE_TECHNICAL_INTERVIEW);
         employeeCommands.addAll(sameCommands);
 
         EnumSet<CommandType> adminCommands = EnumSet.of(CommandType.LOGOUT, CommandType.CREATE_VACANCY, CommandType.SEE_ALL_VACANCIES,

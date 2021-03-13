@@ -12,6 +12,8 @@ public class MailMessage {
 
     public static final String APPLICANT_FAILED_INTERVIEWS_MAIL_TEXT = "Failed!";
 
+    public static final String SCHEDULE_TECHNICAL_INTERVIEW_MAIL_TEXT = "Be ready for technical interview. Date: ";
+
     private MailMessage() {
     }
 }

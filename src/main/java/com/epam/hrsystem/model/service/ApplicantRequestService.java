@@ -19,5 +19,7 @@ public interface ApplicantRequestService {
 
     boolean createInterviewResult(Map<String, String> fields, long vacancyId, long applicantId) throws ServiceException;
 
+    boolean scheduleTechnicalInterview(String technicalInterviewDateStr, long vacancyId, long applicantId) throws ServiceException;
+
     boolean isApplicantRequestExists(ApplicantRequest request) throws ServiceException;
 }

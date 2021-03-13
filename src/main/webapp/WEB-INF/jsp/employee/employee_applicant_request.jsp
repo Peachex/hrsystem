@@ -63,6 +63,13 @@
             <h4 class="card-title"><fmt:message key="employee_applicant_request.applicantSummary"/></h4>
             <p class="card-text"><ctg:text text="${applicantRequest.summary}"/></p>
         </div>
+        <c:if test="${applicantRequest.technicalInterviewDate != null}">
+            <div class="card-body">
+                <h4 class="card-title"><fmt:message key="employee_applicant_request.technicalInterviewDate"/></h4>
+                <p class="card-text"><ctg:text text="${applicantRequest.technicalInterviewDate}"/></p>
+            </div>
+        </c:if>
+
         <c:if test="${applicantRequest.basicInterviewResult != null || applicantRequest.technicalInterviewResult != null}">
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="employee_applicant_request.applicantInterviewResults"/></h4>
@@ -225,11 +232,14 @@
 
                         <div class="modal-body">
                             <form name="schedule-technical-interview-form" method="POST"
-                                  action="home">
+                                  action="schedule_technical_interview.do">
+                                <input type="hidden" name="applicantId" value="${applicantRequest.applicant.id}">
+                                <input type="hidden" name="vacancyId" value="${applicantRequest.vacancy.id}">
+                                <input type="hidden" name="email" value="${applicantRequest.applicant.email}">
                                 <label for="inputDate"><fmt:message
                                         key="schedule_technical_interview_modal.inputDate"/> </label>
                                 <div class="form-group mt-1">
-                                    <input type="date" id="inputDate" class="form-control" name="date"
+                                    <input type="date" id="inputDate" class="form-control" name="technicalInterviewDate"
                                            required>
                                 </div>
 
@@ -267,6 +277,7 @@
         </wrong-message>
         <wrong-message>
             ${errorInterviewResultCreation}
+            ${errorTechnicalInterviewScheduling}
         </wrong-message>
     </div>
 </div>

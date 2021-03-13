@@ -14,7 +14,9 @@ import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.factory.impl.FactoryHolder;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
+import com.epam.hrsystem.validator.ApplicantRequestValidator;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -108,6 +110,30 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
                                 result = applicantRequestDao.updateApplicantRequest(applicantRequest);
                             }
                         }
+                    }
+                }
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean scheduleTechnicalInterview(String technicalInterviewDateStr, long vacancyId, long applicantId) throws ServiceException {
+        boolean result = false;
+        Optional<ApplicantRequest> applicantRequestOptional;
+        try {
+            applicantRequestOptional = applicantRequestDao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
+            if (applicantRequestOptional.isPresent()) {
+                ApplicantRequest applicantRequest = applicantRequestOptional.get();
+                ApplicantState currentState = applicantRequest.getApplicantState();
+                if (currentState == ApplicantState.READY_FOR_TECHNICAL_INTERVIEW &&
+                        applicantRequest.getTechnicalInterviewDate() == null) {
+                    if (ApplicantRequestValidator.isTechnicalInterviewDateValid(technicalInterviewDateStr)) {
+                        LocalDate technicalInterviewDate = LocalDate.parse(technicalInterviewDateStr);
+                        applicantRequest.setTechnicalInterviewDate(technicalInterviewDate);
+                        result = applicantRequestDao.updateApplicantRequest(applicantRequest);
                     }
                 }
             }

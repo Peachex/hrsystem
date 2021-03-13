@@ -13,6 +13,7 @@ import com.epam.hrsystem.controller.command.impl.LogoutCommand;
 import com.epam.hrsystem.controller.command.impl.ProvideImageCommand;
 import com.epam.hrsystem.controller.command.impl.RegisterCommand;
 import com.epam.hrsystem.controller.command.impl.RestoreVacancyCommand;
+import com.epam.hrsystem.controller.command.impl.ScheduleTechnicalInterviewCommand;
 import com.epam.hrsystem.controller.command.impl.SeeActiveEmployeeVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.SeeAllVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.SeeDeletedEmployeeVacanciesCommand;
@@ -107,7 +108,10 @@ public enum CommandType {
     CREATE_INTERVIEW_RESULT {{
         this.command = new CreateInterviewResultCommand();
     }},
-    PROVIDE_IMAGE{{
+    SCHEDULE_TECHNICAL_INTERVIEW {{
+        this.command = new ScheduleTechnicalInterviewCommand();
+    }},
+    PROVIDE_IMAGE {{
         this.command = new ProvideImageCommand();
     }};
 
