@@ -21,12 +21,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(urlPatterns = ServletAttribute.CONTROLLER_URL_PATTERN, name = ServletAttribute.CONTROLLER_SERVLET_NAME)
+@WebServlet(urlPatterns = ServletAttribute.CONTROLLER_URL_PATTERN, name = ServletAttribute.CONTROLLER_SERVLET_NAME, loadOnStartup = 1)
 public class Controller extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
     public void init() {
+        ConnectionPool.ConnectionPoolHolder.POOL.init();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

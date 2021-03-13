@@ -22,6 +22,18 @@ public class ConnectionPool {
     private final BlockingQueue<ProxyConnection> freeConnections;
     private final Queue<ProxyConnection> givenConnections;
 
+    public enum ConnectionPoolHolder {
+        POOL;
+        private final ConnectionPool connectionPool = new ConnectionPool();
+
+        public ConnectionPool getConnectionPool() {
+            return connectionPool;
+        }
+
+        public void init() {
+        }
+    }
+
     private ConnectionPool() {
         freeConnections = new LinkedBlockingDeque<>();
         givenConnections = new ArrayDeque<>();
@@ -96,15 +108,6 @@ public class ConnectionPool {
         } catch (SQLException e) {
             logger.log(Level.ERROR, "Couldn't deregister drivers: " + e);
             throw new ConnectionPoolException(e);
-        }
-    }
-
-    public enum ConnectionPoolHolder {
-        POOL;
-        private final ConnectionPool connectionPool = new ConnectionPool();
-
-        public ConnectionPool getConnectionPool() {
-            return connectionPool;
         }
     }
 }
