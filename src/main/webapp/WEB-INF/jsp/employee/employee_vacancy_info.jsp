@@ -24,15 +24,10 @@
     <%@ include file="../home/header.jsp" %>
     <c:set var="vacancy" scope="request" value="${vacancy}"/>
 
-    <wrong-message>
-        ${errorVacancyUpdate}
-        ${noApplicantRequests}
-    </wrong-message>
-
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
-                <button class="btn btn-secondary col-2 offset-5 mb-1 collapsed" style="margin-top: 1%"
+                <button class="btn btn-secondary col-2 offset-5 mb-1 collapsed" style="margin-top: 3%"
                         type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false"
                         aria-controls="flush-collapseOne">
@@ -180,12 +175,21 @@
         </div>
     </div>
 
-    <a class="btn btn-secondary col-2 offset-5 mb-5" style="margin-top: 1%" href="to_employee_vacancies.do"
+    <a class="btn btn-secondary col-2 offset-5" style="margin-top: 1%" href="to_employee_vacancies.do"
        role="button"><fmt:message
             key="button.back"/></a>
 
-    <vacancies-number><fmt:message
-            key="applicant_request.requestsAmount"/> ${applicantRequests.size()}</vacancies-number>
+    <div class="mt-3">
+        <wrong-message>
+            ${errorVacancyUpdate}
+            ${noApplicantRequests}
+        </wrong-message>
+    </div>
+
+    <div class="mt-3">
+        <vacancies-number><fmt:message
+                key="applicant_request.requestsAmount"/> ${applicantRequests.size()}</vacancies-number>
+    </div>
 
     <table class="table table-dark table-bordered border-secondary mt-5 offset-2 mb-5" style="width: 67%">
         <thead>
