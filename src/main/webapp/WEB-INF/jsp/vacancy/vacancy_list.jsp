@@ -25,7 +25,7 @@
     <%@ include file="../home/header.jsp" %>
     <c:set var="vacancies" scope="session" value="${vacancies}"/>
 
-    <div class="row align-items-start" style="margin-top: 3%">
+    <div class="row align-items-start" style="margin-top: 3%; width:100%; padding-left: 7.8%;">
         <div class="col-2 offset-2" style="display: flex;justify-content: center">
             <a class="btn btn-secondary" href="to_vacancies.do" role="button"><fmt:message
                     key="button.seeAllVacancies"/> </a>
