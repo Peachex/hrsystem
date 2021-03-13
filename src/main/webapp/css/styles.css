@@ -1,6 +1,5 @@
 body {
-    //background-image: url("https://viliioannis.net/wp-content/uploads/2018/04/site-background.jpg");
-    background-image: url(https://images.pexels.com/photos/1054222/pexels-photo-1054222.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+    background-image: url("../img/background/background.jpeg");
     -webkit-background-size: 100%;
 }
 

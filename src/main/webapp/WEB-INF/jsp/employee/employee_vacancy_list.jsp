@@ -26,7 +26,7 @@
     <c:set var="employeeVacancies" scope="request" value="${employeeVacancies}"/>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-outline-secondary mt-5" style="margin-left: 30.7%; width: 40%"
+    <button type="button" class="btn btn-secondary mt-5" style="margin-left: 30.7%; width: 40%"
             data-bs-toggle="modal" data-bs-target="#createVacancyModal">
         <fmt:message key="button.createVacancy"/>
     </button>
@@ -104,12 +104,12 @@
 
     <div class="row align-items-start" style="margin-top: 2%">
         <div class="col-2 offset-2" style="display: flex; justify-content: center">
-            <a class="btn btn-outline-secondary" href="to_employee_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="to_employee_vacancies.do" role="button"><fmt:message
                     key="button.seeAllVacancies"/> </a>
         </div>
         <div class="col-2" style="display: flex;justify-content: center">
             <div class="dropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropDown"
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropDown"
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
                     <fmt:message key="button.seeVacanciesWithApplicantsRequests"/>
@@ -128,11 +128,11 @@
             </div>
         </div>
         <div class="col-2" style="display: flex; justify-content: center">
-            <a class="btn btn-outline-secondary" href="see_active_employee_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="see_active_employee_vacancies.do" role="button"><fmt:message
                     key="button.seeActiveVacancies"/> </a>
         </div>
         <div class="col-2" style="display: flex; justify-content: center">
-            <a class="btn btn-outline-secondary" href="see_deleted_employee_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="see_deleted_employee_vacancies.do" role="button"><fmt:message
                     key="button.seeDeletedVacancies"/> </a>
         </div>
     </div>
@@ -142,8 +142,6 @@
             ${noApplicantRequest}
             ${noVacancies}
             ${errorDuplicate}
-        </wrong-message>
-        <wrong-message>
             ${noVacancy}
             ${strangeVacancy}
             ${errorVacancyDelete}

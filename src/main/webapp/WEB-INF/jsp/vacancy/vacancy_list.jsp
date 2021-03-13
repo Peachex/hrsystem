@@ -27,7 +27,7 @@
 
     <div class="row align-items-start" style="margin-top: 3%">
         <div class="col-2 offset-2" style="display: flex;justify-content: center">
-            <a class="btn btn-outline-secondary" href="to_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="to_vacancies.do" role="button"><fmt:message
                     key="button.seeAllVacancies"/> </a>
         </div>
         <div class="col-3">
@@ -37,14 +37,14 @@
                            placeholder="<fmt:message key="vacancy.inputKeyWord"/>"
                            aria-label="Search"
                            value="${keyWord}" name="keyWord">
-                    <button class="btn btn-outline-success" type="submit"><fmt:message
+                    <button class="btn btn-success" type="submit"><fmt:message
                             key="button.find"/></button>
                 </div>
             </form>
         </div>
         <div class="col-2" style="display: flex;justify-content: center">
             <div class="dropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropDown"
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropDown"
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
                     <fmt:message key="button.sortByDate"/>

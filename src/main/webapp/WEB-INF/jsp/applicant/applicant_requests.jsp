@@ -61,7 +61,7 @@
     </table>
 
     <div class="col-4 offset-4" style="display: flex;justify-content: center; margin-top: 5%">
-        <a class="btn btn-outline-secondary col-8 mb-4"
+        <a class="btn btn-secondary col-8 mb-4"
            style="display: flex;justify-content: center"
            href="home" role="button"><fmt:message
                 key="button.home"/> </a>

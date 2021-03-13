@@ -65,7 +65,7 @@
 
         <!-- Button trigger modal -->
         <div class="col-4 offset-4 mt-3" style="display: flex;justify-content: center; margin-bottom: 5%">
-            <button type="button" class="btn btn-outline-secondary button"
+            <button type="button" class="btn btn-secondary button"
                     data-bs-toggle="modal" data-bs-target="#editProfileModal">
                 <fmt:message key="button.edit"/>
             </button>

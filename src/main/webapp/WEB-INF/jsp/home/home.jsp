@@ -26,17 +26,19 @@
          data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="4000">
-                <img src="${pageContext.request.contextPath}/img/headhunting.png" class="d-block w-100" alt="...">
+                <img src="${pageContext.request.contextPath}/img/carousel/headhunting.png" class="d-block w-100"
+                     alt="...">
                 <h1><fmt:message key="home.firstSlideName"/></h1>
                 <h3><fmt:message key="home.seeVacanciesMessage"/></h3>
             </div>
             <div class="carousel-item" data-bs-interval="4000">
-                <img src="${pageContext.request.contextPath}/img/portfolio.png" class="d-block w-100" alt="...">
+                <img src="${pageContext.request.contextPath}/img/carousel/portfolio.png" class="d-block w-100"
+                     alt="...">
                 <h1><fmt:message key="home.secondSlideName"/></h1>
                 <h3><fmt:message key="home.registerAndApplyVacanciesMessage"/></h3>
             </div>
             <div class="carousel-item">
-                <img src="${pageContext.request.contextPath}/img/chair.png" class="d-block w-100" alt="...">
+                <img src="${pageContext.request.contextPath}/img/carousel/chair.png" class="d-block w-100" alt="...">
                 <h1><fmt:message key="home.thirdSlideName"/></h1>
                 <h3><fmt:message key="home.getJobMessage"/></h3>
             </div>

@@ -107,7 +107,7 @@
         </div>
     </div>
 
-    <a class="btn btn-outline-secondary col-2 offset-5 mt-5"
+    <a class="btn btn-secondary col-2 offset-5 mt-5"
        style="display: flex;justify-content: center; margin-bottom: 5%"
        href="to_vacancies.do" role="button"><fmt:message
             key="button.back"/> </a>

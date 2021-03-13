@@ -26,16 +26,13 @@
 
     <wrong-message>
         ${errorVacancyUpdate}
-    </wrong-message>
-
-    <wrong-message>
         ${noApplicantRequests}
     </wrong-message>
 
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
-                <button class="btn btn-outline-secondary col-2 offset-5 mb-1 collapsed" style="margin-top: 3%"
+                <button class="btn btn-secondary col-2 offset-5 mb-1 collapsed" style="margin-top: 1%"
                         type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false"
                         aria-controls="flush-collapseOne">
@@ -80,7 +77,7 @@
                                     aria-labelledby="actionDropDown">
                                     <li>
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-outline-secondary dropdown-item"
+                                        <button type="button" class="btn btn-secondary dropdown-item"
                                                 data-bs-toggle="modal" data-bs-target="#editVacancyModal">
                                             <fmt:message key="button.edit"/>
                                         </button>
@@ -183,14 +180,14 @@
         </div>
     </div>
 
-    <a class="btn btn-outline-secondary col-2 offset-5 mb-1" style="margin-top: 1%" href="to_employee_vacancies.do"
+    <a class="btn btn-secondary col-2 offset-5 mb-5" style="margin-top: 1%" href="to_employee_vacancies.do"
        role="button"><fmt:message
             key="button.back"/></a>
 
     <vacancies-number><fmt:message
             key="applicant_request.requestsAmount"/> ${applicantRequests.size()}</vacancies-number>
 
-    <table class="table table-dark table-bordered border-secondary mt-5 offset-2" style="width: 67%">
+    <table class="table table-dark table-bordered border-secondary mt-5 offset-2 mb-5" style="width: 67%">
         <thead>
         <tr>
             <th scope="col"><fmt:message key="profile.firstName"/></th>
