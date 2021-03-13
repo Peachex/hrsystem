@@ -28,7 +28,15 @@
     <c:set var="applicantStateLeftRequest" scope="page" value="LEFT_REQUEST"/>
     <c:set var="applicantStateReadyForTechnicalInterview" scope="page" value="READY_FOR_TECHNICAL_INTERVIEW"/>
 
-    <div class="card text-dark bg-light offset-3" style="margin-top: 3%;max-width: 50%; margin-bottom: 2%">
+    <wrong-message>
+        ${errorInputData}
+    </wrong-message>
+    <wrong-message>
+        ${errorInterviewResultCreation}
+        ${errorTechnicalInterviewScheduling}
+    </wrong-message>
+
+    <div class="card text-dark bg-light offset-3" style="margin-top: 1%;max-width: 50%; margin-bottom: 2%">
         <div class="card-header" style="display: flex"><h3><fmt:message
                 key="employee_applicant_request.title"/> <c:if
                 test="${applicantRequest.applicantState.toString().equals(applicantStatePassed) ||
@@ -271,15 +279,6 @@
                         key="button.back"/> </a>
             </div>
         </div>
-    </div>
-    <div class="mt-3" style="margin-bottom: 2%">
-        <wrong-message>
-            ${errorInputData}
-        </wrong-message>
-        <wrong-message>
-            ${errorInterviewResultCreation}
-            ${errorTechnicalInterviewScheduling}
-        </wrong-message>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"

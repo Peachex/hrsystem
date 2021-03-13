@@ -64,8 +64,8 @@ public class ScheduleTechnicalInterviewCommand implements ActionCommand {
                     request.setAttribute(RequestParameter.TECHNICAL_INTERVIEW_DATE, technicalInterviewDateStr);
                     request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
                 } else {
-                    request.setAttribute(JspAttribute.ERROR_INTERVIEW_RESULT_CREATION_ATTRIBUTE,
-                            JspAttribute.ERROR_INTERVIEW_RESULT_DUPLICATE_CREATION_MESSAGE);
+                    request.setAttribute(JspAttribute.ERROR_TECHNICAL_INTERVIEW_SCHEDULING_ATTRIBUTE,
+                            JspAttribute.ERROR_TECHNICAL_INTERVIEW_SCHEDULING_MESSAGE);
                 }
             }
         } catch (NumberFormatException e) {

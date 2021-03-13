@@ -25,7 +25,12 @@
     <%@ include file="../home/header.jsp" %>
     <c:set var="vacancy" scope="request" value="${vacancy}"/>
 
-    <div class="card text-dark bg-light offset-3" style="margin-top: 3%;max-width: 50%;">
+    <wrong-message>
+        ${errorApplicantRequestCreation}
+        ${errorDuplicate}
+    </wrong-message>
+
+    <div class="card text-dark bg-light offset-3" style="margin-top: 1%;max-width: 50%;">
         <div class="card-header"><h3><fmt:message key="vacancy_info.title"/> #${vacancy.id}</h3></div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="vacancy_position"/></h4>
@@ -101,11 +106,6 @@
             </c:if>
         </div>
     </div>
-
-    <wrong-message>
-        ${errorApplicantRequestCreation}
-        ${errorDuplicate}
-    </wrong-message>
 
     <a class="btn btn-outline-secondary col-2 offset-5 mt-5"
        style="display: flex;justify-content: center; margin-bottom: 5%"

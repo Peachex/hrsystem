@@ -24,6 +24,14 @@
     <%@ include file="../home/header.jsp" %>
     <c:set var="vacancy" scope="request" value="${vacancy}"/>
 
+    <wrong-message>
+        ${errorVacancyUpdate}
+    </wrong-message>
+
+    <wrong-message>
+        ${noApplicantRequests}
+    </wrong-message>
+
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
@@ -178,18 +186,6 @@
     <a class="btn btn-outline-secondary col-2 offset-5 mb-1" style="margin-top: 1%" href="to_employee_vacancies.do"
        role="button"><fmt:message
             key="button.back"/></a>
-
-    <div class="mt-3">
-        <wrong-message>
-            ${errorVacancyUpdate}
-        </wrong-message>
-    </div>
-
-    <div class="mt-3">
-        <wrong-message>
-            ${noApplicantRequests}
-        </wrong-message>
-    </div>
 
     <vacancies-number><fmt:message
             key="applicant_request.requestsAmount"/> ${applicantRequests.size()}</vacancies-number>

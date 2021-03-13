@@ -140,15 +140,11 @@
         <wrong-message>
             ${errorVacancyCreation}
             ${noApplicantRequest}
-        </wrong-message>
-        <wrong-message>
             ${noVacancies}
             ${errorDuplicate}
         </wrong-message>
         <wrong-message>
             ${noVacancy}
-        </wrong-message>
-        <wrong-message>
             ${strangeVacancy}
             ${errorVacancyDelete}
             ${errorVacancyRestore}

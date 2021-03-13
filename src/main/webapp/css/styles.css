@@ -1,5 +1,7 @@
 body {
-    background-color: rgba(255, 255, 255, 0.60);
+    //background-image: url("https://viliioannis.net/wp-content/uploads/2018/04/site-background.jpg");
+    background-image: url(https://images.pexels.com/photos/1054222/pexels-photo-1054222.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+    -webkit-background-size: 100%;
 }
 
 .header {
@@ -11,6 +13,20 @@ body {
 
 .header-link {
     color: #ffffffe0;
+}
+
+.bg-light {
+    background-color: #f1f6ef !important;
+    border-radius: 25px;
+}
+
+.modal-content {
+    background-color: #f1f6ef !important;
+    border-radius: 10px;
+}
+
+.card-header {
+    border-radius: 25px 25px 0px 0px !important;
 }
 
 .container {
@@ -25,12 +41,15 @@ body {
 }
 
 wrong-message {
+    font-size: 18px;
+    margin-top: 2%;
+    font-weight: 400;
     display: flex;
     color: red;
     justify-content: center;
 }
 
-vacancies-number{
+vacancies-number {
     font-size: 20px;
     display: flex;
     color: #8f8f8f;
