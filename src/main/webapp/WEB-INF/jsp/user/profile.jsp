@@ -29,7 +29,7 @@
         ${errorInputData}
     </wrong-message>
 
-    <div class="card text-dark bg-light offset-3" style="margin-top: 1%;max-width: 50%;">
+    <div class="card text-dark bg-light offset-3" style="margin-top: 1%;max-width: 50%; margin-bottom: 2%;">
         <div class="card-header"><h3><fmt:message key="profile.title"/></h3></div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.firstName"/></h4>
