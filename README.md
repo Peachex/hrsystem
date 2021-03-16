@@ -46,8 +46,10 @@ HR-SYSTEM allows employees to hire new people. Employees create and manage vacan
 commands
 
 # Authorized user's scope
-* Update profile
+* Update profile information
+* Change password
 * Change avatar
+* Delete account
 
 # Additional Info
 * Default users password: `password`
