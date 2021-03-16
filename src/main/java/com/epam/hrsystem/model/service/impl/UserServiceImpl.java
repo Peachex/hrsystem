@@ -95,10 +95,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changePassword(long userId, String newPassword) throws ServiceException {
+    public boolean changePassword(long userId, Map<String, String> fields) throws ServiceException {
         boolean result = false;
         try {
-            if (UserValidator.isPasswordValid(newPassword)) {
+            if (UserValidator.isChangePasswordFormValid(fields)) {
+                String newPassword = fields.get(RequestParameter.NEW_PASSWORD);
                 String encryptedPassword = Encryptor.encrypt(newPassword);
                 result = dao.updatePassword(userId, encryptedPassword);
             }

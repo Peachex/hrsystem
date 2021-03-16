@@ -36,6 +36,7 @@ public class LoginCommand implements ActionCommand {
                     session.setAttribute(SessionAttribute.USER_ID, user.getId());
                     result = new CommandResult(ServletAttribute.HOME_URL_PATTERN, CommandResult.Type.REDIRECT);
                 } else {
+                    request.setAttribute(RequestParameter.EMAIL, email);
                     request.setAttribute(JspAttribute.USER_ACCOUNT_IS_DELETED_ATTRIBUTE, JspAttribute.USER_ACCOUNT_IS_DELETED_MESSAGE);
                 }
             } else {

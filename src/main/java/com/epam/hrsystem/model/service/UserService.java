@@ -17,7 +17,7 @@ public interface UserService {
 
     boolean unblockUser(long userId) throws ServiceException;
 
-    boolean changePassword(long userId, String newPassword) throws ServiceException;
+    boolean changePassword(long userId, Map<String, String> fields) throws ServiceException;
 
     boolean changePhoto(long userId, String photoName) throws ServiceException;
 

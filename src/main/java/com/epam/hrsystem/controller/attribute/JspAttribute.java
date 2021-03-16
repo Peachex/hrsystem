@@ -45,7 +45,6 @@ public class JspAttribute {
     public static final String ERROR_TECHNICAL_INTERVIEW_SCHEDULING_ATTRIBUTE = "errorTechnicalInterviewScheduling";
     public static final String ERROR_TECHNICAL_INTERVIEW_SCHEDULING_MESSAGE = "Couldn't schedule interview result cause you have" +
             " already scheduled";
-    public static final String ERROR_INTERVIEW_RESULT_CREATION_MESSAGE = "Couldn't create interview result";
 
     public static final String ERROR_INVALID_CURRENT_PASSWORD_ATTRIBUTE = "invalidCurrentPassword";
     public static final String ERROR_INVALID_CURRENT_PASSWORD_MESSAGE = "Invalid current password";

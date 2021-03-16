@@ -11,6 +11,8 @@ public class RequestParameter {
     public static final String PASSWORD = "password";
     public static final String REPEATED_PASSWORD = "repeatedPassword";
     public static final String CURRENT_PASSWORD = "currentPassword";
+    public static final String NEW_PASSWORD = "newPassword";
+    public static final String REPEATED_NEW_PASSWORD = "repeatedNewPassword";
 
     //Vacancy
     public static final String POSITION = "position";
