@@ -24,20 +24,23 @@ public class LoginCommand implements ActionCommand {
         String email = request.getParameter(RequestParameter.EMAIL);
         String password = request.getParameter(RequestParameter.PASSWORD);
         UserService service = ServiceHolder.HOLDER.getUserService();
-        CommandResult result;
+        CommandResult result = new CommandResult(PagePath.LOGIN, CommandResult.Type.FORWARD);
         try {
             Optional<User> userOptional = service.login(email, password);
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
-                HttpSession session = request.getSession();
-                session.setAttribute(SessionAttribute.USER, user);
-                session.setAttribute(SessionAttribute.CURRENT_ROLE, user.getRole());
-                session.setAttribute(SessionAttribute.USER_ID, user.getId());
-                result = new CommandResult(ServletAttribute.HOME_URL_PATTERN, CommandResult.Type.REDIRECT);
+                if (user.getIsActive()) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute(SessionAttribute.USER, user);
+                    session.setAttribute(SessionAttribute.CURRENT_ROLE, user.getRole());
+                    session.setAttribute(SessionAttribute.USER_ID, user.getId());
+                    result = new CommandResult(ServletAttribute.HOME_URL_PATTERN, CommandResult.Type.REDIRECT);
+                } else {
+                    request.setAttribute(JspAttribute.USER_ACCOUNT_IS_DELETED_ATTRIBUTE, JspAttribute.USER_ACCOUNT_IS_DELETED_MESSAGE);
+                }
             } else {
                 request.setAttribute(RequestParameter.EMAIL, email);
                 request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
-                result = new CommandResult(PagePath.LOGIN, CommandResult.Type.FORWARD);
             }
         } catch (ServiceException e) {
             throw new CommandException(e);

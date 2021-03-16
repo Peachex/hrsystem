@@ -41,6 +41,7 @@
         <div class="mt-3">
             <wrong-message>
                 ${errorInputData}
+                ${accountIsDeleted}
             </wrong-message>
         </div>
 

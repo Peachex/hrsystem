@@ -1,9 +1,11 @@
 package com.epam.hrsystem.controller.command;
 
 import com.epam.hrsystem.controller.command.impl.ChangeLanguageCommand;
+import com.epam.hrsystem.controller.command.impl.ChangeUserPasswordCommand;
 import com.epam.hrsystem.controller.command.impl.CreateInterviewResultCommand;
 import com.epam.hrsystem.controller.command.impl.CreateVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.CreateApplicantRequestCommand;
+import com.epam.hrsystem.controller.command.impl.DeleteUserAccountCommand;
 import com.epam.hrsystem.controller.command.impl.DeleteVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.EditUserProfileCommand;
 import com.epam.hrsystem.controller.command.impl.EditVacancyInfoCommand;
@@ -113,6 +115,12 @@ public enum CommandType {
     }},
     PROVIDE_IMAGE {{
         this.command = new ProvideImageCommand();
+    }},
+    DELETE_USER_ACCOUNT {{
+        this.command = new DeleteUserAccountCommand();
+    }},
+    CHANGE_USER_PASSWORD {{
+        this.command = new ChangeUserPasswordCommand();
     }};
 
     ActionCommand command;

@@ -40,7 +40,7 @@ public class PermissionFilter implements Filter {
 
         EnumSet<CommandType> applicantCommands = EnumSet.of(CommandType.LOGOUT, CommandType.CREATE_APPLICANT_REQUEST,
                 CommandType.TO_USER_PROFILE, CommandType.EDIT_USER_PROFILE, CommandType.TO_APPLICANT_REQUESTS,
-                CommandType.PROVIDE_IMAGE);
+                CommandType.PROVIDE_IMAGE, CommandType.CHANGE_USER_PASSWORD, CommandType.DELETE_USER_ACCOUNT);
         applicantCommands.addAll(sameCommands);
 
         EnumSet<CommandType> employeeCommands = EnumSet.of(CommandType.LOGOUT, CommandType.CREATE_VACANCY, CommandType.DELETE_VACANCY,
@@ -50,12 +50,12 @@ public class PermissionFilter implements Filter {
                 CommandType.SEE_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS, CommandType.EDIT_VACANCY_INFO,
                 CommandType.TO_USER_PROFILE, CommandType.EDIT_USER_PROFILE, CommandType.TO_EMPLOYEE_APPLICANT_REQUEST,
                 CommandType.SEE_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS, CommandType.PROVIDE_IMAGE,
-                CommandType.SCHEDULE_TECHNICAL_INTERVIEW);
+                CommandType.SCHEDULE_TECHNICAL_INTERVIEW, CommandType.CHANGE_USER_PASSWORD, CommandType.DELETE_USER_ACCOUNT);
         employeeCommands.addAll(sameCommands);
 
         EnumSet<CommandType> adminCommands = EnumSet.of(CommandType.LOGOUT, CommandType.CREATE_VACANCY, CommandType.SEE_ALL_VACANCIES,
                 CommandType.DELETE_VACANCY, CommandType.RESTORE_VACANCY, CommandType.TO_USER_PROFILE, CommandType.EDIT_USER_PROFILE,
-                CommandType.PROVIDE_IMAGE);
+                CommandType.PROVIDE_IMAGE, CommandType.CHANGE_USER_PASSWORD, CommandType.DELETE_USER_ACCOUNT);
         adminCommands.addAll(sameCommands);
 
         permissionCommands.put(UserRole.GUEST, guestCommands);

@@ -47,6 +47,12 @@ public class JspAttribute {
             " already scheduled";
     public static final String ERROR_INTERVIEW_RESULT_CREATION_MESSAGE = "Couldn't create interview result";
 
+    public static final String ERROR_INVALID_CURRENT_PASSWORD_ATTRIBUTE = "invalidCurrentPassword";
+    public static final String ERROR_INVALID_CURRENT_PASSWORD_MESSAGE = "Invalid current password";
+
+    public static final String USER_ACCOUNT_IS_DELETED_ATTRIBUTE = "accountIsDeleted";
+    public static final String USER_ACCOUNT_IS_DELETED_MESSAGE = "Couldn't login cause your account was deleted";
+
     public static final String EMAIL_AVAILABLE_ERROR_MESSAGE = "Email is unavailable, try another one!";
     public static final String INVALID_INPUT_DATA_MESSAGE = "";
 

@@ -34,8 +34,7 @@ public class UserServiceImpl implements UserService {
             if (UserValidator.isEmailValid(email) && UserValidator.isPasswordValid(password)) {
                 if (!dao.isEmailAvailable(email)) {
                     String passwordFromDatabase = dao.findPasswordByEmail(email).get();
-                    Optional<Byte> activityValue = dao.findUserActivity(email);
-                    if (Encryptor.check(password, passwordFromDatabase) && activityValue.get() == 1) {
+                    if (Encryptor.check(password, passwordFromDatabase)) {
                         result = dao.findUserByEmail(email);
                     }
                 }
