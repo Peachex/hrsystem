@@ -6,6 +6,7 @@
 * [Applicant's scope](#applicants-scope)
 * [Employee's scope](#employees-scope)
 * [Admin's scope](#admins-scope)
+* [Authorized user's scope](#authorized-users-scope)
 * [Additional Info](#additional-info)
 
 # Project Description
