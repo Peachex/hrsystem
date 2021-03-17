@@ -162,13 +162,13 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="vacancy" items="${employeeVacancies}">
+        <c:forEach var="user" items="${employeeVacancies}">
         <tr class="table-secondary">
-            <th scope="row"><ctg:text text="${vacancy.position}"/></th>
-            <th scope="row"><ctg:text text="${vacancy.country}"/></th>
-            <th scope="row"><ctg:text text="${vacancy.city}"/></th>
-            <th scope="row"><ctg:text text="${vacancy.creationDate}"/></th>
-            <th scope="row"><a href="<c:url value="to_employee_vacancy_info.do?vacancyId=${vacancy.id}"/>"><fmt:message
+            <th scope="row"><ctg:text text="${user.position}"/></th>
+            <th scope="row"><ctg:text text="${user.country}"/></th>
+            <th scope="row"><ctg:text text="${user.city}"/></th>
+            <th scope="row"><ctg:text text="${user.creationDate}"/></th>
+            <th scope="row"><a href="<c:url value="to_employee_vacancy_info.do?vacancyId=${user.id}"/>"><fmt:message
                     key="link.moreInfo"/></a></th>
         <tr>
             </c:forEach>

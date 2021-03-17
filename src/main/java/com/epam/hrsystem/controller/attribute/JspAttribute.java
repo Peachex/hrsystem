@@ -52,6 +52,10 @@ public class JspAttribute {
     public static final String USER_ACCOUNT_IS_DELETED_ATTRIBUTE = "accountIsDeleted";
     public static final String USER_ACCOUNT_IS_DELETED_MESSAGE = "Couldn't login cause your account was deleted";
 
+    public static final String NO_USERS_ATTRIBUTE = "noUsers";
+    public static final String NO_USERS_MESSAGE = "No users";
+    public static final String NO_USERS_BY_REQUEST_MESSAGE = "No users by your request";
+
     public static final String EMAIL_AVAILABLE_ERROR_MESSAGE = "Email is unavailable, try another one!";
     public static final String INVALID_INPUT_DATA_MESSAGE = "";
 

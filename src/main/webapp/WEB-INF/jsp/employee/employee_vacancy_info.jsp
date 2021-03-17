@@ -22,7 +22,7 @@
 <body>
 <div class="main-container">
     <%@ include file="../home/header.jsp" %>
-    <c:set var="vacancy" scope="request" value="${vacancy}"/>
+    <c:set var="user" scope="request" value="${vacancy}"/>
 
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
@@ -40,25 +40,25 @@
                 <div class="accordion-body">
                     <div class="card text-dark bg-light offset-3" style="margin-top: 1%;max-width: 50%;">
                         <div class="card-header" style="display: flex"><h3><fmt:message
-                                key="vacancy_info.title"/> #${vacancy.id} <c:if
-                                test="${!vacancy.isAvailable}"><fmt:message
+                                key="vacancy_info.title"/> #${user.id} <c:if
+                                test="${!user.isAvailable}"><fmt:message
                                 key="vacancy_deleted"/></c:if></h3>
                         </div>
                         <div class="card-body">
                             <h4 class="card-title"><fmt:message key="vacancy_position"/></h4>
-                            <p class="card-text"><ctg:text text="${vacancy.position}"/></p>
+                            <p class="card-text"><ctg:text text="${user.position}"/></p>
                         </div>
                         <div class="card-body">
                             <h4 class="card-title"><fmt:message key="vacancy_description"/></h4>
-                            <p class="card-text"><ctg:text text="${vacancy.description}"/></p>
+                            <p class="card-text"><ctg:text text="${user.description}"/></p>
                         </div>
                         <div class="card-body">
                             <h4 class="card-title"><fmt:message key="vacancy_country"/></h4>
-                            <p class="card-text"><ctg:text text="${vacancy.country}"/></p>
+                            <p class="card-text"><ctg:text text="${user.country}"/></p>
                         </div>
                         <div class="card-body">
                             <h4 class="card-title"><fmt:message key="vacancy_city"/></h4>
-                            <p class="card-text"><ctg:text text="${vacancy.city}"/></p>
+                            <p class="card-text"><ctg:text text="${user.city}"/></p>
                         </div>
                         <div class="col-4 offset-4" style="display: flex;justify-content: center;">
                             <div class="dropdown col-8 mb-4">
@@ -77,14 +77,14 @@
                                             <fmt:message key="button.edit"/>
                                         </button>
                                     </li>
-                                    <c:if test="${vacancy.isAvailable}">
+                                    <c:if test="${user.isAvailable}">
                                         <li><a class="dropdown-item"
-                                               href="delete_vacancy.do?vacancyId=${vacancy.id}"><fmt:message
+                                               href="delete_vacancy.do?vacancyId=${user.id}"><fmt:message
                                                 key="button.delete"/> </a></li>
                                     </c:if>
-                                    <c:if test="${!vacancy.isAvailable}">
+                                    <c:if test="${!user.isAvailable}">
                                         <li><a class="dropdown-item"
-                                               href="restore_vacancy.do?vacancyId=${vacancy.id}"><fmt:message
+                                               href="restore_vacancy.do?vacancyId=${user.id}"><fmt:message
                                                 key="button.restore"/> </a></li>
                                     </c:if>
                                 </ul>
@@ -103,13 +103,13 @@
 
                                             <div class="modal-body">
                                                 <form name="edit-vacancy-form" method="POST"
-                                                      action="edit_vacancy_info.do?vacancyId=${vacancy.id}">
+                                                      action="edit_vacancy_info.do?vacancyId=${user.id}">
                                                     <label for="inputPosition"><fmt:message
                                                             key="create_vacancy_modal.inputPosition"/> </label>
                                                     <div class="form-group mt-1">
                                                         <input type="text" class="form-control field" id="inputPosition"
                                                                name="position"
-                                                               value="${vacancy.position}" placeholder=
+                                                               value="${user.position}" placeholder=
                                                                        "<fmt:message key="create_vacancy_modal.inputPositionPlaceholder"/>"
                                                                required pattern="[А-Яа-я\w\s\p{Punct}]{3,1000}">
                                                     </div>
@@ -122,7 +122,7 @@
                                     <textarea class="form-control" rows="5" id="inputDescription"
                                               name="description" placeholder="<fmt:message
                                              key="create_vacancy_modal.inputDescriptionPlaceholder"/>"
-                                              required minlength="3" maxlength="10000">${vacancy.description}</textarea>
+                                              required minlength="3" maxlength="10000">${user.description}</textarea>
                                                     </div>
 
                                                     <div class="mt-3">
@@ -132,7 +132,7 @@
                                                     <div class="form-group mt-1">
                                                         <input type="text" class="form-control field" id="inputCountry"
                                                                name="country"
-                                                               value="${vacancy.country}" placeholder=
+                                                               value="${user.country}" placeholder=
                                                                        "<fmt:message key="create_vacancy_modal.inputCountryPlaceholder"/>"
                                                                required pattern="[a-zA-Zа-яА-я\s]{3,50}">
                                                     </div>
@@ -144,7 +144,7 @@
                                                     <div class="form-group mt-1">
                                                         <input type="text" class="form-control field" id="inputCity"
                                                                name="city"
-                                                               value="${vacancy.city}" placeholder=
+                                                               value="${user.city}" placeholder=
                                                                        "<fmt:message key="create_vacancy_modal.inputCityPlaceholder"/>"
                                                                required pattern="[a-zA-Zа-яА-я\s]{2,50}">
                                                     </div>

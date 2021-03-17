@@ -23,7 +23,7 @@
 <body>
 <div class="main-container">
     <%@ include file="../home/header.jsp" %>
-    <c:set var="vacancy" scope="request" value="${vacancy}"/>
+    <c:set var="user" scope="request" value="${vacancy}"/>
 
     <wrong-message>
         ${errorApplicantRequestCreation}
@@ -31,22 +31,22 @@
     </wrong-message>
 
     <div class="card text-dark bg-light offset-3" style="margin-top: 1%;max-width: 50%;">
-        <div class="card-header"><h3><fmt:message key="vacancy_info.title"/> #${vacancy.id}</h3></div>
+        <div class="card-header"><h3><fmt:message key="vacancy_info.title"/> #${user.id}</h3></div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="vacancy_position"/></h4>
-            <p class="card-text"><ctg:text text="${vacancy.position}"/></p>
+            <p class="card-text"><ctg:text text="${user.position}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="vacancy_description"/></h4>
-            <p class="card-text"><ctg:text text="${vacancy.description}"/></p>
+            <p class="card-text"><ctg:text text="${user.description}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="vacancy_country"/></h4>
-            <p class="card-text"><ctg:text text="${vacancy.country}"/></p>
+            <p class="card-text"><ctg:text text="${user.country}"/></p>
         </div>
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="vacancy_city"/></h4>
-            <p class="card-text"><ctg:text text="${vacancy.city}"/></p>
+            <p class="card-text"><ctg:text text="${user.city}"/></p>
         </div>
         <div class="col-4 offset-4" style="display: flex;justify-content: center;">
             <c:if test="${role.toString().equals(guest)}">
@@ -77,7 +77,7 @@
                             </div>
                             <div class="modal-body">
                                 <form name="create_applicant_request" method="POST"
-                                      action="create_applicant_request.do?vacancyId=${vacancy.id}">
+                                      action="create_applicant_request.do?vacancyId=${user.id}">
                                     <label for="inputSummary"><fmt:message
                                             key="create_applicant_request.inputSummary"/> </label>
                                     <div class="form-group mt-1">

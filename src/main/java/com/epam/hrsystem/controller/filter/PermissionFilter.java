@@ -53,9 +53,10 @@ public class PermissionFilter implements Filter {
                 CommandType.SCHEDULE_TECHNICAL_INTERVIEW, CommandType.CHANGE_USER_PASSWORD, CommandType.DELETE_USER_ACCOUNT);
         employeeCommands.addAll(sameCommands);
 
-        EnumSet<CommandType> adminCommands = EnumSet.of(CommandType.LOGOUT, CommandType.CREATE_VACANCY, CommandType.SEE_ALL_VACANCIES,
-                CommandType.DELETE_VACANCY, CommandType.RESTORE_VACANCY, CommandType.TO_USER_PROFILE, CommandType.EDIT_USER_PROFILE,
-                CommandType.PROVIDE_IMAGE, CommandType.CHANGE_USER_PASSWORD, CommandType.DELETE_USER_ACCOUNT);
+        EnumSet<CommandType> adminCommands = EnumSet.of(CommandType.LOGOUT, CommandType.CREATE_VACANCY, CommandType.DELETE_VACANCY,
+                CommandType.RESTORE_VACANCY, CommandType.TO_USER_PROFILE, CommandType.EDIT_USER_PROFILE, CommandType.PROVIDE_IMAGE,
+                CommandType.CHANGE_USER_PASSWORD, CommandType.DELETE_USER_ACCOUNT, CommandType.TO_USER_LIST, CommandType.SEE_ACTIVE_USERS,
+                CommandType.SEE_DELETED_USERS);
         adminCommands.addAll(sameCommands);
 
         permissionCommands.put(UserRole.GUEST, guestCommands);

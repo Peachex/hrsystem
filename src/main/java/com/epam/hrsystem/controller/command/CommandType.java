@@ -17,8 +17,9 @@ import com.epam.hrsystem.controller.command.impl.RegisterCommand;
 import com.epam.hrsystem.controller.command.impl.RestoreVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.ScheduleTechnicalInterviewCommand;
 import com.epam.hrsystem.controller.command.impl.SeeActiveEmployeeVacanciesCommand;
-import com.epam.hrsystem.controller.command.impl.SeeAllVacanciesCommand;
+import com.epam.hrsystem.controller.command.impl.SeeActiveUsersCommand;
 import com.epam.hrsystem.controller.command.impl.SeeDeletedEmployeeVacanciesCommand;
+import com.epam.hrsystem.controller.command.impl.SeeDeletedUsersCommand;
 import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithActiveApplicantsRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithApplicantsRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithNotActiveApplicantsRequestsCommand;
@@ -27,6 +28,7 @@ import com.epam.hrsystem.controller.command.impl.ToApplicantRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeApplicantRequestCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeVacancyInfoCommand;
+import com.epam.hrsystem.controller.command.impl.ToUserListCommand;
 import com.epam.hrsystem.controller.command.impl.ToUserProfileCommand;
 import com.epam.hrsystem.controller.command.impl.ToVacancyInfoCommand;
 import com.epam.hrsystem.controller.command.impl.ToVacanciesCommand;
@@ -68,6 +70,9 @@ public enum CommandType {
     TO_VACANCY_INFO {{
         this.command = new ToVacancyInfoCommand();
     }},
+    TO_USER_LIST {{
+        this.command = new ToUserListCommand();
+    }},
     CREATE_VACANCY {{
         this.command = new CreateVacancyCommand();
     }},
@@ -79,9 +84,6 @@ public enum CommandType {
     }},
     SORT_VACANCIES_BY_DATE {{
         this.command = new SortVacanciesByDateCommand();
-    }},
-    SEE_ALL_VACANCIES {{
-        this.command = new SeeAllVacanciesCommand();
     }},
     SEE_ACTIVE_EMPLOYEE_VACANCIES {{
         this.command = new SeeActiveEmployeeVacanciesCommand();
@@ -97,6 +99,12 @@ public enum CommandType {
     }},
     SEE_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS {{
         this.command = new SeeEmployeeVacanciesWithNotActiveApplicantsRequestsCommand();
+    }},
+    SEE_ACTIVE_USERS {{
+        this.command = new SeeActiveUsersCommand();
+    }},
+    SEE_DELETED_USERS {{
+        this.command = new SeeDeletedUsersCommand();
     }},
     DELETE_VACANCY {{
         this.command = new DeleteVacancyCommand();

@@ -38,10 +38,8 @@
                     <fmt:message key="header.changeLanguage"/>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="change_language.do?newLocale=ru_RU"><fmt:message
-                            key="header.russianLanguage"/></a></li>
-                    <li><a class="dropdown-item" href="change_language.do?newLocale=en_EN"><fmt:message
-                            key="header.englishLanguage"/></a></li>
+                    <li><a class="dropdown-item" href="change_language.do?newLocale=ru_RU">Русский</a></li>
+                    <li><a class="dropdown-item" href="change_language.do?newLocale=en_EN">English</a></li>
                 </ul>
             </li>
 
@@ -67,13 +65,13 @@
                             <li><a class="dropdown-item" href="to_applicant_requests.do"><fmt:message
                                     key="user.requests"/></a></li>
                         </c:if>
-                        <c:if test="${!role.toString().equals(applicant)}">
+                        <c:if test="${role.toString().equals(employee)}">
                             <li><a class="dropdown-item" href="to_employee_vacancies.do"><fmt:message
                                     key="user.employeeVacancies"/></a></li>
                         </c:if>
                         <c:if test="${role.toString().equals(admin)}">
-                            <li><a class="dropdown-item" href="home"><fmt:message
-                                    key="header.admin"/></a></li>
+                            <li><a class="dropdown-item" href="to_user_list.do"><fmt:message
+                                    key="header.adminUsers"/></a></li>
                         </c:if>
                         <li>
                             <hr class="dropdown-divider">
