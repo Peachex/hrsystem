@@ -31,7 +31,7 @@
                     key="button.seeAllUsers"/> </a>
         </div>
         <div class="col-3">
-            <form name="find-vacancy-from" method="GET" action="find_vacancies_by_key_word.do">
+            <form name="find-user-form" method="GET" action="find_users_by_key_word.do">
                 <div class="d-flex">
                     <input class="form-control me-2" type="search"
                            placeholder="<fmt:message key="vacancy.inputKeyWord"/>"

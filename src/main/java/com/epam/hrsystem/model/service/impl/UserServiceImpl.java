@@ -23,6 +23,7 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
     private static final UserDao dao = DaoHolder.HOLDER.getUserDao();
+    private static final String PERCENT_SIGN = "%";
 
     UserServiceImpl() {
     }
@@ -182,6 +183,17 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(e);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<User> findUsersByKeyWord(String keyWord) throws ServiceException {
+        try {
+            String keyWordForQuery = PERCENT_SIGN + keyWord + PERCENT_SIGN;
+            List<User> users = dao.findUsersByKeyWord(keyWordForQuery);
+            return users;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
     private void updateUserFields(User user, Map<String, String> fields) {

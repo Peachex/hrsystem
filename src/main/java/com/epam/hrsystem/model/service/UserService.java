@@ -30,4 +30,6 @@ public interface UserService {
     boolean changeUserRole(long userId, String role) throws ServiceException;
 
     Optional<User> updateProfile(long userId, Map<String, String> newFields) throws ServiceException;
+
+    List<User> findUsersByKeyWord(String keyWord) throws ServiceException;
 }

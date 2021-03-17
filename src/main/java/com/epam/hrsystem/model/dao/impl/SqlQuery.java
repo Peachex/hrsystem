@@ -38,6 +38,11 @@ public class SqlQuery {
 
     public static final String SQL_UPDATE_USER_PHOTO = "UPDATE users SET photo_name = ? WHERE user_id = ?";
 
+    public static final String SQL_FIND_USERS_BY_KEY_WORD = "SELECT user_id, photo_name, first_name, last_name, date_of_birth," +
+            " phone_number, email, is_active, role FROM users JOIN user_roles ON role_id_fk = user_role_id WHERE first_name LIKE ? OR" +
+            " last_name LIKE ? OR email LIKE ? OR phone_number LIKE ?;";
+
+
     // VACANCY QUERIES
     public static final String SQL_INSERT_VACANCY = "INSERT INTO vacancies(is_available, position, description, creation_date," +
             " country_id_fk, city_id_fk, user_id_fk) VALUES (?, ?, ?, ?, ?, ?, ?)";

@@ -154,6 +154,27 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public List<User> findUsersByKeyWord(String keyWord) throws DaoException {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_USERS_BY_KEY_WORD)) {
+            statement.setString(1, keyWord);
+            statement.setString(2, keyWord);
+            statement.setString(3, keyWord);
+            statement.setString(4, keyWord);
+            statement.executeQuery();
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                User user = createUserFromResultSet(resultSet);
+                users.add(user);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return users;
+    }
+
+    @Override
     public List<User> findAllUsers() throws DaoException {
         List<User> users = new ArrayList<>();
         try (Connection connection = pool.takeConnection();

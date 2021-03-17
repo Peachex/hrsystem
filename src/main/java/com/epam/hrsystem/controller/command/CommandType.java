@@ -9,6 +9,7 @@ import com.epam.hrsystem.controller.command.impl.DeleteUserAccountCommand;
 import com.epam.hrsystem.controller.command.impl.DeleteVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.EditUserProfileCommand;
 import com.epam.hrsystem.controller.command.impl.EditVacancyInfoCommand;
+import com.epam.hrsystem.controller.command.impl.FindUsersByKeyWordCommand;
 import com.epam.hrsystem.controller.command.impl.FindVacanciesByKeyWordCommand;
 import com.epam.hrsystem.controller.command.impl.LoginCommand;
 import com.epam.hrsystem.controller.command.impl.LogoutCommand;
@@ -81,6 +82,9 @@ public enum CommandType {
     }},
     FIND_VACANCIES_BY_KEY_WORD {{
         this.command = new FindVacanciesByKeyWordCommand();
+    }},
+    FIND_USERS_BY_KEY_WORD {{
+        this.command = new FindUsersByKeyWordCommand();
     }},
     SORT_VACANCIES_BY_DATE {{
         this.command = new SortVacanciesByDateCommand();

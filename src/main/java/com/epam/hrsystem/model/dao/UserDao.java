@@ -25,6 +25,8 @@ public interface UserDao {
 
     List<User> findUsersByActivity(boolean areActive) throws DaoException;
 
+    List<User> findUsersByKeyWord(String keyWord) throws DaoException;
+
     List<User> findAllUsers() throws DaoException;
 
     boolean changeUserRole(long userId, UserRole role) throws DaoException;
