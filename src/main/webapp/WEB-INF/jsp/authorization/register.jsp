@@ -86,7 +86,7 @@
         </div>
         <div class="col-2 offset-5">
             <input type="password" class="form-control field" id="inputRepeatedPassword" name="repeatedPassword"
-                   value="${repeatedPassword}"
+                   value="${repeatedPassword}" placeholder="<fmt:message key="register.inputPasswordPlaceholder"/>"
                    required pattern="[\w\s\p{Punct}]{6,80}">
         </div>
         <div class="mt-3">
