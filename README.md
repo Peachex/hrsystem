@@ -44,7 +44,7 @@ HR-SYSTEM allows employees to hire new people. Employees create and manage vacan
 * Schedule a technical interview
 
 # Admin's scope
-commands
+* View all users
 
 # Authorized user's scope
 * Update profile information
