@@ -167,8 +167,10 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
                 result = false;
             }
         }
-        if (result) {
+        if (result && ApplicantRequestValidator.isApplicantStateValid(state)) {
             applicantRequest.setApplicantState(ApplicantState.valueOf(state));
+        } else {
+            result = false;
         }
         return result;
     }

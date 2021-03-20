@@ -16,6 +16,7 @@ public class RequestParameter {
     public static final String USER = "user";
     public static final String USERS = "users";
     public static final String USER_ID = "userId";
+    public static final String USER_ROLE = "userRole";
 
     //Vacancy
     public static final String POSITION = "position";

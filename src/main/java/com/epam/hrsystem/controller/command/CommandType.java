@@ -3,6 +3,7 @@ package com.epam.hrsystem.controller.command;
 import com.epam.hrsystem.controller.command.impl.BlockUserCommand;
 import com.epam.hrsystem.controller.command.impl.ChangeLanguageCommand;
 import com.epam.hrsystem.controller.command.impl.ChangeUserPasswordCommand;
+import com.epam.hrsystem.controller.command.impl.ChangeUserRoleCommand;
 import com.epam.hrsystem.controller.command.impl.CreateInterviewResultCommand;
 import com.epam.hrsystem.controller.command.impl.CreateVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.CreateApplicantRequestCommand;
@@ -140,11 +141,14 @@ public enum CommandType {
     CHANGE_USER_PASSWORD {{
         this.command = new ChangeUserPasswordCommand();
     }},
-    BLOCK_USER{{
+    BLOCK_USER {{
         this.command = new BlockUserCommand();
     }},
-    UNBLOCK_USER{{
+    UNBLOCK_USER {{
         this.command = new UnblockUserCommand();
+    }},
+    CHANGE_USER_ROLE {{
+        this.command = new ChangeUserRoleCommand();
     }};
 
     ActionCommand command;

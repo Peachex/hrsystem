@@ -113,6 +113,9 @@ public class UserValidator {
     }
 
     public static boolean isUserRoleValid(String role) {
+        if (role == null || role.isEmpty()) {
+            return false;
+        }
         boolean result = Arrays.stream(UserRole.values())
                 .map(Enum::toString)
                 .collect(Collectors.toList())

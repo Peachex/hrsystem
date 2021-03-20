@@ -44,6 +44,10 @@
             <p class="card-text"><ctg:text text="${user.lastName}"/></p>
         </div>
         <div class="card-body">
+            <h4 class="card-title"><fmt:message key="user_info.role"/></h4>
+            <p class="card-text"><ctg:text text="${user.role}"/></p>
+        </div>
+        <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.dateOfBirth"/></h4>
             <p class="card-text"><ctg:text text="${user.dateOfBirth}"/></p>
         </div>

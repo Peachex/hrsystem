@@ -31,6 +31,9 @@ public class ApplicantRequestValidator {
     }
 
     public static boolean isApplicantStateValid(String state) {
+        if (state == null || state.isEmpty()) {
+            return false;
+        }
         boolean result = Arrays.stream(ApplicantState.values())
                 .map(Enum::toString)
                 .collect(Collectors.toList())
