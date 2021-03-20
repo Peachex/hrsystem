@@ -80,6 +80,8 @@
             <th scope="col"><fmt:message key="profile.lastName"/></th>
             <th scope="col"><fmt:message key="profile.phoneNumber"/></th>
             <th scope="col"><fmt:message key="profile.email"/></th>
+            <th scope="col"><fmt:message key="user_info.role"/></th>
+            <th scope="col"><fmt:message key="user_isActive"/></th>
             <th scope="col"><fmt:message key="table_action"/></th>
         </tr>
         </thead>
@@ -90,6 +92,8 @@
             <th scope="row"><ctg:text text="${user.lastName}"/></th>
             <th scope="row"><ctg:text text="${user.phoneNumber}"/></th>
             <th scope="row"><ctg:text text="${user.email}"/></th>
+            <th scope="row"><ctg:text text="${user.role}"/></th>
+            <th scope="row"><ctg:text text="${user.isActive}"/></th>
             <th scope="row"><a
                     href="<c:url value="to_admin_user_info.do?userId=${user.id}"/>">
                 <fmt:message key="link.moreInfo"/></a></th>

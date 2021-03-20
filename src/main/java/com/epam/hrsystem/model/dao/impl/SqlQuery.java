@@ -26,7 +26,8 @@ public class SqlQuery {
     public static final String SQL_UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE user_id = ?;";
 
     public static final String SQL_SELECT_ALL_USERS = "SELECT user_id, photo_name, first_name, last_name, date_of_birth," +
-            " phone_number, email, is_active, role FROM users JOIN user_roles ON role_id_fk = user_role_id;";
+            " phone_number, email, is_active, role FROM users JOIN user_roles ON role_id_fk = user_role_id ORDER BY role ASC," +
+            "first_name ASC, last_name ASC;";
 
     public static final String SQL_UPDATE_USER_ROLE = "UPDATE users SET role_id_fk = ? WHERE user_id = ?;";
 
