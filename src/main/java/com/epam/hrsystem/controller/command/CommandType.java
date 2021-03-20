@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command;
 
+import com.epam.hrsystem.controller.command.impl.BlockUserCommand;
 import com.epam.hrsystem.controller.command.impl.ChangeLanguageCommand;
 import com.epam.hrsystem.controller.command.impl.ChangeUserPasswordCommand;
 import com.epam.hrsystem.controller.command.impl.CreateInterviewResultCommand;
@@ -25,14 +26,16 @@ import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithActiveA
 import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithApplicantsRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithNotActiveApplicantsRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.SortVacanciesByDateCommand;
+import com.epam.hrsystem.controller.command.impl.ToAdminUserInfoCommand;
 import com.epam.hrsystem.controller.command.impl.ToApplicantRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeApplicantRequestCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeVacancyInfoCommand;
-import com.epam.hrsystem.controller.command.impl.ToUserListCommand;
+import com.epam.hrsystem.controller.command.impl.ToAdminUserListCommand;
 import com.epam.hrsystem.controller.command.impl.ToUserProfileCommand;
 import com.epam.hrsystem.controller.command.impl.ToVacancyInfoCommand;
 import com.epam.hrsystem.controller.command.impl.ToVacanciesCommand;
+import com.epam.hrsystem.controller.command.impl.UnblockUserCommand;
 
 public enum CommandType {
     REGISTER {{
@@ -71,8 +74,11 @@ public enum CommandType {
     TO_VACANCY_INFO {{
         this.command = new ToVacancyInfoCommand();
     }},
-    TO_USER_LIST {{
-        this.command = new ToUserListCommand();
+    TO_ADMIN_USER_LIST {{
+        this.command = new ToAdminUserListCommand();
+    }},
+    TO_ADMIN_USER_INFO {{
+        this.command = new ToAdminUserInfoCommand();
     }},
     CREATE_VACANCY {{
         this.command = new CreateVacancyCommand();
@@ -133,6 +139,12 @@ public enum CommandType {
     }},
     CHANGE_USER_PASSWORD {{
         this.command = new ChangeUserPasswordCommand();
+    }},
+    BLOCK_USER{{
+        this.command = new BlockUserCommand();
+    }},
+    UNBLOCK_USER{{
+        this.command = new UnblockUserCommand();
     }};
 
     ActionCommand command;

@@ -31,5 +31,7 @@ public interface UserService {
 
     Optional<User> updateProfile(long userId, Map<String, String> newFields) throws ServiceException;
 
+    Optional<User> findUserById(long userId) throws ServiceException;
+
     List<User> findUsersByKeyWord(String keyWord) throws ServiceException;
 }

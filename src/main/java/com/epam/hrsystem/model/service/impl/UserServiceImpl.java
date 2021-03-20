@@ -186,6 +186,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findUserById(long userId) throws ServiceException {
+        try {
+            Optional<User> user = dao.findUserById(userId);
+            return user;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<User> findUsersByKeyWord(String keyWord) throws ServiceException {
         try {
             String keyWordForQuery = PERCENT_SIGN + keyWord + PERCENT_SIGN;

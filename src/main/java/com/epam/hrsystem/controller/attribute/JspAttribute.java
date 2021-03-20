@@ -25,6 +25,9 @@ public class JspAttribute {
     public static final String ERROR_INPUT_DATA_ATTRIBUTE = "errorInputData";
     public static final String ERROR_INPUT_DATA_MESSAGE = "Input data isn't valid, check fields";
 
+    public static final String ERROR_USER_BLOCKING_ATTRIBUTE = "errorUserBlocking";
+    public static final String ERROR_USER_BLOCKING_MESSAGE = "Couldn't block user";
+
     public static final String NO_VACANCIES_ATTRIBUTE = "noVacancies";
     public static final String NO_VACANCIES_BY_REQUEST_MESSAGE = "No vacancies by your request";
     public static final String NO_VACANCIES_MESSAGE = "No vacancies";
@@ -52,6 +55,8 @@ public class JspAttribute {
     public static final String USER_ACCOUNT_IS_DELETED_ATTRIBUTE = "accountIsDeleted";
     public static final String USER_ACCOUNT_IS_DELETED_MESSAGE = "Couldn't login cause your account was deleted";
 
+    public static final String NO_USER_ATTRIBUTE = "noUser";
+    public static final String NO_USER_MESSAGE = "No user";
     public static final String NO_USERS_ATTRIBUTE = "noUsers";
     public static final String NO_USERS_MESSAGE = "No users";
     public static final String NO_USERS_BY_REQUEST_MESSAGE = "No users by your request";

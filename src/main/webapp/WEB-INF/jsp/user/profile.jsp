@@ -23,7 +23,6 @@
 <body>
 <div class="main-container">
     <%@ include file="../home/header.jsp" %>
-    <c:set var="applicantRequests" scope="request" value="${applicantRequests}"/>
 
     <wrong-message>
         ${errorInputData}

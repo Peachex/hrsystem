@@ -70,7 +70,7 @@
                                     key="user.employeeVacancies"/></a></li>
                         </c:if>
                         <c:if test="${role.toString().equals(admin)}">
-                            <li><a class="dropdown-item" href="to_user_list.do"><fmt:message
+                            <li><a class="dropdown-item" href="to_admin_user_list.do"><fmt:message
                                     key="header.adminUsers"/></a></li>
                         </c:if>
                         <li>
