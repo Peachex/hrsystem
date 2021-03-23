@@ -151,6 +151,34 @@ LOCK TABLES `interview_results` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user_reports`
+--
+
+DROP TABLE IF EXISTS `user_reports`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_reports` (
+  `user_report_id` bigint NOT NULL AUTO_INCREMENT,
+  `subject` varchar(100) COLLATE utf8_bin NOT NULL,
+  `comment` text COLLATE utf8_bin NOT NULL,
+  `creation_date` date NOT NULL,
+  `user_id_fk` bigint NOT NULL,
+  PRIMARY KEY (`user_report_id`),
+  KEY `user_reports_user_id_idx` (`user_id_fk`),
+  CONSTRAINT `user_reports_user_id` FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_reports`
+--
+
+LOCK TABLES `user_reports` WRITE;
+/*!40000 ALTER TABLE `user_reports` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_reports` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_roles`
 --
 
@@ -253,4 +281,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-04 20:39:06
+-- Dump completed on 2021-03-23 20:19:07
