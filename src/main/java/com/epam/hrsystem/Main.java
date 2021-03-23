@@ -2,9 +2,12 @@ package com.epam.hrsystem;
 
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.User;
+import com.epam.hrsystem.model.entity.UserReport;
+import com.epam.hrsystem.model.entity.UserRole;
 import com.epam.hrsystem.model.service.UserService;
 import com.epam.hrsystem.model.service.impl.ServiceHolder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Main {
@@ -18,10 +21,10 @@ public class Main {
         System.out.println(service.createInterviewResult(fields, 39, 23));*/
         /*ApplicantRequest applicantRequest = service.findApplicantRequestByVacancyIdAndApplicantId(39, 23).get();
         System.out.println(applicantRequest);*/
-        UserService userService = ServiceHolder.HOLDER.getUserService();
+        /*UserService userService = ServiceHolder.HOLDER.getUserService();
         List<User> users = userService.findAllUsers();
         for (User user : users) {
             System.out.println(user);
-        }
+        }*/
     }
 }
