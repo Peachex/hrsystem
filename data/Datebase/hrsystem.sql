@@ -159,6 +159,7 @@ DROP TABLE IF EXISTS `user_reports`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_reports` (
   `user_report_id` bigint NOT NULL AUTO_INCREMENT,
+  `is_available` bit(1) NOT NULL,
   `subject` varchar(100) COLLATE utf8_bin NOT NULL,
   `comment` text COLLATE utf8_bin NOT NULL,
   `creation_date` date NOT NULL,
@@ -281,4 +282,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-23 20:19:07
+-- Dump completed on 2021-03-23 20:32:49
