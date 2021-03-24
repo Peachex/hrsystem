@@ -65,6 +65,9 @@ public class Controller extends HttpServlet {
                 }
                 case RETURN_WITH_REDIRECT: {
                     String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
+                    if (previousUrl == null || previousUrl.isEmpty()) {
+                        previousUrl = request.getContextPath() + ServletAttribute.HOME_URL_PATTERN;
+                    }
                     response.sendRedirect(previousUrl);
                     break;
                 }
