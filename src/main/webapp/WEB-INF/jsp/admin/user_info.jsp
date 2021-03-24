@@ -24,7 +24,7 @@
 <div class="main-container">
     <%@ include file="../home/header.jsp" %>
 
-    <c:set var="user" scope="request" value="${user}"/>
+    <c:set var="user" scope="request" value="${requestScope.user}"/>
 
     <wrong-message>
         ${errorInputData}
@@ -63,7 +63,7 @@
         <div class="card-body">
             <h4 class="card-title"><fmt:message key="profile.avatar"/></h4>
             <p class="card-text"><img
-                    src="${pageContext.request.contextPath}/provide_image.do?fileName=${sessionScope.user.photoName}"
+                    src="${pageContext.request.contextPath}/provide_image.do?fileName=${user.photoName}"
                     width="128" height="128" class="rounded" alt="..."></p>
             <form action="avatar.upload" method="post" enctype="multipart/form-data">
                 <input type="file" name="file" class="form-control-file"/>

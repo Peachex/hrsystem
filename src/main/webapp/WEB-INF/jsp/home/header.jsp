@@ -21,13 +21,12 @@
 <div class="container">
     <div class="row header">
         <nav class="nav">
-            <c:set var="role" scope="session" value="${currentRole}"/>
+            <c:set var="role" scope="session" value="${sessionScope.currentRole}"/>
             <c:set var="guest" scope="session" value="GUEST"/>
             <c:set var="admin" scope="session" value="ADMIN"/>
             <c:set var="applicant" scope="session" value="APPLICANT"/>
             <c:set var="employee" scope="session" value="EMPLOYEE"/>
-            <c:set var="user" scope="session" value="${user}"/>
-            <c:set var="userPhotoName" scope="session" value="${userPhotoName}"/>
+            <c:set var="user" scope="session" value="${sessionScope.user}"/>
 
             <a class="nav-link header-link" href="home"><fmt:message key="header.home"/> </a>
             <a class="nav-link header-link offset-1" href="to_vacancies.do"><fmt:message key="header.vacancy"/></a>
@@ -54,22 +53,22 @@
                 <li class="nav-item dropdown offset-1">
                     <a class="nav-link dropdown-toggle header-link" id="navbarDropdownUser" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        <ctg:text text="${user.firstName}"/> <ctg:text text="${user.lastName}"/> <ctg:text
-                            text=" (${user.role.toString().toLowerCase()})"/>
+                        <ctg:text text="${sessionScope.user.firstName}"/> <ctg:text text="${sessionScope.user.lastName}"/> <ctg:text
+                            text=" (${sessionScope.user.role.toString().toLowerCase()})"/>
 
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownUser">
                         <li><a class="dropdown-item" href="to_user_profile.do"><fmt:message
                                 key="user.profile"/></a></li>
-                        <c:if test="${role.toString().equals(applicant)}">
+                        <c:if test="${sessionScope.role.toString().equals(applicant)}">
                             <li><a class="dropdown-item" href="to_applicant_requests.do"><fmt:message
                                     key="user.requests"/></a></li>
                         </c:if>
-                        <c:if test="${role.toString().equals(employee)}">
+                        <c:if test="${sessionScope.role.toString().equals(employee)}">
                             <li><a class="dropdown-item" href="to_employee_vacancies.do"><fmt:message
                                     key="user.employeeVacancies"/></a></li>
                         </c:if>
-                        <c:if test="${role.toString().equals(admin)}">
+                        <c:if test="${sessionScope.role.toString().equals(admin)}">
                             <li><a class="dropdown-item" href="to_admin_user_list.do"><fmt:message
                                     key="header.adminUsers"/></a></li>
                         </c:if>
