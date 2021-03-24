@@ -23,7 +23,7 @@
 <body>
 <div class="main-container">
     <%@ include file="../home/header.jsp" %>
-    <c:set var="users" scope="session" value="${vacancies}"/>
+    <c:set var="vacancies" scope="session" value="${vacancies}"/>
 
     <div class="row align-items-start" style="margin-top: 3%; width:100%; padding-left: 7.8%;">
         <div class="col-2 offset-2" style="display: flex;justify-content: center">
@@ -66,7 +66,7 @@
     </div>
 
     <div class="mt-3">
-        <vacancies-number><fmt:message key="vacancy_vacanciesAmount"/> ${users.size()}</vacancies-number>
+        <vacancies-number><fmt:message key="vacancy_vacanciesAmount"/> ${vacancies.size()}</vacancies-number>
     </div>
 
     <table class="table table-dark table-bordered border-secondary mt-4 offset-2" style="width: 70%">
@@ -80,13 +80,13 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="user" items="${users}">
+        <c:forEach var="vac" items="${vacancies}">
         <tr class="table-secondary">
-            <th scope="row"><ctg:text text="${user.position}"/></th>
-            <th scope="row"><ctg:text text="${user.country}"/></th>
-            <th scope="row"><ctg:text text="${user.city}"/></th>
-            <th scope="row"><ctg:text text="${user.creationDate}"/></th>
-            <th scope="row"><a href="<c:url value="to_vacancy_info.do?vacancyId=${user.id}"/>"><fmt:message
+            <th scope="row"><ctg:text text="${vac.position}"/></th>
+            <th scope="row"><ctg:text text="${vac.country}"/></th>
+            <th scope="row"><ctg:text text="${vac.city}"/></th>
+            <th scope="row"><ctg:text text="${vac.creationDate}"/></th>
+            <th scope="row"><a href="<c:url value="to_vacancy_info.do?vacancyId=${vac.id}"/>"><fmt:message
                     key="link.moreInfo"/></a></th>
         <tr>
             </c:forEach>
