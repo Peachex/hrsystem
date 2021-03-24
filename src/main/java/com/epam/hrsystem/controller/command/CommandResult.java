@@ -11,7 +11,6 @@ public class CommandResult {
     public enum Type {
         FORWARD,
         REDIRECT,
-        RETURN_WITH_FORWARD,
         RETURN_WITH_REDIRECT,
     }
 

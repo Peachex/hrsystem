@@ -58,15 +58,10 @@ public class Controller extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + urlPath);
                     break;
                 }
-                case RETURN_WITH_FORWARD: {
-                    String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
-                    request.getRequestDispatcher(previousUrl).forward(request, response);
-                    break;
-                }
                 case RETURN_WITH_REDIRECT: {
                     String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
                     if (previousUrl == null || previousUrl.isEmpty()) {
-                        previousUrl = request.getContextPath() + ServletAttribute.HOME_URL_PATTERN;
+                        previousUrl = request.getContextPath() + CommandResult.DEFAULT_PATH;
                     }
                     response.sendRedirect(previousUrl);
                     break;
