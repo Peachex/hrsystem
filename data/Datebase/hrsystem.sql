@@ -160,14 +160,15 @@ DROP TABLE IF EXISTS `user_reports`;
 CREATE TABLE `user_reports` (
   `user_report_id` bigint NOT NULL AUTO_INCREMENT,
   `is_available` bit(1) NOT NULL,
-  `subject` varchar(100) COLLATE utf8_bin NOT NULL,
-  `comment` text COLLATE utf8_bin NOT NULL,
+  `subject` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `comment` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `response` text COLLATE utf8_bin,
   `creation_date` date NOT NULL,
   `user_id_fk` bigint NOT NULL,
   PRIMARY KEY (`user_report_id`),
   KEY `user_reports_user_id_idx` (`user_id_fk`),
   CONSTRAINT `user_reports_user_id` FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,6 +177,7 @@ CREATE TABLE `user_reports` (
 
 LOCK TABLES `user_reports` WRITE;
 /*!40000 ALTER TABLE `user_reports` DISABLE KEYS */;
+INSERT INTO `user_reports` VALUES (1,_binary '','Bug','Error bug waidjiawd',NULL,'2021-03-24',23),(2,_binary '','ERROR','Error bug waidjiawd','Good news for y!','2021-03-24',23);
 /*!40000 ALTER TABLE `user_reports` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,4 +284,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-23 20:32:49
+-- Dump completed on 2021-03-24 14:29:27
