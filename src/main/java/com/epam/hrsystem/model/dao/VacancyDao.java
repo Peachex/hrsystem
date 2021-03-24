@@ -22,8 +22,6 @@ public interface VacancyDao {
 
     List<Vacancy> findEmployeeVacanciesWithApplicantsRequestsByActivity(long employeeId, boolean areActive) throws DaoException;
 
-    List<Vacancy> findAllVacancies() throws DaoException;
-
     List<Vacancy> findVacanciesByKeyWord(String keyWord) throws DaoException;
 
     boolean updateVacancyInfo(Vacancy vacancy) throws DaoException;

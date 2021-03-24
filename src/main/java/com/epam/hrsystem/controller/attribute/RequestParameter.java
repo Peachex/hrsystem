@@ -42,6 +42,10 @@ public class RequestParameter {
     public static final String APPLICANT_STATE = "applicantState";
     public static final String TECHNICAL_INTERVIEW_DATE = "technicalInterviewDate";
 
+    //User report
+    public static final String USER_REPORT_SUBJECT = "subject";
+    public static final String USER_REPORT_COMMENT = "comment";
+
     //Different
     public static final String NEW_LOCALE = "newLocale";
 

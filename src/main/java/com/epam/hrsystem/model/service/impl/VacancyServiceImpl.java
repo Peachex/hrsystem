@@ -76,26 +76,6 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     @Override
-    public List<Vacancy> findAllVacancies() throws ServiceException {
-        try {
-            List<Vacancy> vacancies = dao.findAllVacancies();
-            return vacancies;
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public List<Vacancy> findDeletedVacancies() throws ServiceException {
-        try {
-            List<Vacancy> vacancies = dao.findVacanciesByAvailability(false);
-            return vacancies;
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
     public List<Vacancy> findAvailableVacancies() throws ServiceException {
         try {
             List<Vacancy> vacancies = dao.findVacanciesByAvailability(true);

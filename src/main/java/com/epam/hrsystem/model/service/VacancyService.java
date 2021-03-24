@@ -14,10 +14,6 @@ public interface VacancyService {
 
     boolean restoreVacancy(long vacancyId, long employeeId) throws ServiceException;
 
-    List<Vacancy> findAllVacancies() throws ServiceException;
-
-    List<Vacancy> findDeletedVacancies() throws ServiceException;
-
     List<Vacancy> findAvailableVacancies() throws ServiceException;
 
     List<Vacancy> findEmployeeVacancies(long employeeId) throws ServiceException;

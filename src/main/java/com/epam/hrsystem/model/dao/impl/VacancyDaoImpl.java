@@ -146,23 +146,6 @@ public class VacancyDaoImpl implements VacancyDao {
     }
 
     @Override
-    public List<Vacancy> findAllVacancies() throws DaoException {
-        List<Vacancy> vacancies = new ArrayList<>();
-        try (Connection connection = pool.takeConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeQuery(SqlQuery.SQL_SELECT_ALL_VACANCIES);
-            ResultSet resultSet = statement.getResultSet();
-            while (resultSet.next()) {
-                Vacancy vacancy = createVacancyFromResultSet(resultSet);
-                vacancies.add(vacancy);
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException(e);
-        }
-        return vacancies;
-    }
-
-    @Override
     public List<Vacancy> findVacanciesByKeyWord(String keyWord) throws DaoException {
         List<Vacancy> vacancies = new ArrayList<>();
         try (Connection connection = pool.takeConnection();
