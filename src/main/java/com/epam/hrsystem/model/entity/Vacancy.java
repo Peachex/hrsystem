@@ -24,12 +24,13 @@ public class Vacancy {
         this.employee = employee;
     }
 
-    public Vacancy(boolean isAvailable, String position, String description, String country, String city) {
+    public Vacancy(boolean isAvailable, String position, String description, String country, String city, LocalDate creationDate) {
         this.isAvailable = isAvailable;
         this.position = position;
         this.description = description;
         this.country = country;
         this.city = city;
+        this.creationDate = creationDate;
     }
 
     public long getId() {

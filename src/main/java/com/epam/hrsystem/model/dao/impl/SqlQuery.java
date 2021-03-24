@@ -2,6 +2,7 @@ package com.epam.hrsystem.model.dao.impl;
 
 public class SqlQuery {
     //todo delete comments
+    //fixme delete unnecessary joins!!!!
 
     // USER QUERIES
     public static final String SQL_SELECT_EMAIL = "SELECT email FROM users WHERE email = ?;";
@@ -135,6 +136,21 @@ public class SqlQuery {
     public static final String SQL_FIND_INTERVIEW_RESULT_ID_BY_INTERVIEW_RESULT = "SELECT interview_result_id FROM interview_results WHERE rating = ? AND comment = ?;";
 
     public static final String SQL_FIND_INTERVIEW_RESULT_BY_ID = "SELECT interview_result_id, rating, comment FROM interview_results WHERE interview_result_id = ?;";
+
+    //USER REPORT QUERIES
+    public static final String SQL_CHECK_USER_REPORT_FOR_EXISTENCE = "SELECT user_report_id FROM user_reports WHERE is_available = '1' AND subject = ? AND comment = ? AND user_id_fk = ?;";
+
+    public static final String SQL_INSERT_USER_REPORT = "INSERT INTO user_reports(is_available, subject, comment, creation_date, user_id_fk) VALUES (?, ?, ?, ?, ?);";
+
+    public static final String SQL_FIND_USER_REPORT_BY_ID = "SELECT user_report_id, is_available, subject, comment, creation_date, user_id_fk FROM user_reports" +
+            " WHERE user_report_id = ?;";
+
+    public static final String SQL_UPDATE_USER_REPORT_AVAILABILITY = "UPDATE user_reports SET is_available = ? WHERE user_report_id = ?;";
+
+    public static final String SQL_SELECT_ALL_USER_REPORTS = "SELECT user_report_id, is_available, subject, comment, creation_date, user_id_fk FROM user_reports;";
+
+    public static final String SQL_FIND_USER_REPORTS_BY_AVAILABILITY = "SELECT user_report_id, is_available, subject, comment, creation_date, user_id_fk" +
+            " FROM user_reports WHERE is_available = ?;";
 
     private SqlQuery() {
     }

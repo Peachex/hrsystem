@@ -6,6 +6,7 @@ public enum FactoryHolder {
     private final InterviewResultFactory interviewResultFactory = new InterviewResultFactory();
     private final UserFactory userFactory = new UserFactory();
     private final VacancyFactory vacancyFactory = new VacancyFactory();
+    private final UserReportFactory userReportFactory = new UserReportFactory(); //fixme change type to interface type
 
     public ApplicantRequestFactory getApplicantRequestFactory() {
         return applicantRequestFactory;
@@ -21,5 +22,9 @@ public enum FactoryHolder {
 
     public VacancyFactory getVacancyFactory() {
         return vacancyFactory;
+    }
+
+    public UserReportFactory getUserReportFactory() {
+        return userReportFactory;
     }
 }

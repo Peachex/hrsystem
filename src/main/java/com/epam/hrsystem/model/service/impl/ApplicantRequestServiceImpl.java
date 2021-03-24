@@ -41,7 +41,7 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
                     ApplicantRequest request = requestOptional.get();
                     request.setApplicant(applicant);
                     request.setVacancy(vacancyOptional.get());
-                    if (!isApplicantRequestExists(request)) {
+                    if (!applicantRequestExists(request)) {
                         result = applicantRequestDao.add(request);
                     }
                 }
@@ -146,7 +146,7 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     }
 
     @Override
-    public boolean isApplicantRequestExists(ApplicantRequest request) throws ServiceException {
+    public boolean applicantRequestExists(ApplicantRequest request) throws ServiceException {
         boolean result;
         try {
             result = applicantRequestDao.applicantRequestExists(request);

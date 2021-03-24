@@ -12,7 +12,6 @@ import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.validator.VacancyValidator;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -35,7 +34,6 @@ public class VacancyServiceImpl implements VacancyService {
                 Optional<User> employee = DaoHolder.HOLDER.getUserDao().findUserById(employeeId);
                 if (employee.isPresent()) {
                     Vacancy vacancy = vacancyOptional.get();
-                    vacancy.setCreationDate(LocalDate.now());
                     vacancy.setEmployee(employee.get());
                     if (addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity())
                             && (!dao.vacancyExists(vacancy))) {

@@ -21,5 +21,5 @@ public interface ApplicantRequestService {
 
     boolean scheduleTechnicalInterview(String technicalInterviewDateStr, long vacancyId, long applicantId) throws ServiceException;
 
-    boolean isApplicantRequestExists(ApplicantRequest request) throws ServiceException;
+    boolean applicantRequestExists(ApplicantRequest request) throws ServiceException;
 }
