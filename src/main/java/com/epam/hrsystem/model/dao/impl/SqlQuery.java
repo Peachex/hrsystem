@@ -2,7 +2,6 @@ package com.epam.hrsystem.model.dao.impl;
 
 public class SqlQuery {
     //todo delete comments
-    //fixme delete unnecessary joins!!!!
 
     // USER QUERIES
     public static final String SQL_SELECT_EMAIL = "SELECT email FROM users WHERE email = ?;";
