@@ -99,6 +99,24 @@ public class UserReportServiceImpl implements UserReportService {
     }
 
     @Override
+    public boolean createResponse(long reportId, String response) throws ServiceException {
+        boolean result = false;
+        try {
+            Optional<UserReport> reportOptional = dao.findUserReportById(reportId);
+            if (reportOptional.isPresent()) {
+                UserReport report = reportOptional.get();
+                if (report.getResponse() == null) {
+                    report.setResponse(response);
+                    result = dao.updateUserReportResponse(report);
+                }
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
     public boolean userReportExists(UserReport report) throws ServiceException {
         boolean result;
         try {

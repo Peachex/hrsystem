@@ -8,6 +8,7 @@ public class UserReport {
     private boolean isAvailable;
     private String subject;
     private String comment;
+    private String response;
     private User user;
 
     public UserReport(long id, boolean isAvailable, String subject, String comment, LocalDate creationDate, User user) {
@@ -58,6 +59,14 @@ public class UserReport {
         return creationDate;
     }
 
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
     public User getUser() {
         return user;
     }
@@ -79,6 +88,7 @@ public class UserReport {
                 (this.user != null ? this.user.equals(other.user) : other.user == null) &&
                 (this.subject != null ? this.subject.equals(other.subject) : other.subject == null) &&
                 (this.comment != null ? this.comment.equals(other.comment) : other.comment == null) &&
+                (this.response != null ? this.response.equals(other.response) : other.response == null) &&
                 (this.creationDate != null ? this.creationDate.compareTo(other.creationDate) == 0 : other.creationDate == null);
     }
 
@@ -88,6 +98,7 @@ public class UserReport {
         result = 31 * result + Boolean.hashCode(isAvailable);
         result = 31 * result + (subject != null ? subject.hashCode() : 0);
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
+        result = 31 * result + (response != null ? response.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
@@ -100,6 +111,7 @@ public class UserReport {
         sb.append("is available = ").append(isAvailable).append("\n");
         sb.append("subject = ").append(subject).append("\n");
         sb.append("comment = ").append(comment).append("\n");
+        sb.append("response = ").append(response).append("\n");
         sb.append("creation date = ").append(creationDate).append("\n");
         sb.append("user id = ").append(user.getId()).append("\n");
         return sb.toString();

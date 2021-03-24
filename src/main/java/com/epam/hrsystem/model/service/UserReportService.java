@@ -19,5 +19,7 @@ public interface UserReportService {
 
     List<UserReport> findDeletedUserReports() throws ServiceException;
 
+    boolean createResponse(long reportId, String response) throws ServiceException;
+
     boolean userReportExists(UserReport report) throws ServiceException;
 }

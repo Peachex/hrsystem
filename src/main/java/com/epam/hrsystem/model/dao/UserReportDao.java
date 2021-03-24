@@ -17,5 +17,7 @@ public interface UserReportDao {
 
     List<UserReport> findUserReportsByAvailability(boolean areAvailable) throws DaoException;
 
+    boolean updateUserReportResponse(UserReport report) throws DaoException;
+
     boolean userReportExists(UserReport report) throws DaoException;
 }
