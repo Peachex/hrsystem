@@ -113,6 +113,7 @@ public class UserReportDaoImpl implements UserReportDao {
             statement.setString(1, keyWord);
             statement.setString(2, keyWord);
             statement.setString(3, keyWord);
+            statement.setString(4, keyWord);
             statement.executeQuery();
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {

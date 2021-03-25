@@ -150,7 +150,8 @@ public class SqlQuery {
     public static final String SQL_UPDATE_USER_REPORT_RESPONSE = "UPDATE user_reports SET response = ? WHERE user_report_id = ?;";
 
     public static final String SQL_FIND_USER_REPORTS_BY_KEY_WORD = "SELECT user_report_id, is_available, subject, comment, response," +
-            " creation_date, user_id_fk FROM user_reports WHERE subject LIKE ? OR comment LIKE ? OR response LIKE ? HAVING is_available = '1';";
+            " creation_date, user_id_fk FROM user_reports JOIN users ON user_id_fk = user_id WHERE subject LIKE ? OR comment LIKE ? OR response LIKE ? OR email LIKE ?" +
+            " HAVING is_available = '1';";
 
     private SqlQuery() {
     }
