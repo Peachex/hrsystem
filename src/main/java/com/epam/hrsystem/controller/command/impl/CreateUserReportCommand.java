@@ -1,6 +1,7 @@
 package com.epam.hrsystem.controller.command.impl;
 
 import com.epam.hrsystem.controller.attribute.JspAttribute;
+import com.epam.hrsystem.controller.attribute.MailMessage;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.ServletAttribute;
 import com.epam.hrsystem.controller.attribute.SessionAttribute;
@@ -8,8 +9,10 @@ import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
+import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.UserReportService;
 import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.util.mail.MailSender;
 import com.epam.hrsystem.validator.UserReportValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -39,7 +42,12 @@ public class CreateUserReportCommand implements ActionCommand {
         UserReportService service = ServiceHolder.HOLDER.getUserReportService();
         CommandResult result = new CommandResult(ServletAttribute.HOME_URL_PATTERN, CommandResult.Type.REDIRECT);
         try {
-            if (!service.createUserReport(fields, userId)) {
+            if (service.createUserReport(fields, userId)) {
+                MailSender mailSender = MailSender.MailSenderHolder.HOLDER.getMailSender();
+                User user = (User) session.getAttribute(SessionAttribute.USER);
+                mailSender.setupEmail(user.getEmail(), MailMessage.HR_SYSTEM_MAIL_SUBJECT, MailMessage.CREATION_USER_REPORT_MAIL_TEXT);
+                mailSender.send();
+            } else {
                 if (UserReportValidator.isUserReportFormValid(fields)) {
                     request.setAttribute(JspAttribute.ERROR_DUPLICATE_ATTRIBUTE, JspAttribute.ERROR_USER_REPORT_DUPLICATE_MESSAGE);
                 } else {

@@ -14,6 +14,8 @@ public class MailMessage {
 
     public static final String SCHEDULE_TECHNICAL_INTERVIEW_MAIL_TEXT = "Be ready for technical interview. Date: ";
 
+    public static final String CREATION_USER_REPORT_MAIL_TEXT = "Wait for ";
+
     private MailMessage() {
     }
 }
