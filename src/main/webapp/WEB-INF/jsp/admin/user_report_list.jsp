@@ -23,7 +23,7 @@
 <body>
 <div class="main-container">
     <%@ include file="../home/header.jsp" %>
-    <c:set var="reports" scope="session" value="${reports}"/>
+    <c:set var="reports" scope="request" value="${reports}"/>
 
     <wrong-message>
         ${noReport}
@@ -55,7 +55,7 @@
                     <fmt:message key="button.reports"/>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="filterDropDown">
-                    <li><a class="dropdown-item" href="see_active_reports.do"><fmt:message
+                    <li><a class="dropdown-item" href="see_available_reports.do"><fmt:message
                             key="button.activeReports"/> </a></li>
                     <li><a class="dropdown-item" href="see_deleted_reports.do"><fmt:message
                             key="button.notActiveReports"/> </a></li>

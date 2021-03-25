@@ -22,7 +22,9 @@ import com.epam.hrsystem.controller.command.impl.RestoreVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.ScheduleTechnicalInterviewCommand;
 import com.epam.hrsystem.controller.command.impl.SeeActiveEmployeeVacanciesCommand;
 import com.epam.hrsystem.controller.command.impl.SeeActiveUsersCommand;
+import com.epam.hrsystem.controller.command.impl.SeeAvailableReportsCommand;
 import com.epam.hrsystem.controller.command.impl.SeeDeletedEmployeeVacanciesCommand;
+import com.epam.hrsystem.controller.command.impl.SeeDeletedReportsCommand;
 import com.epam.hrsystem.controller.command.impl.SeeDeletedUsersCommand;
 import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithActiveApplicantsRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithApplicantsRequestsCommand;
@@ -157,6 +159,12 @@ public enum CommandType {
     }},
     CREATE_USER_REPORT {{
         this.command = new CreateUserReportCommand();
+    }},
+    SEE_AVAILABLE_REPORTS {{
+        this.command = new SeeAvailableReportsCommand();
+    }},
+    SEE_DELETED_REPORTS{{
+        this.command = new SeeDeletedReportsCommand();
     }};
 
     ActionCommand command;
