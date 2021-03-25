@@ -5,6 +5,7 @@ import com.epam.hrsystem.controller.command.impl.ChangeLanguageCommand;
 import com.epam.hrsystem.controller.command.impl.ChangeUserPasswordCommand;
 import com.epam.hrsystem.controller.command.impl.ChangeUserRoleCommand;
 import com.epam.hrsystem.controller.command.impl.CreateInterviewResultCommand;
+import com.epam.hrsystem.controller.command.impl.CreateUserReportCommand;
 import com.epam.hrsystem.controller.command.impl.CreateVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.CreateApplicantRequestCommand;
 import com.epam.hrsystem.controller.command.impl.DeleteUserAccountCommand;
@@ -149,6 +150,9 @@ public enum CommandType {
     }},
     CHANGE_USER_ROLE {{
         this.command = new ChangeUserRoleCommand();
+    }},
+    CREATE_USER_REPORT {{
+        this.command = new CreateUserReportCommand();
     }};
 
     ActionCommand command;

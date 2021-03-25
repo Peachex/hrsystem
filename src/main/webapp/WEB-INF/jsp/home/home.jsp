@@ -21,8 +21,9 @@
 <body>
 <div class="main-container">
     <%@ include file="header.jsp" %>
-    <div id="carouselExampleInterval" class="carousel carousel-dark slide offset-5"
-         style="width: 20%;margin-top: 14%"
+
+    <div id="carouselExampleInterval" class="carousel carousel-dark slide"
+         style="width: 20%;margin-top: 12%; margin-left: 40%;"
          data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="4000">
@@ -53,12 +54,18 @@
         </a>
     </div>
 
+    <wrong-message>
+        ${errorDuplicate}
+        ${errorInputData}
+    </wrong-message>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-secondary" style="margin-top: 5%; margin-left: 42%; width: 20%;"
-            data-bs-toggle="modal" data-bs-target="#createUserReportModal">
-        <fmt:message key="home.userReportTitle"/>
-    </button>
+    <c:if test="${!sessionScope.role.toString().equals(guest)}">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-secondary col-2 offset-5" style="margin-top: 3%; display: flex; justify-content: center;"
+                data-bs-toggle="modal" data-bs-target="#createUserReportModal">
+            <fmt:message key="home.userReportTitle"/>
+        </button>
+    </c:if>
 
     <!-- Modal -->
     <div class="modal fade" id="createUserReportModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
