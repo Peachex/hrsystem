@@ -59,9 +59,10 @@
         ${errorInputData}
     </wrong-message>
 
-    <c:if test="${!sessionScope.role.toString().equals(guest)}">
+    <c:if test="${sessionScope.role.toString().equals(applicant) || sessionScope.role.toString().equals(employee)}">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-secondary col-2 offset-5" style="margin-top: 3%; display: flex; justify-content: center;"
+        <button type="button" class="btn btn-secondary col-2 offset-5"
+                style="margin-top: 3%; display: flex; justify-content: center;"
                 data-bs-toggle="modal" data-bs-target="#createUserReportModal">
             <fmt:message key="home.userReportTitle"/>
         </button>

@@ -71,6 +71,9 @@
                         <c:if test="${sessionScope.role.toString().equals(admin)}">
                             <li><a class="dropdown-item" href="to_admin_user_list.do"><fmt:message
                                     key="header.adminUsers"/></a></li>
+                            <li><a class="dropdown-item" href="to_admin_user_report_list.do"><fmt:message
+                                    key="header.adminUserReports"/></a></li>
+
                         </c:if>
                         <li>
                             <hr class="dropdown-divider">

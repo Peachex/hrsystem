@@ -9,6 +9,8 @@ public class CommandName {
     public static final String TO_EMPLOYEE_APPLICANT_REQUEST = "/to_employee_applicant_request.do?vacancyId=";
     public static final String TO_ADMIN_USER_LIST = "/to_admin_user_list.do";
     public static final String TO_ADMIN_USER_INFO = "/to_admin_user_info.do?userId=";
+    public static final String TO_ADMIN_USER_REPORT_LIST = "/to_admin_user_report_list.do";
+
 
     private CommandName() {
     }

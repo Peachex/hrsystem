@@ -29,6 +29,7 @@ import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithApplica
 import com.epam.hrsystem.controller.command.impl.SeeEmployeeVacanciesWithNotActiveApplicantsRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.SortVacanciesByDateCommand;
 import com.epam.hrsystem.controller.command.impl.ToAdminUserInfoCommand;
+import com.epam.hrsystem.controller.command.impl.ToAdminUserReportListCommand;
 import com.epam.hrsystem.controller.command.impl.ToApplicantRequestsCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeApplicantRequestCommand;
 import com.epam.hrsystem.controller.command.impl.ToEmployeeVacanciesCommand;
@@ -81,6 +82,9 @@ public enum CommandType {
     }},
     TO_ADMIN_USER_INFO {{
         this.command = new ToAdminUserInfoCommand();
+    }},
+    TO_ADMIN_USER_REPORT_LIST {{
+        this.command = new ToAdminUserReportListCommand();
     }},
     CREATE_VACANCY {{
         this.command = new CreateVacancyCommand();

@@ -59,7 +59,7 @@ public class PermissionFilter implements Filter {
                 CommandType.RESTORE_VACANCY, CommandType.TO_USER_PROFILE, CommandType.EDIT_USER_PROFILE, CommandType.PROVIDE_IMAGE,
                 CommandType.CHANGE_USER_PASSWORD, CommandType.DELETE_USER_ACCOUNT, CommandType.TO_ADMIN_USER_LIST, CommandType.SEE_ACTIVE_USERS,
                 CommandType.SEE_DELETED_USERS, CommandType.FIND_USERS_BY_KEY_WORD, CommandType.TO_ADMIN_USER_INFO, CommandType.BLOCK_USER,
-                CommandType.UNBLOCK_USER, CommandType.CHANGE_USER_ROLE);
+                CommandType.UNBLOCK_USER, CommandType.CHANGE_USER_ROLE, CommandType.TO_ADMIN_USER_REPORT_LIST);
         adminCommands.addAll(sameCommands);
 
         permissionCommands.put(UserRole.GUEST, guestCommands);
