@@ -51,7 +51,7 @@ wrong-message {
 vacancies-number {
     font-size: 20px;
     display: flex;
-    color: #8f8f8f;
+    color: black;
     justify-content: center;
 }
 

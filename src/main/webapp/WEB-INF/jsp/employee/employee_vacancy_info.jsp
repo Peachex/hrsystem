@@ -34,7 +34,7 @@
                     <fmt:message key="vacancy_info.title"/>
                 </button>
             </h2>
-            <div id="flush-collapseOne" class="accordion-collapse collapse"
+            <div id="flush-collapseOne" class="accordion-collapse collapse show"
                  aria-labelledby="flush-headingOne"
                  data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">

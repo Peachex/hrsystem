@@ -22,7 +22,7 @@
 <div class="main-container">
     <%@ include file="header.jsp" %>
     <div id="carouselExampleInterval" class="carousel carousel-dark slide offset-5"
-         style="width: 20%;margin-top: 15%"
+         style="width: 20%;margin-top: 14%"
          data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="4000">
@@ -52,6 +52,62 @@
             <span class="visually-hidden">Next</span>
         </a>
     </div>
+
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-secondary" style="margin-top: 5%; margin-left: 42%; width: 20%;"
+            data-bs-toggle="modal" data-bs-target="#createUserReportModal">
+        <fmt:message key="home.userReportTitle"/>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="createUserReportModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><fmt:message key="home.userReportTitle"/></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form name="create-user-report-form" method="POST" action="create_user_report.do">
+                        <label for="inputSubject"><fmt:message
+                                key="home.userReportInputSubject"/> </label>
+                        <div class="form-group mt-1">
+                            <input type="text" class="form-control field" id="inputSubject" name="subject"
+                                   value="${subject}" placeholder=
+                                           "<fmt:message key="home.userReportInputSubjectPlaceholder"/>"
+                                   required pattern="[А-Яа-я\w\s\p{Punct}]{1,100}">
+                        </div>
+
+                        <div class="mt-3">
+                            <label for="inputComment"><fmt:message
+                                    key="home.userReportInputComment"/> </label>
+                        </div>
+                        <div class="form-group mt-1">
+                                    <textarea class="form-control" rows="5" id="inputComment"
+                                              name="comment" placeholder="<fmt:message
+                                             key="home.userReportInputCommentPlaceholder"/>"
+                                              required minlength="1" maxlength="25000">${comment}</textarea>
+                        </div>
+
+                        <div class="col-4">
+                            <button class="btn btn-outline-success button mt-4" style="margin-left: 100%" type="submit">
+                                <fmt:message
+                                        key="button.create"/></button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><fmt:message
+                            key="button.close"/></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
