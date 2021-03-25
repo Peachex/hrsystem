@@ -63,6 +63,7 @@ public class JspAttribute {
 
     public static final String NO_REPORTS_ATTRIBUTE = "noReports";
     public static final String NO_REPORTS_MESSAGE = "No reports";
+    public static final String NO_REPORTS_BY_REQUEST_MESSAGE = "No reports by your request";
 
 
     public static final String EMAIL_AVAILABLE_ERROR_MESSAGE = "Email is unavailable, try another one!";

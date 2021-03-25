@@ -16,6 +16,7 @@ import java.util.Optional;
 
 public class UserReportServiceImpl implements UserReportService {
     private static final UserReportDao dao = DaoHolder.HOLDER.getUserReportDao();
+    private static final String PERCENT_SIGN = "%";
 
     @Override
     public boolean createUserReport(Map<String, String> fields, long userId) throws ServiceException {
@@ -92,6 +93,17 @@ public class UserReportServiceImpl implements UserReportService {
     public List<UserReport> findDeletedUserReports() throws ServiceException {
         try {
             List<UserReport> reports = dao.findUserReportsByAvailability(false);
+            return reports;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<UserReport> findUserReportsByKeyWord(String keyWord) throws ServiceException {
+        try {
+            String keyWordForQuery = PERCENT_SIGN + keyWord + PERCENT_SIGN;
+            List<UserReport> reports = dao.findUserReportsByKeyWord(keyWordForQuery);
             return reports;
         } catch (DaoException e) {
             throw new ServiceException(e);

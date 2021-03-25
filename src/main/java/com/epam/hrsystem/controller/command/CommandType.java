@@ -12,6 +12,7 @@ import com.epam.hrsystem.controller.command.impl.DeleteUserAccountCommand;
 import com.epam.hrsystem.controller.command.impl.DeleteVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.EditUserProfileCommand;
 import com.epam.hrsystem.controller.command.impl.EditVacancyInfoCommand;
+import com.epam.hrsystem.controller.command.impl.FindReportsByKeyWordCommand;
 import com.epam.hrsystem.controller.command.impl.FindUsersByKeyWordCommand;
 import com.epam.hrsystem.controller.command.impl.FindVacanciesByKeyWordCommand;
 import com.epam.hrsystem.controller.command.impl.LoginCommand;
@@ -165,6 +166,9 @@ public enum CommandType {
     }},
     SEE_DELETED_REPORTS{{
         this.command = new SeeDeletedReportsCommand();
+    }},
+    FIND_REPORTS_BY_KEY_WORD{{
+        this.command = new FindReportsByKeyWordCommand();
     }};
 
     ActionCommand command;

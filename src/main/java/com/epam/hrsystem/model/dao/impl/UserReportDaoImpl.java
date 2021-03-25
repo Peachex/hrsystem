@@ -106,6 +106,26 @@ public class UserReportDaoImpl implements UserReportDao {
     }
 
     @Override
+    public List<UserReport> findUserReportsByKeyWord(String keyWord) throws DaoException {
+        List<UserReport> reports = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_USER_REPORTS_BY_KEY_WORD)) {
+            statement.setString(1, keyWord);
+            statement.setString(2, keyWord);
+            statement.setString(3, keyWord);
+            statement.executeQuery();
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                UserReport report = createUserReportFromResultSet(resultSet);
+                reports.add(report);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return reports;
+    }
+
+    @Override
     public boolean updateUserReportResponse(UserReport report) throws DaoException {
         boolean result;
         try (Connection connection = pool.takeConnection();

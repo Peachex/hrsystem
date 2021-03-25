@@ -17,6 +17,8 @@ public interface UserReportDao {
 
     List<UserReport> findUserReportsByAvailability(boolean areAvailable) throws DaoException;
 
+    List<UserReport> findUserReportsByKeyWord(String keyWord) throws DaoException;
+
     boolean updateUserReportResponse(UserReport report) throws DaoException;
 
     boolean userReportExists(UserReport report) throws DaoException;
