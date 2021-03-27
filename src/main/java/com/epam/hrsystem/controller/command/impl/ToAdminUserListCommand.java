@@ -13,6 +13,7 @@ import com.epam.hrsystem.model.service.impl.ServiceHolder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class ToAdminUserListCommand implements ActionCommand {
@@ -20,6 +21,8 @@ public class ToAdminUserListCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         UserService service = ServiceHolder.HOLDER.getUserService();
         CommandResult result = new CommandResult(PagePath.ADMIN_USER_LIST, CommandResult.Type.FORWARD);
+        HttpSession session = request.getSession();
+        session.removeAttribute(RequestParameter.REPORT_ID);
         try {
             List<User> users = service.findAllUsers();
             if (users.size() > 0) {

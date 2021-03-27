@@ -71,14 +71,6 @@
             </form>
         </div>
 
-        <div class="col-4 offset-4" style="display: flex;justify-content: center;">
-            <button type="button" class="btn btn-outline-secondary col-8 mb-1"
-                    style="display: flex;justify-content: center; margin-top: 10%; width: 100%"
-                    data-bs-toggle="modal" data-bs-target="#changeUserRoleModal">
-                <fmt:message key="button.changeRole"/>
-            </button>
-        </div>
-
         <div class="modal fade" id="changeUserRoleModal" data-bs-backdrop="static"
              data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -125,24 +117,51 @@
             </div>
         </div>
 
-        <c:if test="${user.isActive}">
-            <a class="btn btn-outline-secondary col-4 offset-4 mt-4"
-               style="display: flex;justify-content: center;"
-               href="block_user.do?userId=${user.id}" role="button"><fmt:message
-                    key="button.block"/> </a>
+        <div class="col-4 offset-4 mt-3" style="display: flex;justify-content: center;">
+            <div class="dropdown col-8 mb-4">
+                <button class="btn btn-outline-secondary dropdown-toggle button mt-3" type="button"
+                        id="actionDropDown"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <fmt:message key="button.action"/>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" style="width: 100%"
+                    aria-labelledby="actionDropDown">
+                    <li>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-secondary dropdown-item"
+                                data-bs-toggle="modal" data-bs-target="#changeUserRoleModal">
+                            <fmt:message key="button.changeRole"/>
+                        </button>
+                    </li>
+                    <c:if test="${user.isActive}">
+                        <li><a class="dropdown-item"
+                               href="block_user.do?userId=${user.id}"><fmt:message
+                                key="button.block"/> </a></li>
+                    </c:if>
+
+                    <c:if test="${!user.isActive}">
+                        <li><a class="dropdown-item"
+                               href="unblock_user.do?userId=${user.id}"><fmt:message
+                                key="button.unblock"/> </a></li>
+                    </c:if>
+                </ul>
+            </div>
+        </div>
+
+        <c:if test="${sessionScope.reportId == null}">
+            <a class="btn btn-secondary col-4 offset-4 mt-3"
+               style="display: flex;justify-content: center; margin-bottom: 5%"
+               href="to_admin_user_list.do" role="button"><fmt:message
+                    key="button.backToUserList"/> </a>
         </c:if>
 
-        <c:if test="${!user.isActive}">
-            <a class="btn btn-outline-secondary col-4 offset-4 mt-4"
-               style="display: flex;justify-content: center;"
-               href="unblock_user.do?userId=${user.id}" role="button"><fmt:message
-                    key="button.unblock"/> </a>
+        <c:if test="${sessionScope.reportId != null}">
+            <a class="btn btn-secondary col-4 offset-4 mt-3"
+               style="display: flex;justify-content: center; margin-bottom: 5%"
+               href="to_admin_user_report_info.do?reportId=${sessionScope.reportId}" role="button"><fmt:message
+                    key="button.backToReportList"/> </a>
         </c:if>
-
-        <a class="btn btn-secondary col-4 offset-4 mt-4"
-           style="display: flex;justify-content: center; margin-bottom: 5%"
-           href="to_admin_user_list.do" role="button"><fmt:message
-                key="button.back"/> </a>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"

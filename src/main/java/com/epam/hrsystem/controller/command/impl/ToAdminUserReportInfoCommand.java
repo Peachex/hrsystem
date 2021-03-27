@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class ToAdminUserReportInfoCommand implements ActionCommand {
@@ -33,6 +34,8 @@ public class ToAdminUserReportInfoCommand implements ActionCommand {
             if (reportOptional.isPresent()) {
                 UserReport report = reportOptional.get();
                 request.setAttribute(RequestParameter.REPORT, report);
+                HttpSession session = request.getSession();
+                session.setAttribute(RequestParameter.REPORT_ID, reportId);
                 result = new CommandResult(PagePath.ADMIN_USER_REPORT_INFO, CommandResult.Type.FORWARD);
             } else {
                 result = new CommandResult(CommandName.TO_ADMIN_USER_REPORT_LIST, CommandResult.Type.FORWARD);

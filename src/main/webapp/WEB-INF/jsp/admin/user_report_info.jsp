@@ -87,14 +87,6 @@
                     </c:if>
                 </ul>
             </div>
-
-            <%--<div class="col-4 offset-4" style="display: flex;justify-content: center;">
-                <button type="button" class="btn btn-outline-secondary col-8 mb-1"
-                        style="display: flex;justify-content: center; margin-top: 10%; width: 100%"
-                        data-bs-toggle="modal" data-bs-target="#changeUserRoleModal">
-                    <fmt:message key="button.changeRole"/>
-                </button>
-            </div>--%>
         </div>
 
         <div class="modal fade" id="createReportResponseModal" data-bs-backdrop="static"
