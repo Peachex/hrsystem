@@ -45,7 +45,9 @@ public class RequestParameter {
     //User report
     public static final String USER_REPORT_SUBJECT = "subject";
     public static final String USER_REPORT_COMMENT = "comment";
+    public static final String REPORT="report";
     public static final String REPORTS = "reports";
+    public static final String REPORT_ID="reportId";
 
     //Different
     public static final String NEW_LOCALE = "newLocale";

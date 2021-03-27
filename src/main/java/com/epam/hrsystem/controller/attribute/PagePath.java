@@ -13,6 +13,7 @@ public class PagePath {
     public static final String ADMIN_USER_LIST = "/WEB-INF/jsp/admin/user_list.jsp";
     public static final String ADMIN_USER_INFO = "/WEB-INF/jsp/admin/user_info.jsp";
     public static final String ADMIN_USER_REPORT_LIST = "/WEB-INF/jsp/admin/user_report_list.jsp";
+    public static final String ADMIN_USER_REPORT_INFO = "/WEB-INF/jsp/admin/user_report_info.jsp";
 
     private PagePath() {
     }

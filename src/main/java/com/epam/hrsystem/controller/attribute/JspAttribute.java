@@ -61,10 +61,11 @@ public class JspAttribute {
     public static final String NO_USERS_MESSAGE = "No users";
     public static final String NO_USERS_BY_REQUEST_MESSAGE = "No users by your request";
 
+    public static final String NO_REPORT_ATTRIBUTE = "noReport";
+    public static final String NO_REPORT_MESSAGE = "No report";
     public static final String NO_REPORTS_ATTRIBUTE = "noReports";
     public static final String NO_REPORTS_MESSAGE = "No reports";
     public static final String NO_REPORTS_BY_REQUEST_MESSAGE = "No reports by your request";
-
 
     public static final String EMAIL_AVAILABLE_ERROR_MESSAGE = "Email is unavailable, try another one!";
     public static final String INVALID_INPUT_DATA_MESSAGE = "";

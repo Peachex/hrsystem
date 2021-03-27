@@ -129,6 +129,17 @@ public class UserReportServiceImpl implements UserReportService {
     }
 
     @Override
+    public Optional<UserReport> findUserReportById(long reportId) throws ServiceException {
+        Optional<UserReport> report;
+        try {
+           report = dao.findUserReportById(reportId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return report;
+    }
+
+    @Override
     public boolean userReportExists(UserReport report) throws ServiceException {
         boolean result;
         try {
