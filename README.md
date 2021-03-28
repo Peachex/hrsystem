@@ -35,6 +35,7 @@ HR-SYSTEM allows employees to hire new people. Employees create and manage vacan
 # Applicant's scope
 * Create applicant request and apply for the selected vacancy
 * View applicant own requests
+* Create report (contact administration)
 
 # Employee's scope
 * Manage vacancy (CRUD)
@@ -42,9 +43,12 @@ HR-SYSTEM allows employees to hire new people. Employees create and manage vacan
 * View applicants profiles
 * Create interview result
 * Schedule a technical interview
+* Create report (contact administration)
 
 # Admin's scope
 * View all users
+* Manage users (block, change role)
+* Manage reports (create response)
 
 # Authorized user's scope
 * Update profile information
