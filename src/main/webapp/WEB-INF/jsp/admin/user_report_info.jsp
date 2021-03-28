@@ -29,6 +29,7 @@
     <wrong-message>
         ${errorInputData}
         ${noReport}
+        ${errorDuplicate}
     </wrong-message>
 
     <div class="card text-dark bg-light offset-3" style="margin-top: 1%;max-width: 50%; margin-bottom: 2%;">
@@ -52,7 +53,7 @@
             <p class="card-text"><ctg:text text="${report.user.email}"/></p>
         </div>
         <div class="card-body">
-            <h4 class="card-title"><fmt:message key="user_info.role"/></h4>
+            <h4 class="card-title"><fmt:message key="user_report_info.userRole"/></h4>
             <p class="card-text"><ctg:text text="${report.user.role}"/></p>
         </div>
 
@@ -96,26 +97,23 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title"><fmt:message
-                                key="button.changeRole"/></h4>
+                                key="user_report_info.reportCreation"/></h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body">
-                        <form name="change-user-role-form" method="POST"
-                              action="#">
-                            <input type="hidden" name="userId" value="${user.id}">
-                            <label for="selectUserRole"><fmt:message
-                                    key="user_info_change_user_role_modal.selectRole"/> </label>
-                            <select class="form-select mt-1" id="selectUserRole" name="userRole"
-                                    aria-label="Default select example" required>
-                                <option value="${applicant}"><fmt:message
-                                        key="user_info.roleApplicant"/></option>
-                                <option value="${employee}"><fmt:message
-                                        key="user_info.roleEmployee"/></option>
-                                <option value="${admin}"><fmt:message
-                                        key="user_info.roleAdmin"/></option>
-                            </select>
+                        <form name="create-report-response-form" method="POST"
+                              action="create_user_report_response.do">
+                            <input type="hidden" name="reportId" value="${report.id}">
+                            <label for="inputResponse"><fmt:message
+                                    key="user_report_info.inputResponse"/> </label>
+                            <div class="form-group mt-1">
+                                    <textarea class="form-control" rows="5" id="inputResponse"
+                                              name="response" placeholder="<fmt:message
+                                             key="user_report_info.inputResponsePlaceholder"/>"
+                                              required minlength="1" maxlength="25000">${response}</textarea>
+                            </div>
                             <div class="col-4">
                                 <button class="btn btn-outline-success button mt-4"
                                         style="margin-left: 100%" type="submit">

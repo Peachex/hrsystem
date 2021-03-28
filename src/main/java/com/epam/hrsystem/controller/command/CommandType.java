@@ -6,6 +6,7 @@ import com.epam.hrsystem.controller.command.impl.ChangeUserPasswordCommand;
 import com.epam.hrsystem.controller.command.impl.ChangeUserRoleCommand;
 import com.epam.hrsystem.controller.command.impl.CreateInterviewResultCommand;
 import com.epam.hrsystem.controller.command.impl.CreateUserReportCommand;
+import com.epam.hrsystem.controller.command.impl.CreateUserReportResponseCommand;
 import com.epam.hrsystem.controller.command.impl.CreateVacancyCommand;
 import com.epam.hrsystem.controller.command.impl.CreateApplicantRequestCommand;
 import com.epam.hrsystem.controller.command.impl.DeleteUserAccountCommand;
@@ -165,14 +166,17 @@ public enum CommandType {
     SEE_AVAILABLE_REPORTS {{
         this.command = new SeeAvailableReportsCommand();
     }},
-    SEE_DELETED_REPORTS{{
+    SEE_DELETED_REPORTS {{
         this.command = new SeeDeletedReportsCommand();
     }},
-    FIND_REPORTS_BY_KEY_WORD{{
+    FIND_REPORTS_BY_KEY_WORD {{
         this.command = new FindReportsByKeyWordCommand();
     }},
-    TO_ADMIN_USER_REPORT_INFO{{
+    TO_ADMIN_USER_REPORT_INFO {{
         this.command = new ToAdminUserReportInfoCommand();
+    }},
+    CREATE_USER_REPORT_RESPONSE {{
+        this.command = new CreateUserReportResponseCommand();
     }};
 
     ActionCommand command;

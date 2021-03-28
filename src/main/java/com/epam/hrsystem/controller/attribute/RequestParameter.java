@@ -45,15 +45,14 @@ public class RequestParameter {
     //User report
     public static final String USER_REPORT_SUBJECT = "subject";
     public static final String USER_REPORT_COMMENT = "comment";
-    public static final String REPORT="report";
+    public static final String REPORT = "report";
     public static final String REPORTS = "reports";
-    public static final String REPORT_ID="reportId";
+    public static final String REPORT_ID = "reportId";
+    public static final String USER_REPORT_RESPONSE = "response";
 
     //Different
     public static final String NEW_LOCALE = "newLocale";
-
     public static final String HEADER_REFERER = "REFERER";
-
     public static final String FILE_UPLOADING = "file";
     public static final String FILE_NAME = "fileName";
 

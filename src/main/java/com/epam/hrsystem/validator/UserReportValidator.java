@@ -14,6 +14,7 @@ public class UserReportValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final Pattern SUBJECT_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{1,100}");
     private static final Pattern COMMENT_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{1,25000}");
+    private static final Pattern RESPONSE_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{1,25000}");
 
     private UserReportValidator() {
     }
@@ -53,6 +54,18 @@ public class UserReportValidator {
         boolean result = matcher.matches();
         if (!result) {
             logger.log(Level.DEBUG, "Comment isn't valid: " + comment);
+        }
+        return result;
+    }
+
+    public static boolean isResponseValid(String response) {
+        if (response == null) {
+            return false;
+        }
+        Matcher matcher = RESPONSE_PATTERN.matcher(response);
+        boolean result = matcher.matches();
+        if (!result) {
+            logger.log(Level.DEBUG, "Response isn't valid: " + response);
         }
         return result;
     }

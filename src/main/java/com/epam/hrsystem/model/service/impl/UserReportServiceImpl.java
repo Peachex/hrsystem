@@ -9,6 +9,7 @@ import com.epam.hrsystem.model.entity.UserReport;
 import com.epam.hrsystem.model.factory.EntityFactory;
 import com.epam.hrsystem.model.factory.impl.FactoryHolder;
 import com.epam.hrsystem.model.service.UserReportService;
+import com.epam.hrsystem.validator.UserReportValidator;
 
 import java.util.List;
 import java.util.Map;
@@ -114,12 +115,14 @@ public class UserReportServiceImpl implements UserReportService {
     public boolean createResponse(long reportId, String response) throws ServiceException {
         boolean result = false;
         try {
-            Optional<UserReport> reportOptional = dao.findUserReportById(reportId);
-            if (reportOptional.isPresent()) {
-                UserReport report = reportOptional.get();
-                if (report.getResponse() == null) {
-                    report.setResponse(response);
-                    result = dao.updateUserReportResponse(report);
+            if (UserReportValidator.isResponseValid(response)) {
+                Optional<UserReport> reportOptional = dao.findUserReportById(reportId);
+                if (reportOptional.isPresent()) {
+                    UserReport report = reportOptional.get();
+                    if (report.getResponse() == null) {
+                        report.setResponse(response);
+                        result = dao.updateUserReportResponse(report);
+                    }
                 }
             }
         } catch (DaoException e) {
@@ -132,7 +135,7 @@ public class UserReportServiceImpl implements UserReportService {
     public Optional<UserReport> findUserReportById(long reportId) throws ServiceException {
         Optional<UserReport> report;
         try {
-           report = dao.findUserReportById(reportId);
+            report = dao.findUserReportById(reportId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

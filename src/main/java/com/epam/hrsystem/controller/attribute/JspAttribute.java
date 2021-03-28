@@ -14,6 +14,7 @@ public class JspAttribute {
 
     public static final String ERROR_DUPLICATE_ATTRIBUTE = "errorDuplicate";
     public static final String ERROR_VACANCY_DUPLICATE_MESSAGE = "Couldn't create vacancy cause there is same active vacancy";
+    public static final String ERROR_USER_REPORT_RESPONSE_DUPLICATE_MESSAGE = "Couldn't create report cause you have already created";
 
     public static final String ERROR_VACANCY_UPDATING_ATTRIBUTE = "errorVacancyUpdate";
     public static final String ERROR_VACANCY_UPDATING_MESSAGE = "Couldn't edit vacancy, there is same active vacancy";
@@ -71,6 +72,9 @@ public class JspAttribute {
     public static final String INVALID_INPUT_DATA_MESSAGE = "";
 
     public static final String ERROR_USER_REPORT_DUPLICATE_MESSAGE = "Couldn't create report cause there is same active report";
+
+    public static final String ERROR_USER_REPORT_RESPONSE_CREATION_ATTRIBUTE = "errorUserReportResponseCreation";
+    public static final String ERROR_USER_REPORT_RESPONSE_CREATION_MESSAGE = "Couldn't create response";
 
     public static final String ERROR_MESSAGE_INFO = "errorMessageInfo";
 
