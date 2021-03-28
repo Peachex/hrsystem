@@ -17,7 +17,7 @@ import java.util.Properties;
 public class MailSender {
     private static final Logger logger = LogManager.getLogger();
     private static final String MAIL_PROPERTY_FILE_PATH = "/property/mail.properties";
-    private static final String CONTENT_TYPE = "text/html";
+    private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
     private static Properties properties;
 
     static {
