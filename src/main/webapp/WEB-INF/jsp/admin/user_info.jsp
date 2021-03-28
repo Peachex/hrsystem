@@ -65,10 +65,6 @@
             <p class="card-text"><img
                     src="${pageContext.request.contextPath}/provide_image.do?fileName=${user.photoName}"
                     width="128" height="128" class="rounded" alt="..."></p>
-            <form action="avatar.upload" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" class="form-control-file"/>
-                <input type="submit" class="btn btn-outline-secondary" value="<fmt:message key="button.upload"/>"/>
-            </form>
         </div>
 
         <div class="modal fade" id="changeUserRoleModal" data-bs-backdrop="static"

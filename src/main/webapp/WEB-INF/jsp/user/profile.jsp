@@ -113,7 +113,7 @@
     <div class="modal fade" id="editProfileModal" data-bs-backdrop="static"
          data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title"><fmt:message key="profile.editInfoTitle"/></h4>

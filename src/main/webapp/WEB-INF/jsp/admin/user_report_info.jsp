@@ -64,7 +64,7 @@
             </div>
         </c:if>
 
-        <div class="col-4 offset-4 mt-3" style="display: flex;justify-content: center;">
+        <div class="col-6 offset-3 mt-3" style="display: flex;justify-content: center;">
             <div class="dropdown col-8 mb-4">
                 <button class="btn btn-outline-secondary dropdown-toggle button mt-3" type="button"
                         id="actionDropDown"
