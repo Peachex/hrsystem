@@ -12,6 +12,9 @@ public class ApplicantRequest {
     private InterviewResult technicalInterviewResult;
     private LocalDate technicalInterviewDate;
 
+    public ApplicantRequest() {
+    }
+
     public ApplicantRequest(long id, String summary, ApplicantState applicantState, User applicant,
                             Vacancy vacancy) {
         this.id = id;

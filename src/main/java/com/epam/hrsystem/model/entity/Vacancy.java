@@ -12,6 +12,9 @@ public class Vacancy {
     private LocalDate creationDate;
     private User employee;
 
+    public Vacancy() {
+    }
+
     public Vacancy(long id, boolean isAvailable, String position, String description, LocalDate creationDate,
                    String country, String city, User employee) {
         this.id = id;

@@ -3,13 +3,16 @@ package com.epam.hrsystem.model.entity;
 import java.time.LocalDate;
 
 public class UserReport {
-    private final LocalDate creationDate;
+    private LocalDate creationDate;
     private long id;
     private boolean isAvailable;
     private String subject;
     private String comment;
     private String response;
     private User user;
+
+    public UserReport() {
+    }
 
     public UserReport(long id, boolean isAvailable, String subject, String comment, LocalDate creationDate, User user) {
         this.id = id;

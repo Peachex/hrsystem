@@ -13,6 +13,9 @@ public class User {
     private String phoneNumber;
     private String email;
 
+    public User() {
+    }
+
     public User(long id, UserRole role, boolean isActive, String photoName, String firstName, String lastName,
                 LocalDate dateOfBirth, String phoneNumber, String email) {
         this.id = id;

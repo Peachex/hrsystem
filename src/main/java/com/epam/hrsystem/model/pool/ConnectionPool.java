@@ -20,7 +20,6 @@ public class ConnectionPool {
     private static final int FATAL_CONNECTION_ERROR_NUMBER = 5;
     private final Logger logger = LogManager.getLogger();
     private final BlockingQueue<ProxyConnection> freeConnections;
-    private final Queue<ProxyConnection> givenConnections;
 
     public enum ConnectionPoolHolder {
         POOL;
@@ -35,8 +34,7 @@ public class ConnectionPool {
     }
 
     private ConnectionPool() {
-        freeConnections = new LinkedBlockingDeque<>();
-        givenConnections = new ArrayDeque<>();
+        freeConnections = new LinkedBlockingDeque<>(); //fixme
         int errorCounter = 0;
         int poolSize;
         try {
@@ -65,7 +63,6 @@ public class ConnectionPool {
         ProxyConnection connection;
         try {
             connection = freeConnections.take();
-            givenConnections.offer(connection);
         } catch (InterruptedException e) {
             logger.log(Level.ERROR, "Couldn't take connection: " + e);
             throw new ConnectionPoolException(e);
@@ -74,7 +71,7 @@ public class ConnectionPool {
     }
 
     public void releaseConnection(Connection connection) {
-        if (connection instanceof ProxyConnection && givenConnections.remove(connection)) {
+        if (connection instanceof ProxyConnection) {
             freeConnections.offer((ProxyConnection) connection);
         } else {
             logger.log(Level.ERROR, "Couldn't release connection");

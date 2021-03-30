@@ -33,7 +33,6 @@ class ConnectionCreator {
     }
 
     private ConnectionCreator() {
-
     }
 
     static String getPoolSize() {

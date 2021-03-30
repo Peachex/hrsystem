@@ -34,6 +34,16 @@ public class MailSender {
     private String sendToEmail;
     private String mailSubject;
     private String mailText;
+
+    public enum MailSenderHolder {
+        HOLDER;
+        private final MailSender mailSender = new MailSender();
+
+        public MailSender getMailSender() {
+            return mailSender;
+        }
+    }
+
     private MailSender() {
     }
 
@@ -85,14 +95,5 @@ public class MailSender {
         message.setSubject(mailSubject);
         message.setContent(mailText, CONTENT_TYPE);
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendToEmail));
-    }
-
-    public enum MailSenderHolder {
-        HOLDER;
-        private final MailSender mailSender = new MailSender();
-
-        public MailSender getMailSender() {
-            return mailSender;
-        }
     }
 }

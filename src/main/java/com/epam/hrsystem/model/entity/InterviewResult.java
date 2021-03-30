@@ -5,6 +5,9 @@ public class InterviewResult {
     private byte rating;
     private String comment;
 
+    public InterviewResult() {
+    }
+
     public InterviewResult(long id, byte rating, String comment) {
         this.id = id;
         this.rating = rating;
