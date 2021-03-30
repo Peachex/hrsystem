@@ -18,7 +18,7 @@ public class MailSender {
     private static final Logger logger = LogManager.getLogger();
     private static final String MAIL_PROPERTY_FILE_PATH = "/property/mail.properties";
     private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
-    private static Properties properties;
+    private static final Properties properties;
 
     static {
         properties = new Properties();
@@ -34,16 +34,6 @@ public class MailSender {
     private String sendToEmail;
     private String mailSubject;
     private String mailText;
-
-    public enum MailSenderHolder {
-        HOLDER;
-        private final MailSender mailSender = new MailSender();
-
-        public MailSender getMailSender() {
-            return mailSender;
-        }
-    }
-
     private MailSender() {
     }
 
@@ -95,5 +85,14 @@ public class MailSender {
         message.setSubject(mailSubject);
         message.setContent(mailText, CONTENT_TYPE);
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendToEmail));
+    }
+
+    public enum MailSenderHolder {
+        HOLDER;
+        private final MailSender mailSender = new MailSender();
+
+        public MailSender getMailSender() {
+            return mailSender;
+        }
     }
 }
