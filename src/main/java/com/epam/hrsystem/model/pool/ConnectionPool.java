@@ -10,10 +10,8 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayDeque;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class ConnectionPool {
     private static final int DEFAULT_POOL_SIZE = 10;
@@ -34,7 +32,7 @@ public class ConnectionPool {
     }
 
     private ConnectionPool() {
-        freeConnections = new LinkedBlockingDeque<>(); //fixme
+        freeConnections = new LinkedBlockingQueue<>();
         int errorCounter = 0;
         int poolSize;
         try {
