@@ -78,7 +78,7 @@
         <div class="col-2 offset-5">
             <input type="password" class="form-control field" id="inputPassword" name="password" value="${password}"
                    placeholder="<fmt:message key="register.inputPasswordPlaceholder"/>" required
-                   pattern="[\w\s\p{Punct}]{6,80}">
+                   pattern="[а-яА-Я\w\s\p{Punct}]{6,80}">
         </div>
 
         <div class="mt-3 col-2 offset-5">
@@ -87,7 +87,7 @@
         <div class="col-2 offset-5">
             <input type="password" class="form-control field" id="inputRepeatedPassword" name="repeatedPassword"
                    value="${repeatedPassword}" placeholder="<fmt:message key="register.inputPasswordPlaceholder"/>"
-                   required pattern="[\w\s\p{Punct}]{6,80}">
+                   required pattern="[а-яА-Я\w\s\p{Punct}]{6,80}">
         </div>
         <div class="mt-3">
             <wrong-message>

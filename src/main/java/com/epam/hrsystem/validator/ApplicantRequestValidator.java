@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class ApplicantRequestValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final Pattern SUMMARY_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{3,10000}");
+    private static final Pattern DATE_FORMAT_PATTERN = Pattern.compile("([1-2][0-9]{3})-([0][1-9]|[1][0-2])-([0][1-9]|[12][0-9]|[3][01])");
 
     private ApplicantRequestValidator() {
     }
@@ -48,7 +49,7 @@ public class ApplicantRequestValidator {
         if (date == null) {
             return false;
         }
-        Matcher matcher = BaseValidator.DATE_FORMAT_PATTERN.matcher(date);
+        Matcher matcher = DATE_FORMAT_PATTERN.matcher(date);
         boolean result = matcher.matches() && LocalDate.parse(date).isAfter(LocalDate.now());
         if (!result) {
             logger.log(Level.DEBUG, "Date isn't valid: " + date);

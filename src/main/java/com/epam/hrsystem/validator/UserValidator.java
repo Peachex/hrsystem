@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -19,10 +20,11 @@ public class UserValidator {
     private static final Pattern EMAIL_PATTERN = Pattern.compile("((\\w)([-.](\\w))?)+@((\\w)([-.](\\w))?)+.[a-zA-Z]{2,4}");
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("(\\+?(((\\d+-\\d+)+)|(\\d{2,20})|((\\d+\\s\\d+)+)))|" +
             "(\\(\\+?\\d+\\)[-\\s]?(((\\d+-\\d+)+)|(\\d+)|((\\d+\\s\\d+)+)))");
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("[\\w\\s\\p{Punct}]{6,80}");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("[а-яА-Я\\w\\s\\p{Punct}]{6,80}");
     private static final int EMAIL_MAX_LENGTH = 50;
     private static final int PHONE_NUMBER_MAX_LENGTH = 20;
     private static final int PHOTO_NAME_MAX_LENGTH = 50;
+    private static final Pattern DATE_FORMAT_PATTERN = Pattern.compile("([1-2][0-9]{3})-([0][1-9]|[1][0-2])-([0][1-9]|[12][0-9]|[3][01])");
 
     private UserValidator() {
     }
@@ -40,7 +42,7 @@ public class UserValidator {
             result = false;
         }
         String dateOfBirth = fields.get(RequestParameter.DATE_OF_BIRTH);
-        if (!BaseValidator.isDateFormatValid(dateOfBirth)) {
+        if (!isDateFormatValid(dateOfBirth)) {
             fields.put(RequestParameter.DATE_OF_BIRTH, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
@@ -80,7 +82,7 @@ public class UserValidator {
             result = false;
         }
         String dateOfBirth = fields.get(RequestParameter.DATE_OF_BIRTH);
-        if (!BaseValidator.isDateFormatValid(dateOfBirth)) {
+        if (!isDateFormatValid(dateOfBirth)) {
             fields.put(RequestParameter.DATE_OF_BIRTH, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
             result = false;
         }
@@ -192,6 +194,18 @@ public class UserValidator {
         boolean result = matcher.matches();
         if (!result) {
             logger.log(Level.DEBUG, "Password isn't valid: " + password);
+        }
+        return result;
+    }
+
+    public static boolean isDateFormatValid(String date) {
+        if (date == null) {
+            return false;
+        }
+        Matcher matcher = DATE_FORMAT_PATTERN.matcher(date);
+        boolean result = matcher.matches() && LocalDate.parse(date).isBefore(LocalDate.now());
+        if (!result) {
+            logger.log(Level.DEBUG, "Date isn't valid: " + date);
         }
         return result;
     }

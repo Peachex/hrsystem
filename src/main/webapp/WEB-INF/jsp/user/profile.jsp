@@ -217,7 +217,7 @@
                                    value="${currentPassword}"
                                    placeholder=
                                            "<fmt:message key="register.inputPasswordPlaceholder"/>" required
-                                   pattern="[\w\s\p{Punct}]{6,80}">
+                                   pattern="[а-яА-Я\w\s\p{Punct}]{6,80}">
                         </div>
 
                         <div class="mt-3">
@@ -230,7 +230,7 @@
                                    value="${newPassword}"
                                    placeholder=
                                            "<fmt:message key="register.inputPasswordPlaceholder"/>" required
-                                   pattern="[\w\s\p{Punct}]{6,80}">
+                                   pattern="[а-яА-Я\w\s\p{Punct}]{6,80}">
                         </div>
 
                         <div class="mt-3">
@@ -243,7 +243,7 @@
                                    value="${repeatedNewPassword}"
                                    placeholder=
                                            "<fmt:message key="register.inputPasswordPlaceholder"/>" required
-                                   pattern="[\w\s\p{Punct}]{6,80}">
+                                   pattern="[а-яА-Я\w\s\p{Punct}]{6,80}">
                         </div>
 
                         <div class="col-4">
@@ -291,7 +291,7 @@
                                    name="currentPassword"
                                    placeholder=
                                            "<fmt:message key="register.inputPasswordPlaceholder"/>" required
-                                   pattern="[\w\s\p{Punct}]{6,80}">
+                                   pattern="[а-яА-Я\w\s\p{Punct}]{6,80}">
                         </div>
                         <div class="col-4">
                             <button class="btn btn-outline-success button mt-4" style="margin-left: 100%"

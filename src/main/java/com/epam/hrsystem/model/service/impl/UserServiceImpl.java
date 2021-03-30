@@ -12,7 +12,6 @@ import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserRole;
 import com.epam.hrsystem.model.service.UserService;
 import com.epam.hrsystem.util.Encryptor;
-import com.epam.hrsystem.validator.BaseValidator;
 import com.epam.hrsystem.validator.UserValidator;
 
 import java.time.LocalDate;
@@ -215,7 +214,7 @@ public class UserServiceImpl implements UserService {
         if (UserValidator.isNameValid(newLastName)) {
             user.setLastName(newLastName);
         }
-        if (BaseValidator.isDateFormatValid(fields.get(RequestParameter.DATE_OF_BIRTH))) {
+        if (UserValidator.isDateFormatValid(fields.get(RequestParameter.DATE_OF_BIRTH))) {
             LocalDate newDateOfBirth = LocalDate.parse(fields.get(RequestParameter.DATE_OF_BIRTH));
             user.setDateOfBirth(newDateOfBirth);
         }
