@@ -11,8 +11,6 @@ public interface UserReportDao {
 
     Optional<UserReport> findUserReportById(long reportId) throws DaoException;
 
-    boolean updateUserReportAvailability(long reportId, byte availabilityValue) throws DaoException;
-
     List<UserReport> findAllUserReports() throws DaoException;
 
     List<UserReport> findUserReportsByAvailability(boolean areAvailable) throws DaoException;

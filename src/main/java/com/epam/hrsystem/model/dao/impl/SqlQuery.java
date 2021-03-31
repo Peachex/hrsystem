@@ -142,8 +142,6 @@ public class SqlQuery {
     public static final String SQL_FIND_USER_REPORT_BY_ID = "SELECT user_report_id, is_available, subject, comment, response, creation_date, user_id_fk FROM user_reports" +
             " WHERE user_report_id = ?;";
 
-    public static final String SQL_UPDATE_USER_REPORT_AVAILABILITY = "UPDATE user_reports SET is_available = ? WHERE user_report_id = ?;";
-
     public static final String SQL_SELECT_ALL_USER_REPORTS = "SELECT user_report_id, is_available, subject, comment, response, creation_date, user_id_fk FROM user_reports;";
 
     public static final String SQL_FIND_USER_REPORTS_BY_AVAILABILITY = "SELECT user_report_id, is_available, subject, comment, response, creation_date, user_id_fk" +

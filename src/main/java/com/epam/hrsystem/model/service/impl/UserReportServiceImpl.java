@@ -43,34 +43,6 @@ public class UserReportServiceImpl implements UserReportService {
     }
 
     @Override
-    public boolean deleteReport(long reportId) throws ServiceException {
-        boolean result = false;
-        try {
-            Optional<UserReport> report = dao.findUserReportById(reportId);
-            if (report.isPresent()) {
-                result = dao.updateUserReportAvailability(reportId, (byte) 0);
-            }
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-        return result;
-    }
-
-    @Override
-    public boolean restoreReport(long reportId) throws ServiceException {
-        boolean result = false;
-        try {
-            Optional<UserReport> report = dao.findUserReportById(reportId);
-            if (report.isPresent()) {
-                result = dao.updateUserReportAvailability(reportId, (byte) 1);
-            }
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-        return result;
-    }
-
-    @Override
     public List<UserReport> findAllUserReports() throws ServiceException {
         try {
             List<UserReport> reports = dao.findAllUserReports();
@@ -142,8 +114,7 @@ public class UserReportServiceImpl implements UserReportService {
         return report;
     }
 
-    @Override
-    public boolean userReportExists(UserReport report) throws ServiceException {
+    private boolean userReportExists(UserReport report) throws ServiceException {
         boolean result;
         try {
             result = dao.userReportExists(report);

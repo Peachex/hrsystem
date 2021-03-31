@@ -10,10 +10,6 @@ import java.util.Optional;
 public interface UserReportService {
     boolean createUserReport(Map<String, String> fields, long userId) throws ServiceException;
 
-    boolean deleteReport(long reportId) throws ServiceException;
-
-    boolean restoreReport(long reportId) throws ServiceException;
-
     List<UserReport> findAllUserReports() throws ServiceException;
 
     List<UserReport> findAvailableUserReports() throws ServiceException;
@@ -25,6 +21,4 @@ public interface UserReportService {
     boolean createResponse(long reportId, String response) throws ServiceException;
 
     Optional<UserReport> findUserReportById(long reportId) throws ServiceException;
-
-    boolean userReportExists(UserReport report) throws ServiceException;
 }

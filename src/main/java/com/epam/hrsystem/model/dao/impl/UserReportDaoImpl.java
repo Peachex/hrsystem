@@ -58,20 +58,6 @@ public class UserReportDaoImpl implements UserReportDao {
     }
 
     @Override
-    public boolean updateUserReportAvailability(long reportId, byte availabilityValue) throws DaoException {
-        boolean result;
-        try (Connection connection = pool.takeConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_USER_REPORT_AVAILABILITY)) {
-            statement.setByte(1, availabilityValue);
-            statement.setLong(2, reportId);
-            result = statement.executeUpdate() == 1;
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException(e);
-        }
-        return result;
-    }
-
-    @Override
     public List<UserReport> findAllUserReports() throws DaoException {
         List<UserReport> reports = new ArrayList<>();
         try (Connection connection = pool.takeConnection();
