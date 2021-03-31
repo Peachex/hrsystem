@@ -66,7 +66,7 @@ public class InterviewResultDaoImpl implements InterviewResultDao {
         return interviewResultOptional;
     }
 
-    private InterviewResult createInterviewResultFromResultSet(ResultSet resultSet) throws SQLException, DaoException {
+    private InterviewResult createInterviewResultFromResultSet(ResultSet resultSet) throws SQLException {
         long id = resultSet.getLong(1);
         byte rating = resultSet.getByte(2);
         String comment = resultSet.getString(3);
