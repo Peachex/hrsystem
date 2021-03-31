@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
-    //fixme delete unnecessary functions
     boolean isEmailAvailable(String email) throws DaoException;
 
     Optional<User> findUserByEmail(String email) throws DaoException;
