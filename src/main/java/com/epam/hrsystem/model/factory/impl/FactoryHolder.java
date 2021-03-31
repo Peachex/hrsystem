@@ -13,7 +13,7 @@ public enum FactoryHolder {
     private final EntityFactory<InterviewResult> interviewResultFactory = new InterviewResultFactory();
     private final EntityFactory<User> userFactory = new UserFactory();
     private final EntityFactory<Vacancy> vacancyFactory = new VacancyFactory();
-    private final EntityFactory<UserReport> userReportFactory = new UserReportFactory(); //fixme change type to interface type
+    private final EntityFactory<UserReport> userReportFactory = new UserReportFactory();
 
     public EntityFactory<ApplicantRequest> getApplicantRequestFactory() {
         return applicantRequestFactory;

@@ -84,10 +84,6 @@ public class Vacancy {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public User getEmployee() {
         return employee;
     }

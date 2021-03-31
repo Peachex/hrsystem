@@ -3,9 +3,9 @@ package com.epam.hrsystem.model.entity;
 import java.time.LocalDate;
 
 public class UserReport {
-    private LocalDate creationDate;
     private long id;
     private boolean isAvailable;
+    private LocalDate creationDate;
     private String subject;
     private String comment;
     private String response;
