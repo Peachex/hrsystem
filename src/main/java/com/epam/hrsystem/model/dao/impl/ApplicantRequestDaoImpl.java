@@ -93,11 +93,8 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
                 SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            if (vacancyId != 0) {
-                statement.setLong(1, vacancyId);
-            } else {
-                statement.setLong(1, applicantId);
-            }
+            long id = vacancyId != 0 ? vacancyId : applicantId;
+            statement.setLong(1, id);
             statement.executeQuery();
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
@@ -129,8 +126,7 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
         return applicantRequestOptional;
     }
 
-    @Override
-    public Optional<Long> findApplicantStateIdByName(String name) throws DaoException {
+    private Optional<Long> findApplicantStateIdByName(String name) throws DaoException {
         Optional<Long> id = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_APPLICANT_STATE_ID_BY_NAME)) {
