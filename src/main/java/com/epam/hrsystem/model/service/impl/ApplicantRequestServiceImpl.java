@@ -95,10 +95,11 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
                 ApplicantRequest applicantRequest = applicantRequestOptional.get();
                 ApplicantState currentState = applicantRequest.getApplicantState();
                 String newApplicantState = fields.get(RequestParameter.APPLICANT_STATE);
-                if (currentState == ApplicantState.LEFT_REQUEST || currentState == ApplicantState.READY_FOR_TECHNICAL_INTERVIEW &&
-                        applicantRequest.getTechnicalInterviewDate() != null &&
-                        !newApplicantState.equals(ApplicantState.READY_FOR_TECHNICAL_INTERVIEW.name()) &&
-                        !newApplicantState.equals(ApplicantState.LEFT_REQUEST.name())) {
+                if (currentState == ApplicantState.LEFT_REQUEST && !newApplicantState.equals(ApplicantState.LEFT_REQUEST.name()) ||
+                        currentState == ApplicantState.READY_FOR_TECHNICAL_INTERVIEW &&
+                                applicantRequest.getTechnicalInterviewDate() != null &&
+                                !newApplicantState.equals(ApplicantState.READY_FOR_TECHNICAL_INTERVIEW.name()) &&
+                                !newApplicantState.equals(ApplicantState.LEFT_REQUEST.name())) {
                     EntityFactory<InterviewResult> factory = FactoryHolder.HOLDER.getInterviewResultFactory();
                     Optional<InterviewResult> interviewResultOptional = factory.create(fields);
                     if (interviewResultOptional.isPresent()) {
@@ -145,8 +146,7 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
         return result;
     }
 
-    @Override
-    public boolean applicantRequestExists(ApplicantRequest request) throws ServiceException {
+    private boolean applicantRequestExists(ApplicantRequest request) throws ServiceException {
         boolean result;
         try {
             result = applicantRequestDao.applicantRequestExists(request);
