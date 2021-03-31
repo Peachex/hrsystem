@@ -165,13 +165,15 @@ public class UserServiceImpl implements UserService {
     public Optional<User> updateProfile(long userId, Map<String, String> fields) throws ServiceException {
         Optional<User> result = Optional.empty();
         try {
-            Optional<User> userOptional = dao.findUserById(userId);
-            if (userOptional.isPresent() && UserValidator.isEditFormValid(fields)) {
-                User user = userOptional.get();
-                if (user.getEmail().equals(fields.get(RequestParameter.EMAIL)) || dao.isEmailAvailable(fields.get(RequestParameter.EMAIL))) {
-                    updateUserFields(user, fields);
-                    if (dao.updateProfile(user))
-                        result = Optional.of(user);
+            if (UserValidator.isEditFormValid(fields)) {
+                Optional<User> userOptional = dao.findUserById(userId);
+                if (userOptional.isPresent()) {
+                    User user = userOptional.get();
+                    if (user.getEmail().equals(fields.get(RequestParameter.EMAIL)) || dao.isEmailAvailable(fields.get(RequestParameter.EMAIL))) {
+                        updateUserFields(user, fields);
+                        if (dao.updateProfile(user))
+                            result = Optional.of(user);
+                    }
                 }
             }
         } catch (DaoException e) {

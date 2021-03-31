@@ -30,8 +30,6 @@ public interface VacancyService {
 
     boolean updateVacancyInfo(long vacancyId, long employeeId, Map<String, String> fields) throws ServiceException;
 
-    boolean vacancyExists(Vacancy vacancy) throws ServiceException;
-
     Optional<Vacancy> findVacancyById(long vacancyId) throws ServiceException;
 
     List<Vacancy> findVacanciesByKeyWord(String keyWord) throws ServiceException;

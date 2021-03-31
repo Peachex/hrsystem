@@ -65,9 +65,12 @@ public class VacancyServiceImpl implements VacancyService {
     public boolean restoreVacancy(long vacancyId, long employeeId) throws ServiceException {
         boolean result = false;
         try {
-            Optional<Vacancy> vacancy = dao.findVacancyById(vacancyId);
-            if (vacancy.isPresent() && vacancy.get().getEmployee().getId() == employeeId) {
-                result = dao.updateVacancyAvailability(vacancyId, (byte) 1);
+            Optional<Vacancy> vacancyOptional = dao.findVacancyById(vacancyId);
+            if (vacancyOptional.isPresent()) {
+                Vacancy vacancy = vacancyOptional.get();
+                if (vacancy.getEmployee().getId() == employeeId && !vacancyExists(vacancy)) {
+                    result = dao.updateVacancyAvailability(vacancyId, (byte) 1);
+                }
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -154,22 +157,12 @@ public class VacancyServiceImpl implements VacancyService {
                 if (vacancyOptional.isPresent() && vacancyOptional.get().getEmployee().getId() == employeeId) {
                     Vacancy vacancy = vacancyOptional.get();
                     updateVacancyInfo(vacancy, fields);
-                    if (!vacancyExists(vacancy) && addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity())) {
+                    if (addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity()) &&
+                            !vacancyExists(vacancy)) {
                         result = dao.updateVacancyInfo(vacancy);
                     }
                 }
             }
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-        return result;
-    }
-
-    @Override
-    public boolean vacancyExists(Vacancy vacancy) throws ServiceException {
-        boolean result;
-        try {
-            result = dao.vacancyExists(vacancy);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -198,6 +191,16 @@ public class VacancyServiceImpl implements VacancyService {
         }
     }
 
+    private boolean vacancyExists(Vacancy vacancy) throws ServiceException {
+        boolean result;
+        try {
+            result = dao.vacancyExists(vacancy);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
     private boolean addCountryIfNotExists(String name) throws DaoException {
         boolean result = true;
         Optional<Long> idOptional = dao.findCountryIdByName(name.toUpperCase(Locale.ROOT));
@@ -218,20 +221,15 @@ public class VacancyServiceImpl implements VacancyService {
 
     private void updateVacancyInfo(Vacancy vacancy, Map<String, String> fields) {
         String newPosition = fields.get(RequestParameter.POSITION);
-        if (VacancyValidator.isPositionValid(newPosition)) {
-            vacancy.setPosition(newPosition);
-        }
+        vacancy.setPosition(newPosition);
+
         String newDescription = fields.get(RequestParameter.DESCRIPTION);
-        if (VacancyValidator.isDescriptionValid(newDescription)) {
-            vacancy.setDescription(newDescription);
-        }
+        vacancy.setDescription(newDescription);
+
         String newCountry = fields.get(RequestParameter.COUNTRY);
-        if (VacancyValidator.isCountryValid(newCountry)) {
-            vacancy.setCountry(newCountry);
-        }
+        vacancy.setCountry(newCountry);
+
         String newCity = fields.get(RequestParameter.CITY);
-        if (VacancyValidator.isCityValid(newCity)) {
-            vacancy.setCity(newCity);
-        }
+        vacancy.setCity(newCity);
     }
 }
