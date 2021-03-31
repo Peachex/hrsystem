@@ -55,13 +55,8 @@ public class UserServiceImpl implements UserService {
                 User user = userOptional.get();
                 if (dao.isEmailAvailable(user.getEmail())) {
                     String password = fields.get(RequestParameter.PASSWORD);
-                    if (UserValidator.isPasswordValid(password)) {
-                        String passwordRepeat = fields.get(RequestParameter.REPEATED_PASSWORD);
-                        if (UserValidator.isRepeatPasswordValid(password, passwordRepeat)) {
-                            String encryptedPassword = Encryptor.encrypt(password);
-                            result = dao.add(userOptional.get(), encryptedPassword);
-                        }
-                    }
+                    String encryptedPassword = Encryptor.encrypt(password);
+                    result = dao.add(user, encryptedPassword);
                 } else {
                     fields.put(RequestParameter.EMAIL, JspAttribute.EMAIL_AVAILABLE_ERROR_MESSAGE);
                 }
@@ -168,6 +163,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> updateProfile(long userId, Map<String, String> fields) throws ServiceException {
+        Optional<User> result = Optional.empty();
         try {
             Optional<User> userOptional = dao.findUserById(userId);
             if (userOptional.isPresent() && UserValidator.isEditFormValid(fields)) {
@@ -175,13 +171,13 @@ public class UserServiceImpl implements UserService {
                 if (user.getEmail().equals(fields.get(RequestParameter.EMAIL)) || dao.isEmailAvailable(fields.get(RequestParameter.EMAIL))) {
                     updateUserFields(user, fields);
                     if (dao.updateProfile(user))
-                        return Optional.of(user);
+                        result = Optional.of(user);
                 }
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return Optional.empty();
+        return result;
     }
 
     @Override
@@ -207,24 +203,19 @@ public class UserServiceImpl implements UserService {
 
     private void updateUserFields(User user, Map<String, String> fields) {
         String newFirstName = fields.get(RequestParameter.FIRST_NAME);
-        if (UserValidator.isNameValid(newFirstName)) {
-            user.setFirstName(newFirstName);
-        }
+        user.setFirstName(newFirstName);
+
         String newLastName = fields.get(RequestParameter.LAST_NAME);
-        if (UserValidator.isNameValid(newLastName)) {
-            user.setLastName(newLastName);
-        }
-        if (UserValidator.isDateFormatValid(fields.get(RequestParameter.DATE_OF_BIRTH))) {
-            LocalDate newDateOfBirth = LocalDate.parse(fields.get(RequestParameter.DATE_OF_BIRTH));
-            user.setDateOfBirth(newDateOfBirth);
-        }
+        user.setLastName(newLastName);
+
+        LocalDate newDateOfBirth = LocalDate.parse(fields.get(RequestParameter.DATE_OF_BIRTH));
+        user.setDateOfBirth(newDateOfBirth);
+
         String newPhoneNumber = fields.get(RequestParameter.PHONE_NUMBER);
-        if (UserValidator.isPhoneNumberValid(newPhoneNumber)) {
-            user.setPhoneNumber(newPhoneNumber);
-        }
+        user.setPhoneNumber(newPhoneNumber);
+
         String newEmail = fields.get(RequestParameter.EMAIL);
-        if (UserValidator.isEmailValid(newEmail)) {
-            user.setEmail(newEmail);
-        }
+        user.setEmail(newEmail);
+
     }
 }
