@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface VacancyDao {
-    //fixme delete unnecessary functions
     boolean add(Vacancy vacancy) throws DaoException;
 
     boolean updateVacancyAvailability(long vacancyId, byte availabilityValue) throws DaoException;
