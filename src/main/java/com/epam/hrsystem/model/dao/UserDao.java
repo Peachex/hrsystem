@@ -17,8 +17,6 @@ public interface UserDao {
 
     boolean add(User user, String password) throws DaoException;
 
-    Optional<Byte> findUserActivity(String email) throws DaoException;
-
     boolean updateUserActivity(long userId, byte activityValue) throws DaoException;
 
     boolean updatePassword(long userId, String newPassword) throws DaoException;

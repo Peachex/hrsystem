@@ -93,22 +93,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<Byte> findUserActivity(String email) throws DaoException {
-        Optional<Byte> activityValue = Optional.empty();
-        try (Connection connection = pool.takeConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_USER_ACTIVITY_BY_EMAIL)) {
-            statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                activityValue = Optional.of(resultSet.getByte(1));
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException(e);
-        }
-        return activityValue;
-    }
-
-    @Override
     public boolean updateUserActivity(long userId, byte activityValue) throws DaoException {
         boolean result;
         try (Connection connection = pool.takeConnection();
