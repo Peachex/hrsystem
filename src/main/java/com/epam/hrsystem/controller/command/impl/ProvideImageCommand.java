@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 
 public class ProvideImageCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
+    private static final String DEFAULT_AVATAR_NAME = "default_avatar.png";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -38,14 +39,13 @@ public class ProvideImageCommand implements ActionCommand {
         byte[] result;
         String fileUri = FileUploadingServlet.UPLOAD_AVATAR_PATH + fileName;
         Path filePath = Paths.get(fileUri);
-        if (Files.exists(filePath)) {
-            try {
-                result = Files.readAllBytes(filePath);
-            } catch (IOException e) {
-                throw new ServiceException(e);
-            }
-        } else {
-            throw new ServiceException("Provide image error");
+        if (!Files.exists(filePath)) {
+            filePath = Paths.get(FileUploadingServlet.UPLOAD_AVATAR_PATH + DEFAULT_AVATAR_NAME);
+        }
+        try {
+            result = Files.readAllBytes(filePath);
+        } catch (IOException e) {
+            throw new ServiceException(e);
         }
         return result;
     }
