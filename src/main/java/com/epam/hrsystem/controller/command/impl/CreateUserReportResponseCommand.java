@@ -35,7 +35,9 @@ public class CreateUserReportResponseCommand implements ActionCommand {
                 UserReport report = service.findUserReportById(reportId).get();
                 String email = report.getUser().getEmail();
                 MailSender sender = MailSender.MailSenderHolder.HOLDER.getMailSender();
-                sender.setupEmail(email, MailMessage.HR_SYSTEM_MAIL_SUBJECT, userReportResponse);
+                StringBuilder message = new StringBuilder();
+                message.append(MailMessage.CREATION_USER_REPORT_RESPONSE_MAIL_TEXT).append(userReportResponse);
+                sender.setupEmail(email, MailMessage.HR_SYSTEM_MAIL_SUBJECT, message.toString());
                 sender.send();
             } else {
                 if (UserReportValidator.isResponseValid(userReportResponse)) {

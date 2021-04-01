@@ -43,8 +43,10 @@ public class ScheduleTechnicalInterviewCommand implements ActionCommand {
                 String applicantEmail = request.getParameter(RequestParameter.EMAIL);
                 if (applicantEmail != null) {
                     MailSender mailSender = MailSender.MailSenderHolder.HOLDER.getMailSender();
-                    mailSender.setupEmail(applicantEmail, MailMessage.HR_SYSTEM_MAIL_SUBJECT, MailMessage.SCHEDULE_TECHNICAL_INTERVIEW_MAIL_TEXT +
-                            technicalInterviewDateStr);
+                    StringBuilder mailMessage = new StringBuilder();
+                    mailMessage.append(MailMessage.SCHEDULE_TECHNICAL_INTERVIEW_PART_1_MAIL_TEXT).append(technicalInterviewDateStr)
+                            .append(MailMessage.SCHEDULE_TECHNICAL_INTERVIEW_PART_2_MAIL_TEXT);
+                    mailSender.setupEmail(applicantEmail, MailMessage.HR_SYSTEM_MAIL_SUBJECT, mailMessage.toString());
                     mailSender.send();
                 }
                 result = new CommandResult(CommandName.TO_EMPLOYEE_APPLICANT_REQUEST + vacancyIdStr + APPLICANT_ID_COMMAND_PARAMETER +

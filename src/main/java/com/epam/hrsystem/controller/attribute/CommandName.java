@@ -12,7 +12,6 @@ public class CommandName {
     public static final String TO_ADMIN_USER_REPORT_LIST = "/to_admin_user_report_list.do";
     public static final String TO_ADMIN_USER_REPORT_INFO = "/to_admin_user_report_info.do?reportId=";
 
-
     private CommandName() {
     }
 }
