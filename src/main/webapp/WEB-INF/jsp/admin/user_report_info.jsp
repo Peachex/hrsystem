@@ -118,7 +118,7 @@
                                 <button class="btn btn-outline-success button mt-4"
                                         style="margin-left: 100%" type="submit">
                                     <fmt:message
-                                            key="button.save"/></button>
+                                            key="button.create"/></button>
                             </div>
                         </form>
                     </div>
