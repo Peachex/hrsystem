@@ -33,7 +33,7 @@
     <div class="col-2 offset-5">
         <a class="btn btn-outline-secondary"
            style="width: 100%; display: flex; justify-content: center"
-           href="home" role="button"><fmt:message
+           href="${pageContext.request.contextPath}/home" role="button"><fmt:message
                 key="button.home"/> </a>
     </div>
 </div>
