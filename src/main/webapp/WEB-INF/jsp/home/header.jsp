@@ -28,8 +28,8 @@
             <c:set var="employee" scope="session" value="EMPLOYEE"/>
             <c:set var="user" scope="session" value="${sessionScope.user}"/>
 
-            <a class="nav-link header-link" href="home"><fmt:message key="header.home"/> </a>
-            <a class="nav-link header-link offset-1" href="to_vacancies.do"><fmt:message key="header.vacancy"/></a>
+            <a class="nav-link header-link" href="${pageContext.request.contextPath}/home"><fmt:message key="header.home"/> </a>
+            <a class="nav-link header-link offset-1" href="${pageContext.request.contextPath}/to_vacancies.do"><fmt:message key="header.vacancy"/></a>
 
             <li class="nav-item dropdown offset-1">
                 <a class="nav-link dropdown-toggle header-link" id="navbarDropdown" data-bs-toggle="dropdown"
@@ -37,15 +37,15 @@
                     <fmt:message key="header.changeLanguage"/>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="change_language.do?newLocale=ru_RU">Русский</a></li>
-                    <li><a class="dropdown-item" href="change_language.do?newLocale=en_EN">English</a></li>
+                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/change_language.do?newLocale=ru_RU">Русский</a></li>
+                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/change_language.do?newLocale=en_EN">English</a></li>
                 </ul>
             </li>
 
             <c:if test="${role.toString().equals(guest)}">
-                <a class="nav-link header-link offset-1" href="register"><fmt:message
+                <a class="nav-link header-link offset-1" href="${pageContext.request.contextPath}/register"><fmt:message
                         key="header.register"/></a>
-                <a class="nav-link header-link offset-1" href="login"><fmt:message
+                <a class="nav-link header-link offset-1" href="${pageContext.request.contextPath}/login"><fmt:message
                         key="header.login"/></a>
             </c:if>
 
@@ -58,27 +58,27 @@
 
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownUser">
-                        <li><a class="dropdown-item" href="to_user_profile.do"><fmt:message
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/to_user_profile.do"><fmt:message
                                 key="user.profile"/></a></li>
                         <c:if test="${sessionScope.role.toString().equals(applicant)}">
-                            <li><a class="dropdown-item" href="to_applicant_requests.do"><fmt:message
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/to_applicant_requests.do"><fmt:message
                                     key="user.requests"/></a></li>
                         </c:if>
                         <c:if test="${sessionScope.role.toString().equals(employee)}">
-                            <li><a class="dropdown-item" href="to_employee_vacancies.do"><fmt:message
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/to_employee_vacancies.do"><fmt:message
                                     key="user.employeeVacancies"/></a></li>
                         </c:if>
                         <c:if test="${sessionScope.role.toString().equals(admin)}">
-                            <li><a class="dropdown-item" href="to_admin_user_list.do"><fmt:message
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/to_admin_user_list.do"><fmt:message
                                     key="header.adminUsers"/></a></li>
-                            <li><a class="dropdown-item" href="to_admin_user_report_list.do"><fmt:message
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/to_admin_user_report_list.do"><fmt:message
                                     key="header.adminUserReports"/></a></li>
 
                         </c:if>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="logout.do"><fmt:message
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout.do"><fmt:message
                                 key="header.logout"/></a></li>
                     </ul>
                 </li>
