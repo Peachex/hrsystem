@@ -4,12 +4,11 @@ import com.epam.hrsystem.controller.attribute.SessionAttribute;
 import com.epam.hrsystem.model.entity.UserRole;
 
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 public class PermissionTag extends TagSupport {
     @Override
-    public int doStartTag() throws JspException {
+    public int doStartTag() {
         HttpSession session = pageContext.getSession();
         UserRole currentRole = (UserRole) session.getAttribute(SessionAttribute.CURRENT_ROLE);
         if (currentRole != null && currentRole != UserRole.GUEST) {

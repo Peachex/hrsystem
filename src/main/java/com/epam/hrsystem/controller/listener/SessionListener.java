@@ -13,7 +13,7 @@ public class SessionListener implements HttpSessionListener {
     @Override
     public void sessionCreated(HttpSessionEvent sessionEvent) {
         HttpSession session = sessionEvent.getSession();
-        session.setAttribute(SessionAttribute.CURRENT_LOCALE, Locale.RU.getLocale());
+        session.setAttribute(SessionAttribute.CURRENT_LOCALE, Locale.EN.getLocale());
         session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.GUEST);
     }
 

@@ -53,7 +53,6 @@ public class FileUploadingServlet extends HttpServlet {
                     if (path != null && !path.isEmpty()) {
                         String randomFilename = UUID.randomUUID() + path.substring(path.lastIndexOf(DOT_SYMBOL));
                         try (InputStream inputStream = part.getInputStream()) {
-                            System.out.println(inputStream.available());
                             boolean isSuccess = uploadFile(inputStream, UPLOAD_AVATAR_PATH + randomFilename);
                             if (isSuccess) {
                                 UserService service = ServiceHolder.HOLDER.getUserService();

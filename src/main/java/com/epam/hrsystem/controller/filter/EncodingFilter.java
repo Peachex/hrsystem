@@ -12,10 +12,12 @@ public class EncodingFilter implements Filter {
     private static final String ENCODING_PARAMETER_NAME = "encoding";
     private String code;
 
-    public void init(FilterConfig fConfig) throws ServletException {
+    @Override
+    public void init(FilterConfig fConfig) {
         code = fConfig.getInitParameter(ENCODING_PARAMETER_NAME);
     }
 
+    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
         String codeRequest = servletRequest.getCharacterEncoding();
@@ -26,6 +28,7 @@ public class EncodingFilter implements Filter {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
+    @Override
     public void destroy() {
         code = null;
     }
