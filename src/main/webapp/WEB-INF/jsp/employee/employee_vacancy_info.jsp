@@ -31,7 +31,7 @@
                         type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false"
                         aria-controls="flush-collapseOne">
-                    <fmt:message key="vacancy_info.title"/>
+                    <fmt:message key="button.hide"/>
                 </button>
             </h2>
             <div id="flush-collapseOne" class="accordion-collapse collapse show"
