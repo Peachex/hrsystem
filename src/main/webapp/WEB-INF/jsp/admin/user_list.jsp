@@ -32,7 +32,7 @@
 
     <div class="row align-items-start" style="margin-top: 3%; width:100%; padding-left: 7.8%;">
         <div class="col-2 offset-2" style="display: flex;justify-content: center">
-            <a class="btn btn-secondary" href="to_admin_user_list.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/to_admin_user_list.do" role="button"><fmt:message
                     key="button.seeAllUsers"/> </a>
         </div>
         <div class="col-3">
@@ -55,9 +55,9 @@
                     <fmt:message key="button.users"/>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="filterDropDown">
-                    <li><a class="dropdown-item" href="see_active_users.do"><fmt:message
+                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/see_active_users.do"><fmt:message
                             key="button.activeUsers"/> </a></li>
-                    <li><a class="dropdown-item" href="see_deleted_users.do"><fmt:message
+                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/see_deleted_users.do"><fmt:message
                             key="button.deletedUsers"/> </a></li>
                 </ul>
             </div>

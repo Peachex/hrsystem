@@ -104,7 +104,7 @@
 
     <div class="row align-items-start" style="margin-top: 2%; width: 100%; padding-left: 7.8%;">
         <div class="col-2 offset-2" style="display: flex; justify-content: center">
-            <a class="btn btn-secondary" href="to_employee_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/to_employee_vacancies.do" role="button"><fmt:message
                     key="button.seeAllVacancies"/> </a>
         </div>
         <div class="col-2" style="display: flex;justify-content: center">
@@ -116,23 +116,23 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="sortDropDown">
                     <li><a class="dropdown-item"
-                           href="see_employee_vacancies_with_active_applicants_requests.do"><fmt:message
+                           href="${pageContext.request.contextPath}/see_employee_vacancies_with_active_applicants_requests.do"><fmt:message
                             key="button.seeVacanciesWithActiveApplicantsRequests"/> </a></li>
                     <li><a class="dropdown-item"
-                           href="see_employee_vacancies_with_not_active_applicants_requests.do"><fmt:message
+                           href="${pageContext.request.contextPath}/see_employee_vacancies_with_not_active_applicants_requests.do"><fmt:message
                             key="button.seeVacanciesWithNotActiveApplicantsRequests"/> </a></li>
                     <li><a class="dropdown-item"
-                           href="see_employee_vacancies_with_applicants_requests.do"><fmt:message
+                           href="${pageContext.request.contextPath}/see_employee_vacancies_with_applicants_requests.do"><fmt:message
                             key="button.seeVacanciesWithBothActiveApplicantsRequests"/> </a></li>
                 </ul>
             </div>
         </div>
         <div class="col-2" style="display: flex; justify-content: center">
-            <a class="btn btn-secondary" href="see_active_employee_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/see_active_employee_vacancies.do" role="button"><fmt:message
                     key="button.seeActiveVacancies"/> </a>
         </div>
         <div class="col-2" style="display: flex; justify-content: center">
-            <a class="btn btn-secondary" href="see_deleted_employee_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/see_deleted_employee_vacancies.do" role="button"><fmt:message
                     key="button.seeDeletedVacancies"/> </a>
         </div>
     </div>

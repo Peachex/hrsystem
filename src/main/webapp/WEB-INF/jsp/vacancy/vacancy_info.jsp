@@ -50,7 +50,7 @@
         </div>
         <div class="col-4 offset-4" style="display: flex;justify-content: center;">
             <c:if test="${role.toString().equals(guest)}">
-                <a class="btn btn-outline-success mb-4" href="login" role="button" style="margin-top: 2%;
+                <a class="btn btn-outline-success mb-4" href="${pageContext.request.contextPath}/login" role="button" style="margin-top: 2%;
     margin-bottom: 2%; width: 60%"><fmt:message
                         key="button.createApplicantRequest"/> </a>
             </c:if>
@@ -109,7 +109,7 @@
 
     <a class="btn btn-secondary col-2 offset-5 mt-5"
        style="display: flex;justify-content: center; margin-bottom: 5%"
-       href="to_vacancies.do" role="button"><fmt:message
+       href="${pageContext.request.contextPath}/to_vacancies.do" role="button"><fmt:message
             key="button.back"/> </a>
 
 </div>

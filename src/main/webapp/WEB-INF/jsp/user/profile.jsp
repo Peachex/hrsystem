@@ -106,7 +106,7 @@
 
     <a class="btn btn-secondary col-2 offset-5 mt-5"
        style="display: flex;justify-content: center; margin-bottom: 5%"
-       href="home" role="button"><fmt:message
+       href="${pageContext.request.contextPath}/home" role="button"><fmt:message
             key="button.home"/> </a>
 
     <!-- Modal -->

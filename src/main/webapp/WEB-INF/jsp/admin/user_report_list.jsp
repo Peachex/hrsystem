@@ -32,7 +32,7 @@
 
     <div class="row align-items-start" style="margin-top: 3%; width:100%; padding-left: 7.8%;">
         <div class="col-2 offset-2" style="display: flex;justify-content: center">
-            <a class="btn btn-secondary" href="to_admin_user_report_list.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/to_admin_user_report_list.do" role="button"><fmt:message
                     key="button.seeAllReports"/> </a>
         </div>
         <div class="col-3">
@@ -55,9 +55,9 @@
                     <fmt:message key="button.reports"/>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="filterDropDown">
-                    <li><a class="dropdown-item" href="see_available_reports.do"><fmt:message
+                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/see_available_reports.do"><fmt:message
                             key="button.activeReports"/> </a></li>
-                    <li><a class="dropdown-item" href="see_deleted_reports.do"><fmt:message
+                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/see_deleted_reports.do"><fmt:message
                             key="button.notActiveReports"/> </a></li>
                 </ul>
             </div>

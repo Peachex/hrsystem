@@ -132,13 +132,13 @@
                     </li>
                     <c:if test="${user.isActive}">
                         <li><a class="dropdown-item"
-                               href="block_user.do?userId=${user.id}"><fmt:message
+                               href="${pageContext.request.contextPath}/block_user.do?userId=${user.id}"><fmt:message
                                 key="button.block"/> </a></li>
                     </c:if>
 
                     <c:if test="${!user.isActive}">
                         <li><a class="dropdown-item"
-                               href="unblock_user.do?userId=${user.id}"><fmt:message
+                               href="${pageContext.request.contextPath}/unblock_user.do?userId=${user.id}"><fmt:message
                                 key="button.unblock"/> </a></li>
                     </c:if>
                 </ul>
@@ -148,14 +148,14 @@
         <c:if test="${sessionScope.reportId == null}">
             <a class="btn btn-secondary col-4 offset-4 mt-3"
                style="display: flex;justify-content: center; margin-bottom: 5%"
-               href="to_admin_user_list.do" role="button"><fmt:message
+               href="${pageContext.request.contextPath}/to_admin_user_list.do" role="button"><fmt:message
                     key="button.backToUserList"/> </a>
         </c:if>
 
         <c:if test="${sessionScope.reportId != null}">
             <a class="btn btn-secondary col-4 offset-4 mt-3"
                style="display: flex;justify-content: center; margin-bottom: 5%"
-               href="to_admin_user_report_info.do?reportId=${sessionScope.reportId}" role="button"><fmt:message
+               href="${pageContext.request.contextPath}/to_admin_user_report_info.do?reportId=${sessionScope.reportId}" role="button"><fmt:message
                     key="button.backToReportList"/> </a>
         </c:if>
     </div>

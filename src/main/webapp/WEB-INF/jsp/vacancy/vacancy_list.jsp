@@ -27,7 +27,7 @@
 
     <div class="row align-items-start" style="margin-top: 3%; width:100%; padding-left: 7.8%;">
         <div class="col-2 offset-2" style="display: flex;justify-content: center">
-            <a class="btn btn-secondary" href="to_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/to_vacancies.do" role="button"><fmt:message
                     key="button.seeAllVacancies"/> </a>
         </div>
         <div class="col-3">
@@ -50,9 +50,9 @@
                     <fmt:message key="button.sortByDate"/>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="sortDropDown">
-                    <li><a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=desc"><fmt:message
+                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sort_vacancies_by_date.do?sortSequence=desc"><fmt:message
                             key="button.sortDesc"/> </a></li>
-                    <li><a class="dropdown-item" href="sort_vacancies_by_date.do?sortSequence=asc"><fmt:message
+                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/sort_vacancies_by_date.do?sortSequence=asc"><fmt:message
                             key="button.sortAsc"/> </a></li>
                 </ul>
             </div>

@@ -79,12 +79,12 @@
                                     </li>
                                     <c:if test="${user.isAvailable}">
                                         <li><a class="dropdown-item"
-                                               href="delete_vacancy.do?vacancyId=${user.id}"><fmt:message
+                                               href="${pageContext.request.contextPath}/delete_vacancy.do?vacancyId=${user.id}"><fmt:message
                                                 key="button.delete"/> </a></li>
                                     </c:if>
                                     <c:if test="${!user.isAvailable}">
                                         <li><a class="dropdown-item"
-                                               href="restore_vacancy.do?vacancyId=${user.id}"><fmt:message
+                                               href="${pageContext.request.contextPath}/restore_vacancy.do?vacancyId=${user.id}"><fmt:message
                                                 key="button.restore"/> </a></li>
                                     </c:if>
                                 </ul>

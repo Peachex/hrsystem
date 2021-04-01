@@ -75,7 +75,7 @@
                 <ul class="dropdown-menu dropdown-menu-dark" style="width: 100%"
                     aria-labelledby="actionDropDown">
                     <li><a class="dropdown-item"
-                           href="to_admin_user_info.do?userId=${report.user.id}"><fmt:message
+                           href="${pageContext.request.contextPath}/to_admin_user_info.do?userId=${report.user.id}"><fmt:message
                             key="button.userInfo"/> </a></li>
                     <c:if test="${report.response == null}">
                         <li>
@@ -135,7 +135,7 @@
     </div>
     <a class="btn btn-secondary col-2 offset-5 mt-5"
        style="display: flex;justify-content: center; margin-bottom: 5%"
-       href="to_admin_user_report_list.do" role="button"><fmt:message
+       href="${pageContext.request.contextPath}/to_admin_user_report_list.do" role="button"><fmt:message
             key="button.back"/> </a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
