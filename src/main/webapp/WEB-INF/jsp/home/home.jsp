@@ -22,8 +22,11 @@
 <div class="main-container">
     <%@ include file="header.jsp" %>
 
+    <h1 class="display-5" style="margin-top: 5%; justify-content: center; display: flex; font-family: cursive;
+    color: #2e2e2e;"><fmt:message key="home.projectName"/></h1>
+
     <div id="carouselExampleInterval" class="carousel carousel-dark slide"
-         style="width: 20%;margin-top: 12%; margin-left: 40%;"
+         style="width: 20%;margin-top: 3%; margin-left: 40%;"
          data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="4000">
