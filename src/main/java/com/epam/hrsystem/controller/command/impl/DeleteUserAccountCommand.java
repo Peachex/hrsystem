@@ -10,6 +10,7 @@ import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.User;
+import com.epam.hrsystem.model.entity.UserRole;
 import com.epam.hrsystem.model.service.UserService;
 import com.epam.hrsystem.model.service.impl.ServiceHolder;
 import org.apache.logging.log4j.Level;
@@ -35,7 +36,9 @@ public class DeleteUserAccountCommand implements ActionCommand {
             Optional<User> userOptional = service.login(user.getEmail(), currentPassword);
             if (userOptional.isPresent()) {
                 service.blockUser(user.getId());
-                session.invalidate();
+                session.removeAttribute(SessionAttribute.USER_ID);
+                session.removeAttribute(SessionAttribute.USER);
+                session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.GUEST);
                 result = new CommandResult(ServletAttribute.HOME_URL_PATTERN, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute(JspAttribute.ERROR_INVALID_CURRENT_PASSWORD_ATTRIBUTE, JspAttribute.ERROR_INVALID_CURRENT_PASSWORD_MESSAGE);

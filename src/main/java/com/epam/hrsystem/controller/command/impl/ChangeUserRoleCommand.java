@@ -25,19 +25,17 @@ public class ChangeUserRoleCommand implements ActionCommand {
         UserService service = ServiceHolder.HOLDER.getUserService();
         String userIdStr = request.getParameter(RequestParameter.USER_ID);
         String newUserRole = request.getParameter(RequestParameter.USER_ROLE);
-        CommandResult result;
+        CommandResult result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.FORWARD);
         try {
             long userId = Long.parseLong(userIdStr);
             if (service.changeUserRole(userId, newUserRole)) {
                 result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
-                result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.FORWARD);
             }
         } catch (NumberFormatException e) {
             logger.log(Level.ERROR, "Couldn't convert from string to long str = " + userIdStr + ": " + e);
             request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
-            result = new CommandResult(CommandName.TO_ADMIN_USER_INFO, CommandResult.Type.FORWARD);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, "Couldn't change user role");
             throw new CommandException(e);

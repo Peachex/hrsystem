@@ -29,7 +29,6 @@ public class EditUserProfileCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         HttpSession session = request.getSession();
         long userId = (long) session.getAttribute(SessionAttribute.USER_ID);
-
         String newFirstName = request.getParameter(RequestParameter.FIRST_NAME);
         String newLastName = request.getParameter(RequestParameter.LAST_NAME);
         String newDateOfBirth = request.getParameter(RequestParameter.DATE_OF_BIRTH);

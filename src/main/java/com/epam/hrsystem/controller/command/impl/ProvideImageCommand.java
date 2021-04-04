@@ -25,7 +25,7 @@ public class ProvideImageCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String fileName = request.getParameter(RequestParameter.FILE_NAME);
-        if (!fileName.isEmpty()) {
+        if (fileName != null && !fileName.isEmpty()) {
             try (ServletOutputStream outputStream = response.getOutputStream()) {
                 outputStream.write(readFile(fileName));
             } catch (IOException | ServiceException e) {

@@ -40,7 +40,6 @@ public class ChangeUserPasswordCommand implements ActionCommand {
         fields.put(RequestParameter.REPEATED_NEW_PASSWORD, repeatedNewPassword);
 
         CommandResult result = new CommandResult(CommandName.TO_USER_PROFILE, CommandResult.Type.FORWARD);
-
         try {
             Optional<User> userOptional = service.login(user.getEmail(), currentPassword);
             if (userOptional.isPresent()) {

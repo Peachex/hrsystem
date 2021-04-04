@@ -23,15 +23,14 @@ public class RestoreVacancyCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        VacancyService service = ServiceHolder.HOLDER.getVacancyService();
         HttpSession session = request.getSession();
-        CommandResult result;
         String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
+        VacancyService service = ServiceHolder.HOLDER.getVacancyService();
+        CommandResult result;
         try {
             long vacancyId = Long.parseLong(vacancyIdStr);
             long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
-            boolean isRestored = service.restoreVacancy(vacancyId, employeeId);
-            if (isRestored) {
+            if (service.restoreVacancy(vacancyId, employeeId)) {
                 result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT);
             } else {
                 result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES, CommandResult.Type.FORWARD);

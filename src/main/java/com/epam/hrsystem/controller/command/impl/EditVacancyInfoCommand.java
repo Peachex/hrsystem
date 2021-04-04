@@ -26,6 +26,8 @@ public class EditVacancyInfoCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        HttpSession session = request.getSession();
+        long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
         String newPosition = request.getParameter(RequestParameter.POSITION);
         String newDescription = request.getParameter(RequestParameter.DESCRIPTION);
         String newCountry = request.getParameter(RequestParameter.COUNTRY);
@@ -37,9 +39,6 @@ public class EditVacancyInfoCommand implements ActionCommand {
         fields.put(RequestParameter.DESCRIPTION, newDescription);
         fields.put(RequestParameter.COUNTRY, newCountry);
         fields.put(RequestParameter.CITY, newCity);
-
-        HttpSession session = request.getSession();
-        long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
 
         VacancyService service = ServiceHolder.HOLDER.getVacancyService();
         CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT);

@@ -26,13 +26,12 @@ public class CreateVacancyCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        HttpSession session = request.getSession();
+        long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
         String position = request.getParameter(RequestParameter.POSITION);
         String description = request.getParameter(RequestParameter.DESCRIPTION);
         String country = request.getParameter(RequestParameter.COUNTRY);
         String city = request.getParameter(RequestParameter.CITY);
-
-        HttpSession session = request.getSession();
-        long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
 
         Map<String, String> fields = new LinkedHashMap<>();
         fields.put(RequestParameter.POSITION, position);

@@ -2,7 +2,6 @@ package com.epam.hrsystem.controller.command.impl;
 
 import com.epam.hrsystem.controller.attribute.CommandName;
 import com.epam.hrsystem.controller.attribute.JspAttribute;
-import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandResult;
@@ -24,19 +23,17 @@ public class BlockUserCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         UserService service = ServiceHolder.HOLDER.getUserService();
         String userIdStr = request.getParameter(RequestParameter.USER_ID);
-        CommandResult result;
+        CommandResult result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.FORWARD);
         try {
             long userId = Long.parseLong(userIdStr);
             if (service.blockUser(userId)) {
                 result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute(JspAttribute.ERROR_USER_BLOCKING_ATTRIBUTE, JspAttribute.ERROR_USER_BLOCKING_MESSAGE);
-                result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.FORWARD);
             }
         } catch (NumberFormatException e) {
             logger.log(Level.ERROR, "Couldn't convert from string to long str = " + userIdStr + ": " + e);
             request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
-            result = new CommandResult(CommandName.TO_ADMIN_USER_INFO, CommandResult.Type.FORWARD);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, "Couldn't block user account");
             throw new CommandException(e);

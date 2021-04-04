@@ -33,9 +33,11 @@ public class CreateApplicantRequestCommand implements ActionCommand {
         User applicant = (User) session.getAttribute(SessionAttribute.USER);
         String summary = request.getParameter(RequestParameter.SUMMARY);
         String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
+
         Map<String, String> fields = new LinkedHashMap<>();
         fields.put(RequestParameter.SUMMARY, summary);
         fields.put(RequestParameter.VACANCY_ID, vacancyIdStr);
+
         CommandResult result;
         try {
             ApplicantRequestService service = ServiceHolder.HOLDER.getApplicantRequestService();

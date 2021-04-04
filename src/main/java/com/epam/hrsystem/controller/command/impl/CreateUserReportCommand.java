@@ -29,11 +29,10 @@ public class CreateUserReportCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        String subject = request.getParameter(RequestParameter.USER_REPORT_SUBJECT);
-        String comment = request.getParameter(RequestParameter.USER_REPORT_COMMENT);
-
         HttpSession session = request.getSession();
         long userId = (long) session.getAttribute(SessionAttribute.USER_ID);
+        String subject = request.getParameter(RequestParameter.USER_REPORT_SUBJECT);
+        String comment = request.getParameter(RequestParameter.USER_REPORT_COMMENT);
 
         Map<String, String> fields = new LinkedHashMap<>();
         fields.put(RequestParameter.USER_REPORT_SUBJECT, subject);
