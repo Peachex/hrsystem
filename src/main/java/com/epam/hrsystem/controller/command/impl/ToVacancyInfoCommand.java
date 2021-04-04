@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.attribute.CommandName;
 import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
@@ -25,7 +26,7 @@ public class ToVacancyInfoCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String vacancyId = request.getParameter(RequestParameter.VACANCY_ID);
         VacancyService service = ServiceHolder.HOLDER.getVacancyService();
-        CommandResult result;
+        CommandResult result = new CommandResult(CommandName.TO_VACANCIES, CommandResult.Type.FORWARD);
         try {
             try {
                 long id = Long.parseLong(vacancyId);
@@ -35,12 +36,11 @@ public class ToVacancyInfoCommand implements ActionCommand {
                     request.setAttribute(RequestParameter.VACANCY, vacancy);
                     result = new CommandResult(PagePath.CURRENT_VACANCY_INFO, CommandResult.Type.FORWARD);
                 } else {
-                    result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD);
                     request.setAttribute(JspAttribute.NO_VACANCY_ATTRIBUTE, JspAttribute.NO_VACANCY_MESSAGE);
                 }
             } catch (NumberFormatException e) {
                 logger.log(Level.ERROR, "Couldn't convert from string to long str = " + vacancyId + ": " + e);
-                result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.REDIRECT);
+                request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

@@ -26,7 +26,7 @@ public class ToAdminUserInfoCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String userIdStr = request.getParameter(RequestParameter.USER_ID);
         UserService service = ServiceHolder.HOLDER.getUserService();
-        CommandResult result;
+        CommandResult result = new CommandResult(CommandName.TO_ADMIN_USER_LIST, CommandResult.Type.FORWARD);
         try {
             long userId = Long.parseLong(userIdStr);
             Optional<User> userOptional = service.findUserById(userId);
@@ -35,13 +35,11 @@ public class ToAdminUserInfoCommand implements ActionCommand {
                 request.setAttribute(RequestParameter.USER, user);
                 result = new CommandResult(PagePath.ADMIN_USER_INFO, CommandResult.Type.FORWARD);
             } else {
-                result = new CommandResult(CommandName.TO_ADMIN_USER_LIST, CommandResult.Type.FORWARD);
                 request.setAttribute(JspAttribute.NO_USER_ATTRIBUTE, JspAttribute.NO_USER_MESSAGE);
             }
         } catch (NumberFormatException e) {
             logger.log(Level.ERROR, "Couldn't convert from string to long str = " + userIdStr + ": " + e);
             request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
-            result = new CommandResult(CommandName.TO_ADMIN_USER_LIST, CommandResult.Type.FORWARD);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
             throw new CommandException(e);

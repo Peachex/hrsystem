@@ -62,6 +62,7 @@
         <wrong-message>
             ${noVacancies}
             ${noVacancy}
+            ${errorInputData}
         </wrong-message>
     </div>
 

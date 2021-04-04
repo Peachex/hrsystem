@@ -50,7 +50,11 @@ public class EditUserProfileCommand implements ActionCommand {
                 session.setAttribute(SessionAttribute.USER, userOptional.get());
                 result = new CommandResult(CommandName.TO_USER_PROFILE, CommandResult.Type.REDIRECT);
             } else {
-                request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
+                if (!service.isEmailAvailable(newEmail)) {
+                    request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.EMAIL_AVAILABLE_ERROR_MESSAGE);
+                } else {
+                    request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
+                }
                 result = new CommandResult(CommandName.TO_USER_PROFILE, CommandResult.Type.FORWARD);
             }
         } catch (ServiceException | NumberFormatException e) {

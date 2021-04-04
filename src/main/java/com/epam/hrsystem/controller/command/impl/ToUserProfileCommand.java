@@ -17,12 +17,12 @@ public class ToUserProfileCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(SessionAttribute.USER);
-        CommandResult result = new CommandResult(PagePath.USER_PROFILE, CommandResult.Type.FORWARD);
         request.setAttribute(RequestParameter.FIRST_NAME, user.getFirstName());
         request.setAttribute(RequestParameter.LAST_NAME, user.getLastName());
         request.setAttribute(RequestParameter.DATE_OF_BIRTH, user.getDateOfBirth());
         request.setAttribute(RequestParameter.PHONE_NUMBER, user.getPhoneNumber());
         request.setAttribute(RequestParameter.EMAIL, user.getEmail());
+        CommandResult result = new CommandResult(PagePath.USER_PROFILE, CommandResult.Type.FORWARD);
         return result;
     }
 }

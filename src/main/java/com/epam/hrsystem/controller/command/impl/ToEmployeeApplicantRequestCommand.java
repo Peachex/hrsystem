@@ -1,5 +1,6 @@
 package com.epam.hrsystem.controller.command.impl;
 
+import com.epam.hrsystem.controller.attribute.CommandName;
 import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.PagePath;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
@@ -27,12 +28,12 @@ public class ToEmployeeApplicantRequestCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String applicantIdStr = request.getParameter(RequestParameter.APPLICANT_ID);
         String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
-        ApplicantRequestService applicantRequestService = ServiceHolder.HOLDER.getApplicantRequestService();
-        CommandResult result = new CommandResult(PagePath.EMPLOYEE_VACANCY_LIST, CommandResult.Type.FORWARD);
+        ApplicantRequestService service = ServiceHolder.HOLDER.getApplicantRequestService();
+        CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES, CommandResult.Type.FORWARD);
         try {
             long applicantId = Long.parseLong(applicantIdStr);
             long vacancyId = Long.parseLong(vacancyIdStr);
-            Optional<ApplicantRequest> applicantRequestOptional = applicantRequestService.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
+            Optional<ApplicantRequest> applicantRequestOptional = service.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
             if (applicantRequestOptional.isPresent()) {
                 HttpSession session = request.getSession();
                 long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
@@ -50,7 +51,6 @@ public class ToEmployeeApplicantRequestCommand implements ActionCommand {
             logger.log(Level.ERROR, "Couldn't convert from string to long str = " + applicantIdStr + " or " + vacancyIdStr +
                     ": " + e);
             request.setAttribute(JspAttribute.NO_VACANCY_ATTRIBUTE, JspAttribute.NO_VACANCY_MESSAGE);
-            result = new CommandResult(PagePath.EMPLOYEE_VACANCY_LIST, CommandResult.Type.FORWARD);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
             throw new CommandException(e);

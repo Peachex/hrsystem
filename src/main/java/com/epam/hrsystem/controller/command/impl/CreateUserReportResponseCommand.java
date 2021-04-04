@@ -40,7 +40,7 @@ public class CreateUserReportResponseCommand implements ActionCommand {
                 sender.send();
             } else {
                 if (UserReportValidator.isResponseValid(userReportResponse)) {
-                    request.setAttribute(JspAttribute.ERROR_DUPLICATE_ATTRIBUTE, JspAttribute.ERROR_VACANCY_DUPLICATE_MESSAGE);
+                    request.setAttribute(JspAttribute.ERROR_DUPLICATE_ATTRIBUTE, JspAttribute.ERROR_USER_REPORT_DUPLICATE_MESSAGE);
                 } else {
                     request.setAttribute(RequestParameter.USER_REPORT_RESPONSE, JspAttribute.INVALID_INPUT_DATA_MESSAGE);
                     request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);

@@ -32,8 +32,6 @@ public class ScheduleTechnicalInterviewCommand implements ActionCommand {
         String applicantIdStr = request.getParameter(RequestParameter.APPLICANT_ID);
         String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
         String technicalInterviewDateStr = request.getParameter(RequestParameter.TECHNICAL_INTERVIEW_DATE);
-
-
         ApplicantRequestService applicantRequestService = ServiceHolder.HOLDER.getApplicantRequestService();
         CommandResult result;
         try {

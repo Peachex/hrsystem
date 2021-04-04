@@ -203,6 +203,19 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public boolean isEmailAvailable(String email) throws ServiceException {
+        boolean result = false;
+        try {
+            if (UserValidator.isEmailValid(email)) {
+                result = dao.isEmailAvailable(email);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
     private void updateUserFields(User user, Map<String, String> fields) {
         String newFirstName = fields.get(RequestParameter.FIRST_NAME);
         user.setFirstName(newFirstName);

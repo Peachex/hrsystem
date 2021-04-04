@@ -19,10 +19,10 @@ import java.util.List;
 public class ToAdminUserListCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        UserService service = ServiceHolder.HOLDER.getUserService();
-        CommandResult result = new CommandResult(PagePath.ADMIN_USER_LIST, CommandResult.Type.FORWARD);
         HttpSession session = request.getSession();
         session.removeAttribute(RequestParameter.REPORT_ID);
+        UserService service = ServiceHolder.HOLDER.getUserService();
+        CommandResult result = new CommandResult(PagePath.ADMIN_USER_LIST, CommandResult.Type.FORWARD);
         try {
             List<User> users = service.findAllUsers();
             if (users.size() > 0) {

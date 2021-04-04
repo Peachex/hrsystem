@@ -33,4 +33,6 @@ public interface UserService {
     Optional<User> findUserById(long userId) throws ServiceException;
 
     List<User> findUsersByKeyWord(String keyWord) throws ServiceException;
+
+    boolean isEmailAvailable(String email) throws ServiceException;
 }

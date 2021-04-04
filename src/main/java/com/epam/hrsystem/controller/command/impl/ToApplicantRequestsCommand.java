@@ -20,10 +20,10 @@ import java.util.List;
 public class ToApplicantRequestsCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        ApplicantRequestService service = ServiceHolder.HOLDER.getApplicantRequestService();
         HttpSession session = request.getSession();
-        CommandResult result = new CommandResult(PagePath.APPLICANT_REQUESTS, CommandResult.Type.FORWARD);
         long applicantId = (long) session.getAttribute(SessionAttribute.USER_ID);
+        ApplicantRequestService service = ServiceHolder.HOLDER.getApplicantRequestService();
+        CommandResult result = new CommandResult(PagePath.APPLICANT_REQUESTS, CommandResult.Type.FORWARD);
         try {
             List<ApplicantRequest> applicantRequests = service.findApplicantRequestsByApplicantId(applicantId);
             if (applicantRequests.size() > 0) {

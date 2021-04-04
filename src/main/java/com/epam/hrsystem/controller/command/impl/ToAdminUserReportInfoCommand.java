@@ -27,7 +27,7 @@ public class ToAdminUserReportInfoCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String reportIdStr = request.getParameter(RequestParameter.REPORT_ID);
         UserReportService service = ServiceHolder.HOLDER.getUserReportService();
-        CommandResult result;
+        CommandResult result = new CommandResult(CommandName.TO_ADMIN_USER_REPORT_LIST, CommandResult.Type.FORWARD);
         try {
             long reportId = Long.parseLong(reportIdStr);
             Optional<UserReport> reportOptional = service.findUserReportById(reportId);
@@ -38,13 +38,11 @@ public class ToAdminUserReportInfoCommand implements ActionCommand {
                 session.setAttribute(RequestParameter.REPORT_ID, reportId);
                 result = new CommandResult(PagePath.ADMIN_USER_REPORT_INFO, CommandResult.Type.FORWARD);
             } else {
-                result = new CommandResult(CommandName.TO_ADMIN_USER_REPORT_LIST, CommandResult.Type.FORWARD);
                 request.setAttribute(JspAttribute.NO_REPORT_ATTRIBUTE, JspAttribute.NO_REPORT_MESSAGE);
             }
         } catch (NumberFormatException e) {
             logger.log(Level.ERROR, "Couldn't convert from string to long str = " + reportIdStr + ": " + e);
             request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);
-            result = new CommandResult(CommandName.TO_ADMIN_USER_REPORT_LIST, CommandResult.Type.FORWARD);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
             throw new CommandException(e);

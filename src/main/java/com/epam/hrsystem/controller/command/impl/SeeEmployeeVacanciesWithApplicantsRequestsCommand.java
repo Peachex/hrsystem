@@ -20,9 +20,9 @@ import java.util.List;
 public class SeeEmployeeVacanciesWithApplicantsRequestsCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        HttpSession session = request.getSession();
         VacancyService service = ServiceHolder.HOLDER.getVacancyService();
         CommandResult result = new CommandResult(PagePath.EMPLOYEE_VACANCY_LIST, CommandResult.Type.FORWARD);
-        HttpSession session = request.getSession();
         try {
             long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
             List<Vacancy> vacancies = service.findEmployeeVacanciesWithApplicantsRequests(employeeId);
