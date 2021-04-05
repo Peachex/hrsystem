@@ -2,6 +2,9 @@ package com.epam.hrsystem.model.entity;
 
 import java.time.LocalDate;
 
+/**
+ * Entity class represents an applicant request.
+ */
 public class ApplicantRequest {
     private long id;
     private String summary;
@@ -12,9 +15,21 @@ public class ApplicantRequest {
     private InterviewResult technicalInterviewResult;
     private LocalDate technicalInterviewDate;
 
+    /**
+     * Constructs an applicant request object.
+     */
     public ApplicantRequest() {
     }
 
+    /**
+     * Constructs an applicant request object with given id, summary, applicantState, applicant, vacancy.
+     *
+     * @param id             long value of applicant request's id.
+     * @param summary        String object of applicant request's summary.
+     * @param applicantState ApplicantState object of applicant request's applicant state.
+     * @param applicant      User object of applicant request's applicant.
+     * @param vacancy        Vacancy object of applicant request's vacancy.
+     */
     public ApplicantRequest(long id, String summary, ApplicantState applicantState, User applicant,
                             Vacancy vacancy) {
         this.id = id;
@@ -24,67 +39,148 @@ public class ApplicantRequest {
         this.vacancy = vacancy;
     }
 
+    /**
+     * Constructs an applicant request object with given summary, applicantState.
+     *
+     * @param summary        String object of applicant request's summary.
+     * @param applicantState ApplicantState object of applicant request's applicant state.
+     */
     public ApplicantRequest(String summary, ApplicantState applicantState) {
         this.summary = summary;
         this.applicantState = applicantState;
     }
 
+    /**
+     * Getter method of applicant request's id.
+     *
+     * @return long value of applicant request's id.
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Getter method of applicant request's summary.
+     *
+     * @return String object of applicant request's summary.
+     */
     public String getSummary() {
         return summary;
     }
 
+    /**
+     * Setter method of applicant request's summary.
+     *
+     * @param summary String object of applicant request's summary.
+     */
     public void setSummary(String summary) {
         this.summary = summary;
     }
 
+    /**
+     * Getter method of applicant request's applicant state.
+     *
+     * @return ApplicantState object of applicant request's applicant state.
+     */
     public ApplicantState getApplicantState() {
         return applicantState;
     }
 
+    /**
+     * Setter method of applicant request's applicant state.
+     *
+     * @param applicantState ApplicantState object of applicant request's applicant state.
+     */
     public void setApplicantState(ApplicantState applicantState) {
         this.applicantState = applicantState;
     }
 
+    /**
+     * Getter method of applicant request's applicant.
+     *
+     * @return User object of applicant request's applicant.
+     */
     public User getApplicant() {
         return applicant;
     }
 
+    /**
+     * Setter method of applicant request's applicant.
+     *
+     * @param applicant User object of applicant request's applicant.
+     */
     public void setApplicant(User applicant) {
         this.applicant = applicant;
     }
 
+    /**
+     * Getter method of applicant request's vacancy.
+     *
+     * @return Vacancy object of applicant request's vacancy.
+     */
     public Vacancy getVacancy() {
         return vacancy;
     }
 
+    /**
+     * Setter method of applicant request's vacancy.
+     *
+     * @param vacancy Vacancy object of applicant request's vacancy.
+     */
     public void setVacancy(Vacancy vacancy) {
         this.vacancy = vacancy;
     }
 
+    /**
+     * Getter method of applicant request's basic interview result.
+     *
+     * @return InterviewResult object of applicant request's basic interview result.
+     */
     public InterviewResult getBasicInterviewResult() {
         return basicInterviewResult;
     }
 
+    /**
+     * Setter method of applicant request's basic interview result.
+     *
+     * @param basicInterviewResult InterviewResult object of applicant request's basic interview result.
+     */
     public void setBasicInterviewResult(InterviewResult basicInterviewResult) {
         this.basicInterviewResult = basicInterviewResult;
     }
 
+    /**
+     * Getter method of applicant request's technical interview result.
+     *
+     * @return InterviewResult object of applicant request's technical interview result.
+     */
     public InterviewResult getTechnicalInterviewResult() {
         return technicalInterviewResult;
     }
 
+    /**
+     * Setter method of applicant request's technical interview result.
+     *
+     * @param technicalInterviewResult InterviewResult object of applicant request's technical interview result.
+     */
     public void setTechnicalInterviewResult(InterviewResult technicalInterviewResult) {
         this.technicalInterviewResult = technicalInterviewResult;
     }
 
+    /**
+     * Getter method of applicant request's technical interview date.
+     *
+     * @return LocalDate object of applicant request's technical interview date.
+     */
     public LocalDate getTechnicalInterviewDate() {
         return technicalInterviewDate;
     }
 
+    /**
+     * Setter method of applicant request's technical interview date.
+     *
+     * @param technicalInterviewDate LocalDate object of applicant request's technical interview date.
+     */
     public void setTechnicalInterviewDate(LocalDate technicalInterviewDate) {
         this.technicalInterviewDate = technicalInterviewDate;
     }
