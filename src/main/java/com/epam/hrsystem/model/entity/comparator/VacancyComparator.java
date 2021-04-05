@@ -4,7 +4,13 @@ import com.epam.hrsystem.model.entity.Vacancy;
 
 import java.util.Comparator;
 
+/**
+ * Enumeration of vacancies' comparators.
+ */
 public enum VacancyComparator implements Comparator<Vacancy> {
+    /**
+     * Represents an object of enumeration that we can use as comparator to compare vacancies by creation date.
+     */
     VACANCY_CREATION_DATE {
         @Override
         public int compare(Vacancy vacancy1, Vacancy vacancy2) {
