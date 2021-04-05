@@ -16,13 +16,13 @@ public class ApplicantRequest {
     private LocalDate technicalInterviewDate;
 
     /**
-     * Constructs an applicant request object.
+     * Constructs an ApplicantRequest object.
      */
     public ApplicantRequest() {
     }
 
     /**
-     * Constructs an applicant request object with given id, summary, applicantState, applicant, vacancy.
+     * Constructs an ApplicantRequest object with given id, summary, applicantState, applicant, vacancy.
      *
      * @param id             long value of applicant request's id.
      * @param summary        String object of applicant request's summary.
@@ -40,7 +40,7 @@ public class ApplicantRequest {
     }
 
     /**
-     * Constructs an applicant request object with given summary, applicantState.
+     * Constructs an ApplicantRequest object with given summary, applicantState.
      *
      * @param summary        String object of applicant request's summary.
      * @param applicantState ApplicantState object of applicant request's applicant state.
