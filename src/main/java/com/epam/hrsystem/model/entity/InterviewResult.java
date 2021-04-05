@@ -2,6 +2,8 @@ package com.epam.hrsystem.model.entity;
 
 /**
  * Entity class represents an interview result.
+ *
+ * @author Aleksey Klevitov
  */
 public class InterviewResult {
     private long id;

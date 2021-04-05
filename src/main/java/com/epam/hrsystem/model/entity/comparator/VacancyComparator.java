@@ -6,6 +6,8 @@ import java.util.Comparator;
 
 /**
  * Enumeration of vacancies' comparators.
+ *
+ * @author Aleksey Klevitov
  */
 public enum VacancyComparator implements Comparator<Vacancy> {
     /**

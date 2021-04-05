@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 /**
  * Entity class represents a user.
+ *
+ * @author Aleksey Klevitov
  */
 public class User {
     private long id;

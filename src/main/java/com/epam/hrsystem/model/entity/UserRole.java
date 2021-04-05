@@ -2,6 +2,8 @@ package com.epam.hrsystem.model.entity;
 
 /**
  * Enumeration of users' roles.
+ *
+ * @author Aleksey Klevitov
  */
 public enum UserRole {
     /**

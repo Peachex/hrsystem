@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 /**
  * Entity class represents a vacancy.
+ *
+ * @author Aleksey Klevitov
  */
 public class Vacancy {
     private long id;

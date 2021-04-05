@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 /**
  * Entity class represents an applicant request.
+ *
+ * @author Aleksey Klevitov
  */
 public class ApplicantRequest {
     private long id;

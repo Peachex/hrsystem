@@ -19,13 +19,28 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+ * A proxy Connection object with an overridden close() method. Used in ConnectionPool.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ProxyConnection implements Connection {
     private final Connection connection;
 
+    /**
+     * Constructs a ProxyConnection object with given connection.
+     *
+     * @param connection Connection object.
+     */
     ProxyConnection(Connection connection) {
         this.connection = connection;
     }
 
+    /**
+     * Really closes a Connection object.
+     *
+     * @throws SQLException if a database access error occurs.
+     */
     void reallyClose() throws SQLException {
         connection.close();
     }

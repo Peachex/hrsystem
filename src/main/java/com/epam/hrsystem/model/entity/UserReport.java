@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 /**
  * Entity class represents a user report.
+ *
+ * @author Aleksey Klevitov
  */
 public class UserReport {
     private long id;
