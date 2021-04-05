@@ -1,7 +1,7 @@
 package com.epam.hrsystem.model.entity;
 
 /**
- * Enumeration of applicants' state.
+ * Enumeration of applicants' states.
  */
 public enum ApplicantState {
     /**

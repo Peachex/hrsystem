@@ -1,5 +1,23 @@
 package com.epam.hrsystem.model.entity;
 
+/**
+ * Enumeration of users' roles.
+ */
 public enum UserRole {
-    ADMIN, APPLICANT, EMPLOYEE, GUEST
+    /**
+     * Represents admin role.
+     */
+    ADMIN,
+    /**
+     * Represents applicant role.
+     */
+    APPLICANT,
+    /**
+     * Represents employee role.
+     */
+    EMPLOYEE,
+    /**
+     * Represents guest role.
+     */
+    GUEST
 }
