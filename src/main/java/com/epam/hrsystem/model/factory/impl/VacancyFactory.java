@@ -10,9 +10,17 @@ import java.util.Optional;
 
 import static com.epam.hrsystem.validator.VacancyValidator.isVacancyFormValid;
 
+/**
+ * EntityFactory implementation used to create a Vacancy object.
+ *
+ * @author Aleksey Klevitov
+ */
 public class VacancyFactory implements EntityFactory<Vacancy> {
     private static final boolean DEFAULT_AVAILABILITY_VALUE = true;
 
+    /**
+     * Constructs a VacancyFactory object.
+     */
     VacancyFactory() {
     }
 

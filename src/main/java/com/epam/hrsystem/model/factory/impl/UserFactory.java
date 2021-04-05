@@ -11,11 +11,19 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * EntityFactory implementation used to create a User object.
+ *
+ * @author Aleksey Klevitov
+ */
 public class UserFactory implements EntityFactory<User> {
     private static final UserRole DEFAULT_ROLE = UserRole.APPLICANT;
     private static final String DEFAULT_PHOTO_NAME = "default_avatar.png";
     private static final boolean DEFAULT_ACTIVE_VALUE = true;
 
+    /**
+     * Constructs a UserFactory object.
+     */
     UserFactory() {
     }
 

@@ -10,9 +10,17 @@ import java.util.Optional;
 
 import static com.epam.hrsystem.validator.UserReportValidator.isUserReportFormValid;
 
+/**
+ * EntityFactory implementation used to create UserReport object.
+ *
+ * @author Aleksey Klevitov
+ */
 public class UserReportFactory implements EntityFactory<UserReport> {
     private static final boolean DEFAULT_AVAILABILITY_VALUE = true;
 
+    /**
+     * Constructs a UserReportFactory object.
+     */
     UserReportFactory() {
     }
 

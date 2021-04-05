@@ -35,7 +35,7 @@ public class ConnectionPool {
         private final ConnectionPool connectionPool = new ConnectionPool();
 
         /**
-         * Getter method of connection pool.
+         * Getter method that returns a connection pool object.
          *
          * @return ConnectionPool object.
          */

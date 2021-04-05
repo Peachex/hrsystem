@@ -10,9 +10,17 @@ import static com.epam.hrsystem.validator.ApplicantRequestValidator.isSummaryVal
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * EntityFactory implementation used to create an ApplicantRequest object.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ApplicantRequestFactory implements EntityFactory<ApplicantRequest> {
     private static final ApplicantState DEFAULT_APPLICANT_STATE = ApplicantState.LEFT_REQUEST;
 
+    /**
+     * Constructs an ApplicantRequestFactory object.
+     */
     ApplicantRequestFactory() {
     }
 

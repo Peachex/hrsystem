@@ -9,8 +9,16 @@ import java.util.Optional;
 
 import static com.epam.hrsystem.validator.InterviewResultValidator.isInterviewResultFormValid;
 
+/**
+ * EntityFactory implementation used to create an InterviewResult object.
+ *
+ * @author Aleksey Klevitov
+ */
 public class InterviewResultFactory implements EntityFactory<InterviewResult> {
 
+    /**
+     * Constructs an InterviewResultFactory object.
+     */
     InterviewResultFactory() {
     }
 
