@@ -2,6 +2,9 @@ package com.epam.hrsystem.model.entity;
 
 import java.time.LocalDate;
 
+/**
+ * Entity class represents a user.
+ */
 public class User {
     private long id;
     private UserRole role;
@@ -13,9 +16,25 @@ public class User {
     private String phoneNumber;
     private String email;
 
+    /**
+     * Constructs an User object.
+     */
     public User() {
     }
 
+    /**
+     * Constructs an User object with given id, role, isActive, photoName, firstName, lastName, dateOfBirth, phoneNumber, email.
+     *
+     * @param id          long value of user's id.
+     * @param role        UserRole object of user's role.
+     * @param isActive    boolean value of user's status.
+     * @param photoName   String object of user's photoName.
+     * @param firstName   String object of user's first name.
+     * @param lastName    String object of user's last name.
+     * @param dateOfBirth LocalDate object of user's date of birth.
+     * @param phoneNumber String object of user's phone number.
+     * @param email       String object of user's email.
+     */
     public User(long id, UserRole role, boolean isActive, String photoName, String firstName, String lastName,
                 LocalDate dateOfBirth, String phoneNumber, String email) {
         this.id = id;
@@ -29,6 +48,18 @@ public class User {
         this.email = email;
     }
 
+    /**
+     * Constructs an User object with given role, isActive, photoName, firstName, lastName, dateOfBirth, phoneNumber, email.
+     *
+     * @param role        UserRole object of user's role.
+     * @param isActive    boolean value of user's status.
+     * @param photoName   String object of user's photoName.
+     * @param firstName   String object of user's first name.
+     * @param lastName    String object of user's last name.
+     * @param dateOfBirth LocalDate object of user's date of birth.
+     * @param phoneNumber String object of user's phone number.
+     * @param email       String object of user's email.
+     */
     public User(UserRole role, boolean isActive, String photoName, String firstName, String lastName,
                 LocalDate dateOfBirth, String phoneNumber, String email) {
         this.role = role;
@@ -41,70 +72,155 @@ public class User {
         this.email = email;
     }
 
+    /**
+     * Getter method of user's id.
+     *
+     * @return long value of user's id.
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Getter method of user's role.
+     *
+     * @return UserRole object of user's role.
+     */
     public UserRole getRole() {
         return role;
     }
 
+    /**
+     * Setter method of user's role.
+     *
+     * @param role UserRole object of user's role.
+     */
     public void setRole(UserRole role) {
         this.role = role;
     }
 
+    /**
+     * Getter method of user's status.
+     *
+     * @return boolean value of user's status.
+     */
     public boolean getIsActive() {
         return isActive;
     }
 
+    /**
+     * Setter method of user's status.
+     *
+     * @param active boolean value of user's status.
+     */
     public void setIsActive(boolean active) {
         isActive = active;
     }
 
+    /**
+     * Getter method of user's photo name.
+     *
+     * @return String object of user's photo name.
+     */
     public String getPhotoName() {
         return photoName;
     }
 
+    /**
+     * Setter method of user's photo name.
+     *
+     * @param photoName String object of user's photo name.
+     */
     public void setPhotoName(String photoName) {
         this.photoName = photoName;
     }
 
+    /**
+     * Getter method of user's firstName.
+     *
+     * @return String object of user's first name.
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Setter method of user's first name.
+     *
+     * @param firstName String object of user's first name.
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Getter method of user's last name.
+     *
+     * @return String object of user's last name.
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Setter method of user's last name.
+     *
+     * @param lastName String object of user's last name.
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Getter method of user's date of birth.
+     *
+     * @return LocalDate object of user's date of birth.
+     */
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
+    /**
+     * Setter method of user's date of birth.
+     *
+     * @param dateOfBirth LocalDate object of user's date of birth.
+     */
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
+    /**
+     * Getter method of user's phone number.
+     *
+     * @return String object of user's phone number.
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    /**
+     * Setter method of user's phone number.
+     *
+     * @param phoneNumber String object of user's phone number.
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Getter method of user's email.
+     *
+     * @return String object of user's email.
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Setter method of user's email.
+     *
+     * @param email String object of user's email.
+     */
     public void setEmail(String email) {
         this.email = email;
     }
