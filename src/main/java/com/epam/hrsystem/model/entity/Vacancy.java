@@ -2,6 +2,9 @@ package com.epam.hrsystem.model.entity;
 
 import java.time.LocalDate;
 
+/**
+ * Entity class represents a vacancy.
+ */
 public class Vacancy {
     private long id;
     private boolean isAvailable;
@@ -12,9 +15,24 @@ public class Vacancy {
     private LocalDate creationDate;
     private User employee;
 
+    /**
+     * Constructs a Vacancy object.
+     */
     public Vacancy() {
     }
 
+    /**
+     * Constructs a Vacancy object with given id, isAvailable, position, description, creationDate, country, city, employee.
+     *
+     * @param id           long value of vacancy's id.
+     * @param isAvailable  boolean value of vacancy's status.
+     * @param position     String object of vacancy's position.
+     * @param description  String object of vacancy's description.
+     * @param creationDate LocalDate object of vacancy's creation date.
+     * @param country      String object of vacancy's country.
+     * @param city         String object of vacancy's city.
+     * @param employee     Employee object of vacancy's employee.
+     */
     public Vacancy(long id, boolean isAvailable, String position, String description, LocalDate creationDate,
                    String country, String city, User employee) {
         this.id = id;
@@ -27,6 +45,16 @@ public class Vacancy {
         this.employee = employee;
     }
 
+    /**
+     * Constructs a Vacancy object with given isAvailable, position, description, country, city, creationDate.
+     *
+     * @param isAvailable  boolean value of vacancy's status.
+     * @param position     String object of vacancy's position.
+     * @param description  String object of vacancy's description.
+     * @param country      String object of vacancy's country.
+     * @param city         String object of vacancy's city.
+     * @param creationDate LocalDate object of vacancy's creation date.
+     */
     public Vacancy(boolean isAvailable, String position, String description, String country, String city, LocalDate creationDate) {
         this.isAvailable = isAvailable;
         this.position = position;
@@ -36,58 +64,128 @@ public class Vacancy {
         this.creationDate = creationDate;
     }
 
+    /**
+     * Getter method of vacancy's id.
+     *
+     * @return long value of vacancy's id.
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Getter method of vacancy's status.
+     *
+     * @return boolean value of vacancy's status.
+     */
     public boolean getIsAvailable() {
         return isAvailable;
     }
 
+    /**
+     * Setter method of vacancy's status.
+     *
+     * @param available boolean value of vacancy's status.
+     */
     public void setIsAvailable(boolean available) {
         isAvailable = available;
     }
 
+    /**
+     * Getter method of vacancy's position.
+     *
+     * @return String object of vacancy's position.
+     */
     public String getPosition() {
         return position;
     }
 
+    /**
+     * Setter method of vacancy's position.
+     *
+     * @param position String object of vacancy's position.
+     */
     public void setPosition(String position) {
         this.position = position;
     }
 
+    /**
+     * Getter method of vacancy's description.
+     *
+     * @return String object of vacancy's description.
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Setter method of vacancy's description.
+     *
+     * @param description String object of vacancy's description.
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Getter method of vacancy's country.
+     *
+     * @return String object of vacancy's country.
+     */
     public String getCountry() {
         return country;
     }
 
+    /**
+     * Setter method of vacancy's country.
+     *
+     * @param country String object of vacancy's country.
+     */
     public void setCountry(String country) {
         this.country = country;
     }
 
+    /**
+     * Getter method of vacancy's city.
+     *
+     * @return String object of vacancy's city.
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     * Setter method of vacancy's city.
+     *
+     * @param city String object of vacancy's city.
+     */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /**
+     * Getter method of vacancy's creation date.
+     *
+     * @return LocalDate object of vacancy's creation date.
+     */
     public LocalDate getCreationDate() {
         return creationDate;
     }
 
+    /**
+     * Getter method of vacancy's employee.
+     *
+     * @return Employee object of vacancy's employee.
+     */
     public User getEmployee() {
         return employee;
     }
 
+    /**
+     * Setter method of vacancy's employee.
+     *
+     * @param employee Employee object of vacancy's employee.
+     */
     public void setEmployee(User employee) {
         this.employee = employee;
     }
