@@ -79,7 +79,6 @@
                             key="button.userInfo"/> </a></li>
                     <c:if test="${report.response == null}">
                         <li>
-                            <!-- Button trigger modal -->
                             <button type="button" class="btn btn-secondary dropdown-item"
                                     data-bs-toggle="modal" data-bs-target="#createReportResponseModal">
                                 <fmt:message key="button.createReportResponse"/>

@@ -71,7 +71,6 @@
                                 <ul class="dropdown-menu dropdown-menu-dark" style="width: 100%"
                                     aria-labelledby="actionDropDown">
                                     <li>
-                                        <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-secondary dropdown-item"
                                                 data-bs-toggle="modal" data-bs-target="#editVacancyModal">
                                             <fmt:message key="button.edit"/>
@@ -88,7 +87,6 @@
                                                 key="button.restore"/> </a></li>
                                     </c:if>
                                 </ul>
-                                <!-- Modal -->
                                 <div class="modal fade" id="editVacancyModal" data-bs-backdrop="static"
                                      data-bs-keyboard="false" tabindex="-1"
                                      aria-labelledby="staticBackdropLabel" aria-hidden="true">

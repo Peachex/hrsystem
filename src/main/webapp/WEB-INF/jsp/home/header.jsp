@@ -84,7 +84,7 @@
                 </li>
                 <img src="${pageContext.request.contextPath}/provide_image.do?fileName=${sessionScope.user.photoName}"
                      width="64" height="64"
-                     class="rounded-circle avatar">
+                     class="rounded-circle avatar" alt="">
             </ctg:user-name>
         </nav>
     </div>

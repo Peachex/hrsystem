@@ -153,7 +153,6 @@
                 </div>
             </c:if>
 
-            <!-- Modal -->
             <div class="modal fade" id="createInterviewResultModal" data-bs-backdrop="static"
                  data-bs-keyboard="false" tabindex="-1"
                  aria-labelledby="staticBackdropLabel" aria-hidden="true">

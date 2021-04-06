@@ -63,7 +63,6 @@
     </wrong-message>
 
     <c:if test="${sessionScope.role.toString().equals(applicant) || sessionScope.role.toString().equals(employee)}">
-        <!-- Button trigger modal -->
         <button type="button" class="btn btn-secondary col-2 offset-5"
                 style="margin-top: 3%; display: flex; justify-content: center;"
                 data-bs-toggle="modal" data-bs-target="#createUserReportModal">
@@ -71,7 +70,6 @@
         </button>
     </c:if>
 
-    <!-- Modal -->
     <div class="modal fade" id="createUserReportModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">

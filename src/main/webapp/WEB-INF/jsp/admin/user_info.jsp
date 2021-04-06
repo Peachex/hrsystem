@@ -124,7 +124,6 @@
                 <ul class="dropdown-menu dropdown-menu-dark" style="width: 100%"
                     aria-labelledby="actionDropDown">
                     <li>
-                        <!-- Button trigger modal -->
                         <button type="button" class="btn btn-secondary dropdown-item"
                                 data-bs-toggle="modal" data-bs-target="#changeUserRoleModal">
                             <fmt:message key="button.changeRole"/>

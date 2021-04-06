@@ -75,7 +75,6 @@
                 <ul class="dropdown-menu dropdown-menu-dark" style="width: 100%"
                     aria-labelledby="actionDropDown">
                     <li>
-                        <!-- Button trigger modal -->
                         <button type="button" class="btn btn-secondary dropdown-item"
                                 data-bs-toggle="modal" data-bs-target="#editProfileModal">
                             <fmt:message key="button.edit"/>
@@ -109,7 +108,6 @@
        href="${pageContext.request.contextPath}/home" role="button"><fmt:message
             key="button.home"/> </a>
 
-    <!-- Modal -->
     <div class="modal fade" id="editProfileModal" data-bs-backdrop="static"
          data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -195,8 +193,6 @@
         </div>
     </div>
 
-
-    <!-- Modal -->
     <div class="modal fade" id="changePasswordModal" data-bs-backdrop="static"
          data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -264,7 +260,6 @@
         </div>
     </div>
 
-    <!-- Modal -->
     <div class="modal fade" id="deleteAccountModal" data-bs-backdrop="static"
          data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -275,7 +270,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                 </div>
-
                 <div class="modal-body">
                     <form name="edit-user-info" method="POST" action="delete_user_account.do">
                         <div class="mt-1">

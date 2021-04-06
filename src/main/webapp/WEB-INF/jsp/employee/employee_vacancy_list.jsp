@@ -25,13 +25,11 @@
     <%@ include file="../home/header.jsp" %>
     <c:set var="employeeVacancies" scope="request" value="${employeeVacancies}"/>
 
-    <!-- Button trigger modal -->
     <button type="button" class="btn btn-secondary mt-5" style="margin-left: 30.7%; width: 40%"
             data-bs-toggle="modal" data-bs-target="#createVacancyModal">
         <fmt:message key="button.createVacancy"/>
     </button>
 
-    <!-- Modal -->
     <div class="modal fade" id="createVacancyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">

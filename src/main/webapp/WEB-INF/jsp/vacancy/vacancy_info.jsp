@@ -56,7 +56,6 @@
             </c:if>
 
             <c:if test="${role.toString().equals(applicant)}">
-                <!-- Button trigger modal -->
                 <button type="button" class="btn btn-outline-success mb-4"
                         style="margin-top: 2%; margin-bottom: 2%; width: 60%"
                         data-bs-toggle="modal"
@@ -64,7 +63,6 @@
                     <fmt:message key="button.createApplicantRequest"/>
                 </button>
 
-                <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">
