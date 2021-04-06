@@ -50,7 +50,7 @@ class ConnectionCreator {
     }
 
     /**
-     * Create a Connection object.
+     * Creates a Connection object.
      *
      * @return Connection object.
      * @throws SQLException if a database access error occurs or the url is null.
