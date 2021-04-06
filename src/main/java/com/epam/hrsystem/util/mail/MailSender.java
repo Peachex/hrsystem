@@ -14,6 +14,11 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * Class provides methods for email sending.
+ *
+ * @author Aleksey Klevitov
+ */
 public class MailSender {
     private static final Logger logger = LogManager.getLogger();
     private static final String MAIL_PROPERTY_FILE_PATH = "/property/mail.properties";
@@ -35,10 +40,21 @@ public class MailSender {
     private String mailSubject;
     private String mailText;
 
+    /**
+     * Enumeration with a single object in it (thread-safe singleton) used to MailSender object manage.
+     */
     public enum MailSenderHolder {
+        /**
+         * Represents a singleton pattern realization.
+         */
         HOLDER;
         private final MailSender mailSender = new MailSender();
 
+        /**
+         * Getter method that returns a mail sender object.
+         *
+         * @return MailSender object.
+         */
         public MailSender getMailSender() {
             return mailSender;
         }
@@ -47,36 +63,76 @@ public class MailSender {
     private MailSender() {
     }
 
+    /**
+     * Getter method that returns recipient's email.
+     *
+     * @return String object of recipient's email.
+     */
     public String getSendToEmail() {
         return sendToEmail;
     }
 
+    /**
+     * Setter method of recipient's email.
+     *
+     * @param sendToEmail String object of recipient's email.
+     */
     public void setSendToEmail(String sendToEmail) {
         this.sendToEmail = sendToEmail;
     }
 
+    /**
+     * Getter method that returns mail's subject.
+     *
+     * @return String object of mail's subject.
+     */
     public String getMailSubject() {
         return mailSubject;
     }
 
+    /**
+     * Setter method of mail's subject.
+     *
+     * @param mailSubject String object of mail's subject.
+     */
     public void setMailSubject(String mailSubject) {
         this.mailSubject = mailSubject;
     }
 
+    /**
+     * Getter method that returns mail's text.
+     *
+     * @return String object of mail's text.
+     */
     public String getMailText() {
         return mailText;
     }
 
+    /**
+     * Setter method of mail's text.
+     *
+     * @param mailText String object of mail's text.
+     */
     public void setMailText(String mailText) {
         this.mailText = mailText;
     }
 
+    /**
+     * Method that setups mail before sending.
+     *
+     * @param sendToEmail String object of recipient's email.
+     * @param mailSubject String object of mail's subject.
+     * @param mailText    String object of mail's text.
+     */
     public void setupEmail(String sendToEmail, String mailSubject, String mailText) {
         this.sendToEmail = sendToEmail;
         this.mailSubject = mailSubject;
         this.mailText = mailText;
     }
 
+    /**
+     * Method for sending an email to the recipient.
+     */
     public void send() {
         try {
             initMessage();
