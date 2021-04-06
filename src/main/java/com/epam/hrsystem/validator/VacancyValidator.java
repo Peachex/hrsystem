@@ -10,6 +10,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Vacancy validator class used to check vacancies' fields values.
+ *
+ * @author Aleksey Klevitov
+ */
 public class VacancyValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final Pattern POSITION_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{3,1000}");
@@ -20,6 +25,12 @@ public class VacancyValidator {
     private VacancyValidator() {
     }
 
+    /**
+     * Checks if vacancy form is valid.
+     *
+     * @param fields Map object with vacancy's fields with RequestParameter's constants as keys inside.
+     * @return boolean value. True if the vacancy form is valid, false otherwise.
+     */
     public static boolean isVacancyFormValid(Map<String, String> fields) {
         boolean result = true;
         String position = fields.get(RequestParameter.POSITION);
@@ -45,6 +56,12 @@ public class VacancyValidator {
         return result;
     }
 
+    /**
+     * Checks if vacancy's position is valid.
+     *
+     * @param position String object of vacancy's position.
+     * @return boolean value. True if the vacancy's position is valid, false otherwise.
+     */
     public static boolean isPositionValid(String position) {
         if (position == null) {
             return false;
@@ -57,6 +74,12 @@ public class VacancyValidator {
         return result;
     }
 
+    /**
+     * Checks if vacancy's description is valid.
+     *
+     * @param description String object of vacancy's description.
+     * @return boolean value. True if the vacancy's description is valid, false otherwise.
+     */
     public static boolean isDescriptionValid(String description) {
         if (description == null) {
             return false;
@@ -69,6 +92,12 @@ public class VacancyValidator {
         return result;
     }
 
+    /**
+     * Checks if vacancy's country is valid.
+     *
+     * @param country String object of vacancy's country.
+     * @return boolean value. True if the vacancy's country is valid, false otherwise.
+     */
     public static boolean isCountryValid(String country) {
         if (country == null) {
             return false;
@@ -81,6 +110,12 @@ public class VacancyValidator {
         return result;
     }
 
+    /**
+     * Checks if vacancy's city is valid.
+     *
+     * @param city String object of vacancy's city.
+     * @return boolean value. True if the vacancy's city is valid, false otherwise.
+     */
     public static boolean isCityValid(String city) {
         if (city == null) {
             return false;

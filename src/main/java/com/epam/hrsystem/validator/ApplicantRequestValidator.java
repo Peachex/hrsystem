@@ -11,6 +11,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * Applicant request validator class used to check applicant requests' fields values.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ApplicantRequestValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final Pattern SUMMARY_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{3,10000}");
@@ -19,6 +24,12 @@ public class ApplicantRequestValidator {
     private ApplicantRequestValidator() {
     }
 
+    /**
+     * Checks if applicant request's summary is valid.
+     *
+     * @param summary String object of applicant request's summary.
+     * @return boolean value. True if the applicant request's summary is valid, false otherwise.
+     */
     public static boolean isSummaryValid(String summary) {
         if (summary == null) {
             return false;
@@ -31,6 +42,12 @@ public class ApplicantRequestValidator {
         return result;
     }
 
+    /**
+     * Checks if applicant request's state is valid.
+     *
+     * @param state String object of applicant request's state.
+     * @return boolean value. True if the applicant request's state is valid, false otherwise.
+     */
     public static boolean isApplicantStateValid(String state) {
         if (state == null || state.isEmpty()) {
             return false;
@@ -45,6 +62,12 @@ public class ApplicantRequestValidator {
         return result;
     }
 
+    /**
+     * Checks if applicant request's technical interview date is valid.
+     *
+     * @param date String object of applicant request's technical interview date.
+     * @return boolean value. True if the applicant request's technical interview date is valid, false otherwise.
+     */
     public static boolean isTechnicalInterviewDateValid(String date) {
         if (date == null) {
             return false;

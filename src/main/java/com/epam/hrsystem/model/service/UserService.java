@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * The interface User service.
+ * Interface provides actions on user.
  *
  * @author Aleksey Klevtiov
  */

@@ -10,6 +10,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Interview result validator class used to check interview results' fields values.
+ *
+ * @author Aleksey Klevitov
+ */
 public class InterviewResultValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final Pattern RATING_PATTERN = Pattern.compile("[1-9]|10");
@@ -18,6 +23,12 @@ public class InterviewResultValidator {
     private InterviewResultValidator() {
     }
 
+    /**
+     * Checks if interview result form is valid.
+     *
+     * @param fields Map object with interview result's fields with RequestParameter's constants as keys inside.
+     * @return boolean value. True if the interview result form is valid, false otherwise.
+     */
     public static boolean isInterviewResultFormValid(Map<String, String> fields) {
         boolean result = true;
         String rating = fields.get(RequestParameter.INTERVIEW_RESULT_RATING);
@@ -33,6 +44,12 @@ public class InterviewResultValidator {
         return result;
     }
 
+    /**
+     * Checks if interview result's rating is valid.
+     *
+     * @param rating String object of interview result's rating.
+     * @return boolean value. True if the interview result's rating is valid, false otherwise.
+     */
     public static boolean isRatingValid(String rating) {
         if (rating == null) {
             return false;
@@ -45,6 +62,12 @@ public class InterviewResultValidator {
         return matcher.matches();
     }
 
+    /**
+     * Checks if interview result's comment is valid.
+     *
+     * @param comment String object of interview result's comment.
+     * @return boolean value. True if the interview result's comment is valid, false otherwise.
+     */
     public static boolean isCommentValid(String comment) {
         if (comment == null) {
             return false;

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * The interface Vacancy service.
+ * Interface provides actions on vacancy.
  *
  * @author Aleksey Klevtiov
  */
