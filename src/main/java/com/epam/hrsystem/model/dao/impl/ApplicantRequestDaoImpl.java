@@ -58,11 +58,11 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
     }
 
     @Override
-    public boolean updateApplicantRequest(ApplicantRequest applicantRequest) throws DaoException {
+    public boolean updateApplicantRequest(ApplicantRequest request) throws DaoException {
         boolean result;
-        InterviewResult basicInterviewResult = applicantRequest.getBasicInterviewResult();
-        InterviewResult technicalInterviewResult = applicantRequest.getTechnicalInterviewResult();
-        LocalDate technicalInterviewDate = applicantRequest.getTechnicalInterviewDate();
+        InterviewResult basicInterviewResult = request.getBasicInterviewResult();
+        InterviewResult technicalInterviewResult = request.getTechnicalInterviewResult();
+        LocalDate technicalInterviewDate = request.getTechnicalInterviewDate();
         String sqlQuery;
         if (basicInterviewResult != null && technicalInterviewResult == null) {
             sqlQuery = SqlQuery.SQL_UPDATE_APPLICANT_REQUEST_WITH_NULL_TECHNICAL_INTERVIEW;
@@ -71,14 +71,14 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
         }
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            statement.setString(1, applicantRequest.getSummary());
+            statement.setString(1, request.getSummary());
             statement.setDate(2, technicalInterviewDate != null ? Date.valueOf(technicalInterviewDate) : null);
             statement.setLong(3, technicalInterviewResult == null ? DaoHolder.HOLDER.getInterviewResultDao().findInterviewResultId(basicInterviewResult).orElseThrow(() ->
                     new DaoException("Invalid interview result")) : DaoHolder.HOLDER.getInterviewResultDao().findInterviewResultId(technicalInterviewResult).orElseThrow(() ->
                     new DaoException("Invalid interview result")));
-            statement.setLong(4, findApplicantStateIdByName(applicantRequest.getApplicantState().name()).orElseThrow(() ->
+            statement.setLong(4, findApplicantStateIdByName(request.getApplicantState().name()).orElseThrow(() ->
                     new DaoException("Invalid applicant state")));
-            statement.setLong(5, applicantRequest.getId());
+            statement.setLong(5, request.getId());
             result = statement.executeUpdate() == 1;
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
