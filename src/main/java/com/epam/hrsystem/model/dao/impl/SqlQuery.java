@@ -1,9 +1,6 @@
 package com.epam.hrsystem.model.dao.impl;
 
 public class SqlQuery {
-    //todo delete comments
-
-    // USER QUERIES
     public static final String SQL_SELECT_EMAIL = "SELECT email FROM users WHERE email = ?;";
 
     public static final String SQL_SELECT_PASSWORD = "SELECT password FROM users WHERE email = ?;";
@@ -43,8 +40,6 @@ public class SqlQuery {
             " phone_number, email, is_active, role FROM users JOIN user_roles ON role_id_fk = user_role_id WHERE first_name LIKE ? OR" +
             " last_name LIKE ? OR email LIKE ? OR phone_number LIKE ?;";
 
-
-    // VACANCY QUERIES
     public static final String SQL_INSERT_VACANCY = "INSERT INTO vacancies(is_available, position, description, creation_date," +
             " country_id_fk, city_id_fk, user_id_fk) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -101,7 +96,6 @@ public class SqlQuery {
     public static final String SQL_CHECK_VACANCY_FOR_EXISTENCE = "SELECT vacancy_id FROM vacancies WHERE is_available = '1' AND position = ?" +
             " AND description = ? AND country_id_fk = ? AND city_id_fk = ?;";
 
-    //APPLICANT_REQUEST QUERIES
     public static final String SQL_INSERT_APPLICANT_REQUEST = "INSERT INTO applicant_requests(summary, applicant_state_id_fk, user_id_fk, vacancy_id_fk)" +
             " VALUES (?, ?, ?, ?);";
 
@@ -133,8 +127,7 @@ public class SqlQuery {
     public static final String SQL_FIND_INTERVIEW_RESULT_ID_BY_INTERVIEW_RESULT = "SELECT interview_result_id FROM interview_results WHERE rating = ? AND comment = ?;";
 
     public static final String SQL_FIND_INTERVIEW_RESULT_BY_ID = "SELECT interview_result_id, rating, comment FROM interview_results WHERE interview_result_id = ?;";
-
-    //USER REPORT QUERIES
+    
     public static final String SQL_CHECK_USER_REPORT_FOR_EXISTENCE = "SELECT user_report_id FROM user_reports WHERE is_available = '1' AND subject = ? AND comment = ? AND user_id_fk = ?;";
 
     public static final String SQL_INSERT_USER_REPORT = "INSERT INTO user_reports(is_available, subject, comment, creation_date, user_id_fk) VALUES (?, ?, ?, ?, ?);";
