@@ -14,6 +14,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * User validator class used to check users' fields values.
+ *
+ * @author Aleksey Klevitov
+ */
 public class UserValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Zа-яА-Я]{3,35}");
@@ -29,6 +34,12 @@ public class UserValidator {
     private UserValidator() {
     }
 
+    /**
+     * Checks if register form is valid.
+     *
+     * @param fields Map object with user's fields with RequestParameter's constants as keys inside.
+     * @return boolean value. True if the register form is valid, false otherwise.
+     */
     public static boolean isRegisterFormValid(Map<String, String> fields) {
         boolean result = true;
         String firstName = fields.get(RequestParameter.FIRST_NAME);
@@ -69,6 +80,12 @@ public class UserValidator {
         return result;
     }
 
+    /**
+     * Checks if edit form is valid.
+     *
+     * @param fields Map object with user's fields with RequestParameter's constants as keys inside.
+     * @return boolean value. True if the edit form is valid, false otherwise.
+     */
     public static boolean isEditFormValid(Map<String, String> fields) {
         boolean result = true;
         String firstName = fields.get(RequestParameter.FIRST_NAME);
@@ -99,6 +116,12 @@ public class UserValidator {
         return result;
     }
 
+    /**
+     * Checks if change password form is valid.
+     *
+     * @param fields Map object with user's fields with RequestParameter's constants as keys inside.
+     * @return boolean value. True if the change password form is valid, false otherwise.
+     */
     public static boolean isChangePasswordFormValid(Map<String, String> fields) {
         boolean result = true;
         String newPassword = fields.get(RequestParameter.NEW_PASSWORD);
@@ -114,6 +137,12 @@ public class UserValidator {
         return result;
     }
 
+    /**
+     * Checks if user's role is valid.
+     *
+     * @param role String object of user's role.
+     * @return boolean value. True if the user's role is valid, false otherwise.
+     */
     public static boolean isUserRoleValid(String role) {
         if (role == null || role.isEmpty()) {
             return false;
@@ -128,6 +157,12 @@ public class UserValidator {
         return result;
     }
 
+    /**
+     * Checks if user's name is valid.
+     *
+     * @param name String object of user's name.
+     * @return boolean value. True if the user's name is valid, false otherwise.
+     */
     public static boolean isNameValid(String name) {
         if (name == null) {
             return false;
@@ -140,6 +175,12 @@ public class UserValidator {
         return result;
     }
 
+    /**
+     * Checks if user's phone number is valid.
+     *
+     * @param phoneNumber String object of user's phone number.
+     * @return boolean value. True if the user's phone number is valid, false otherwise.
+     */
     public static boolean isPhoneNumberValid(String phoneNumber) {
         if (phoneNumber == null) {
             return false;
@@ -152,6 +193,12 @@ public class UserValidator {
         return result;
     }
 
+    /**
+     * Checks if user's email is valid.
+     *
+     * @param email String object of user's email.
+     * @return boolean value. True if the user's email is valid, false otherwise.
+     */
     public static boolean isEmailValid(String email) {
         if (email == null) {
             return false;
@@ -164,6 +211,12 @@ public class UserValidator {
         return result;
     }
 
+    /**
+     * Checks if user's photo name is valid.
+     *
+     * @param photoName String object of user's photo name.
+     * @return boolean value. True if the user's photo name is valid, false otherwise.
+     */
     public static boolean isPhotoNameValid(String photoName) {
         if (photoName == null) {
             return false;
@@ -175,6 +228,13 @@ public class UserValidator {
         return result;
     }
 
+    /**
+     * Checks if user's repeat password is valid.
+     *
+     * @param password       String object of user's password.
+     * @param repeatPassword String object of user's repeat password.
+     * @return boolean value. True if the user's repeat password is valid, false otherwise.
+     */
     public static boolean isRepeatPasswordValid(String password, String repeatPassword) {
         if (repeatPassword == null) {
             return false;
@@ -186,6 +246,12 @@ public class UserValidator {
         return result;
     }
 
+    /**
+     * Checks if user's password is valid.
+     *
+     * @param password String object of user's password.
+     * @return boolean value. True if the user's password is valid, false otherwise.
+     */
     public static boolean isPasswordValid(String password) {
         if (password == null) {
             return false;
@@ -198,6 +264,12 @@ public class UserValidator {
         return result;
     }
 
+    /**
+     * Checks if date format is valid.
+     *
+     * @param date String object of date.
+     * @return boolean value. True if the date is valid, false otherwise.
+     */
     public static boolean isDateFormatValid(String date) {
         if (date == null) {
             return false;
