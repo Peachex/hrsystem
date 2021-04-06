@@ -21,10 +21,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * ApplicantRequestService implementation.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     private static final ApplicantRequestDao applicantRequestDao = DaoHolder.HOLDER.getApplicantRequestDao();
     private static final InterviewResultDao interviewResultDao = DaoHolder.HOLDER.getInterviewResultDao();
 
+    /**
+     * Constructs an ApplicantRequestServiceImpl object.
+     */
     ApplicantRequestServiceImpl() {
     }
 

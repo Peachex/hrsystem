@@ -20,10 +20,18 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * UserService implementation.
+ *
+ * @author Aleksey Klevitov
+ */
 public class UserServiceImpl implements UserService {
     private static final UserDao dao = DaoHolder.HOLDER.getUserDao();
     private static final String PERCENT_SIGN = "%";
 
+    /**
+     * Constructs a UserServiceImpl object.
+     */
     UserServiceImpl() {
     }
 

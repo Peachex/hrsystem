@@ -17,10 +17,18 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * VacancyService implementation.
+ *
+ * @author Aleksey Klevitov
+ */
 public class VacancyServiceImpl implements VacancyService {
     private static final VacancyDao dao = DaoHolder.HOLDER.getVacancyDao();
     private static final String PERCENT_SIGN = "%";
 
+    /**
+     * Constructs an VacancyServiceImpl object.
+     */
     VacancyServiceImpl() {
     }
 

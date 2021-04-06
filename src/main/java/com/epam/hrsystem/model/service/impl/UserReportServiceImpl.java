@@ -15,9 +15,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * UserReportService implementation.
+ *
+ * @author Aleksey Klevitov
+ */
 public class UserReportServiceImpl implements UserReportService {
     private static final UserReportDao dao = DaoHolder.HOLDER.getUserReportDao();
     private static final String PERCENT_SIGN = "%";
+
+    /**
+     * Constructs an UserReportServiceImpl object.
+     */
+    UserReportServiceImpl() {
+    }
 
     @Override
     public boolean createUserReport(Map<String, String> fields, long userId) throws ServiceException {
