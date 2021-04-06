@@ -19,9 +19,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+/**
+ * UserDao implementation.
+ *
+ * @author Aleksey Klevitov
+ */
 public class UserDaoImpl implements UserDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
 
+    /**
+     * Constructs a UserDaoImpl object.
+     */
     UserDaoImpl() {
     }
 

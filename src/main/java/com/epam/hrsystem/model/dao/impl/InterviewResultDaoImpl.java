@@ -12,9 +12,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * InterviewResultDao implementation.
+ *
+ * @author Aleksey Klevitov
+ */
 public class InterviewResultDaoImpl implements InterviewResultDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
 
+    /**
+     * Constructs an InterviewResultDaoImpl object.
+     */
     InterviewResultDaoImpl() {
     }
 

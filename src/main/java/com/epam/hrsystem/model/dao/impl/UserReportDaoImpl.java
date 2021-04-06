@@ -18,9 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * UserReportDao implementation.
+ *
+ * @author Aleksey Klevitov
+ */
 public class UserReportDaoImpl implements UserReportDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
 
+    /**
+     * Constructs a UserReportDaoImpl object.
+     */
     UserReportDaoImpl() {
     }
 

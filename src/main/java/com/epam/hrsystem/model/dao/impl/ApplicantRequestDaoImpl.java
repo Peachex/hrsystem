@@ -20,9 +20,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * ApplicantRequestDao implementation.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
 
+    /**
+     * Constructs an ApplicantRequestDaoImpl object.
+     */
     ApplicantRequestDaoImpl() {
     }
 

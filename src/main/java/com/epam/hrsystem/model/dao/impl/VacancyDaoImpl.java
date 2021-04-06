@@ -17,9 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * VacancyDao implementation.
+ *
+ * @author Aleksey Klevitov
+ */
 public class VacancyDaoImpl implements VacancyDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
 
+    /**
+     * Constructs a VacancyDaoImpl object.
+     */
     VacancyDaoImpl() {
     }
 
