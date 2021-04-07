@@ -8,6 +8,11 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+/**
+ * Filter sets locale.
+ *
+ * @author Aleksey Klevitov
+ */
 public class EncodingFilter implements Filter {
     private static final String ENCODING_PARAMETER_NAME = "encoding";
     private String code;

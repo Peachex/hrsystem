@@ -8,6 +8,11 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+/**
+ * Web listener of session creation.
+ *
+ * @author Aleksey Klevitov
+ */
 public class SessionListener implements HttpSessionListener {
 
     @Override

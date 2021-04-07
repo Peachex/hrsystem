@@ -26,6 +26,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Filter checks user's role and determines if user has such permissions to process the command.
+ *
+ * @author Aleksey Klevitov
+ */
 public class PermissionFilter implements Filter {
     private static final Logger logger = LogManager.getLogger();
     private static final Map<UserRole, EnumSet<CommandType>> permissionCommands = new HashMap<>();
