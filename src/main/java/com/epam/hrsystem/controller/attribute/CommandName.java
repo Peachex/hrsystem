@@ -1,7 +1,7 @@
 package com.epam.hrsystem.controller.attribute;
 
 /**
- * Class represents constant command names.
+ * Class represents constant names of command.
  *
  * @author Aleksey Klevitov
  */
