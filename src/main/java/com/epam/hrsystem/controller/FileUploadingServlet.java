@@ -28,11 +28,19 @@ import java.io.InputStream;
 import java.io.FileOutputStream;
 import java.util.UUID;
 
+/**
+ * FileUploadingServlet class used to process all requests from users with url pattern '*.upload'.
+ *
+ * @author Aleksey Klevitov
+ */
 @WebServlet(urlPatterns = ServletAttribute.UPLOAD_SERVLET_URL_PATTERN, name = ServletAttribute.FILE_UPLOADING_SERVLET_NAME)
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5,
         maxRequestSize = 1024 * 1024 * 5 * 5)
 public class FileUploadingServlet extends HttpServlet {
+    /**
+     * Represents the path of uploading avatar.
+     */
     public static final String UPLOAD_AVATAR_PATH = "C:" + File.separator + "Users" + File.separator + "Peachex" + File.separator +
             "IdeaProjects" + File.separator + "hrsystem" + File.separator + "src" + File.separator + "main" + File.separator +
             "webapp" + File.separator + "img" + File.separator + "avatar" + File.separator;
