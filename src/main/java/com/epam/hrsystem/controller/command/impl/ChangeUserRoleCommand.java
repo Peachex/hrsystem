@@ -17,6 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * Action command changes user's role.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ChangeUserRoleCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

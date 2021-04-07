@@ -26,6 +26,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Action command creates interview result.
+ *
+ * @author Aleksey Klevitov
+ */
 public class CreateInterviewResultCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
     private static final String APPLICANT_ID_COMMAND_PARAMETER = "&applicantId=";

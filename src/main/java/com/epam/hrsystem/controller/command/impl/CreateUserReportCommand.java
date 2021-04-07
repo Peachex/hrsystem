@@ -24,6 +24,11 @@ import javax.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Action command creates user report.
+ *
+ * @author Aleksey Klevitov
+ */
 public class CreateUserReportCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

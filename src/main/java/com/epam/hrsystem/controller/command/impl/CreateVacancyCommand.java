@@ -21,6 +21,11 @@ import javax.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Action command creates vacancy.
+ *
+ * @author Aleksey Klevitov
+ */
 public class CreateVacancyCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

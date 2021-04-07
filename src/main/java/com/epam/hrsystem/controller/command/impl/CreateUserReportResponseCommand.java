@@ -20,6 +20,11 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Action command creates user report response.
+ *
+ * @author Aleksey Klevitov
+ */
 public class CreateUserReportResponseCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

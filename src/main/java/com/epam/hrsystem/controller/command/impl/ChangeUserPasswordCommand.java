@@ -23,6 +23,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Action command changes user's password.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ChangeUserPasswordCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
