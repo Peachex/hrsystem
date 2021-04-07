@@ -19,6 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
+/**
+ * Action command redirects to user info page.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ToAdminUserInfoCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

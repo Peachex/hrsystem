@@ -18,6 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Action command restores vacancy.
+ *
+ * @author Aleksey Klevitov
+ */
 public class RestoreVacancyCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

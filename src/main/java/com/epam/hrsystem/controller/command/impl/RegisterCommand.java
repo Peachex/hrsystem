@@ -19,6 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Action command registers user.
+ *
+ * @author Aleksey Klevitov
+ */
 public class RegisterCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

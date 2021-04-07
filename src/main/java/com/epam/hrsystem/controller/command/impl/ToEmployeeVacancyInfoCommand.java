@@ -24,6 +24,11 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Action command redirects to employee's vacancy info page.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ToEmployeeVacancyInfoCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

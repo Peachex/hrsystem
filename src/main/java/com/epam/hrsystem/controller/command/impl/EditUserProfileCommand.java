@@ -22,6 +22,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Action command edits user profile.
+ *
+ * @author Aleksey Klevitov
+ */
 public class EditUserProfileCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

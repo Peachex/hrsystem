@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * Action command redirects to users list page.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ToAdminUserListCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {

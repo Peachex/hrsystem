@@ -18,6 +18,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Action command provides image.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ProvideImageCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
     private static final String DEFAULT_AVATAR_NAME = "default_avatar.png";

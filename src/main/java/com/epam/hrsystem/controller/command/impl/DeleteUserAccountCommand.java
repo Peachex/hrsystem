@@ -22,6 +22,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+/**
+ * Action command deletes user account.
+ *
+ * @author Aleksey Klevitov
+ */
 public class DeleteUserAccountCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

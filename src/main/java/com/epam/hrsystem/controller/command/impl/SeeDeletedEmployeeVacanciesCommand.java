@@ -17,6 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * Action command shows deleted employee's vacancies.
+ *
+ * @author Aleksey Klevitov
+ */
 public class SeeDeletedEmployeeVacanciesCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {

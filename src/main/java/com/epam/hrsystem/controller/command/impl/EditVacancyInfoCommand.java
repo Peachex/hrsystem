@@ -21,6 +21,11 @@ import javax.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Action command edits vacancy info.
+ *
+ * @author Aleksey Klevitov
+ */
 public class EditVacancyInfoCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

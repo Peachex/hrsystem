@@ -16,6 +16,11 @@ import javax.servlet.http.HttpSession;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Action command sorts vacancies by creation date.
+ *
+ * @author Aleksey Klevitov
+ */
 public class SortVacanciesByDateCommand implements ActionCommand {
     private static final String SORT_SEQUENCE_ASC = "ASC";
 

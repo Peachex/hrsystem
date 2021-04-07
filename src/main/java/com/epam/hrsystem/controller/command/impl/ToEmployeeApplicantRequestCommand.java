@@ -21,6 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+/**
+ * Action command redirects to employee's applicant requests page.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ToEmployeeApplicantRequestCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

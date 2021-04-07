@@ -23,6 +23,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+/**
+ * Action command schedules a technical interview.
+ *
+ * @author Aleksey Klevitov
+ */
 public class ScheduleTechnicalInterviewCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
     private static final String APPLICANT_ID_COMMAND_PARAMETER = "&applicantId=";
