@@ -6,6 +6,11 @@ import com.epam.hrsystem.model.entity.UserRole;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.tagext.TagSupport;
 
+/**
+ * Custom tag that includes a body if the user has permission.
+ *
+ * @author Aleksey Klevitov
+ */
 public class PermissionTag extends TagSupport {
     @Override
     public int doStartTag() {

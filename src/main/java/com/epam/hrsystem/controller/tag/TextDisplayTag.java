@@ -8,6 +8,11 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 
+/**
+ * Custom tag that prevents cross-site scripting.
+ *
+ * @author Aleksey Klevitov
+ */
 public class TextDisplayTag extends TagSupport {
     private static final Logger logger = LogManager.getLogger();
     private static final String NEW_LINE_SYMBOL = "\n";
@@ -22,6 +27,11 @@ public class TextDisplayTag extends TagSupport {
     private static final String QUOTATION_HTML_SYMBOL = "&quot";
     private String text;
 
+    /**
+     * Setter method of text.
+     *
+     * @param text String object
+     */
     public void setText(String text) {
         this.text = text;
     }
