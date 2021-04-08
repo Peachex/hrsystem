@@ -35,7 +35,7 @@ public interface UserService {
     /**
      * Blocks user.
      *
-     * @param userId long value of user' id.
+     * @param userId long value of user's id.
      * @return boolean value. True if the user has been blocked, false otherwise.
      * @throws ServiceException if an error occurs while processing.
      */
@@ -44,7 +44,7 @@ public interface UserService {
     /**
      * Unblocks user.
      *
-     * @param userId long value of user' id.
+     * @param userId long value of user's id.
      * @return boolean value. True if the user has been unblocked, false otherwise.
      * @throws ServiceException if an error occurs while processing.
      */
@@ -53,7 +53,7 @@ public interface UserService {
     /**
      * Changes user's password.
      *
-     * @param userId long value of user' id.
+     * @param userId long value of user's id.
      * @param fields Map object with user's fields with RequestParameter's constants as keys inside.
      * @return boolean value. True if the user's password has been changed, false otherwise.
      * @throws ServiceException if an error occurs while processing.
@@ -63,7 +63,7 @@ public interface UserService {
     /**
      * Changes user's photo name.
      *
-     * @param userId    long value of user' id.
+     * @param userId    long value of user's id.
      * @param photoName String object of user's photo name.
      * @return boolean value. True if the user's photo name has been changed, false otherwise.
      * @throws ServiceException if an error occurs while processing.
@@ -97,7 +97,7 @@ public interface UserService {
     /**
      * Changes user's role.
      *
-     * @param userId long value of user' id.
+     * @param userId long value of user's id.
      * @param role   UserRole object of user's role.
      * @return boolean value. True if the user's role has been changed, false otherwise.
      * @throws ServiceException if an error occurs while processing.
@@ -107,7 +107,7 @@ public interface UserService {
     /**
      * Updates user's profile.
      *
-     * @param userId    long value of user' id.
+     * @param userId    long value of user's id.
      * @param newFields Map object with new user's fields with RequestParameter's constants as keys inside.
      * @return Optional object of user if exists, Optional.empty() otherwise.
      * @throws ServiceException if an error occurs while processing.
@@ -117,7 +117,7 @@ public interface UserService {
     /**
      * Finds user by id.
      *
-     * @param userId long value of user' id.
+     * @param userId long value of user's id.
      * @return Optional object of user if exists, Optional.empty() otherwise.
      * @throws ServiceException if an error occurs while processing.
      */
