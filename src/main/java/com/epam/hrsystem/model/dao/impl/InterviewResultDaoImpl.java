@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * InterviewResultDao implementation.
@@ -19,11 +21,30 @@ import java.util.Optional;
  */
 public class InterviewResultDaoImpl implements InterviewResultDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
+    private static final Lock locker = new ReentrantLock();
+    private static volatile InterviewResultDao instance;
 
     /**
      * Constructs an InterviewResultDaoImpl object.
      */
-    InterviewResultDaoImpl() {
+    private InterviewResultDaoImpl() {
+    }
+
+    /**
+     * Returns an InterviewResultDao object.
+     */
+    public static InterviewResultDao getInstance() {
+        if (instance == null) {
+            try {
+                locker.lock();
+                if (instance == null) {
+                    instance = new InterviewResultDaoImpl();
+                }
+            } finally {
+                locker.unlock();
+            }
+        }
+        return instance;
     }
 
     @Override

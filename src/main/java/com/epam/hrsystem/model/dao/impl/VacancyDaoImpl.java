@@ -2,6 +2,7 @@ package com.epam.hrsystem.model.dao.impl;
 
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
+import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.dao.VacancyDao;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
@@ -16,6 +17,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * VacancyDao implementation.
@@ -24,11 +27,31 @@ import java.util.Optional;
  */
 public class VacancyDaoImpl implements VacancyDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
+    private static final Lock locker = new ReentrantLock();
+    private static final UserDao userDao = UserDaoImpl.getInstance();
+    private static volatile VacancyDao instance;
 
     /**
      * Constructs a VacancyDaoImpl object.
      */
-    VacancyDaoImpl() {
+    private VacancyDaoImpl() {
+    }
+
+    /**
+     * Returns a VacancyDao object.
+     */
+    public static VacancyDao getInstance() {
+        if (instance == null) {
+            try {
+                locker.lock();
+                if (instance == null) {
+                    instance = new VacancyDaoImpl();
+                }
+            } finally {
+                locker.unlock();
+            }
+        }
+        return instance;
     }
 
     @Override
@@ -290,7 +313,7 @@ public class VacancyDaoImpl implements VacancyDao {
         String country = resultSet.getString(6);
         String city = resultSet.getString(7);
         long userId = resultSet.getLong(8);
-        User employee = DaoHolder.HOLDER.getUserDao().findUserById(userId).orElseThrow(() -> new DaoException("Invalid id"));
+        User employee = userDao.findUserById(userId).orElseThrow(() -> new DaoException("Invalid id"));
         Vacancy vacancy = new Vacancy(id, isAvailable, position, description, creationDate, country, city, employee);
         return vacancy;
     }

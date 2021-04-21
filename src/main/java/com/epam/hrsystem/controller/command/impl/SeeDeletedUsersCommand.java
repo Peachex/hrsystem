@@ -9,7 +9,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.UserService;
-import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.model.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +23,7 @@ import java.util.List;
 public class SeeDeletedUsersCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        UserService service = ServiceHolder.HOLDER.getUserService();
+        UserService service = UserServiceImpl.getInstance();
         CommandResult result = new CommandResult(PagePath.ADMIN_USER_LIST, CommandResult.Type.FORWARD);
         try {
             List<User> users = service.findBlockedUsers();

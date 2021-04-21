@@ -8,7 +8,7 @@ import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.service.UserService;
-import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +27,7 @@ public class ChangeUserRoleCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        UserService service = ServiceHolder.HOLDER.getUserService();
+        UserService service = UserServiceImpl.getInstance();
         String userIdStr = request.getParameter(RequestParameter.USER_ID);
         String newUserRole = request.getParameter(RequestParameter.USER_ROLE);
         CommandResult result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.FORWARD);

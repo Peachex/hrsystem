@@ -13,7 +13,8 @@ import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
 import com.epam.hrsystem.model.service.VacancyService;
-import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.model.service.impl.ApplicantRequestServiceImpl;
+import com.epam.hrsystem.model.service.impl.VacancyServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,8 +36,8 @@ public class ToEmployeeVacancyInfoCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String vacancyId = request.getParameter(RequestParameter.VACANCY_ID);
-        VacancyService vacancyService = ServiceHolder.HOLDER.getVacancyService();
-        ApplicantRequestService applicantRequestService = ServiceHolder.HOLDER.getApplicantRequestService();
+        VacancyService vacancyService = VacancyServiceImpl.getInstance();
+        ApplicantRequestService applicantRequestService = ApplicantRequestServiceImpl.getInstance();
         CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES, CommandResult.Type.FORWARD);
         try {
             long id = Long.parseLong(vacancyId);

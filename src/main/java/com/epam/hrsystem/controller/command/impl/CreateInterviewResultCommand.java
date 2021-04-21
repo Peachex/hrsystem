@@ -12,7 +12,7 @@ import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.ApplicantState;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
-import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.model.service.impl.ApplicantRequestServiceImpl;
 import com.epam.hrsystem.util.mail.MailSender;
 import com.epam.hrsystem.validator.InterviewResultValidator;
 import org.apache.logging.log4j.Level;
@@ -48,7 +48,7 @@ public class CreateInterviewResultCommand implements ActionCommand {
         fields.put(RequestParameter.INTERVIEW_RESULT_COMMENT, comment);
         fields.put(RequestParameter.APPLICANT_STATE, newApplicantState);
 
-        ApplicantRequestService applicantRequestService = ServiceHolder.HOLDER.getApplicantRequestService();
+        ApplicantRequestService applicantRequestService = ApplicantRequestServiceImpl.getInstance();
         CommandResult result;
         try {
             long vacancyId = Long.parseLong(vacancyIdStr);

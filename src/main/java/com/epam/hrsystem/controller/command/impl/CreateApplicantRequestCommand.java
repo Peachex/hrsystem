@@ -11,7 +11,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
-import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.model.service.impl.ApplicantRequestServiceImpl;
 import com.epam.hrsystem.util.mail.MailSender;
 import com.epam.hrsystem.validator.ApplicantRequestValidator;
 import org.apache.logging.log4j.Level;
@@ -45,7 +45,7 @@ public class CreateApplicantRequestCommand implements ActionCommand {
 
         CommandResult result;
         try {
-            ApplicantRequestService service = ServiceHolder.HOLDER.getApplicantRequestService();
+            ApplicantRequestService service = ApplicantRequestServiceImpl.getInstance();
             if (service.createApplicantRequest(fields, applicant)) {
                 MailSender mailSender = MailSender.MailSenderHolder.HOLDER.getMailSender();
                 String applicantEmail = applicant.getEmail();

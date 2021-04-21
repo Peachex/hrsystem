@@ -10,7 +10,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.UserReport;
 import com.epam.hrsystem.model.service.UserReportService;
-import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.model.service.impl.UserReportServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +31,7 @@ public class ToAdminUserReportInfoCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String reportIdStr = request.getParameter(RequestParameter.REPORT_ID);
-        UserReportService service = ServiceHolder.HOLDER.getUserReportService();
+        UserReportService service = UserReportServiceImpl.getInstance();
         CommandResult result = new CommandResult(CommandName.TO_ADMIN_USER_REPORT_LIST, CommandResult.Type.FORWARD);
         try {
             long reportId = Long.parseLong(reportIdStr);

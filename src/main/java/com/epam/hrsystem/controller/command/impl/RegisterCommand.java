@@ -9,7 +9,7 @@ import com.epam.hrsystem.controller.command.CommandResult;
 import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.service.UserService;
-import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,7 +46,7 @@ public class RegisterCommand implements ActionCommand {
         fields.put(RequestParameter.PASSWORD, password);
         fields.put(RequestParameter.REPEATED_PASSWORD, repeatedPassword);
 
-        UserService service = ServiceHolder.HOLDER.getUserService();
+        UserService service = UserServiceImpl.getInstance();
         CommandResult result;
         try {
             if (service.register(fields)) {

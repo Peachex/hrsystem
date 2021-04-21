@@ -9,7 +9,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.UserService;
-import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.model.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +26,7 @@ public class ToAdminUserListCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         HttpSession session = request.getSession();
         session.removeAttribute(RequestParameter.REPORT_ID);
-        UserService service = ServiceHolder.HOLDER.getUserService();
+        UserService service = UserServiceImpl.getInstance();
         CommandResult result = new CommandResult(PagePath.ADMIN_USER_LIST, CommandResult.Type.FORWARD);
         try {
             List<User> users = service.findAllUsers();

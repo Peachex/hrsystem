@@ -3,7 +3,8 @@ package com.epam.hrsystem.model.service.impl;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
-import com.epam.hrsystem.model.dao.impl.DaoHolder;
+import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
+import com.epam.hrsystem.model.dao.impl.VacancyDaoImpl;
 import com.epam.hrsystem.model.factory.EntityFactory;
 import com.epam.hrsystem.model.factory.impl.FactoryHolder;
 import com.epam.hrsystem.model.dao.VacancyDao;
@@ -16,6 +17,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * VacancyService implementation.
@@ -23,13 +26,32 @@ import java.util.Optional;
  * @author Aleksey Klevitov
  */
 public class VacancyServiceImpl implements VacancyService {
-    private static final VacancyDao dao = DaoHolder.HOLDER.getVacancyDao();
+    private static final VacancyDao dao = VacancyDaoImpl.getInstance();
     private static final String PERCENT_SIGN = "%";
+    private static final Lock locker = new ReentrantLock();
+    private static volatile VacancyService instance;
 
     /**
      * Constructs an VacancyServiceImpl object.
      */
-    VacancyServiceImpl() {
+    private VacancyServiceImpl() {
+    }
+
+    /**
+     * Returns a VacancyService object.
+     */
+    public static VacancyService getInstance() {
+        if (instance == null) {
+            try {
+                locker.lock();
+                if (instance == null) {
+                    instance = new VacancyServiceImpl();
+                }
+            } finally {
+                locker.unlock();
+            }
+        }
+        return instance;
     }
 
     @Override
@@ -39,7 +61,7 @@ public class VacancyServiceImpl implements VacancyService {
         Optional<Vacancy> vacancyOptional = factory.create(fields);
         try {
             if (vacancyOptional.isPresent()) {
-                Optional<User> employee = DaoHolder.HOLDER.getUserDao().findUserById(employeeId);
+                Optional<User> employee = UserDaoImpl.getInstance().findUserById(employeeId);
                 if (employee.isPresent()) {
                     Vacancy vacancy = vacancyOptional.get();
                     vacancy.setEmployee(employee.get());

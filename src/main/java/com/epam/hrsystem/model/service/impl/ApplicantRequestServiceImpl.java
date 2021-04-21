@@ -4,7 +4,8 @@ import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.dao.InterviewResultDao;
-import com.epam.hrsystem.model.dao.impl.DaoHolder;
+import com.epam.hrsystem.model.dao.impl.ApplicantRequestDaoImpl;
+import com.epam.hrsystem.model.dao.impl.InterviewResultDaoImpl;
 import com.epam.hrsystem.model.entity.ApplicantState;
 import com.epam.hrsystem.model.entity.InterviewResult;
 import com.epam.hrsystem.model.factory.EntityFactory;
@@ -14,12 +15,15 @@ import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.factory.impl.FactoryHolder;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
+import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.validator.ApplicantRequestValidator;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * ApplicantRequestService implementation.
@@ -27,13 +31,33 @@ import java.util.Optional;
  * @author Aleksey Klevitov
  */
 public class ApplicantRequestServiceImpl implements ApplicantRequestService {
-    private static final ApplicantRequestDao applicantRequestDao = DaoHolder.HOLDER.getApplicantRequestDao();
-    private static final InterviewResultDao interviewResultDao = DaoHolder.HOLDER.getInterviewResultDao();
+    private static final ApplicantRequestDao applicantRequestDao = ApplicantRequestDaoImpl.getInstance();
+    private static final InterviewResultDao interviewResultDao = InterviewResultDaoImpl.getInstance();
+    private static final Lock locker = new ReentrantLock();
+    private static final VacancyService vacancyService = VacancyServiceImpl.getInstance();
+    private static volatile ApplicantRequestService instance;
 
     /**
      * Constructs an ApplicantRequestServiceImpl object.
      */
-    ApplicantRequestServiceImpl() {
+    private ApplicantRequestServiceImpl() {
+    }
+
+    /**
+     * Returns an ApplicantRequestService object.
+     */
+    public static ApplicantRequestService getInstance() {
+        if (instance == null) {
+            try {
+                locker.lock();
+                if (instance == null) {
+                    instance = new ApplicantRequestServiceImpl();
+                }
+            } finally {
+                locker.unlock();
+            }
+        }
+        return instance;
     }
 
     @Override
@@ -44,7 +68,7 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
         try {
             if (requestOptional.isPresent()) {
                 long vacancyId = Long.parseLong(fields.get(RequestParameter.VACANCY_ID));
-                Optional<Vacancy> vacancyOptional = ServiceHolder.HOLDER.getVacancyService().findVacancyById(vacancyId);
+                Optional<Vacancy> vacancyOptional = vacancyService.findVacancyById(vacancyId);
                 if (vacancyOptional.isPresent()) {
                     ApplicantRequest request = requestOptional.get();
                     request.setApplicant(applicant);

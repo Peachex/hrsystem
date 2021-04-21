@@ -10,7 +10,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
-import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.model.service.impl.ApplicantRequestServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +27,7 @@ public class ToApplicantRequestsCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         HttpSession session = request.getSession();
         long applicantId = (long) session.getAttribute(SessionAttribute.USER_ID);
-        ApplicantRequestService service = ServiceHolder.HOLDER.getApplicantRequestService();
+        ApplicantRequestService service = ApplicantRequestServiceImpl.getInstance();
         CommandResult result = new CommandResult(PagePath.APPLICANT_REQUESTS, CommandResult.Type.FORWARD);
         try {
             List<ApplicantRequest> applicantRequests = service.findApplicantRequestsByApplicantId(applicantId);

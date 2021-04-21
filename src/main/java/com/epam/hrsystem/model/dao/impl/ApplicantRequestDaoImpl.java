@@ -3,6 +3,9 @@ package com.epam.hrsystem.model.dao.impl;
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.dao.ApplicantRequestDao;
+import com.epam.hrsystem.model.dao.InterviewResultDao;
+import com.epam.hrsystem.model.dao.UserDao;
+import com.epam.hrsystem.model.dao.VacancyDao;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.ApplicantState;
 import com.epam.hrsystem.model.entity.InterviewResult;
@@ -19,6 +22,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * ApplicantRequestDao implementation.
@@ -27,11 +32,33 @@ import java.util.Optional;
  */
 public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
+    private static final Lock locker = new ReentrantLock();
+    private static final InterviewResultDao interviewResultDao = InterviewResultDaoImpl.getInstance();
+    private static final UserDao userDao = UserDaoImpl.getInstance();
+    private static final VacancyDao vacancyDao = VacancyDaoImpl.getInstance();
+    private static volatile ApplicantRequestDao instance;
 
     /**
      * Constructs an ApplicantRequestDaoImpl object.
      */
-    ApplicantRequestDaoImpl() {
+    private ApplicantRequestDaoImpl() {
+    }
+
+    /**
+     * Returns an ApplicantRequestDao object.
+     */
+    public static ApplicantRequestDao getInstance() {
+        if (instance == null) {
+            try {
+                locker.lock();
+                if (instance == null) {
+                    instance = new ApplicantRequestDaoImpl();
+                }
+            } finally {
+                locker.unlock();
+            }
+        }
+        return instance;
     }
 
     @Override
@@ -81,8 +108,8 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setString(1, request.getSummary());
             statement.setDate(2, technicalInterviewDate != null ? Date.valueOf(technicalInterviewDate) : null);
-            statement.setLong(3, technicalInterviewResult == null ? DaoHolder.HOLDER.getInterviewResultDao().findInterviewResultId(basicInterviewResult).orElseThrow(() ->
-                    new DaoException("Invalid interview result")) : DaoHolder.HOLDER.getInterviewResultDao().findInterviewResultId(technicalInterviewResult).orElseThrow(() ->
+            statement.setLong(3, technicalInterviewResult == null ? interviewResultDao.findInterviewResultId(basicInterviewResult).orElseThrow(() ->
+                    new DaoException("Invalid interview result")) : interviewResultDao.findInterviewResultId(technicalInterviewResult).orElseThrow(() ->
                     new DaoException("Invalid interview result")));
             statement.setLong(4, findApplicantStateIdByName(request.getApplicantState().name()).orElseThrow(() ->
                     new DaoException("Invalid applicant state")));
@@ -156,9 +183,9 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
         LocalDate technicalInterviewDate = sqlData != null ? sqlData.toLocalDate() : null;
         ApplicantState applicantState = ApplicantState.valueOf(resultSet.getString(4));
         long applicantId = resultSet.getLong(5);
-        User applicant = DaoHolder.HOLDER.getUserDao().findUserById(applicantId).orElseThrow(() -> new DaoException("Invalid id"));
+        User applicant = userDao.findUserById(applicantId).orElseThrow(() -> new DaoException("Invalid id"));
         long vacancyId = resultSet.getLong(6);
-        Vacancy vacancy = DaoHolder.HOLDER.getVacancyDao().findVacancyById(vacancyId).orElseThrow(() -> new DaoException("Invalid id"));
+        Vacancy vacancy = vacancyDao.findVacancyById(vacancyId).orElseThrow(() -> new DaoException("Invalid id"));
         long basicInterviewResultId = resultSet.getLong(7);
         long technicalInterviewResultId = resultSet.getLong(8);
         ApplicantRequest applicantRequest = new ApplicantRequest(id, summary, applicantState, applicant, vacancy);
@@ -166,11 +193,11 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
             applicantRequest.setTechnicalInterviewDate(technicalInterviewDate);
         }
         if (basicInterviewResultId != 0) {
-            Optional<InterviewResult> basicInterviewResultOptional = DaoHolder.HOLDER.getInterviewResultDao().findInterviewResultById(basicInterviewResultId);
+            Optional<InterviewResult> basicInterviewResultOptional = interviewResultDao.findInterviewResultById(basicInterviewResultId);
             basicInterviewResultOptional.ifPresent(applicantRequest::setBasicInterviewResult);
         }
         if (technicalInterviewResultId != 0) {
-            Optional<InterviewResult> technicalInterviewResultOptional = DaoHolder.HOLDER.getInterviewResultDao().findInterviewResultById(technicalInterviewResultId);
+            Optional<InterviewResult> technicalInterviewResultOptional = interviewResultDao.findInterviewResultById(technicalInterviewResultId);
             technicalInterviewResultOptional.ifPresent(applicantRequest::setTechnicalInterviewResult);
         }
         return applicantRequest;

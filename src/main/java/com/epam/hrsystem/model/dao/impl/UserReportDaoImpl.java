@@ -2,6 +2,7 @@ package com.epam.hrsystem.model.dao.impl;
 
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
+import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.dao.UserReportDao;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserReport;
@@ -17,6 +18,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * UserReportDao implementation.
@@ -25,11 +28,31 @@ import java.util.Optional;
  */
 public class UserReportDaoImpl implements UserReportDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
+    private static final Lock locker = new ReentrantLock();
+    private static final UserDao userDao = UserDaoImpl.getInstance();
+    private static volatile UserReportDao instance;
 
     /**
      * Constructs a UserReportDaoImpl object.
      */
-    UserReportDaoImpl() {
+    private UserReportDaoImpl() {
+    }
+
+    /**
+     * Returns a UserReportDao object.
+     */
+    public static UserReportDao getInstance() {
+        if (instance == null) {
+            try {
+                locker.lock();
+                if (instance == null) {
+                    instance = new UserReportDaoImpl();
+                }
+            } finally {
+                locker.unlock();
+            }
+        }
+        return instance;
     }
 
     @Override
@@ -158,7 +181,7 @@ public class UserReportDaoImpl implements UserReportDao {
         String response = resultSet.getString(5);
         LocalDate creationDate = resultSet.getDate(6).toLocalDate();
         long userId = resultSet.getLong(7);
-        User user = DaoHolder.HOLDER.getUserDao().findUserById(userId).orElseThrow(() -> new DaoException("Invalid id"));
+        User user = userDao.findUserById(userId).orElseThrow(() -> new DaoException("Invalid id"));
         UserReport report = new UserReport(id, isAvailable, subject, comment, creationDate, user);
         if (response != null) {
             report.setResponse(response);

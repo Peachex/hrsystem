@@ -4,7 +4,7 @@ import com.epam.hrsystem.controller.attribute.JspAttribute;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
-import com.epam.hrsystem.model.dao.impl.DaoHolder;
+import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
 import com.epam.hrsystem.model.factory.EntityFactory;
 import com.epam.hrsystem.model.factory.impl.FactoryHolder;
 import com.epam.hrsystem.model.dao.UserDao;
@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * UserService implementation.
@@ -26,13 +28,32 @@ import java.util.Optional;
  * @author Aleksey Klevitov
  */
 public class UserServiceImpl implements UserService {
-    private static final UserDao dao = DaoHolder.HOLDER.getUserDao();
+    private static final UserDao dao = UserDaoImpl.getInstance();
     private static final String PERCENT_SIGN = "%";
+    private static final Lock locker = new ReentrantLock();
+    private static volatile UserService instance;
 
     /**
      * Constructs a UserServiceImpl object.
      */
-    UserServiceImpl() {
+    private UserServiceImpl() {
+    }
+
+    /**
+     * Returns a UserService object.
+     */
+    public static UserService getInstance() {
+        if (instance == null) {
+            try {
+                locker.lock();
+                if (instance == null) {
+                    instance = new UserServiceImpl();
+                }
+            } finally {
+                locker.unlock();
+            }
+        }
+        return instance;
     }
 
     @Override

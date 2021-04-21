@@ -11,7 +11,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.service.UserReportService;
-import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.model.service.impl.UserReportServiceImpl;
 import com.epam.hrsystem.util.mail.MailSender;
 import com.epam.hrsystem.validator.UserReportValidator;
 import org.apache.logging.log4j.Level;
@@ -43,7 +43,7 @@ public class CreateUserReportCommand implements ActionCommand {
         fields.put(RequestParameter.USER_REPORT_SUBJECT, subject);
         fields.put(RequestParameter.USER_REPORT_COMMENT, comment);
 
-        UserReportService service = ServiceHolder.HOLDER.getUserReportService();
+        UserReportService service = UserReportServiceImpl.getInstance();
         CommandResult result = new CommandResult(ServletAttribute.HOME_URL_PATTERN, CommandResult.Type.REDIRECT);
         try {
             if (service.createUserReport(fields, userId)) {

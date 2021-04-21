@@ -11,7 +11,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
-import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.model.service.impl.ApplicantRequestServiceImpl;
 import com.epam.hrsystem.util.mail.MailSender;
 import com.epam.hrsystem.validator.ApplicantRequestValidator;
 import org.apache.logging.log4j.Level;
@@ -37,7 +37,7 @@ public class ScheduleTechnicalInterviewCommand implements ActionCommand {
         String applicantIdStr = request.getParameter(RequestParameter.APPLICANT_ID);
         String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
         String technicalInterviewDateStr = request.getParameter(RequestParameter.TECHNICAL_INTERVIEW_DATE);
-        ApplicantRequestService applicantRequestService = ServiceHolder.HOLDER.getApplicantRequestService();
+        ApplicantRequestService applicantRequestService = ApplicantRequestServiceImpl.getInstance();
         CommandResult result;
         try {
             long vacancyId = Long.parseLong(vacancyIdStr);

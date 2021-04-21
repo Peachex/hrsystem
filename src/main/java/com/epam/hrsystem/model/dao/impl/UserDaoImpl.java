@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * UserDao implementation.
@@ -26,11 +28,30 @@ import java.util.Optional;
  */
 public class UserDaoImpl implements UserDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
+    private static final Lock locker = new ReentrantLock();
+    private static volatile UserDao instance;
 
     /**
      * Constructs a UserDaoImpl object.
      */
-    UserDaoImpl() {
+    private UserDaoImpl() {
+    }
+
+    /**
+     * Returns a UserDao object.
+     */
+    public static UserDao getInstance() {
+        if (instance == null) {
+            try {
+                locker.lock();
+                if (instance == null) {
+                    instance = new UserDaoImpl();
+                }
+            } finally {
+                locker.unlock();
+            }
+        }
+        return instance;
     }
 
     @Override

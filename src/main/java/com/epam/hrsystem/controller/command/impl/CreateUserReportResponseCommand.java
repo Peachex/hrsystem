@@ -10,7 +10,7 @@ import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.entity.UserReport;
 import com.epam.hrsystem.model.service.UserReportService;
-import com.epam.hrsystem.model.service.impl.ServiceHolder;
+import com.epam.hrsystem.model.service.impl.UserReportServiceImpl;
 import com.epam.hrsystem.util.mail.MailSender;
 import com.epam.hrsystem.validator.UserReportValidator;
 import org.apache.logging.log4j.Level;
@@ -32,7 +32,7 @@ public class CreateUserReportResponseCommand implements ActionCommand {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String userReportResponse = request.getParameter(RequestParameter.USER_REPORT_RESPONSE);
         String reportIdStr = request.getParameter(RequestParameter.REPORT_ID);
-        UserReportService service = ServiceHolder.HOLDER.getUserReportService();
+        UserReportService service = UserReportServiceImpl.getInstance();
         CommandResult result = new CommandResult(CommandName.TO_ADMIN_USER_REPORT_INFO + reportIdStr, CommandResult.Type.REDIRECT);
         try {
             long reportId = Long.parseLong(reportIdStr);
