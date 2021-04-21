@@ -18,8 +18,7 @@ public final class Encryptor {
      * @return String object of encrypted password.
      */
     public static String encrypt(String password) {
-        String salt = BCrypt.gensalt();
-        return BCrypt.hashpw(password, salt);
+        return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     /**
