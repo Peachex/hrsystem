@@ -220,15 +220,13 @@ public class ApplicantRequest {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("id = ").append(id).append("\n");
-        sb.append("summary = ").append(summary).append("\n");
-        sb.append("applicant state = ").append(applicantState).append("\n");
-        sb.append("applicant id = ").append(applicant.getId()).append("\n");
-        sb.append("vacancy id = ").append(vacancy.getId()).append("\n");
-        sb.append("basic interview result = ").append(basicInterviewResult).append("\n");
-        sb.append("technical interview result = ").append(technicalInterviewResult).append("\n");
-        sb.append("technical interview date = ").append(technicalInterviewDate).append("\n");
-        return sb.toString();
+        return ("id = " + id +
+                "\nsummary = " + summary +
+                "\napplicant state = " + applicantState +
+                "\napplicant id = " + applicant.getId() +
+                "\nvacancy id = " + vacancy.getId() +
+                "\nbasic interview result = " + basicInterviewResult +
+                "\ntechnical interview result = " + technicalInterviewResult +
+                "\ntechnical interview date = " + technicalInterviewDate);
     }
 }

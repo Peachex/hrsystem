@@ -261,16 +261,14 @@ public class User {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("id = ").append(id).append("\n");
-        sb.append("role = ").append(role).append("\n");
-        sb.append("is active = ").append(isActive).append("\n");
-        sb.append("photo name = ").append(photoName).append("\n");
-        sb.append("first name = ").append(firstName).append("\n");
-        sb.append("last name = ").append(lastName).append("\n");
-        sb.append("date of birth = ").append(dateOfBirth).append("\n");
-        sb.append("phone number = ").append(phoneNumber).append("\n");
-        sb.append("email = ").append(email).append("\n");
-        return sb.toString();
+        return ("id = " + id +
+                "\nrole = " + role +
+                "\nis active = " + isActive +
+                "\nphoto name = " + photoName +
+                "\nfirst name = " + firstName +
+                "\nlast name = " + lastName +
+                "\ndate of birth = " + dateOfBirth +
+                "\nphone number = " + phoneNumber +
+                "\nemail = " + email);
     }
 }

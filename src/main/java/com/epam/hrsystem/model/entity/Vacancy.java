@@ -225,15 +225,13 @@ public class Vacancy {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("id = ").append(id).append("\n");
-        sb.append("is available = ").append(isAvailable).append("\n");
-        sb.append("position = ").append(position).append("\n");
-        sb.append("description = ").append(description).append("\n");
-        sb.append("country = ").append(country).append("\n");
-        sb.append("city = ").append(city).append("\n");
-        sb.append("creation date = ").append(creationDate).append("\n");
-        sb.append("employee id = ").append(employee.getId()).append("\n");
-        return sb.toString();
+        return ("id = " + id +
+                "\nis available = " + isAvailable +
+                "\nposition = " + position +
+                "\ndescription = " + description +
+                "\ncountry = " + country +
+                "\ncity = " + city +
+                "\ncreation date = " + creationDate +
+                "\nemployee id = " + employee.getId());
     }
 }

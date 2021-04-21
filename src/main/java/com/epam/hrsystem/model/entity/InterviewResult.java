@@ -108,10 +108,8 @@ public class InterviewResult {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("id = ").append(id).append("\n");
-        sb.append("rating = ").append(rating).append("\n");
-        sb.append("comment = ").append(comment).append("\n");
-        return sb.toString();
+        return ("id = " + id +
+                "\nrating = " + rating +
+                "\ncomment = " + comment);
     }
 }

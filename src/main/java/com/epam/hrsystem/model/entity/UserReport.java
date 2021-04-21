@@ -195,14 +195,12 @@ public class UserReport {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("id = ").append(id).append("\n");
-        sb.append("is available = ").append(isAvailable).append("\n");
-        sb.append("subject = ").append(subject).append("\n");
-        sb.append("comment = ").append(comment).append("\n");
-        sb.append("response = ").append(response).append("\n");
-        sb.append("creation date = ").append(creationDate).append("\n");
-        sb.append("user id = ").append(user.getId()).append("\n");
-        return sb.toString();
+        return ("id = " + id +
+                "\nis available = " + isAvailable +
+                "\nsubject = " + subject +
+                "\ncomment = " + comment +
+                "\nresponse = " + response +
+                "\ncreation date = " + creationDate +
+                "\nuser id = " + user.getId());
     }
 }
