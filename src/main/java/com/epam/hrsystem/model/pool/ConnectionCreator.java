@@ -15,7 +15,7 @@ import java.util.Properties;
  *
  * @author Aleksey Klevitov
  */
-class ConnectionCreator {
+final class ConnectionCreator {
     private static final Logger logger = LogManager.getLogger();
     private static final Properties properties = new Properties();
     private static final String DATABASE_URL;
