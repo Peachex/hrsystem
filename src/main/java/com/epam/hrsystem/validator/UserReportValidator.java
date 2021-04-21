@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  *
  * @author Aleksey Klevitov
  */
-public class UserReportValidator {
+public final class UserReportValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final Pattern SUBJECT_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{1,100}");
     private static final Pattern COMMENT_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{1,25000}");

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  *
  * @author Aleksey Klevitov
  */
-public class UserValidator {
+public final class UserValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Zа-яА-Я]{3,35}");
     private static final Pattern EMAIL_PATTERN = Pattern.compile("((\\w)([-.](\\w))?)+@((\\w)([-.](\\w))?)+.[a-zA-Z]{2,4}");

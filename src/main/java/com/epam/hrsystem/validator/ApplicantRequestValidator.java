@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  *
  * @author Aleksey Klevitov
  */
-public class ApplicantRequestValidator {
+public final class ApplicantRequestValidator {
     private static final Logger logger = LogManager.getLogger();
     private static final Pattern SUMMARY_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{3,10000}");
     private static final Pattern DATE_FORMAT_PATTERN = Pattern.compile("([1-2][0-9]{3})-([0][1-9]|[1][0-2])-([0][1-9]|[12][0-9]|[3][01])");
