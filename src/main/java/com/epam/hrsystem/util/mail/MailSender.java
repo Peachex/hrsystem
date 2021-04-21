@@ -29,9 +29,8 @@ public class MailSender {
         properties = new Properties();
         try {
             properties.load(MailSender.class.getResourceAsStream(MAIL_PROPERTY_FILE_PATH));
-
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.ERROR, "Couldn't load mail properties: " + e);
         }
     }
 

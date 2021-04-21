@@ -2,6 +2,7 @@ package com.epam.hrsystem.util.mail;
 
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Authenticator;
 import java.util.Properties;
 
 /**
@@ -22,7 +23,7 @@ public class SessionFactory {
     public static Session createSession(Properties configProperties) {
         String userName = configProperties.getProperty(MAIL_USER_FIELD);
         String userPassword = configProperties.getProperty(MAIL_USER_PASSWORD_FIELD);
-        return Session.getDefaultInstance(configProperties, new javax.mail.Authenticator() {
+        return Session.getDefaultInstance(configProperties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(userName, userPassword);
             }
