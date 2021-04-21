@@ -7,7 +7,7 @@ import org.mindrot.jbcrypt.BCrypt;
  *
  * @author Aleksey Klevitov
  */
-public class Encryptor {
+public final class Encryptor {
     private Encryptor() {
     }
 
@@ -19,8 +19,7 @@ public class Encryptor {
      */
     public static String encrypt(String password) {
         String salt = BCrypt.gensalt();
-        String hashedValue = BCrypt.hashpw(password, salt);
-        return hashedValue;
+        return BCrypt.hashpw(password, salt);
     }
 
     /**
@@ -31,7 +30,6 @@ public class Encryptor {
      * @return boolean value. True if the unencrypted password equals to the encrypted one, false otherwise.
      */
     public static boolean check(String password, String hashedValue) {
-        boolean result = BCrypt.checkpw(password, hashedValue);
-        return result;
+        return BCrypt.checkpw(password, hashedValue);
     }
 }
