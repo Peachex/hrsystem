@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -50,6 +51,8 @@ public class RegisterCommand implements ActionCommand {
         CommandResult result;
         try {
             if (service.register(fields)) {
+                HttpSession session = request.getSession();
+                session.setAttribute(JspAttribute.SUCCESS_ATTRIBUTE, JspAttribute.SUCCESS_MESSAGE);
                 result = new CommandResult(ServletAttribute.LOGIN_URL_PATTERN, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute(RequestParameter.FIRST_NAME, fields.get(RequestParameter.FIRST_NAME));

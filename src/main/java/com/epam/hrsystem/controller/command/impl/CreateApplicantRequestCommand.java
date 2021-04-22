@@ -51,6 +51,7 @@ public class CreateApplicantRequestCommand implements ActionCommand {
                 String applicantEmail = applicant.getEmail();
                 mailSender.setupEmail(applicantEmail, MailMessage.HR_SYSTEM_MAIL_SUBJECT, MailMessage.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
                 mailSender.send();
+                session.setAttribute(JspAttribute.SUCCESS_ATTRIBUTE, JspAttribute.SUCCESS_MESSAGE);
                 result = new CommandResult(CommandName.TO_APPLICANT_REQUESTS, CommandResult.Type.REDIRECT);
             } else {
                 if (ApplicantRequestValidator.isSummaryValid(summary)) {

@@ -51,6 +51,7 @@ public class CreateUserReportCommand implements ActionCommand {
                 User user = (User) session.getAttribute(SessionAttribute.USER);
                 mailSender.setupEmail(user.getEmail(), MailMessage.HR_SYSTEM_MAIL_SUBJECT, MailMessage.CREATION_USER_REPORT_MAIL_TEXT);
                 mailSender.send();
+                session.setAttribute(SessionAttribute.SUCCESS_MESSAGE, JspAttribute.SUCCESS_MESSAGE);
             } else {
                 if (UserReportValidator.isUserReportFormValid(fields)) {
                     request.setAttribute(JspAttribute.ERROR_DUPLICATE_ATTRIBUTE, JspAttribute.ERROR_USER_REPORT_DUPLICATE_MESSAGE);
