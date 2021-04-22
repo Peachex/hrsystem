@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  */
 public final class VacancyValidator {
     private static final Logger logger = LogManager.getLogger();
-    private static final Pattern POSITION_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{3,1000}");
+    private static final Pattern POSITION_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{3,255}");
     private static final Pattern DESCRIPTION_PATTERN = Pattern.compile("[А-Яа-я\\w\\s\\p{Punct}]{3,10000}");
     private static final Pattern COUNTRY_PATTERN = Pattern.compile("[a-zA-Zа-яА-я\\s]{3,50}");
     private static final Pattern CITY_PATTERN = Pattern.compile("[a-zA-Zа-яА-я\\s]{2,50}");

@@ -28,7 +28,7 @@
         <div class="col-2 offset-5">
             <input type="text" class="form-control field" id="inputEmail" name="email" value="${email}"
                    required
-                   pattern="((\w)([-.](\w))?)+@((\w)([-.](\w))?)+.[a-zA-Zа-яА-Я]{2,4}">
+                   pattern="((\w)([-.](\w))?){1,64}@((\w)([-.](\w))?){1,251}.[a-zA-Zа-яА-Я]{2,4}">
         </div>
 
         <div class="mt-3 col-2 offset-5">
@@ -36,7 +36,7 @@
         </div>
         <div class="col-2 offset-5">
             <input type="password" class="form-control field" id="inputPassword" name="password"
-                   required pattern="[а-яА-Я\w\s\p{Punct}]{6,80}"/>
+                   required pattern="[а-яА-Я\w\s\p{Punct}]{6,255}"/>
         </div>
         <div class="mt-3">
             <wrong-message>

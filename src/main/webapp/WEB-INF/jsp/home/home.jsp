@@ -87,7 +87,7 @@
                             <input type="text" class="form-control field" id="inputSubject" name="subject"
                                    value="${subject}" placeholder=
                                            "<fmt:message key="home.userReportInputSubjectPlaceholder"/>"
-                                   required pattern="[А-Яа-я\w\s\p{Punct}]{1,100}">
+                                   required pattern="[А-Яа-я\w\s\p{Punct}]{1,255}">
                         </div>
 
                         <div class="mt-3">

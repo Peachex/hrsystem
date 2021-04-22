@@ -30,7 +30,7 @@
             <input type="text" class="form-control field" id="inputFirstName" name="firstName" value="${firstName}"
                    placeholder=
                            "<fmt:message key="register.inputNamePlaceholder"/>" required
-                   pattern="[a-zA-Zа-яА-Я]{3,35}">
+                   pattern="[a-zA-Zа-яА-Я]{3,255}">
         </div>
 
         <div class="mt-3 col-2 offset-5">
@@ -40,7 +40,7 @@
             <input type="text" class="form-control field" id="inputLastName" name="lastName" value="${lastName}"
                    placeholder=
                            "<fmt:message key="register.inputNamePlaceholder"/>" required
-                   pattern="[a-zA-Zа-яА-Я]{3,35}">
+                   pattern="[a-zA-Zа-яА-Я]{3,255}">
         </div>
 
         <div class="mt-3 col-2 offset-5">
@@ -69,7 +69,7 @@
             <input type="text" class="form-control field" id="inputEmail" name="email" value="${email}"
                    placeholder=
                            "<fmt:message key="register.inputEmailPlaceholder"/>" required
-                   pattern="((\w)([-.](\w))?)+@((\w)([-.](\w))?)+.[a-zA-Zа-яА-Я]{2,4}">
+                   pattern="((\w)([-.](\w))?){1,64}@((\w)([-.](\w))?){1,251}.[a-zA-Zа-яА-Я]{2,4}">
         </div>
 
         <div class="mt-3 col-2 offset-5">
@@ -78,7 +78,7 @@
         <div class="col-2 offset-5">
             <input type="password" class="form-control field" id="inputPassword" name="password" value="${password}"
                    placeholder="<fmt:message key="register.inputPasswordPlaceholder"/>" required
-                   pattern="[а-яА-Я\w\s\p{Punct}]{6,80}">
+                   pattern="[а-яА-Я\w\s\p{Punct}]{6,255}">
         </div>
 
         <div class="mt-3 col-2 offset-5">
@@ -87,7 +87,7 @@
         <div class="col-2 offset-5">
             <input type="password" class="form-control field" id="inputRepeatedPassword" name="repeatedPassword"
                    value="${repeatedPassword}" placeholder="<fmt:message key="register.inputPasswordPlaceholder"/>"
-                   required pattern="[а-яА-Я\w\s\p{Punct}]{6,80}">
+                   required pattern="[а-яА-Я\w\s\p{Punct}]{6,255}">
         </div>
         <div class="mt-3">
             <wrong-message>

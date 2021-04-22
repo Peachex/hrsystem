@@ -21,12 +21,11 @@ import java.util.stream.Collectors;
  */
 public final class UserValidator {
     private static final Logger logger = LogManager.getLogger();
-    private static final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Zа-яА-Я]{3,35}");
-    private static final Pattern EMAIL_PATTERN = Pattern.compile("((\\w)([-.](\\w))?)+@((\\w)([-.](\\w))?)+.[a-zA-Z]{2,4}");
+    private static final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Zа-яА-Я]{3,255}");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("((\\w)([-.](\\w))?){1,64}@((\\w)([-.](\\w))?){1,251}.[a-zA-Z]{2,4}");
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("(\\+?(((\\d+-\\d+)+)|(\\d{2,20})|((\\d+\\s\\d+)+)))|" +
             "(\\(\\+?\\d+\\)[-\\s]?(((\\d+-\\d+)+)|(\\d+)|((\\d+\\s\\d+)+)))");
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("[а-яА-Я\\w\\s\\p{Punct}]{6,80}");
-    private static final int EMAIL_MAX_LENGTH = 50;
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("[а-яА-Я\\w\\s\\p{Punct}]{6,255}");
     private static final int PHONE_NUMBER_MAX_LENGTH = 20;
     private static final int PHOTO_NAME_MAX_LENGTH = 50;
     private static final Pattern DATE_FORMAT_PATTERN = Pattern.compile("([1-2][0-9]{3})-([0][1-9]|[1][0-2])-([0][1-9]|[12][0-9]|[3][01])");
@@ -204,7 +203,7 @@ public final class UserValidator {
             return false;
         }
         Matcher matcher = EMAIL_PATTERN.matcher(email);
-        boolean result = matcher.matches() && email.length() <= EMAIL_MAX_LENGTH;
+        boolean result = matcher.matches();
         if (!result) {
             logger.log(Level.DEBUG, "Email isn't valid: " + email);
         }

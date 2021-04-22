@@ -109,7 +109,7 @@
                                                                name="position"
                                                                value="${user.position}" placeholder=
                                                                        "<fmt:message key="create_vacancy_modal.inputPositionPlaceholder"/>"
-                                                               required pattern="[А-Яа-я\w\s\p{Punct}]{3,1000}">
+                                                               required pattern="[А-Яа-я\w\s\p{Punct}]{3,255}">
                                                     </div>
 
                                                     <div class="mt-3">
