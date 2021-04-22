@@ -26,8 +26,6 @@ CREATE TABLE `applicant_requests` (
   `applicant_request_id` bigint NOT NULL AUTO_INCREMENT,
   `summary` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `technical_interview_date` date DEFAULT NULL,
-  `basic_interview_result_id_fk` bigint DEFAULT NULL,
-  `technical_interview_result_id_fk` bigint DEFAULT NULL,
   `user_id_fk` bigint NOT NULL,
   `vacancy_id_fk` bigint NOT NULL,
   `applicant_state_id_fk` bigint NOT NULL,
@@ -35,14 +33,10 @@ CREATE TABLE `applicant_requests` (
   KEY `applicant_requests_user_id_idx` (`user_id_fk`),
   KEY `applicant_requests_vacancy_id_idx` (`vacancy_id_fk`),
   KEY `state_idx` (`applicant_state_id_fk`),
-  KEY `applicant_requests_basic_interview_result_id_fk_idx` (`basic_interview_result_id_fk`),
-  KEY `applicant_requests_technical_interview_result_id_fk_idx` (`technical_interview_result_id_fk`),
   CONSTRAINT `applicant_requests_applicant_state_id` FOREIGN KEY (`applicant_state_id_fk`) REFERENCES `applicant_states` (`applicant_state_id`),
-  CONSTRAINT `applicant_requests_basic_interview_result_id_fk` FOREIGN KEY (`basic_interview_result_id_fk`) REFERENCES `interview_results` (`interview_result_id`),
-  CONSTRAINT `applicant_requests_technical_interview_result_id_fk` FOREIGN KEY (`technical_interview_result_id_fk`) REFERENCES `interview_results` (`interview_result_id`),
   CONSTRAINT `applicant_requests_user_id` FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`),
   CONSTRAINT `applicant_requests_vacancy_id` FOREIGN KEY (`vacancy_id_fk`) REFERENCES `vacancies` (`vacancy_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,8 +131,14 @@ CREATE TABLE `interview_results` (
   `interview_result_id` bigint NOT NULL AUTO_INCREMENT,
   `rating` tinyint unsigned NOT NULL,
   `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`interview_result_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `interview_type_id_fk` bigint NOT NULL,
+  `applicant_request_id_fk` bigint NOT NULL,
+  PRIMARY KEY (`interview_result_id`),
+  KEY `interview_results_interview_type_id_idx` (`interview_type_id_fk`),
+  KEY `interview_results_applicant_request_id_fk_idx` (`applicant_request_id_fk`),
+  CONSTRAINT `interview_results_applicant_request_id_fk` FOREIGN KEY (`applicant_request_id_fk`) REFERENCES `applicant_requests` (`applicant_request_id`),
+  CONSTRAINT `interview_results_interview_type_id` FOREIGN KEY (`interview_type_id_fk`) REFERENCES `interview_types` (`interview_type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,6 +151,30 @@ LOCK TABLES `interview_results` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `interview_types`
+--
+
+DROP TABLE IF EXISTS `interview_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `interview_types` (
+  `interview_type_id` bigint NOT NULL AUTO_INCREMENT,
+  `type` varchar(30) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`interview_type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `interview_types`
+--
+
+LOCK TABLES `interview_types` WRITE;
+/*!40000 ALTER TABLE `interview_types` DISABLE KEYS */;
+INSERT INTO `interview_types` VALUES (1,'BASIC'),(2,'TECHNICAL');
+/*!40000 ALTER TABLE `interview_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_reports`
 --
 
@@ -160,7 +184,7 @@ DROP TABLE IF EXISTS `user_reports`;
 CREATE TABLE `user_reports` (
   `user_report_id` bigint NOT NULL AUTO_INCREMENT,
   `is_available` bit(1) NOT NULL,
-  `subject` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `subject` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `comment` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `response` text CHARACTER SET utf8 COLLATE utf8_bin,
   `creation_date` date NOT NULL,
@@ -168,7 +192,7 @@ CREATE TABLE `user_reports` (
   PRIMARY KEY (`user_report_id`),
   KEY `user_reports_user_id_idx` (`user_id_fk`),
   CONSTRAINT `user_reports_user_id` FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,7 +201,7 @@ CREATE TABLE `user_reports` (
 
 LOCK TABLES `user_reports` WRITE;
 /*!40000 ALTER TABLE `user_reports` DISABLE KEYS */;
-INSERT INTO `user_reports` VALUES (3,_binary '\0','Опечатка','Вакансия содержит опечатку.','Опечатка была исправлена. Большое спасибо!','2021-04-07',24),(4,_binary '','Change Role','I am an employee of your company, change my role.',NULL,'2021-04-07',22);
+INSERT INTO `user_reports` VALUES (3,_binary '\0','Опечатка','Вакансия содержит опечатку.','Опечатка была исправлена. Большое спасибо!','2021-04-07',24),(4,_binary '','Change Role','I am an employee of your company, change my role.',NULL,'2021-04-07',22),(5,_binary '','dwad','2423rew',NULL,'2021-04-22',24),(6,_binary '','dwad','dwfwa',NULL,'2021-04-22',23),(7,_binary '','gehrh','sdga',NULL,'2021-04-22',23),(8,_binary '','heswhs','hdfhsdhg',NULL,'2021-04-22',22),(9,_binary '','hsdh','awqhwehse',NULL,'2021-04-22',22),(10,_binary '','hewher','hwetr32t3',NULL,'2021-04-22',22),(11,_binary '','fawhg','awhahge',NULL,'2021-04-22',22),(12,_binary '','fawg','eghdshgsd',NULL,'2021-04-22',24),(13,_binary '','fwagaw','gagasg',NULL,'2021-04-22',24),(14,_binary '','fawga','gaga',NULL,'2021-04-22',24);
 /*!40000 ALTER TABLE `user_reports` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,18 +239,18 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_id` bigint NOT NULL AUTO_INCREMENT,
   `photo_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `first_name` varchar(35) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `last_name` varchar(35) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `date_of_birth` date NOT NULL,
   `phone_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(320) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `is_active` bit(1) NOT NULL,
   `role_id_fk` bigint NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `users_role_id_idx` (`role_id_fk`),
   CONSTRAINT `users_role_id` FOREIGN KEY (`role_id_fk`) REFERENCES `user_roles` (`user_role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,7 +273,7 @@ DROP TABLE IF EXISTS `vacancies`;
 CREATE TABLE `vacancies` (
   `vacancy_id` bigint NOT NULL AUTO_INCREMENT,
   `is_available` bit(1) NOT NULL,
-  `position` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `position` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `creation_date` date NOT NULL,
   `country_id_fk` bigint NOT NULL,
@@ -262,7 +286,7 @@ CREATE TABLE `vacancies` (
   CONSTRAINT `vacancies_city_id` FOREIGN KEY (`city_id_fk`) REFERENCES `cities` (`city_id`),
   CONSTRAINT `vacancies_country_id` FOREIGN KEY (`country_id_fk`) REFERENCES `countries` (`country_id`),
   CONSTRAINT `vacancies_user_id` FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,4 +308,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-07 22:17:05
+-- Dump completed on 2021-04-22 19:17:03
