@@ -43,6 +43,9 @@
                 ${errorInputData}
                 ${accountIsDeleted}
             </wrong-message>
+            <success-message>
+                ${successMessage}
+            </success-message>
         </div>
 
         <div class="mt-5 col-2 offset-5">

@@ -28,6 +28,9 @@
         <wrong-message>
             ${noApplicantRequests}
         </wrong-message>
+        <success-message>
+            ${successMessage}
+        </success-message>
     </div>
 
     <vacancies-number><fmt:message

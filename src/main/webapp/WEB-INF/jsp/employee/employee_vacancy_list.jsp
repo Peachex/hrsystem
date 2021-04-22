@@ -102,7 +102,8 @@
 
     <div class="row align-items-start" style="margin-top: 2%; width: 100%; padding-left: 7.8%;">
         <div class="col-2 offset-2" style="display: flex; justify-content: center">
-            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/to_employee_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/to_employee_vacancies.do"
+               role="button"><fmt:message
                     key="button.seeAllVacancies"/> </a>
         </div>
         <div class="col-2" style="display: flex;justify-content: center">
@@ -126,11 +127,13 @@
             </div>
         </div>
         <div class="col-2" style="display: flex; justify-content: center">
-            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/see_active_employee_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/see_active_employee_vacancies.do"
+               role="button"><fmt:message
                     key="button.seeActiveVacancies"/> </a>
         </div>
         <div class="col-2" style="display: flex; justify-content: center">
-            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/see_deleted_employee_vacancies.do" role="button"><fmt:message
+            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/see_deleted_employee_vacancies.do"
+               role="button"><fmt:message
                     key="button.seeDeletedVacancies"/> </a>
         </div>
     </div>
@@ -145,6 +148,9 @@
             ${errorVacancyDelete}
             ${errorVacancyRestore}
         </wrong-message>
+        <success-message>
+            ${successMessage}
+        </success-message>
     </div>
     <vacancies-number><fmt:message
             key="vacancy_vacanciesAmount"/> ${employeeVacancies.size()}</vacancies-number>
@@ -173,7 +179,6 @@
         </tbody>
     </table>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
         crossorigin="anonymous"></script>

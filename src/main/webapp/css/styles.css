@@ -48,6 +48,15 @@ wrong-message {
     justify-content: center;
 }
 
+success-message {
+    margin-top: 2%;
+    justify-content: center;
+    display: flex;
+    font-family: cursive;
+    color: #23de20de;
+    font-size: x-large;
+}
+
 vacancies-number {
     font-size: 20px;
     display: flex;

@@ -62,9 +62,13 @@
         ${errorInputData}
     </wrong-message>
 
+    <success-message>
+        ${successMessage}
+    </success-message>
+
     <c:if test="${sessionScope.role.toString().equals(applicant) || sessionScope.role.toString().equals(employee)}">
         <button type="button" class="btn btn-secondary col-2 offset-5"
-                style="margin-top: 3%; display: flex; justify-content: center;"
+                style="margin-top: 1%; display: flex; justify-content: center;"
                 data-bs-toggle="modal" data-bs-target="#createUserReportModal">
             <fmt:message key="home.userReportTitle"/>
         </button>
