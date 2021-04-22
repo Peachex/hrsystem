@@ -28,8 +28,10 @@
             <c:set var="employee" scope="session" value="EMPLOYEE"/>
             <c:set var="user" scope="session" value="${sessionScope.user}"/>
 
-            <a class="nav-link header-link" href="${pageContext.request.contextPath}/home"><fmt:message key="header.home"/> </a>
-            <a class="nav-link header-link offset-1" href="${pageContext.request.contextPath}/to_vacancies.do"><fmt:message key="header.vacancy"/></a>
+            <a class="nav-link header-link" href="${pageContext.request.contextPath}/home"><fmt:message
+                    key="header.home"/> </a>
+            <a class="nav-link header-link offset-1"
+               href="${pageContext.request.contextPath}/to_vacancies.do"><fmt:message key="header.vacancy"/></a>
 
             <li class="nav-item dropdown offset-1">
                 <a class="nav-link dropdown-toggle header-link" id="navbarDropdown" data-bs-toggle="dropdown"
@@ -37,8 +39,10 @@
                     <fmt:message key="header.changeLanguage"/>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/change_language.do?newLocale=ru_RU">Русский</a></li>
-                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/change_language.do?newLocale=en_EN">English</a></li>
+                    <li><a class="dropdown-item"
+                           href="${pageContext.request.contextPath}/change_language.do?newLocale=ru_RU">Русский</a></li>
+                    <li><a class="dropdown-item"
+                           href="${pageContext.request.contextPath}/change_language.do?newLocale=en_EN">English</a></li>
                 </ul>
             </li>
 
@@ -53,25 +57,41 @@
                 <li class="nav-item dropdown offset-1">
                     <a class="nav-link dropdown-toggle header-link" id="navbarDropdownUser" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        <ctg:text text="${sessionScope.user.firstName}"/> <ctg:text text="${sessionScope.user.lastName}"/> <ctg:text
-                            text=" (${sessionScope.user.role.toString().toLowerCase()})"/>
+                        <ctg:text text="${sessionScope.user.firstName}"/> <ctg:text
+                            text="${sessionScope.user.lastName}"/>
 
+                        <c:if test="${sessionScope.role.toString().equals(admin)}">
+                             (<fmt:message key="header.adminRole"/>)
+                        </c:if>
+
+                        <c:if test="${sessionScope.role.toString().equals(employee)}">
+                             (<fmt:message key="header.employeeRole"/>)
+                        </c:if>
+
+                        <c:if test="${sessionScope.role.toString().equals(applicant)}">
+                             (<fmt:message key="header.applicantRole"/>)
+                        </c:if>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownUser">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/to_user_profile.do"><fmt:message
+                        <li><a class="dropdown-item"
+                               href="${pageContext.request.contextPath}/to_user_profile.do"><fmt:message
                                 key="user.profile"/></a></li>
                         <c:if test="${sessionScope.role.toString().equals(applicant)}">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/to_applicant_requests.do"><fmt:message
+                            <li><a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/to_applicant_requests.do"><fmt:message
                                     key="user.requests"/></a></li>
                         </c:if>
                         <c:if test="${sessionScope.role.toString().equals(employee)}">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/to_employee_vacancies.do"><fmt:message
+                            <li><a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/to_employee_vacancies.do"><fmt:message
                                     key="user.employeeVacancies"/></a></li>
                         </c:if>
                         <c:if test="${sessionScope.role.toString().equals(admin)}">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/to_admin_user_list.do"><fmt:message
+                            <li><a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/to_admin_user_list.do"><fmt:message
                                     key="header.adminUsers"/></a></li>
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/to_admin_user_report_list.do"><fmt:message
+                            <li><a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/to_admin_user_report_list.do"><fmt:message
                                     key="header.adminUserReports"/></a></li>
 
                         </c:if>
