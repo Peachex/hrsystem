@@ -201,7 +201,7 @@ CREATE TABLE `user_reports` (
 
 LOCK TABLES `user_reports` WRITE;
 /*!40000 ALTER TABLE `user_reports` DISABLE KEYS */;
-INSERT INTO `user_reports` VALUES (3,_binary '\0','Опечатка','Вакансия содержит опечатку.','Опечатка была исправлена. Большое спасибо!','2021-04-07',24),(4,_binary '','Change Role','I am an employee of your company, change my role.',NULL,'2021-04-07',22),(5,_binary '','dwad','2423rew',NULL,'2021-04-22',24),(6,_binary '','dwad','dwfwa',NULL,'2021-04-22',23),(7,_binary '','gehrh','sdga',NULL,'2021-04-22',23),(8,_binary '','heswhs','hdfhsdhg',NULL,'2021-04-22',22),(9,_binary '','hsdh','awqhwehse',NULL,'2021-04-22',22),(10,_binary '','hewher','hwetr32t3',NULL,'2021-04-22',22),(11,_binary '','fawhg','awhahge',NULL,'2021-04-22',22),(12,_binary '','fawg','eghdshgsd',NULL,'2021-04-22',24),(13,_binary '','fwagaw','gagasg',NULL,'2021-04-22',24),(14,_binary '','fawga','gaga',NULL,'2021-04-22',24);
+INSERT INTO `user_reports` VALUES (3,_binary '\0','Опечатка','Вакансия содержит опечатку.','Опечатка была исправлена. Большое спасибо!','2021-04-07',24),(4,_binary '','Change Role','I am an employee of your company, change my role.',NULL,'2021-04-07',22);
 /*!40000 ALTER TABLE `user_reports` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,4 +308,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-22 19:17:03
+-- Dump completed on 2021-04-22 19:20:14
