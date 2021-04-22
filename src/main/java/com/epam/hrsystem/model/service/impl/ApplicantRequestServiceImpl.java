@@ -48,14 +48,11 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
      */
     public static ApplicantRequestService getInstance() {
         if (instance == null) {
-            try {
-                locker.lock();
-                if (instance == null) {
-                    instance = new ApplicantRequestServiceImpl();
-                }
-            } finally {
-                locker.unlock();
+            locker.lock();
+            if (instance == null) {
+                instance = new ApplicantRequestServiceImpl();
             }
+            locker.unlock();
         }
         return instance;
     }

@@ -44,14 +44,11 @@ public class UserServiceImpl implements UserService {
      */
     public static UserService getInstance() {
         if (instance == null) {
-            try {
-                locker.lock();
-                if (instance == null) {
-                    instance = new UserServiceImpl();
-                }
-            } finally {
-                locker.unlock();
+            locker.lock();
+            if (instance == null) {
+                instance = new UserServiceImpl();
             }
+            locker.unlock();
         }
         return instance;
     }

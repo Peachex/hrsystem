@@ -42,14 +42,11 @@ public class UserDaoImpl implements UserDao {
      */
     public static UserDao getInstance() {
         if (instance == null) {
-            try {
-                locker.lock();
-                if (instance == null) {
-                    instance = new UserDaoImpl();
-                }
-            } finally {
-                locker.unlock();
+            locker.lock();
+            if (instance == null) {
+                instance = new UserDaoImpl();
             }
+            locker.unlock();
         }
         return instance;
     }

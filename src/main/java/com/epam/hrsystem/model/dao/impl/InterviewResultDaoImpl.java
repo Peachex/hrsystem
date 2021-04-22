@@ -35,14 +35,11 @@ public class InterviewResultDaoImpl implements InterviewResultDao {
      */
     public static InterviewResultDao getInstance() {
         if (instance == null) {
-            try {
-                locker.lock();
-                if (instance == null) {
-                    instance = new InterviewResultDaoImpl();
-                }
-            } finally {
-                locker.unlock();
+            locker.lock();
+            if (instance == null) {
+                instance = new InterviewResultDaoImpl();
             }
+            locker.unlock();
         }
         return instance;
     }

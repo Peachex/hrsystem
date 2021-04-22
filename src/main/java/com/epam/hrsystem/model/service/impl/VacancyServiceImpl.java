@@ -42,14 +42,11 @@ public class VacancyServiceImpl implements VacancyService {
      */
     public static VacancyService getInstance() {
         if (instance == null) {
-            try {
-                locker.lock();
-                if (instance == null) {
-                    instance = new VacancyServiceImpl();
-                }
-            } finally {
-                locker.unlock();
+            locker.lock();
+            if (instance == null) {
+                instance = new VacancyServiceImpl();
             }
+            locker.unlock();
         }
         return instance;
     }

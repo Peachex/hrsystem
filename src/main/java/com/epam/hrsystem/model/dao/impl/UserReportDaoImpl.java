@@ -43,14 +43,11 @@ public class UserReportDaoImpl implements UserReportDao {
      */
     public static UserReportDao getInstance() {
         if (instance == null) {
-            try {
-                locker.lock();
-                if (instance == null) {
-                    instance = new UserReportDaoImpl();
-                }
-            } finally {
-                locker.unlock();
+            locker.lock();
+            if (instance == null) {
+                instance = new UserReportDaoImpl();
             }
+            locker.unlock();
         }
         return instance;
     }

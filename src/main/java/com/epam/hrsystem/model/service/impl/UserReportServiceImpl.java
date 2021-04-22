@@ -40,14 +40,11 @@ public class UserReportServiceImpl implements UserReportService {
      */
     public static UserReportService getInstance() {
         if (instance == null) {
-            try {
-                locker.lock();
-                if (instance == null) {
-                    instance = new UserReportServiceImpl();
-                }
-            } finally {
-                locker.unlock();
+            locker.lock();
+            if (instance == null) {
+                instance = new UserReportServiceImpl();
             }
+            locker.unlock();
         }
         return instance;
     }

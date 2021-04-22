@@ -42,14 +42,11 @@ public class VacancyDaoImpl implements VacancyDao {
      */
     public static VacancyDao getInstance() {
         if (instance == null) {
-            try {
-                locker.lock();
-                if (instance == null) {
-                    instance = new VacancyDaoImpl();
-                }
-            } finally {
-                locker.unlock();
+            locker.lock();
+            if (instance == null) {
+                instance = new VacancyDaoImpl();
             }
+            locker.unlock();
         }
         return instance;
     }

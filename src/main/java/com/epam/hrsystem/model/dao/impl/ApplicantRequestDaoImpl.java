@@ -49,14 +49,11 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
      */
     public static ApplicantRequestDao getInstance() {
         if (instance == null) {
-            try {
-                locker.lock();
-                if (instance == null) {
-                    instance = new ApplicantRequestDaoImpl();
-                }
-            } finally {
-                locker.unlock();
+            locker.lock();
+            if (instance == null) {
+                instance = new ApplicantRequestDaoImpl();
             }
+            locker.unlock();
         }
         return instance;
     }
