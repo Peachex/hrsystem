@@ -10,6 +10,8 @@ import static com.epam.hrsystem.validator.UserValidator.isRegisterFormValid;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * EntityFactory implementation used to create a User object.
@@ -20,11 +22,27 @@ public class UserFactory implements EntityFactory<User> {
     private static final UserRole DEFAULT_ROLE = UserRole.APPLICANT;
     private static final String DEFAULT_PHOTO_NAME = "default_avatar.png";
     private static final boolean DEFAULT_ACTIVE_VALUE = true;
+    private static final Lock locker = new ReentrantLock();
+    private static EntityFactory<User> instance;
 
     /**
      * Constructs a UserFactory object.
      */
-    UserFactory() {
+    private UserFactory() {
+    }
+
+    /**
+     * Returns an EntityFactory object.
+     */
+    public static EntityFactory<User> getInstance() {
+        if (instance == null) {
+            locker.lock();
+            if (instance == null) {
+                instance = new UserFactory();
+            }
+            locker.unlock();
+        }
+        return instance;
     }
 
     @Override

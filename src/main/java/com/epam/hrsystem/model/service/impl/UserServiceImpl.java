@@ -6,10 +6,10 @@ import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
 import com.epam.hrsystem.model.factory.EntityFactory;
-import com.epam.hrsystem.model.factory.impl.FactoryHolder;
 import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserRole;
+import com.epam.hrsystem.model.factory.impl.UserFactory;
 import com.epam.hrsystem.model.service.UserService;
 import com.epam.hrsystem.util.Encryptor;
 import com.epam.hrsystem.validator.UserValidator;
@@ -30,6 +30,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class UserServiceImpl implements UserService {
     private static final UserDao dao = UserDaoImpl.getInstance();
     private static final String PERCENT_SIGN = "%";
+    private static final EntityFactory<User> userFactory = UserFactory.getInstance();
     private static final Lock locker = new ReentrantLock();
     private static volatile UserService instance;
 
@@ -74,8 +75,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean register(Map<String, String> fields) throws ServiceException {
         boolean result = false;
-        EntityFactory<User> factory = FactoryHolder.HOLDER.getUserFactory();
-        Optional<User> userOptional = factory.create(fields);
+        Optional<User> userOptional = userFactory.create(fields);
         try {
             if (userOptional.isPresent()) {
                 User user = userOptional.get();

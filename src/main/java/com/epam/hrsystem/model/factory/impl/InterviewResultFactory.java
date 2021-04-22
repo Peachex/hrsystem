@@ -6,6 +6,8 @@ import com.epam.hrsystem.model.entity.InterviewResult;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static com.epam.hrsystem.validator.InterviewResultValidator.isInterviewResultFormValid;
 
@@ -15,11 +17,27 @@ import static com.epam.hrsystem.validator.InterviewResultValidator.isInterviewRe
  * @author Aleksey Klevitov
  */
 public class InterviewResultFactory implements EntityFactory<InterviewResult> {
+    private static final Lock locker = new ReentrantLock();
+    private static EntityFactory<InterviewResult> instance;
 
     /**
      * Constructs an InterviewResultFactory object.
      */
-    InterviewResultFactory() {
+    private InterviewResultFactory() {
+    }
+
+    /**
+     * Returns an EntityFactory object.
+     */
+    public static EntityFactory<InterviewResult> getInstance() {
+        if (instance == null) {
+            locker.lock();
+            if (instance == null) {
+                instance = new InterviewResultFactory();
+            }
+            locker.unlock();
+        }
+        return instance;
     }
 
     @Override

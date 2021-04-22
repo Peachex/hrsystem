@@ -7,6 +7,8 @@ import com.epam.hrsystem.model.factory.EntityFactory;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static com.epam.hrsystem.validator.UserReportValidator.isUserReportFormValid;
 
@@ -17,11 +19,27 @@ import static com.epam.hrsystem.validator.UserReportValidator.isUserReportFormVa
  */
 public class UserReportFactory implements EntityFactory<UserReport> {
     private static final boolean DEFAULT_AVAILABILITY_VALUE = true;
+    private static final Lock locker = new ReentrantLock();
+    private static EntityFactory<UserReport> instance;
 
     /**
      * Constructs a UserReportFactory object.
      */
-    UserReportFactory() {
+    private UserReportFactory() {
+    }
+
+    /**
+     * Returns an EntityFactory object.
+     */
+    public static EntityFactory<UserReport> getInstance() {
+        if (instance == null) {
+            locker.lock();
+            if (instance == null) {
+                instance = new UserReportFactory();
+            }
+            locker.unlock();
+        }
+        return instance;
     }
 
     @Override

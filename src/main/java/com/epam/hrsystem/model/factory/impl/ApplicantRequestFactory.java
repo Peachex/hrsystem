@@ -9,6 +9,8 @@ import static com.epam.hrsystem.validator.ApplicantRequestValidator.isSummaryVal
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * EntityFactory implementation used to create an ApplicantRequest object.
@@ -17,11 +19,27 @@ import java.util.Optional;
  */
 public class ApplicantRequestFactory implements EntityFactory<ApplicantRequest> {
     private static final ApplicantState DEFAULT_APPLICANT_STATE = ApplicantState.LEFT_REQUEST;
+    private static final Lock locker = new ReentrantLock();
+    private static EntityFactory<ApplicantRequest> instance;
 
     /**
      * Constructs an ApplicantRequestFactory object.
      */
-    ApplicantRequestFactory() {
+    private ApplicantRequestFactory() {
+    }
+
+    /**
+     * Returns an EntityFactory object.
+     */
+    public static EntityFactory<ApplicantRequest> getInstance() {
+        if (instance == null) {
+            locker.lock();
+            if (instance == null) {
+                instance = new ApplicantRequestFactory();
+            }
+            locker.unlock();
+        }
+        return instance;
     }
 
     @Override

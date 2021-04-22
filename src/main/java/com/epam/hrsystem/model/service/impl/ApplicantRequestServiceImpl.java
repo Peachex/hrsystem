@@ -13,7 +13,8 @@ import com.epam.hrsystem.model.dao.ApplicantRequestDao;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
-import com.epam.hrsystem.model.factory.impl.FactoryHolder;
+import com.epam.hrsystem.model.factory.impl.ApplicantRequestFactory;
+import com.epam.hrsystem.model.factory.impl.InterviewResultFactory;
 import com.epam.hrsystem.model.service.ApplicantRequestService;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.validator.ApplicantRequestValidator;
@@ -33,6 +34,8 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     private static final ApplicantRequestDao applicantRequestDao = ApplicantRequestDaoImpl.getInstance();
     private static final InterviewResultDao interviewResultDao = InterviewResultDaoImpl.getInstance();
+    private static final EntityFactory<ApplicantRequest> applicantRequestFactory = ApplicantRequestFactory.getInstance();
+    private static final EntityFactory<InterviewResult> interviewResultFactory = InterviewResultFactory.getInstance();
     private static final Lock locker = new ReentrantLock();
     private static final VacancyService vacancyService = VacancyServiceImpl.getInstance();
     private static volatile ApplicantRequestService instance;
@@ -60,8 +63,7 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     @Override
     public boolean createApplicantRequest(Map<String, String> fields, User applicant) throws ServiceException {
         boolean result = false;
-        EntityFactory<ApplicantRequest> factory = FactoryHolder.HOLDER.getApplicantRequestFactory();
-        Optional<ApplicantRequest> requestOptional = factory.create(fields);
+        Optional<ApplicantRequest> requestOptional = applicantRequestFactory.create(fields);
         try {
             if (requestOptional.isPresent()) {
                 long vacancyId = Long.parseLong(fields.get(RequestParameter.VACANCY_ID));
@@ -129,8 +131,7 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
                                 applicantRequest.getTechnicalInterviewDate() != null &&
                                 !newApplicantState.equals(ApplicantState.READY_FOR_TECHNICAL_INTERVIEW.name()) &&
                                 !newApplicantState.equals(ApplicantState.LEFT_REQUEST.name())) {
-                    EntityFactory<InterviewResult> factory = FactoryHolder.HOLDER.getInterviewResultFactory();
-                    Optional<InterviewResult> interviewResultOptional = factory.create(fields);
+                    Optional<InterviewResult> interviewResultOptional = interviewResultFactory.create(fields);
                     if (interviewResultOptional.isPresent()) {
                         InterviewResult interviewResult = interviewResultOptional.get();
                         if (updateInterviewResult(applicantRequest, interviewResult, newApplicantState)) {

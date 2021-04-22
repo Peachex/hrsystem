@@ -6,10 +6,10 @@ import com.epam.hrsystem.exception.ServiceException;
 import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
 import com.epam.hrsystem.model.dao.impl.VacancyDaoImpl;
 import com.epam.hrsystem.model.factory.EntityFactory;
-import com.epam.hrsystem.model.factory.impl.FactoryHolder;
 import com.epam.hrsystem.model.dao.VacancyDao;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
+import com.epam.hrsystem.model.factory.impl.VacancyFactory;
 import com.epam.hrsystem.model.service.VacancyService;
 import com.epam.hrsystem.validator.VacancyValidator;
 
@@ -28,6 +28,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class VacancyServiceImpl implements VacancyService {
     private static final VacancyDao dao = VacancyDaoImpl.getInstance();
     private static final String PERCENT_SIGN = "%";
+    private static final EntityFactory<Vacancy> vacancyFactory = VacancyFactory.getInstance();
     private static final Lock locker = new ReentrantLock();
     private static volatile VacancyService instance;
 
@@ -54,8 +55,7 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public boolean createVacancy(Map<String, String> fields, long employeeId) throws ServiceException {
         boolean result = false;
-        EntityFactory<Vacancy> factory = FactoryHolder.HOLDER.getVacancyFactory();
-        Optional<Vacancy> vacancyOptional = factory.create(fields);
+        Optional<Vacancy> vacancyOptional = vacancyFactory.create(fields);
         try {
             if (vacancyOptional.isPresent()) {
                 Optional<User> employee = UserDaoImpl.getInstance().findUserById(employeeId);

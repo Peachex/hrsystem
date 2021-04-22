@@ -2,7 +2,7 @@ package com.epam.hrsystem.model.factory;
 
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.model.entity.InterviewResult;
-import com.epam.hrsystem.model.factory.impl.FactoryHolder;
+import com.epam.hrsystem.model.factory.impl.InterviewResultFactory;
 import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
 
@@ -31,7 +31,7 @@ public class InterviewResultFactoryTest {
 
     @Test(dataProvider = "fieldsForInterviewResultCreationData")
     public void createTest(Map<String, String> fields, Optional<InterviewResult> expected) {
-        EntityFactory<InterviewResult> factory = FactoryHolder.HOLDER.getInterviewResultFactory();
+        EntityFactory<InterviewResult> factory = InterviewResultFactory.getInstance();
         Optional<InterviewResult> actual = factory.create(fields);
         assertEquals(actual, expected);
     }

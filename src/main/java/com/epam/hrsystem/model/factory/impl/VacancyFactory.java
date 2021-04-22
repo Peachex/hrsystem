@@ -7,6 +7,8 @@ import com.epam.hrsystem.model.entity.Vacancy;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static com.epam.hrsystem.validator.VacancyValidator.isVacancyFormValid;
 
@@ -17,11 +19,27 @@ import static com.epam.hrsystem.validator.VacancyValidator.isVacancyFormValid;
  */
 public class VacancyFactory implements EntityFactory<Vacancy> {
     private static final boolean DEFAULT_AVAILABILITY_VALUE = true;
+    private static final Lock locker = new ReentrantLock();
+    private static EntityFactory<Vacancy> instance;
 
     /**
      * Constructs a VacancyFactory object.
      */
-    VacancyFactory() {
+    private VacancyFactory() {
+    }
+
+    /**
+     * Returns an EntityFactory object.
+     */
+    public static EntityFactory<Vacancy> getInstance() {
+        if (instance == null) {
+            locker.lock();
+            if (instance == null) {
+                instance = new VacancyFactory();
+            }
+            locker.unlock();
+        }
+        return instance;
     }
 
     @Override

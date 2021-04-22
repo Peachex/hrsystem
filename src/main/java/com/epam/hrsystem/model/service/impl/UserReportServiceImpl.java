@@ -8,7 +8,7 @@ import com.epam.hrsystem.model.dao.impl.UserReportDaoImpl;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserReport;
 import com.epam.hrsystem.model.factory.EntityFactory;
-import com.epam.hrsystem.model.factory.impl.FactoryHolder;
+import com.epam.hrsystem.model.factory.impl.UserReportFactory;
 import com.epam.hrsystem.model.service.UserReportService;
 import com.epam.hrsystem.validator.UserReportValidator;
 
@@ -26,6 +26,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class UserReportServiceImpl implements UserReportService {
     private static final UserReportDao dao = UserReportDaoImpl.getInstance();
     private static final String PERCENT_SIGN = "%";
+    private static final EntityFactory<UserReport> userReportFactory = UserReportFactory.getInstance();
     private static final Lock locker = new ReentrantLock();
     private static volatile UserReportService instance;
 
@@ -52,8 +53,7 @@ public class UserReportServiceImpl implements UserReportService {
     @Override
     public boolean createUserReport(Map<String, String> fields, long userId) throws ServiceException {
         boolean result = false;
-        EntityFactory<UserReport> factory = FactoryHolder.HOLDER.getUserReportFactory();
-        Optional<UserReport> reportOptional = factory.create(fields);
+        Optional<UserReport> reportOptional = userReportFactory.create(fields);
         try {
             if (reportOptional.isPresent()) {
                 UserReport report = reportOptional.get();
