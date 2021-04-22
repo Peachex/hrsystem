@@ -2,7 +2,9 @@ package com.epam.hrsystem.model.dao;
 
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
+import com.epam.hrsystem.model.entity.ApplicantState;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,15 +33,6 @@ public interface ApplicantRequestDao {
     boolean applicantRequestExists(ApplicantRequest request) throws DaoException;
 
     /**
-     * Updates applicant request's info.
-     *
-     * @param request ApplicantRequest object.
-     * @return boolean value. True if the applicant request's info has been updated, false otherwise.
-     * @throws DaoException if the database throws SQLException.
-     */
-    boolean updateApplicantRequest(ApplicantRequest request) throws DaoException;
-
-    /**
      * Finds applicant requests by id.
      *
      * @param vacancyId   long value of vacancy's id.
@@ -58,4 +51,24 @@ public interface ApplicantRequestDao {
      * @throws DaoException if the database throws SQLException.
      */
     Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws DaoException;
+
+    /**
+     * Updates technical interview date.
+     *
+     * @param applicantRequestId long value of applicant request's id.
+     * @param date               LocalDate object of technical interview date.
+     * @return boolean value. True if the technical interview date was updated, false otherwise.
+     * @throws DaoException if the database throws SQLException.
+     */
+    boolean updateTechnicalInterviewDate(long applicantRequestId, LocalDate date) throws DaoException;
+
+    /**
+     * Updates applicant state.
+     *
+     * @param applicantRequestId long value of applicant request's id.
+     * @param state              ApplicantState object that represents applicant state.
+     * @return boolean value. True if the applicant state was updated, false otherwise.
+     * @throws DaoException if the database throws SQLException.
+     */
+    boolean updateApplicantState(long applicantRequestId, ApplicantState state) throws DaoException;
 }

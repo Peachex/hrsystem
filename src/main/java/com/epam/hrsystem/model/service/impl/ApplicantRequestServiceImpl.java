@@ -8,6 +8,7 @@ import com.epam.hrsystem.model.dao.impl.ApplicantRequestDaoImpl;
 import com.epam.hrsystem.model.dao.impl.InterviewResultDaoImpl;
 import com.epam.hrsystem.model.entity.ApplicantState;
 import com.epam.hrsystem.model.entity.InterviewResult;
+import com.epam.hrsystem.model.entity.InterviewType;
 import com.epam.hrsystem.model.factory.EntityFactory;
 import com.epam.hrsystem.model.dao.ApplicantRequestDao;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
@@ -21,6 +22,7 @@ import com.epam.hrsystem.validator.ApplicantRequestValidator;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
@@ -126,23 +128,24 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
                 ApplicantRequest applicantRequest = applicantRequestOptional.get();
                 ApplicantState currentState = applicantRequest.getApplicantState();
                 String newApplicantState = fields.get(RequestParameter.APPLICANT_STATE);
+
                 if (currentState == ApplicantState.LEFT_REQUEST && !newApplicantState.equals(ApplicantState.LEFT_REQUEST.name()) ||
                         currentState == ApplicantState.READY_FOR_TECHNICAL_INTERVIEW &&
                                 applicantRequest.getTechnicalInterviewDate() != null &&
                                 !newApplicantState.equals(ApplicantState.READY_FOR_TECHNICAL_INTERVIEW.name()) &&
                                 !newApplicantState.equals(ApplicantState.LEFT_REQUEST.name())) {
+
                     Optional<InterviewResult> interviewResultOptional = interviewResultFactory.create(fields);
+
                     if (interviewResultOptional.isPresent()) {
                         InterviewResult interviewResult = interviewResultOptional.get();
-                        if (updateInterviewResult(applicantRequest, interviewResult, newApplicantState)) {
-                            if (!interviewResultDao.findInterviewResultId(interviewResult).isPresent()) {
-                                if (interviewResultDao.add(interviewResult)) {
-                                    result = applicantRequestDao.updateApplicantRequest(applicantRequest);
-                                }
-                            } else {
-                                result = applicantRequestDao.updateApplicantRequest(applicantRequest);
-                            }
+                        if (applicantRequest.getBasicInterviewResult() == null) {
+                            interviewResult.setType(InterviewType.BASIC);
+                        } else {
+                            interviewResult.setType(InterviewType.TECHNICAL);
                         }
+                        result = interviewResultDao.add(interviewResult, applicantRequest.getId());
+                        applicantRequestDao.updateApplicantState(applicantRequest.getId(), ApplicantState.valueOf(newApplicantState.toUpperCase(Locale.ROOT)));
                     }
                 }
             }
@@ -166,7 +169,7 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
                     if (ApplicantRequestValidator.isTechnicalInterviewDateValid(technicalInterviewDateStr)) {
                         LocalDate technicalInterviewDate = LocalDate.parse(technicalInterviewDateStr);
                         applicantRequest.setTechnicalInterviewDate(technicalInterviewDate);
-                        result = applicantRequestDao.updateApplicantRequest(applicantRequest);
+                        result = applicantRequestDao.updateTechnicalInterviewDate(applicantRequest.getId(), technicalInterviewDate);
                     }
                 }
             }
@@ -182,25 +185,6 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
             result = applicantRequestDao.applicantRequestExists(request);
         } catch (DaoException e) {
             throw new ServiceException(e);
-        }
-        return result;
-    }
-
-    private boolean updateInterviewResult(ApplicantRequest applicantRequest, InterviewResult interviewResult, String state) {
-        boolean result = true;
-        if (applicantRequest.getBasicInterviewResult() == null) {
-            applicantRequest.setBasicInterviewResult(interviewResult);
-        } else {
-            if (applicantRequest.getTechnicalInterviewResult() == null) {
-                applicantRequest.setTechnicalInterviewResult(interviewResult);
-            } else {
-                result = false;
-            }
-        }
-        if (result && ApplicantRequestValidator.isApplicantStateValid(state)) {
-            applicantRequest.setApplicantState(ApplicantState.valueOf(state));
-        } else {
-            result = false;
         }
         return result;
     }

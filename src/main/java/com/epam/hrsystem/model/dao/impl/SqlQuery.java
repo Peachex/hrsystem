@@ -203,7 +203,14 @@ public class SqlQuery {
     /**
      * The constant SQL_INSERT_INTERVIEW_RESULT.
      */
-    public static final String SQL_INSERT_INTERVIEW_RESULT = "INSERT INTO interview_results(rating, comment) VALUES (?, ?);";
+    public static final String SQL_INSERT_INTERVIEW_RESULT = "INSERT INTO interview_results(rating, comment, interview_type_id_fk," +
+            " applicant_request_id_fk) VALUES (?, ?, ?, ?);";
+
+    /**
+     * The constant SQL_FIND_INTERVIEW_TYPE_ID_BY_TYPE.
+     */
+    public static final String SQL_FIND_INTERVIEW_TYPE_ID_BY_TYPE = "SELECT interview_type_id FROM interview_types" +
+            " WHERE type = ?;";
 
     /**
      * The constant SQL_CHECK_APPLICANT_REQUEST_FOR_EXISTENCE.
@@ -219,45 +226,45 @@ public class SqlQuery {
     /**
      * The constant SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID.
      */
-    public static final String SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID = "SELECT applicant_request_id, summary, technical_interview_date, state, applicant_requests.user_id_fk, vacancy_id_fk," +
-            " basic_interview_result_id_fk, technical_interview_result_id_fk FROM applicant_requests JOIN applicant_states ON applicant_state_id_fk = applicant_state_id" +
+    public static final String SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID = "SELECT applicant_request_id, summary, technical_interview_date, state, applicant_requests.user_id_fk, vacancy_id_fk" +
+            " FROM applicant_requests JOIN applicant_states ON applicant_state_id_fk = applicant_state_id" +
             " JOIN vacancies ON vacancy_id_fk = vacancy_id WHERE vacancy_id_fk = ? ORDER BY creation_date DESC;";
 
     /**
      * The constant SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID.
      */
-    public static final String SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID = "SELECT applicant_request_id, summary, technical_interview_date, state, applicant_requests.user_id_fk, vacancy_id_fk," +
-            " basic_interview_result_id_fk, technical_interview_result_id_fk FROM applicant_requests JOIN applicant_states ON applicant_state_id_fk = applicant_state_id" +
-            " JOIN vacancies ON vacancy_id_fk = vacancy_id WHERE applicant_requests.user_id_fk = ? ORDER BY creation_date DESC;";
+    public static final String SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID = "SELECT applicant_request_id, summary, technical_interview_date, state, applicant_requests.user_id_fk, vacancy_id_fk" +
+            " FROM applicant_requests JOIN applicant_states ON applicant_state_id_fk = applicant_state_id JOIN vacancies ON vacancy_id_fk = vacancy_id WHERE applicant_requests.user_id_fk = ?" +
+            " ORDER BY creation_date DESC;";
 
     /**
      * The constant SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID_AND_APPLICANT_ID.
      */
-    public static final String SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID_AND_APPLICANT_ID = "SELECT applicant_request_id, summary, technical_interview_date, state, applicant_requests.user_id_fk, vacancy_id_fk," +
-            " basic_interview_result_id_fk, technical_interview_result_id_fk FROM applicant_requests JOIN applicant_states ON applicant_state_id_fk = applicant_state_id" +
+    public static final String SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID_AND_APPLICANT_ID = "SELECT applicant_request_id, summary, technical_interview_date, state, applicant_requests.user_id_fk, vacancy_id_fk" +
+            " FROM applicant_requests JOIN applicant_states ON applicant_state_id_fk = applicant_state_id" +
             " WHERE vacancy_id_fk = ? AND user_id_fk = ?;";
 
     /**
-     * The constant SQL_UPDATE_APPLICANT_REQUEST_WITH_NULL_TECHNICAL_INTERVIEW.
+     * The constant SQL_UPDATE_TECHNICAL_INTERVIEW_DATE_BY_APPLICANT_REQUEST_ID.
      */
-    public static final String SQL_UPDATE_APPLICANT_REQUEST_WITH_NULL_TECHNICAL_INTERVIEW = "UPDATE applicant_requests SET summary = ?, technical_interview_date = ?, basic_interview_result_id_fk = ?, applicant_state_id_fk = ?" +
-            " WHERE applicant_request_id = ?;";
+    public static final String SQL_UPDATE_TECHNICAL_INTERVIEW_DATE_BY_APPLICANT_REQUEST_ID = "UPDATE applicant_requests SET technical_interview_date = ? WHERE applicant_request_id = ?";
 
     /**
-     * The constant SQL_UPDATE_APPLICANT_REQUEST_WITH_NOT_NULL_TECHNICAL_INTERVIEW.
+     * The constant SQL_UPDATE_APPLICANT_STATE_BY_APPLICANT_REQUEST_ID.
      */
-    public static final String SQL_UPDATE_APPLICANT_REQUEST_WITH_NOT_NULL_TECHNICAL_INTERVIEW = "UPDATE applicant_requests SET summary = ?, technical_interview_date = ?, technical_interview_result_id_fk = ?, applicant_state_id_fk = ?" +
-            " WHERE applicant_request_id = ?;";
+    public static final String SQL_UPDATE_APPLICANT_STATE_BY_APPLICANT_REQUEST_ID = "UPDATE applicant_requests SET applicant_state_id_fk = ? WHERE applicant_request_id = ?";
 
     /**
      * The constant SQL_FIND_INTERVIEW_RESULT_ID_BY_INTERVIEW_RESULT.
      */
-    public static final String SQL_FIND_INTERVIEW_RESULT_ID_BY_INTERVIEW_RESULT = "SELECT interview_result_id FROM interview_results WHERE rating = ? AND comment = ?;";
+    public static final String SQL_FIND_INTERVIEW_RESULT_ID_BY_INTERVIEW_RESULT = "SELECT interview_result_id FROM interview_results LEFT JOIN interview_types ON interview_type_id_fk = interview_type_id WHERE rating = ? AND" +
+            " comment = ? AND interview_type_id_fk = ? AND applicant_request_id_fk = ?;";
 
     /**
      * The constant SQL_FIND_INTERVIEW_RESULT_BY_ID.
      */
-    public static final String SQL_FIND_INTERVIEW_RESULT_BY_ID = "SELECT interview_result_id, rating, comment FROM interview_results WHERE interview_result_id = ?;";
+    public static final String SQL_FIND_INTERVIEW_RESULT_BY_APPLICANT_REQUEST_ID = "SELECT interview_result_id, rating, comment, type FROM interview_results LEFT JOIN interview_types ON interview_type_id_fk = interview_type_id WHERE" +
+            " applicant_request_id_fk = ?;";
 
     /**
      * The constant SQL_CHECK_USER_REPORT_FOR_EXISTENCE.

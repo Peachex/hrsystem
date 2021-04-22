@@ -4,12 +4,16 @@ import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.dao.InterviewResultDao;
 import com.epam.hrsystem.model.entity.InterviewResult;
+import com.epam.hrsystem.model.entity.InterviewType;
 import com.epam.hrsystem.model.pool.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -45,26 +49,28 @@ public class InterviewResultDaoImpl implements InterviewResultDao {
     }
 
     @Override
-    public boolean add(InterviewResult interviewResult) throws DaoException {
-        boolean result;
+    public boolean add(InterviewResult interviewResult, long applicantRequestId) throws DaoException {
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_INSERT_INTERVIEW_RESULT)) {
             statement.setByte(1, interviewResult.getRating());
             statement.setString(2, interviewResult.getComment());
-            result = statement.executeUpdate() == 1;
+            statement.setLong(3, findInterviewTypeIdByType(interviewResult.getType()).orElseThrow(() -> new DaoException("Invalid interview type")));
+            statement.setLong(4, applicantRequestId);
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
-    public Optional<Long> findInterviewResultId(InterviewResult interviewResult) throws DaoException {
+    public Optional<Long> findInterviewResultId(InterviewResult interviewResult, long applicantRequestId) throws DaoException {
         Optional<Long> id = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_INTERVIEW_RESULT_ID_BY_INTERVIEW_RESULT)) {
             statement.setLong(1, interviewResult.getRating());
             statement.setString(2, interviewResult.getComment());
+            statement.setLong(3, findInterviewTypeIdByType(interviewResult.getType()).orElseThrow(() -> new DaoException("Invalid interview type")));
+            statement.setLong(4, applicantRequestId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 id = Optional.of(resultSet.getLong(1));
@@ -76,27 +82,41 @@ public class InterviewResultDaoImpl implements InterviewResultDao {
     }
 
     @Override
-    public Optional<InterviewResult> findInterviewResultById(long interviewResultId) throws DaoException {
-        Optional<InterviewResult> interviewResultOptional = Optional.empty();
+    public List<InterviewResult> findInterviewResultsByApplicantRequestId(long applicantRequestId) throws DaoException {
+        List<InterviewResult> interviewResults = new ArrayList<>();
         try (Connection connection = pool.takeConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_INTERVIEW_RESULT_BY_ID)) {
-            statement.setLong(1, interviewResultId);
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_INTERVIEW_RESULT_BY_APPLICANT_REQUEST_ID)) {
+            statement.setLong(1, applicantRequestId);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                InterviewResult interviewResult = createInterviewResultFromResultSet(resultSet);
-                interviewResultOptional = Optional.of(interviewResult);
+            while (resultSet.next()) {
+                interviewResults.add(createInterviewResultFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return interviewResultOptional;
+        return interviewResults;
+    }
+
+    private Optional<Long> findInterviewTypeIdByType(InterviewType type) throws DaoException {
+        Optional<Long> id = Optional.empty();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_INTERVIEW_TYPE_ID_BY_TYPE)) {
+            statement.setString(1, type.name());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                id = Optional.of(resultSet.getLong(1));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return id;
     }
 
     private InterviewResult createInterviewResultFromResultSet(ResultSet resultSet) throws SQLException {
         long id = resultSet.getLong(1);
         byte rating = resultSet.getByte(2);
         String comment = resultSet.getString(3);
-        InterviewResult interviewResult = new InterviewResult(id, rating, comment);
-        return interviewResult;
+        InterviewType type = InterviewType.valueOf(resultSet.getString(4).toUpperCase(Locale.ROOT));
+        return (new InterviewResult(id, rating, comment, type));
     }
 }

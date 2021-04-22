@@ -9,6 +9,7 @@ import com.epam.hrsystem.model.dao.VacancyDao;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.ApplicantState;
 import com.epam.hrsystem.model.entity.InterviewResult;
+import com.epam.hrsystem.model.entity.InterviewType;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
 import com.epam.hrsystem.model.pool.ConnectionPool;
@@ -90,35 +91,6 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
     }
 
     @Override
-    public boolean updateApplicantRequest(ApplicantRequest request) throws DaoException {
-        boolean result;
-        InterviewResult basicInterviewResult = request.getBasicInterviewResult();
-        InterviewResult technicalInterviewResult = request.getTechnicalInterviewResult();
-        LocalDate technicalInterviewDate = request.getTechnicalInterviewDate();
-        String sqlQuery;
-        if (basicInterviewResult != null && technicalInterviewResult == null) {
-            sqlQuery = SqlQuery.SQL_UPDATE_APPLICANT_REQUEST_WITH_NULL_TECHNICAL_INTERVIEW;
-        } else {
-            sqlQuery = SqlQuery.SQL_UPDATE_APPLICANT_REQUEST_WITH_NOT_NULL_TECHNICAL_INTERVIEW;
-        }
-        try (Connection connection = pool.takeConnection();
-             PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            statement.setString(1, request.getSummary());
-            statement.setDate(2, technicalInterviewDate != null ? Date.valueOf(technicalInterviewDate) : null);
-            statement.setLong(3, technicalInterviewResult == null ? interviewResultDao.findInterviewResultId(basicInterviewResult).orElseThrow(() ->
-                    new DaoException("Invalid interview result")) : interviewResultDao.findInterviewResultId(technicalInterviewResult).orElseThrow(() ->
-                    new DaoException("Invalid interview result")));
-            statement.setLong(4, findApplicantStateIdByName(request.getApplicantState().name()).orElseThrow(() ->
-                    new DaoException("Invalid applicant state")));
-            statement.setLong(5, request.getId());
-            result = statement.executeUpdate() == 1;
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException(e);
-        }
-        return result;
-    }
-
-    @Override
     public List<ApplicantRequest> findApplicantRequestsById(long vacancyId, long applicantId) throws DaoException {
         List<ApplicantRequest> applicantRequests = new ArrayList<>();
         String sqlQuery = vacancyId != 0 ? SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID :
@@ -127,8 +99,7 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             long id = vacancyId != 0 ? vacancyId : applicantId;
             statement.setLong(1, id);
-            statement.executeQuery();
-            ResultSet resultSet = statement.getResultSet();
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 ApplicantRequest applicantRequest = createApplicantRequestFromResultSet(resultSet);
                 applicantRequests.add(applicantRequest);
@@ -158,6 +129,30 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
         return applicantRequestOptional;
     }
 
+    @Override
+    public boolean updateTechnicalInterviewDate(long applicantRequestId, LocalDate date) throws DaoException {
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_TECHNICAL_INTERVIEW_DATE_BY_APPLICANT_REQUEST_ID)) {
+            statement.setDate(1, Date.valueOf(date));
+            statement.setLong(2, applicantRequestId);
+            return (statement.executeUpdate() == 1);
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public boolean updateApplicantState(long applicantRequestId, ApplicantState state) throws DaoException {
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_APPLICANT_STATE_BY_APPLICANT_REQUEST_ID)) {
+            statement.setLong(1, findApplicantStateIdByName(state.name()).orElseThrow(() -> new DaoException("Invalid applicant state")));
+            statement.setLong(2, applicantRequestId);
+            return (statement.executeUpdate() == 1);
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+    }
+
     private Optional<Long> findApplicantStateIdByName(String name) throws DaoException {
         Optional<Long> id = Optional.empty();
         try (Connection connection = pool.takeConnection();
@@ -176,26 +171,30 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
     private ApplicantRequest createApplicantRequestFromResultSet(ResultSet resultSet) throws SQLException, DaoException {
         long id = resultSet.getLong(1);
         String summary = resultSet.getString(2);
+
         Date sqlData = resultSet.getDate(3);
         LocalDate technicalInterviewDate = sqlData != null ? sqlData.toLocalDate() : null;
+
         ApplicantState applicantState = ApplicantState.valueOf(resultSet.getString(4));
+
         long applicantId = resultSet.getLong(5);
         User applicant = userDao.findUserById(applicantId).orElseThrow(() -> new DaoException("Invalid id"));
+
         long vacancyId = resultSet.getLong(6);
         Vacancy vacancy = vacancyDao.findVacancyById(vacancyId).orElseThrow(() -> new DaoException("Invalid id"));
-        long basicInterviewResultId = resultSet.getLong(7);
-        long technicalInterviewResultId = resultSet.getLong(8);
+
         ApplicantRequest applicantRequest = new ApplicantRequest(id, summary, applicantState, applicant, vacancy);
         if (technicalInterviewDate != null) {
             applicantRequest.setTechnicalInterviewDate(technicalInterviewDate);
         }
-        if (basicInterviewResultId != 0) {
-            Optional<InterviewResult> basicInterviewResultOptional = interviewResultDao.findInterviewResultById(basicInterviewResultId);
-            basicInterviewResultOptional.ifPresent(applicantRequest::setBasicInterviewResult);
-        }
-        if (technicalInterviewResultId != 0) {
-            Optional<InterviewResult> technicalInterviewResultOptional = interviewResultDao.findInterviewResultById(technicalInterviewResultId);
-            technicalInterviewResultOptional.ifPresent(applicantRequest::setTechnicalInterviewResult);
+
+        List<InterviewResult> interviewResults = interviewResultDao.findInterviewResultsByApplicantRequestId(applicantRequest.getId());
+        for (InterviewResult interviewResult : interviewResults) {
+            if (interviewResult.getType() == InterviewType.BASIC) {
+                applicantRequest.setBasicInterviewResult(interviewResult);
+            } else {
+                applicantRequest.setTechnicalInterviewResult(interviewResult);
+            }
         }
         return applicantRequest;
     }

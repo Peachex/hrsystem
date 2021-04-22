@@ -9,6 +9,7 @@ public class InterviewResult {
     private long id;
     private byte rating;
     private String comment;
+    private InterviewType type;
 
     /**
      * Constructs an InterviewResult object.
@@ -22,11 +23,13 @@ public class InterviewResult {
      * @param id      long value of interview result's id.
      * @param rating  byte value of interview result's rating.
      * @param comment String object of interview result's comment.
+     * @param type InterviewType object of interview result's type.
      */
-    public InterviewResult(long id, byte rating, String comment) {
+    public InterviewResult(long id, byte rating, String comment, InterviewType type) {
         this.id = id;
         this.rating = rating;
         this.comment = comment;
+        this.type = type;
     }
 
     /**
@@ -85,6 +88,24 @@ public class InterviewResult {
         this.comment = comment;
     }
 
+    /**
+     * Getter method of interview result's type.
+     *
+     * @return InterviewType object of interview result's type.
+     */
+    public InterviewType getType() {
+        return type;
+    }
+
+    /**
+     * Setter method of interview result's type.
+     *
+     * @param type InterviewType object of interview result's type.
+     */
+    public void setType(InterviewType type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -94,7 +115,7 @@ public class InterviewResult {
             return false;
         }
         InterviewResult other = (InterviewResult) obj;
-        return (this.id == other.id) && (this.rating == other.rating) &&
+        return (this.id == other.id) && (this.rating == other.rating) && (this.type == other.type) &&
                 (this.comment != null ? this.comment.equals(other.comment) : other.comment == null);
     }
 
@@ -103,6 +124,7 @@ public class InterviewResult {
         int result = Long.hashCode(id);
         result = 31 * result + Byte.hashCode(rating);
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
 
@@ -110,6 +132,7 @@ public class InterviewResult {
     public String toString() {
         return ("id = " + id +
                 "\nrating = " + rating +
-                "\ncomment = " + comment);
+                "\ncomment = " + comment +
+                "\ntype = " + type);
     }
 }
