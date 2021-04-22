@@ -26,6 +26,10 @@ public class SessionAttribute {
      * Represents all available vacancies.
      */
     public static final String VACANCIES = "vacancies";
+    /**
+     * Represents success message.
+     */
+    public static final String SUCCESS_MESSAGE = "successMessage";
 
     private SessionAttribute() {
     }
