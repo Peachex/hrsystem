@@ -46,31 +46,20 @@ public class Controller extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Optional<ActionCommand> commandOptional = CommandProvider.defineCommand(request);
         try {
-            CommandResult commandResult;
-            if (commandOptional.isPresent()) {
-                ActionCommand command = commandOptional.get();
-                commandResult = command.execute(request, response);
-            } else {
-                commandResult = new CommandResult(CommandResult.DEFAULT_PATH);
+            CommandResult commandResult = commandOptional.isPresent() ? commandOptional.get().execute(request, response) :
+                    new CommandResult(CommandResult.DEFAULT_PATH);
+            if (commandResult.getType() == CommandResult.Type.FORWARD) {
+                request.getRequestDispatcher(commandResult.providePath()).forward(request, response);
             }
-            String urlPath = commandResult.providePath();
-            switch (commandResult.getType()) {
-                case FORWARD: {
-                    request.getRequestDispatcher(urlPath).forward(request, response);
-                    break;
+            if (commandResult.getType() == CommandResult.Type.REDIRECT) {
+                response.sendRedirect(request.getContextPath() + commandResult.providePath());
+            }
+            if (commandResult.getType() == CommandResult.Type.RETURN_WITH_REDIRECT) {
+                String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
+                if (previousUrl == null || previousUrl.isEmpty()) {
+                    previousUrl = request.getContextPath() + CommandResult.DEFAULT_PATH;
                 }
-                case REDIRECT: {
-                    response.sendRedirect(request.getContextPath() + urlPath);
-                    break;
-                }
-                case RETURN_WITH_REDIRECT: {
-                    String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
-                    if (previousUrl == null || previousUrl.isEmpty()) {
-                        previousUrl = request.getContextPath() + CommandResult.DEFAULT_PATH;
-                    }
-                    response.sendRedirect(previousUrl);
-                    break;
-                }
+                response.sendRedirect(previousUrl);
             }
         } catch (CommandException e) {
             logger.log(Level.ERROR, "Couldn't process request: " + e);
