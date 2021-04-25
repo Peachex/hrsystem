@@ -48,39 +48,27 @@ public class FileUploadingServlet extends HttpServlet {
     private static final String DOT_SYMBOL = ".";
 
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            if (ServletFileUpload.isMultipartContent(request)) {
-                HttpSession session = request.getSession();
-                User user = (User) session.getAttribute(SessionAttribute.USER);
-                if (user != null) {
-                    Part part = request.getPart(RequestParameter.FILE_UPLOADING);
-                    String path = part.getSubmittedFileName();
-                    if (path != null && !path.isEmpty()) {
-                        String randomFilename = UUID.randomUUID() + path.substring(path.lastIndexOf(DOT_SYMBOL));
-                        try (InputStream inputStream = part.getInputStream()) {
-                            boolean isSuccess = uploadFile(inputStream, UPLOAD_AVATAR_PATH + randomFilename);
-                            if (isSuccess) {
-                                UserService service = UserServiceImpl.getInstance();
-                                try {
-                                    service.changePhoto(user.getId(), randomFilename);
-                                    user.setPhotoName(randomFilename);
-                                    session.setAttribute(SessionAttribute.USER, user);
-                                } catch (ServiceException e) {
-                                    logger.log(Level.ERROR, "Couldn't upload file: " + e);
-                                    throw new ServletException(e);
-                                }
-                            }
-                        }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(SessionAttribute.USER);
+        if (ServletFileUpload.isMultipartContent(request) && user != null) {
+            Part part = request.getPart(RequestParameter.FILE_UPLOADING);
+            String path = part.getSubmittedFileName();
+            if (path != null && !path.isEmpty()) {
+                String randomFilename = UUID.randomUUID() + path.substring(path.lastIndexOf(DOT_SYMBOL));
+                try (InputStream inputStream = part.getInputStream()) {
+                    if (uploadFile(inputStream, UPLOAD_AVATAR_PATH + randomFilename)) {
+                        UserService service = UserServiceImpl.getInstance();
+                        service.changePhoto(user.getId(), randomFilename);
+                        user.setPhotoName(randomFilename);
+                        session.setAttribute(SessionAttribute.USER, user);
                     }
+                } catch (ServiceException e) {
+                    logger.log(Level.ERROR, "Couldn't upload file: " + e);
+                    request.setAttribute(JspAttribute.ERROR_MESSAGE_INFO, e.getMessage());
+                    throw new ServletException(e);
                 }
             }
-        } catch (ServletException e) {
-            logger.log(Level.ERROR, "Couldn't upload file: " + e);
-            request.setAttribute(JspAttribute.ERROR_MESSAGE_INFO, e.getMessage());
-            throw new ServletException(e);
         }
         response.sendRedirect(request.getContextPath() + CommandName.TO_USER_PROFILE);
     }
@@ -88,11 +76,9 @@ public class FileUploadingServlet extends HttpServlet {
     private boolean uploadFile(InputStream inputStream, String path) throws ServletException {
         try {
             byte[] bytes = new byte[inputStream.available()];
-            int result = inputStream.read(bytes);
-            if (result != -1) {
-                try (FileOutputStream fops = new FileOutputStream(path)) {
-                    fops.write(bytes);
-                }
+            if (inputStream.read(bytes) != -1) {
+                FileOutputStream fops = new FileOutputStream(path);
+                fops.write(bytes);
             }
         } catch (IOException e) {
             throw new ServletException(e);
