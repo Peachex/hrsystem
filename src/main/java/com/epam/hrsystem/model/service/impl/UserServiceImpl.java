@@ -56,33 +56,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> login(String email, String password) throws ServiceException {
-        Optional<User> result = Optional.empty();
         try {
-            if (UserValidator.isEmailValid(email) && UserValidator.isPasswordValid(password)) {
-                if (!dao.isEmailAvailable(email)) {
-                    String passwordFromDatabase = dao.findPasswordByEmail(email).get();
-                    if (Encryptor.check(password, passwordFromDatabase)) {
-                        result = dao.findUserByEmail(email);
-                    }
+            if (UserValidator.isEmailValid(email) && UserValidator.isPasswordValid(password) && !dao.isEmailAvailable(email)) {
+                Optional<String> passwordFromDatabaseOptional = dao.findPasswordByEmail(email);
+                if (passwordFromDatabaseOptional.isPresent() && Encryptor.check(password, passwordFromDatabaseOptional.get())) {
+                    return dao.findUserByEmail(email);
                 }
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
+        return Optional.empty();
     }
 
     @Override
     public boolean register(Map<String, String> fields) throws ServiceException {
-        boolean result = false;
-        Optional<User> userOptional = userFactory.create(fields);
         try {
+            Optional<User> userOptional = userFactory.create(fields);
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
                 if (dao.isEmailAvailable(user.getEmail())) {
                     String password = fields.get(RequestParameter.PASSWORD);
                     String encryptedPassword = Encryptor.encrypt(password);
-                    result = dao.add(user, encryptedPassword);
+                    return dao.add(user, encryptedPassword);
                 } else {
                     fields.put(RequestParameter.EMAIL, JspAttribute.EMAIL_AVAILABLE_ERROR_MESSAGE);
                 }
@@ -90,64 +86,54 @@ public class UserServiceImpl implements UserService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
+        return false;
     }
 
     @Override
     public boolean blockUser(long userId) throws ServiceException {
-        boolean result;
         try {
-            result = dao.updateUserActivity(userId, (byte) 0);
+            return dao.updateUserActivity(userId, (byte) 0);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
     }
 
     @Override
     public boolean unblockUser(long userId) throws ServiceException {
-        boolean result;
         try {
-            result = dao.updateUserActivity(userId, (byte) 1);
+            return dao.updateUserActivity(userId, (byte) 1);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
     }
 
     @Override
     public boolean changePassword(long userId, Map<String, String> fields) throws ServiceException {
-        boolean result = false;
         try {
             if (UserValidator.isChangePasswordFormValid(fields)) {
                 String newPassword = fields.get(RequestParameter.NEW_PASSWORD);
                 String encryptedPassword = Encryptor.encrypt(newPassword);
-                result = dao.updatePassword(userId, encryptedPassword);
+                return dao.updatePassword(userId, encryptedPassword);
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
+        return false;
     }
 
     @Override
     public boolean changePhoto(long userId, String photoName) throws ServiceException {
-        boolean result = false;
         try {
-            if (UserValidator.isPhotoNameValid(photoName)) {
-                result = dao.changePhoto(userId, photoName);
-            }
+            return (UserValidator.isPhotoNameValid(photoName) && dao.changePhoto(userId, photoName));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
     }
 
     @Override
     public List<User> findAllUsers() throws ServiceException {
         try {
-            List<User> users = dao.findAllUsers();
-            return users;
+            return dao.findAllUsers();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -156,8 +142,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findBlockedUsers() throws ServiceException {
         try {
-            List<User> users = dao.findUsersByActivity(false);
-            return users;
+            return dao.findUsersByActivity(false);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -166,8 +151,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findActiveUsers() throws ServiceException {
         try {
-            List<User> users = dao.findUsersByActivity(true);
-            return users;
+            return dao.findUsersByActivity(true);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -175,21 +159,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean changeUserRole(long userId, String role) throws ServiceException {
-        boolean result = false;
         try {
             if (UserValidator.isUserRoleValid(role)) {
                 UserRole userRole = UserRole.valueOf(role.toUpperCase(Locale.ROOT));
-                result = dao.changeUserRole(userId, userRole);
+                return dao.changeUserRole(userId, userRole);
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
+        return false;
     }
 
     @Override
     public Optional<User> updateProfile(long userId, Map<String, String> fields) throws ServiceException {
-        Optional<User> result = Optional.empty();
         try {
             if (UserValidator.isEditFormValid(fields)) {
                 Optional<User> userOptional = dao.findUserById(userId);
@@ -197,22 +179,20 @@ public class UserServiceImpl implements UserService {
                     User user = userOptional.get();
                     if (user.getEmail().equals(fields.get(RequestParameter.EMAIL)) || dao.isEmailAvailable(fields.get(RequestParameter.EMAIL))) {
                         updateUserFields(user, fields);
-                        if (dao.updateProfile(user))
-                            result = Optional.of(user);
+                        return (dao.updateProfile(user) ? Optional.of(user) : Optional.empty());
                     }
                 }
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
+        return Optional.empty();
     }
 
     @Override
     public Optional<User> findUserById(long userId) throws ServiceException {
         try {
-            Optional<User> user = dao.findUserById(userId);
-            return user;
+            return dao.findUserById(userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -222,8 +202,7 @@ public class UserServiceImpl implements UserService {
     public List<User> findUsersByKeyWord(String keyWord) throws ServiceException {
         try {
             String keyWordForQuery = PERCENT_SIGN + keyWord + PERCENT_SIGN;
-            List<User> users = dao.findUsersByKeyWord(keyWordForQuery);
-            return users;
+            return dao.findUsersByKeyWord(keyWordForQuery);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -231,15 +210,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isEmailAvailable(String email) throws ServiceException {
-        boolean result = false;
         try {
-            if (UserValidator.isEmailValid(email)) {
-                result = dao.isEmailAvailable(email);
-            }
+            return (UserValidator.isEmailValid(email) && dao.isEmailAvailable(email));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
     }
 
     private void updateUserFields(User user, Map<String, String> fields) {
@@ -257,6 +232,5 @@ public class UserServiceImpl implements UserService {
 
         String newEmail = fields.get(RequestParameter.EMAIL);
         user.setEmail(newEmail);
-
     }
 }
