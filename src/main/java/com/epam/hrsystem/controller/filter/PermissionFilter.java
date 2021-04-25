@@ -76,14 +76,14 @@ public class PermissionFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
         UserRole role = (UserRole) session.getAttribute(SessionAttribute.CURRENT_ROLE);
         Optional<ActionCommand> optionalCommand = CommandProvider.defineCommand(request);
         if (!optionalCommand.isPresent()) {
-            filterChain.doFilter(request, response);
+            chain.doFilter(request, response);
             return;
         }
         EnumSet<CommandType> commands = permissionCommands.get(role);
@@ -93,7 +93,7 @@ public class PermissionFilter implements Filter {
             RequestDispatcher dispatcher = request.getRequestDispatcher(ServletAttribute.HOME_URL_PATTERN);
             dispatcher.forward(request, response);
         } else {
-            filterChain.doFilter(servletRequest, servletResponse);
+            chain.doFilter(servletRequest, servletResponse);
         }
     }
 

@@ -26,11 +26,10 @@ public class MessageFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest)servletRequest;
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
-        String successMessage = (String)session.getAttribute(SessionAttribute.SUCCESS_MESSAGE);
-
-        if(successMessage != null){
+        String successMessage = (String) session.getAttribute(SessionAttribute.SUCCESS_MESSAGE);
+        if (successMessage != null) {
             request.setAttribute(JspAttribute.SUCCESS_ATTRIBUTE, successMessage);
         }
         session.removeAttribute(SessionAttribute.SUCCESS_MESSAGE);
