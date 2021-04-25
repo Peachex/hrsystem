@@ -53,53 +53,42 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean isEmailAvailable(String email) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_SELECT_EMAIL)) {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
-            result = !resultSet.next();
+            return !resultSet.next();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public Optional<User> findUserByEmail(String email) throws DaoException {
-        Optional<User> user = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_USER_BY_EMAIL)) {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                user = Optional.of(createUserFromResultSet(resultSet));
-            }
+            return (resultSet.next() ? Optional.of(createUserFromResultSet(resultSet)) : Optional.empty());
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return user;
     }
 
     @Override
     public Optional<String> findPasswordByEmail(String email) throws DaoException {
-        Optional<String> password = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_SELECT_PASSWORD)) {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                password = Optional.of(resultSet.getString(1));
-            }
+            return (resultSet.next() ? Optional.of(resultSet.getString(1)) : Optional.empty());
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return password;
     }
 
     @Override
     public boolean add(User user, String password) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_INSERT_USER)) {
             statement.setString(1, user.getPhotoName());
@@ -111,39 +100,34 @@ public class UserDaoImpl implements UserDao {
             statement.setString(7, password);
             statement.setByte(8, user.getIsActive() ? (byte) 1 : 0);
             statement.setLong(9, findRoleId(user.getRole()).orElseThrow(() -> new DaoException("Invalid role")));
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public boolean updateUserActivity(long userId, byte activityValue) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_USER_ACTIVITY)) {
             statement.setByte(1, activityValue);
             statement.setLong(2, userId);
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public boolean updatePassword(long userId, String newPassword) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_PASSWORD)) {
             statement.setString(1, newPassword);
             statement.setLong(2, userId);
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
@@ -154,8 +138,7 @@ public class UserDaoImpl implements UserDao {
             statement.setByte(1, areActive ? (byte) 1 : 0);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                User user = createUserFromResultSet(resultSet);
-                users.add(user);
+                users.add(createUserFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -172,11 +155,9 @@ public class UserDaoImpl implements UserDao {
             statement.setString(2, keyWord);
             statement.setString(3, keyWord);
             statement.setString(4, keyWord);
-            statement.executeQuery();
-            ResultSet resultSet = statement.getResultSet();
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                User user = createUserFromResultSet(resultSet);
-                users.add(user);
+                users.add(createUserFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -191,8 +172,7 @@ public class UserDaoImpl implements UserDao {
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(SqlQuery.SQL_SELECT_ALL_USERS);
             while (resultSet.next()) {
-                User user = createUserFromResultSet(resultSet);
-                users.add(user);
+                users.add(createUserFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -202,21 +182,18 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean changeUserRole(long userId, UserRole role) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_USER_ROLE)) {
             statement.setLong(1, findRoleId(role).orElseThrow(() -> new DaoException("Invalid role")));
             statement.setLong(2, userId);
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public boolean updateProfile(User user) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_USER_INFO)) {
             statement.setString(1, user.getFirstName());
@@ -225,54 +202,43 @@ public class UserDaoImpl implements UserDao {
             statement.setString(4, user.getPhoneNumber());
             statement.setString(5, user.getEmail());
             statement.setLong(6, user.getId());
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public Optional<User> findUserById(long userId) throws DaoException {
-        Optional<User> user = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_USER_BY_ID)) {
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                user = Optional.of(createUserFromResultSet(resultSet));
-            }
+            return (resultSet.next() ? Optional.of(createUserFromResultSet(resultSet)) : Optional.empty());
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return user;
     }
 
     @Override
     public boolean changePhoto(long userId, String photoName) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_USER_PHOTO)) {
             statement.setString(1, photoName);
             statement.setLong(2, userId);
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     private Optional<Long> findRoleId(UserRole role) throws SQLException, ConnectionPoolException {
-        Optional<Long> id = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_ROLE_ID_BY_NAME)) {
             statement.setString(1, role.name());
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                id = Optional.of(resultSet.getLong(1));
-            }
+            return (resultSet.next() ? Optional.of(resultSet.getLong(1)) : Optional.empty());
         }
-        return id;
     }
 
     private User createUserFromResultSet(ResultSet resultSet) throws SQLException {
@@ -285,7 +251,6 @@ public class UserDaoImpl implements UserDao {
         String email = resultSet.getString(7);
         boolean isActive = resultSet.getByte(8) == 1;
         UserRole role = UserRole.valueOf(resultSet.getString(9).toUpperCase(Locale.ROOT));
-        User user = new User(id, role, isActive, photoName, firstName, lastName, dateOfBirth, phoneNumber, email);
-        return user;
+        return (new User(id, role, isActive, photoName, firstName, lastName, dateOfBirth, phoneNumber, email));
     }
 }
