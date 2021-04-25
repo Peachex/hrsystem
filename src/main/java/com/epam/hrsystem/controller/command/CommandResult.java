@@ -106,12 +106,6 @@ public class CommandResult {
      * @return String object of path.
      */
     public String providePath() {
-        String result;
-        if (path == null || path.isEmpty()) {
-            result = DEFAULT_PATH;
-        } else {
-            result = path;
-        }
-        return result;
+        return (path == null || path.isEmpty() ? DEFAULT_PATH : path);
     }
 }

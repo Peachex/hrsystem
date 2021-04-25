@@ -6,6 +6,7 @@ import com.epam.hrsystem.controller.attribute.ServletAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandProvider;
 import com.epam.hrsystem.controller.command.CommandResult;
+import com.epam.hrsystem.controller.command.CommandType;
 import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.model.pool.ConnectionPool;
@@ -44,22 +45,24 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Optional<ActionCommand> commandOptional = CommandProvider.defineCommand(request);
+        Optional<ActionCommand> command = CommandProvider.defineCommand(request);
         try {
-            CommandResult commandResult = commandOptional.isPresent() ? commandOptional.get().execute(request, response) :
-                    new CommandResult(CommandResult.DEFAULT_PATH);
-            if (commandResult.getType() == CommandResult.Type.FORWARD) {
-                request.getRequestDispatcher(commandResult.providePath()).forward(request, response);
-            }
-            if (commandResult.getType() == CommandResult.Type.REDIRECT) {
-                response.sendRedirect(request.getContextPath() + commandResult.providePath());
-            }
-            if (commandResult.getType() == CommandResult.Type.RETURN_WITH_REDIRECT) {
-                String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
-                if (previousUrl == null || previousUrl.isEmpty()) {
-                    previousUrl = request.getContextPath() + CommandResult.DEFAULT_PATH;
+            CommandResult result = command.isPresent() ? command.get().execute(request, response) : new CommandResult(CommandResult.DEFAULT_PATH);
+            CommandResult.Type commandType = result.getType();
+            if (commandType == CommandResult.Type.FORWARD) {
+                request.getRequestDispatcher(result.providePath()).forward(request, response);
+            } else {
+                if (commandType == CommandResult.Type.REDIRECT) {
+                    response.sendRedirect(request.getContextPath() + result.providePath());
+                } else {
+                    if (commandType == CommandResult.Type.RETURN_WITH_REDIRECT) {
+                        String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
+                        if (previousUrl == null || previousUrl.isEmpty()) {
+                            previousUrl = request.getContextPath() + CommandResult.DEFAULT_PATH;
+                        }
+                        response.sendRedirect(previousUrl);
+                    }
                 }
-                response.sendRedirect(previousUrl);
             }
         } catch (CommandException e) {
             logger.log(Level.ERROR, "Couldn't process request: " + e);
