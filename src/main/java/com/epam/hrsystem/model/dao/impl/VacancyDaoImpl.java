@@ -27,8 +27,8 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class VacancyDaoImpl implements VacancyDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
-    private static final Lock locker = new ReentrantLock();
     private static final UserDao userDao = UserDaoImpl.getInstance();
+    private static final Lock locker = new ReentrantLock();
     private static volatile VacancyDao instance;
 
     /**
@@ -53,7 +53,6 @@ public class VacancyDaoImpl implements VacancyDao {
 
     @Override
     public boolean add(Vacancy vacancy) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_INSERT_VACANCY)) {
             statement.setByte(1, vacancy.getIsAvailable() ? (byte) 1 : 0);
@@ -63,25 +62,22 @@ public class VacancyDaoImpl implements VacancyDao {
             statement.setLong(5, findCountryIdByName(vacancy.getCountry()).orElseThrow(() -> new DaoException("Invalid country")));
             statement.setLong(6, findCityIdByName(vacancy.getCity()).orElseThrow(() -> new DaoException("Invalid city")));
             statement.setLong(7, vacancy.getEmployee().getId());
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public boolean updateVacancyAvailability(long vacancyId, byte availabilityValue) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_VACANCY_AVAILABILITY)) {
             statement.setByte(1, availabilityValue);
             statement.setLong(2, vacancyId);
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
@@ -92,8 +88,7 @@ public class VacancyDaoImpl implements VacancyDao {
             statement.setByte(1, areAvailable ? (byte) 1 : 0);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Vacancy vacancy = createVacancyFromResultSet(resultSet);
-                vacancies.add(vacancy);
+                vacancies.add(createVacancyFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -109,8 +104,7 @@ public class VacancyDaoImpl implements VacancyDao {
             statement.setLong(1, employeeId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Vacancy vacancy = createVacancyFromResultSet(resultSet);
-                vacancies.add(vacancy);
+                vacancies.add(createVacancyFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -127,8 +121,7 @@ public class VacancyDaoImpl implements VacancyDao {
             statement.setByte(2, areAvailable ? (byte) 1 : 0);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Vacancy vacancy = createVacancyFromResultSet(resultSet);
-                vacancies.add(vacancy);
+                vacancies.add(createVacancyFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -144,8 +137,7 @@ public class VacancyDaoImpl implements VacancyDao {
             statement.setLong(1, employeeId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Vacancy vacancy = createVacancyFromResultSet(resultSet);
-                vacancies.add(vacancy);
+                vacancies.add(createVacancyFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -156,15 +148,13 @@ public class VacancyDaoImpl implements VacancyDao {
     @Override
     public List<Vacancy> findEmployeeVacanciesWithApplicantsRequestsByActivity(long employeeId, boolean areActive) throws DaoException {
         List<Vacancy> vacancies = new ArrayList<>();
-        String sqlQuery = areActive ? SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS :
-                SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS;
+        String sqlQuery = areActive ? SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES_WITH_ACTIVE_APPLICANTS_REQUESTS : SqlQuery.SQL_SELECT_EMPLOYEE_VACANCIES_WITH_NOT_ACTIVE_APPLICANTS_REQUESTS;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setLong(1, employeeId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Vacancy vacancy = createVacancyFromResultSet(resultSet);
-                vacancies.add(vacancy);
+                vacancies.add(createVacancyFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -181,11 +171,9 @@ public class VacancyDaoImpl implements VacancyDao {
             statement.setString(2, keyWord);
             statement.setString(3, keyWord);
             statement.setString(4, keyWord);
-            statement.executeQuery();
-            ResultSet resultSet = statement.getResultSet();
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Vacancy vacancy = createVacancyFromResultSet(resultSet);
-                vacancies.add(vacancy);
+                vacancies.add(createVacancyFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -195,7 +183,6 @@ public class VacancyDaoImpl implements VacancyDao {
 
     @Override
     public boolean updateVacancyInfo(Vacancy vacancy) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_VACANCY_INFO)) {
             statement.setString(1, vacancy.getPosition());
@@ -203,90 +190,72 @@ public class VacancyDaoImpl implements VacancyDao {
             statement.setLong(3, findCountryIdByName(vacancy.getCountry()).orElseThrow(() -> new DaoException("Invalid country")));
             statement.setLong(4, findCityIdByName(vacancy.getCity()).orElseThrow(() -> new DaoException("Invalid city")));
             statement.setLong(5, vacancy.getId());
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public Optional<Vacancy> findVacancyById(long vacancyId) throws DaoException {
-        Optional<Vacancy> vacancy = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_VACANCY_BY_ID)) {
             statement.setLong(1, vacancyId);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                vacancy = Optional.of(createVacancyFromResultSet(resultSet));
-            }
+            return (resultSet.next() ? Optional.of(createVacancyFromResultSet(resultSet)) : Optional.empty());
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return vacancy;
     }
 
     @Override
     public Optional<Long> findCountryIdByName(String name) throws DaoException {
-        Optional<Long> id = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_COUNTRY_ID_BY_NAME)) {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                id = Optional.of(resultSet.getLong(1));
-            }
+            return (resultSet.next() ? Optional.of(resultSet.getLong(1)) : Optional.empty());
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return id;
     }
 
     @Override
     public Optional<Long> findCityIdByName(String name) throws DaoException {
-        Optional<Long> id = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_CITY_ID_BY_NAME)) {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                id = Optional.of(resultSet.getLong(1));
-            }
+            return (resultSet.next() ? Optional.of(resultSet.getLong(1)) : Optional.empty());
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return id;
     }
 
     @Override
     public boolean addCounty(String name) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_INSERT_COUNTRY)) {
             statement.setString(1, name);
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public boolean addCity(String name) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_INSERT_CITY)) {
             statement.setString(1, name);
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public boolean vacancyExists(Vacancy vacancy) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_CHECK_VACANCY_FOR_EXISTENCE)) {
             statement.setString(1, vacancy.getPosition());
@@ -294,11 +263,10 @@ public class VacancyDaoImpl implements VacancyDao {
             statement.setLong(3, findCountryIdByName(vacancy.getCountry()).orElseThrow(() -> new DaoException("Invalid country")));
             statement.setLong(4, findCityIdByName(vacancy.getCity()).orElseThrow(() -> new DaoException("Invalid city")));
             ResultSet resultSet = statement.executeQuery();
-            result = resultSet.next();
+            return resultSet.next();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     private Vacancy createVacancyFromResultSet(ResultSet resultSet) throws SQLException, DaoException {
@@ -311,7 +279,6 @@ public class VacancyDaoImpl implements VacancyDao {
         String city = resultSet.getString(7);
         long userId = resultSet.getLong(8);
         User employee = userDao.findUserById(userId).orElseThrow(() -> new DaoException("Invalid id"));
-        Vacancy vacancy = new Vacancy(id, isAvailable, position, description, creationDate, country, city, employee);
-        return vacancy;
+        return (new Vacancy(id, isAvailable, position, description, creationDate, country, city, employee));
     }
 }

@@ -54,7 +54,6 @@ public class UserReportDaoImpl implements UserReportDao {
 
     @Override
     public boolean add(UserReport report) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_INSERT_USER_REPORT)) {
             statement.setByte(1, report.getIsAvailable() ? (byte) 1 : 0);
@@ -62,27 +61,22 @@ public class UserReportDaoImpl implements UserReportDao {
             statement.setString(3, report.getComment());
             statement.setDate(4, Date.valueOf(report.getCreationDate()));
             statement.setLong(5, report.getUser().getId());
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public Optional<UserReport> findUserReportById(long reportId) throws DaoException {
-        Optional<UserReport> report = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_USER_REPORT_BY_ID)) {
             statement.setLong(1, reportId);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                report = Optional.of(createUserReportFromResultSet(resultSet));
-            }
+            return (resultSet.next() ? Optional.of(createUserReportFromResultSet(resultSet)) : Optional.empty());
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return report;
     }
 
     @Override
@@ -90,11 +84,9 @@ public class UserReportDaoImpl implements UserReportDao {
         List<UserReport> reports = new ArrayList<>();
         try (Connection connection = pool.takeConnection();
              Statement statement = connection.createStatement()) {
-            statement.executeQuery(SqlQuery.SQL_SELECT_ALL_USER_REPORTS);
-            ResultSet resultSet = statement.getResultSet();
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SQL_SELECT_ALL_USER_REPORTS);
             while (resultSet.next()) {
-                UserReport report = createUserReportFromResultSet(resultSet);
-                reports.add(report);
+                reports.add(createUserReportFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -110,8 +102,7 @@ public class UserReportDaoImpl implements UserReportDao {
             statement.setByte(1, areAvailable ? (byte) 1 : 0);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                UserReport report = createUserReportFromResultSet(resultSet);
-                reports.add(report);
+                reports.add(createUserReportFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -128,11 +119,9 @@ public class UserReportDaoImpl implements UserReportDao {
             statement.setString(2, keyWord);
             statement.setString(3, keyWord);
             statement.setString(4, keyWord);
-            statement.executeQuery();
-            ResultSet resultSet = statement.getResultSet();
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                UserReport report = createUserReportFromResultSet(resultSet);
-                reports.add(report);
+                reports.add(createUserReportFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -142,32 +131,28 @@ public class UserReportDaoImpl implements UserReportDao {
 
     @Override
     public boolean updateUserReportResponse(UserReport report) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_USER_REPORT_RESPONSE)) {
             statement.setString(1, report.getResponse());
             statement.setLong(2, report.getId());
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public boolean userReportExists(UserReport report) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_CHECK_USER_REPORT_FOR_EXISTENCE)) {
             statement.setString(1, report.getSubject());
             statement.setString(2, report.getComment());
             statement.setLong(3, report.getUser().getId());
             ResultSet resultSet = statement.executeQuery();
-            result = resultSet.next();
+            return resultSet.next();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     private UserReport createUserReportFromResultSet(ResultSet resultSet) throws SQLException, DaoException {
@@ -177,8 +162,10 @@ public class UserReportDaoImpl implements UserReportDao {
         String comment = resultSet.getString(4);
         String response = resultSet.getString(5);
         LocalDate creationDate = resultSet.getDate(6).toLocalDate();
+
         long userId = resultSet.getLong(7);
         User user = userDao.findUserById(userId).orElseThrow(() -> new DaoException("Invalid id"));
+
         UserReport report = new UserReport(id, isAvailable, subject, comment, creationDate, user);
         if (response != null) {
             report.setResponse(response);
