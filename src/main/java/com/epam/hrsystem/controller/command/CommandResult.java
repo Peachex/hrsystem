@@ -1,6 +1,12 @@
 package com.epam.hrsystem.controller.command;
 
+import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.ServletAttribute;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Class contains types of command result.
@@ -31,7 +37,7 @@ public class CommandResult {
         /**
          * Represents the return type to the previous page with redirect.
          */
-        RETURN_WITH_REDIRECT,
+        RETURN_WITH_REDIRECT
     }
 
     /**
@@ -107,5 +113,32 @@ public class CommandResult {
      */
     public String providePath() {
         return (path == null || path.isEmpty() ? DEFAULT_PATH : path);
+    }
+
+    /**
+     * Redirects to the required page (command).
+     *
+     * @param request  Request object.
+     * @param response Response object.
+     * @throws ServletException if an exception has occurred while executing.
+     * @throws IOException      if an exception has occurred while executing.
+     */
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CommandResult.Type commandType = this.getType();
+        if (commandType == CommandResult.Type.FORWARD) {
+            request.getRequestDispatcher(this.providePath()).forward(request, response);
+            return;
+        }
+        if (commandType == CommandResult.Type.REDIRECT) {
+            response.sendRedirect(request.getContextPath() + this.providePath());
+            return;
+        }
+        if (commandType == CommandResult.Type.RETURN_WITH_REDIRECT) {
+            String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
+            if (previousUrl == null || previousUrl.isEmpty()) {
+                previousUrl = request.getContextPath() + CommandResult.DEFAULT_PATH;
+            }
+            response.sendRedirect(previousUrl);
+        }
     }
 }

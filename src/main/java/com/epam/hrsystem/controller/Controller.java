@@ -1,12 +1,10 @@
 package com.epam.hrsystem.controller;
 
 import com.epam.hrsystem.controller.attribute.JspAttribute;
-import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.controller.attribute.ServletAttribute;
 import com.epam.hrsystem.controller.command.ActionCommand;
 import com.epam.hrsystem.controller.command.CommandProvider;
 import com.epam.hrsystem.controller.command.CommandResult;
-import com.epam.hrsystem.controller.command.CommandType;
 import com.epam.hrsystem.exception.CommandException;
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.model.pool.ConnectionPool;
@@ -48,22 +46,7 @@ public class Controller extends HttpServlet {
         Optional<ActionCommand> command = CommandProvider.defineCommand(request);
         try {
             CommandResult result = command.isPresent() ? command.get().execute(request, response) : new CommandResult(CommandResult.DEFAULT_PATH);
-            CommandResult.Type commandType = result.getType();
-            if (commandType == CommandResult.Type.FORWARD) {
-                request.getRequestDispatcher(result.providePath()).forward(request, response);
-            } else {
-                if (commandType == CommandResult.Type.REDIRECT) {
-                    response.sendRedirect(request.getContextPath() + result.providePath());
-                } else {
-                    if (commandType == CommandResult.Type.RETURN_WITH_REDIRECT) {
-                        String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
-                        if (previousUrl == null || previousUrl.isEmpty()) {
-                            previousUrl = request.getContextPath() + CommandResult.DEFAULT_PATH;
-                        }
-                        response.sendRedirect(previousUrl);
-                    }
-                }
-            }
+            result.execute(request, response);
         } catch (CommandException e) {
             logger.log(Level.ERROR, "Couldn't process request: " + e);
             request.setAttribute(JspAttribute.ERROR_MESSAGE_INFO, e.getMessage());
