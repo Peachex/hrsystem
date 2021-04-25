@@ -201,11 +201,17 @@
                                     <c:if test="${applicantRequest.applicantState.toString().equals(applicantStateLeftRequest)}">
                                         <option value="${applicantStateReadyForTechnicalInterview}"><fmt:message
                                                 key="interview_result_modal.applicantStateReadyForTechnicalInterview"/></option>
+                                        <option value="${applicantStateFailed}"><fmt:message
+                                                key="interview_result_modal.applicantStateFailed"/></option>
                                     </c:if>
-                                    <option value="${applicantStatePassed}"><fmt:message
-                                            key="interview_result_modal.applicantStatePassed"/></option>
-                                    <option value="${applicantStateFailed}"><fmt:message
-                                            key="interview_result_modal.applicantStateFailed"/></option>
+                                    
+                                    <c:if test="${applicantRequest.applicantState.toString().equals(applicantStateReadyForTechnicalInterview)
+                                    && applicantRequest.technicalInterviewDate != null}">
+                                        <option value="${applicantStatePassed}"><fmt:message
+                                                key="interview_result_modal.applicantStatePassed"/></option>
+                                        <option value="${applicantStateFailed}"><fmt:message
+                                                key="interview_result_modal.applicantStateFailed"/></option>
+                                    </c:if>
                                 </select>
                                 <div class="col-4">
                                     <button class="btn btn-outline-success button mt-4"

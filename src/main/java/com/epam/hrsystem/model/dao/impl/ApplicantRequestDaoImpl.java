@@ -33,10 +33,10 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
-    private static final Lock locker = new ReentrantLock();
     private static final InterviewResultDao interviewResultDao = InterviewResultDaoImpl.getInstance();
     private static final UserDao userDao = UserDaoImpl.getInstance();
     private static final VacancyDao vacancyDao = VacancyDaoImpl.getInstance();
+    private static final Lock locker = new ReentrantLock();
     private static volatile ApplicantRequestDao instance;
 
     /**
@@ -61,40 +61,35 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
 
     @Override
     public boolean add(ApplicantRequest request) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_INSERT_APPLICANT_REQUEST)) {
             statement.setString(1, request.getSummary());
             statement.setLong(2, findApplicantStateIdByName(request.getApplicantState().toString()).orElseThrow(() -> new DaoException("Invalid applicant state")));
             statement.setLong(3, request.getApplicant().getId());
             statement.setLong(4, request.getVacancy().getId());
-            result = statement.executeUpdate() == 1;
+            return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public boolean applicantRequestExists(ApplicantRequest request) throws DaoException {
-        boolean result;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_CHECK_APPLICANT_REQUEST_FOR_EXISTENCE)) {
             statement.setLong(1, request.getApplicant().getId());
             statement.setLong(2, request.getVacancy().getId());
             ResultSet resultSet = statement.executeQuery();
-            result = resultSet.next();
+            return resultSet.next();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return result;
     }
 
     @Override
     public List<ApplicantRequest> findApplicantRequestsById(long vacancyId, long applicantId) throws DaoException {
         List<ApplicantRequest> applicantRequests = new ArrayList<>();
-        String sqlQuery = vacancyId != 0 ? SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID :
-                SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID;
+        String sqlQuery = vacancyId != 0 ? SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID : SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_APPLICANT_ID;
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             long id = vacancyId != 0 ? vacancyId : applicantId;
@@ -112,21 +107,15 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
 
     @Override
     public Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws DaoException {
-        Optional<ApplicantRequest> applicantRequestOptional = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_SELECT_APPLICANT_REQUESTS_BY_VACANCY_ID_AND_APPLICANT_ID)) {
             statement.setLong(1, vacancyId);
             statement.setLong(2, applicantId);
-            statement.executeQuery();
-            ResultSet resultSet = statement.getResultSet();
-            if (resultSet.next()) {
-                ApplicantRequest applicantRequest = createApplicantRequestFromResultSet(resultSet);
-                applicantRequestOptional = Optional.of(applicantRequest);
-            }
+            ResultSet resultSet = statement.executeQuery();
+            return (resultSet.next() ? Optional.of(createApplicantRequestFromResultSet(resultSet)) : Optional.empty());
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return applicantRequestOptional;
     }
 
     @Override
@@ -154,18 +143,14 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
     }
 
     private Optional<Long> findApplicantStateIdByName(String name) throws DaoException {
-        Optional<Long> id = Optional.empty();
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_APPLICANT_STATE_ID_BY_NAME)) {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                id = Optional.of(resultSet.getLong(1));
-            }
+            return (resultSet.next() ? Optional.of(resultSet.getLong(1)) : Optional.empty());
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
         }
-        return id;
     }
 
     private ApplicantRequest createApplicantRequestFromResultSet(ResultSet resultSet) throws SQLException, DaoException {

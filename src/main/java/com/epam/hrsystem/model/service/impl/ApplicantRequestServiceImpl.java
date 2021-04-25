@@ -144,8 +144,8 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
                         } else {
                             interviewResult.setType(InterviewType.TECHNICAL);
                         }
-                        result = interviewResultDao.add(interviewResult, applicantRequest.getId());
-                        applicantRequestDao.updateApplicantState(applicantRequest.getId(), ApplicantState.valueOf(newApplicantState.toUpperCase(Locale.ROOT)));
+                        result = interviewResultDao.add(interviewResult, applicantRequest.getId()) &&
+                                applicantRequestDao.updateApplicantState(applicantRequest.getId(), ApplicantState.valueOf(newApplicantState.toUpperCase(Locale.ROOT)));
                     }
                 }
             }
