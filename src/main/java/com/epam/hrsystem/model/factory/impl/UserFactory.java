@@ -54,8 +54,8 @@ public class UserFactory implements EntityFactory<User> {
             String lastName = fields.get(RequestParameter.LAST_NAME);
             String dateOfBirth = fields.get(RequestParameter.DATE_OF_BIRTH);
             String phoneNumber = fields.get(RequestParameter.PHONE_NUMBER);
-            User user = new User(DEFAULT_ROLE, DEFAULT_ACTIVE_VALUE, DEFAULT_PHOTO_NAME, firstName, lastName, LocalDate.parse(dateOfBirth), phoneNumber, email);
-            result = Optional.of(user);
+            result = Optional.of(new User(DEFAULT_ROLE, DEFAULT_ACTIVE_VALUE, DEFAULT_PHOTO_NAME, firstName, lastName,
+                    LocalDate.parse(dateOfBirth), phoneNumber, email));
         }
         return result;
     }

@@ -44,12 +44,8 @@ public class ApplicantRequestFactory implements EntityFactory<ApplicantRequest> 
 
     @Override
     public Optional<ApplicantRequest> create(Map<String, String> fields) {
-        Optional<ApplicantRequest> result = Optional.empty();
         String summary = fields.get(RequestParameter.SUMMARY);
-        if (isSummaryValid(summary)) {
-            ApplicantRequest request = new ApplicantRequest(summary, DEFAULT_APPLICANT_STATE);
-            result = Optional.of(request);
-        }
-        return result;
+        return (isSummaryValid(summary) ? Optional.of(new ApplicantRequest(summary, DEFAULT_APPLICANT_STATE)) :
+                Optional.empty());
     }
 }

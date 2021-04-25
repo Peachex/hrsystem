@@ -49,8 +49,7 @@ public class UserReportFactory implements EntityFactory<UserReport> {
             String subject = fields.get(RequestParameter.USER_REPORT_SUBJECT);
             String comment = fields.get(RequestParameter.USER_REPORT_COMMENT);
             LocalDate creationDate = LocalDate.now();
-            UserReport report = new UserReport(DEFAULT_AVAILABILITY_VALUE, subject, comment, creationDate);
-            result = Optional.of(report);
+            result = Optional.of(new UserReport(DEFAULT_AVAILABILITY_VALUE, subject, comment, creationDate));
         }
         return result;
     }

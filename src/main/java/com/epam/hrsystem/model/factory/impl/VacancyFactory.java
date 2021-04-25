@@ -51,8 +51,7 @@ public class VacancyFactory implements EntityFactory<Vacancy> {
             String country = fields.get(RequestParameter.COUNTRY);
             String city = fields.get(RequestParameter.CITY);
             LocalDate creationDate = LocalDate.now();
-            Vacancy vacancy = new Vacancy(DEFAULT_AVAILABILITY_VALUE, position, description, country, city, creationDate);
-            result = Optional.of(vacancy);
+            result = Optional.of(new Vacancy(DEFAULT_AVAILABILITY_VALUE, position, description, country, city, creationDate));
         }
         return result;
     }

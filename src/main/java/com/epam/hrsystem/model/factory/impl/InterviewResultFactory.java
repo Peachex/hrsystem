@@ -46,8 +46,7 @@ public class InterviewResultFactory implements EntityFactory<InterviewResult> {
         if (isInterviewResultFormValid(fields)) {
             byte rating = Byte.parseByte(fields.get(RequestParameter.INTERVIEW_RESULT_RATING));
             String comment = fields.get(RequestParameter.INTERVIEW_RESULT_COMMENT);
-            InterviewResult interviewResult = new InterviewResult(rating, comment);
-            result = Optional.of(interviewResult);
+            result = Optional.of(new InterviewResult(rating, comment));
         }
         return result;
     }
