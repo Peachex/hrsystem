@@ -40,11 +40,6 @@ public class SqlQuery {
             " phone_number, email, is_active, role FROM users JOIN user_roles ON role_id_fk = user_role_id WHERE is_active = ?;";
 
     /**
-     * The constant SQL_FIND_USER_ACTIVITY_BY_EMAIL.
-     */
-    public static final String SQL_FIND_USER_ACTIVITY_BY_EMAIL = "SELECT is_active FROM users WHERE email = ?;";
-
-    /**
      * The constant SQL_UPDATE_USER_ACTIVITY.
      */
     public static final String SQL_UPDATE_USER_ACTIVITY = "UPDATE users SET is_active = ? WHERE user_id = ?;";
@@ -255,15 +250,9 @@ public class SqlQuery {
     public static final String SQL_UPDATE_APPLICANT_STATE_BY_APPLICANT_REQUEST_ID = "UPDATE applicant_requests SET applicant_state_id_fk = ? WHERE applicant_request_id = ?";
 
     /**
-     * The constant SQL_FIND_INTERVIEW_RESULT_ID_BY_INTERVIEW_RESULT.
-     */
-    public static final String SQL_FIND_INTERVIEW_RESULT_ID_BY_INTERVIEW_RESULT = "SELECT interview_result_id FROM interview_results LEFT JOIN interview_types ON interview_type_id_fk = interview_type_id WHERE rating = ? AND" +
-            " comment = ? AND interview_type_id_fk = ? AND applicant_request_id_fk = ?;";
-
-    /**
      * The constant SQL_FIND_INTERVIEW_RESULT_BY_ID.
      */
-    public static final String SQL_FIND_INTERVIEW_RESULT_BY_APPLICANT_REQUEST_ID = "SELECT interview_result_id, rating, comment, type FROM interview_results LEFT JOIN interview_types ON interview_type_id_fk = interview_type_id WHERE" +
+    public static final String SQL_FIND_INTERVIEW_RESULT_BY_APPLICANT_REQUEST_ID = "SELECT interview_result_id, rating, comment, type FROM interview_results JOIN interview_types ON interview_type_id_fk = interview_type_id WHERE" +
             " applicant_request_id_fk = ?;";
 
     /**
