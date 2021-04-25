@@ -28,20 +28,17 @@ public class CommandProvider {
      * @return Optional object of action command if exists, Optional.empty() otherwise.
      */
     public static Optional<ActionCommand> defineCommand(HttpServletRequest request) {
-        Optional<ActionCommand> result = Optional.empty();
-        String url = request.getRequestURI();
-        String stringCommand = parseCommandName(url);
-        if (stringCommand != null && !stringCommand.isEmpty()) {
+        Optional<String> optionalCommand = parseCommandName(request.getRequestURI());
+        if (optionalCommand.isPresent()) {
+            String stringCommand = optionalCommand.get();
             try {
                 CommandType commandType = CommandType.valueOf(stringCommand.toUpperCase());
-                ActionCommand command = commandType.getCurrentCommand();
-                result = Optional.of(command);
+                return Optional.of(commandType.getCurrentCommand());
             } catch (IllegalArgumentException e) {
                 logger.log(Level.ERROR, "Command " + stringCommand + "isn't correct: " + e);
             }
-
         }
-        return result;
+        return Optional.empty();
     }
 
     /**
@@ -51,14 +48,7 @@ public class CommandProvider {
      * @return Optional object of command type if exists, Optional.empty() otherwise.
      */
     public static Optional<CommandType> defineCommandType(HttpServletRequest request) {
-        Optional<CommandType> result = Optional.empty();
-        String url = request.getRequestURI();
-        String stringCommand = parseCommandName(url);
-        if (stringCommand != null) {
-            CommandType command = CommandType.valueOf(stringCommand.toUpperCase(Locale.ROOT));
-            result = Optional.of(command);
-        }
-        return result;
+        return (parseCommandName(request.getRequestURI()).map(s -> CommandType.valueOf(s.toUpperCase(Locale.ROOT))));
     }
 
     /**
@@ -67,14 +57,12 @@ public class CommandProvider {
      * @param url String object of request's url.
      * @return String object of command's name.
      */
-    public static String parseCommandName(String url) {
-        String commandName;
+    public static Optional<String> parseCommandName(String url) {
         int doPosition = url.indexOf(DO_SUBSTRING);
         if (doPosition == -1) {
-            return null;
+            return Optional.empty();
         }
         int lastSlashPosition = url.lastIndexOf(SLASH);
-        commandName = url.substring(lastSlashPosition + 1, doPosition);
-        return commandName;
+        return Optional.of(url.substring(lastSlashPosition + 1, doPosition));
     }
 }
