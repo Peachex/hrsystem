@@ -35,8 +35,8 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     private static final ApplicantRequestDao applicantRequestDao = ApplicantRequestDaoImpl.getInstance();
     private static final EntityFactory<ApplicantRequest> applicantRequestFactory = ApplicantRequestFactory.getInstance();
     private static final EntityFactory<InterviewResult> interviewResultFactory = InterviewResultFactory.getInstance();
-    private static final Lock locker = new ReentrantLock();
     private static final VacancyService vacancyService = VacancyServiceImpl.getInstance();
+    private static final Lock locker = new ReentrantLock();
     private static volatile ApplicantRequestService instance;
 
     /**
@@ -61,7 +61,6 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
 
     @Override
     public boolean createApplicantRequest(Map<String, String> fields, User applicant) throws ServiceException {
-        boolean result = false;
         Optional<ApplicantRequest> requestOptional = applicantRequestFactory.create(fields);
         try {
             if (requestOptional.isPresent()) {
@@ -71,118 +70,93 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
                     ApplicantRequest request = requestOptional.get();
                     request.setApplicant(applicant);
                     request.setVacancy(vacancyOptional.get());
-                    if (!applicantRequestExists(request)) {
-                        result = applicantRequestDao.add(request);
-                    }
+                    return (!applicantRequestDao.applicantRequestExists(request) && applicantRequestDao.add(request));
                 }
             }
         } catch (DaoException | NumberFormatException e) {
             throw new ServiceException(e);
         }
-        return result;
+        return false;
     }
 
     @Override
     public List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId) throws ServiceException {
-        List<ApplicantRequest> applicantRequests;
         try {
-            applicantRequests = applicantRequestDao.findApplicantRequestsById(vacancyId, 0);
+            return applicantRequestDao.findApplicantRequestsById(vacancyId, 0);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return applicantRequests;
     }
 
     @Override
     public List<ApplicantRequest> findApplicantRequestsByApplicantId(long applicantId) throws ServiceException {
-        List<ApplicantRequest> applicantRequests;
         try {
-            applicantRequests = applicantRequestDao.findApplicantRequestsById(0, applicantId);
+            return applicantRequestDao.findApplicantRequestsById(0, applicantId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return applicantRequests;
     }
 
     @Override
     public Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws ServiceException {
-        Optional<ApplicantRequest> applicantRequest;
         try {
-            applicantRequest = applicantRequestDao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
+            return applicantRequestDao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return applicantRequest;
     }
 
     @Override
     public boolean createInterviewResult(Map<String, String> fields, long vacancyId, long applicantId) throws ServiceException {
-        boolean result = false;
         Optional<ApplicantRequest> applicantRequestOptional;
         try {
             applicantRequestOptional = applicantRequestDao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
             if (applicantRequestOptional.isPresent()) {
                 ApplicantRequest applicantRequest = applicantRequestOptional.get();
-                ApplicantState currentState = applicantRequest.getApplicantState();
                 String newApplicantState = fields.get(RequestParameter.APPLICANT_STATE);
-
-                if (currentState == ApplicantState.LEFT_REQUEST && !newApplicantState.equals(ApplicantState.LEFT_REQUEST.name()) ||
-                        currentState == ApplicantState.READY_FOR_TECHNICAL_INTERVIEW &&
-                                applicantRequest.getTechnicalInterviewDate() != null &&
-                                !newApplicantState.equals(ApplicantState.READY_FOR_TECHNICAL_INTERVIEW.name()) &&
-                                !newApplicantState.equals(ApplicantState.LEFT_REQUEST.name())) {
-
+                if (checkApplicantStates(applicantRequest, newApplicantState)) {
                     Optional<InterviewResult> interviewResultOptional = interviewResultFactory.create(fields);
-
                     if (interviewResultOptional.isPresent()) {
                         InterviewResult interviewResult = interviewResultOptional.get();
-                        if (applicantRequest.getBasicInterviewResult() == null) {
-                            interviewResult.setType(InterviewType.BASIC);
-                        } else {
-                            interviewResult.setType(InterviewType.TECHNICAL);
-                        }
-                        result = applicantRequestDao.addInterviewResult(interviewResult, applicantRequest.getId()) &&
-                                applicantRequestDao.updateApplicantState(applicantRequest.getId(), ApplicantState.valueOf(newApplicantState.toUpperCase(Locale.ROOT)));
+                        interviewResult.setType(applicantRequest.getBasicInterviewResult() == null ? InterviewType.BASIC : InterviewType.TECHNICAL);
+                        return (applicantRequestDao.addInterviewResult(interviewResult, applicantRequest.getId()) &&
+                                applicantRequestDao.updateApplicantState(applicantRequest.getId(), ApplicantState.valueOf(newApplicantState.toUpperCase(Locale.ROOT))));
                     }
                 }
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
+        return false;
     }
 
     @Override
     public boolean scheduleTechnicalInterview(String technicalInterviewDateStr, long vacancyId, long applicantId) throws ServiceException {
-        boolean result = false;
-        Optional<ApplicantRequest> applicantRequestOptional;
         try {
-            applicantRequestOptional = applicantRequestDao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
+            Optional<ApplicantRequest> applicantRequestOptional = applicantRequestDao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
             if (applicantRequestOptional.isPresent()) {
                 ApplicantRequest applicantRequest = applicantRequestOptional.get();
                 ApplicantState currentState = applicantRequest.getApplicantState();
-                if (currentState == ApplicantState.READY_FOR_TECHNICAL_INTERVIEW &&
-                        applicantRequest.getTechnicalInterviewDate() == null) {
+                if (currentState == ApplicantState.READY_FOR_TECHNICAL_INTERVIEW && applicantRequest.getTechnicalInterviewDate() == null) {
                     if (ApplicantRequestValidator.isTechnicalInterviewDateValid(technicalInterviewDateStr)) {
                         LocalDate technicalInterviewDate = LocalDate.parse(technicalInterviewDateStr);
                         applicantRequest.setTechnicalInterviewDate(technicalInterviewDate);
-                        result = applicantRequestDao.updateTechnicalInterviewDate(applicantRequest.getId(), technicalInterviewDate);
+                        return applicantRequestDao.updateTechnicalInterviewDate(applicantRequest.getId(), technicalInterviewDate);
                     }
                 }
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        return result;
+        return false;
     }
 
-    private boolean applicantRequestExists(ApplicantRequest request) throws ServiceException {
-        boolean result;
-        try {
-            result = applicantRequestDao.applicantRequestExists(request);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-        return result;
+    private boolean checkApplicantStates(ApplicantRequest applicantRequest, String newApplicantState) {
+        ApplicantState currentState = applicantRequest.getApplicantState();
+        LocalDate technicalInterviewDate = applicantRequest.getTechnicalInterviewDate();
+        return (currentState == ApplicantState.LEFT_REQUEST && !newApplicantState.equals(ApplicantState.LEFT_REQUEST.name()) ||
+                currentState == ApplicantState.READY_FOR_TECHNICAL_INTERVIEW && technicalInterviewDate != null &&
+                        !newApplicantState.equals(ApplicantState.READY_FOR_TECHNICAL_INTERVIEW.name()) &&
+                        !newApplicantState.equals(ApplicantState.LEFT_REQUEST.name()));
     }
 }
