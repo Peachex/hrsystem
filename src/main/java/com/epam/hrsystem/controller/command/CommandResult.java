@@ -123,7 +123,7 @@ public class CommandResult {
      * @throws ServletException if an exception has occurred while executing.
      * @throws IOException      if an exception has occurred while executing.
      */
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void redirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CommandResult.Type commandType = this.getType();
         if (commandType == CommandResult.Type.FORWARD) {
             request.getRequestDispatcher(this.providePath()).forward(request, response);

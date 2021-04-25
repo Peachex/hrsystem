@@ -46,7 +46,7 @@ public class Controller extends HttpServlet {
         Optional<ActionCommand> command = CommandProvider.defineCommand(request);
         try {
             CommandResult result = command.isPresent() ? command.get().execute(request, response) : new CommandResult(CommandResult.DEFAULT_PATH);
-            result.execute(request, response);
+            result.redirect(request, response);
         } catch (CommandException e) {
             logger.log(Level.ERROR, "Couldn't process request: " + e);
             request.setAttribute(JspAttribute.ERROR_MESSAGE_INFO, e.getMessage());
