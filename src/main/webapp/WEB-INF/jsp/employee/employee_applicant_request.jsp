@@ -204,7 +204,7 @@
                                         <option value="${applicantStateFailed}"><fmt:message
                                                 key="interview_result_modal.applicantStateFailed"/></option>
                                     </c:if>
-                                    
+
                                     <c:if test="${applicantRequest.applicantState.toString().equals(applicantStateReadyForTechnicalInterview)
                                     && applicantRequest.technicalInterviewDate != null}">
                                         <option value="${applicantStatePassed}"><fmt:message

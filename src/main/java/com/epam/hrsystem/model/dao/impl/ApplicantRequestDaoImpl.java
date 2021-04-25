@@ -3,7 +3,6 @@ package com.epam.hrsystem.model.dao.impl;
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.dao.ApplicantRequestDao;
-import com.epam.hrsystem.model.dao.InterviewResultDao;
 import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.dao.VacancyDao;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
@@ -22,6 +21,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -33,7 +33,6 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
-    private static final InterviewResultDao interviewResultDao = InterviewResultDaoImpl.getInstance();
     private static final UserDao userDao = UserDaoImpl.getInstance();
     private static final VacancyDao vacancyDao = VacancyDaoImpl.getInstance();
     private static final Lock locker = new ReentrantLock();
@@ -96,8 +95,7 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                ApplicantRequest applicantRequest = createApplicantRequestFromResultSet(resultSet);
-                applicantRequests.add(applicantRequest);
+                applicantRequests.add(createApplicantRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -142,6 +140,36 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
         }
     }
 
+    @Override
+    public boolean addInterviewResult(InterviewResult interviewResult, long applicantRequestId) throws DaoException {
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_INSERT_INTERVIEW_RESULT)) {
+            statement.setByte(1, interviewResult.getRating());
+            statement.setString(2, interviewResult.getComment());
+            statement.setLong(3, findInterviewTypeIdByType(interviewResult.getType()).orElseThrow(() -> new DaoException("Invalid interview type")));
+            statement.setLong(4, applicantRequestId);
+            return (statement.executeUpdate() == 1);
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public List<InterviewResult> findInterviewResultsByApplicantRequestId(long applicantRequestId) throws DaoException {
+        List<InterviewResult> interviewResults = new ArrayList<>();
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_INTERVIEW_RESULT_BY_APPLICANT_REQUEST_ID)) {
+            statement.setLong(1, applicantRequestId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                interviewResults.add(createInterviewResultFromResultSet(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+        return interviewResults;
+    }
+
     private Optional<Long> findApplicantStateIdByName(String name) throws DaoException {
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_APPLICANT_STATE_ID_BY_NAME)) {
@@ -173,7 +201,7 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
             applicantRequest.setTechnicalInterviewDate(technicalInterviewDate);
         }
 
-        List<InterviewResult> interviewResults = interviewResultDao.findInterviewResultsByApplicantRequestId(applicantRequest.getId());
+        List<InterviewResult> interviewResults = findInterviewResultsByApplicantRequestId(applicantRequest.getId());
         for (InterviewResult interviewResult : interviewResults) {
             if (interviewResult.getType() == InterviewType.BASIC) {
                 applicantRequest.setBasicInterviewResult(interviewResult);
@@ -182,5 +210,24 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
             }
         }
         return applicantRequest;
+    }
+
+    private Optional<Long> findInterviewTypeIdByType(InterviewType type) throws DaoException {
+        try (Connection connection = pool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_INTERVIEW_TYPE_ID_BY_TYPE)) {
+            statement.setString(1, type.name());
+            ResultSet resultSet = statement.executeQuery();
+            return (resultSet.next() ? Optional.of(resultSet.getLong(1)) : Optional.empty());
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    private InterviewResult createInterviewResultFromResultSet(ResultSet resultSet) throws SQLException {
+        long id = resultSet.getLong(1);
+        byte rating = resultSet.getByte(2);
+        String comment = resultSet.getString(3);
+        InterviewType type = InterviewType.valueOf(resultSet.getString(4).toUpperCase(Locale.ROOT));
+        return (new InterviewResult(id, rating, comment, type));
     }
 }

@@ -3,9 +3,7 @@ package com.epam.hrsystem.model.service.impl;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
-import com.epam.hrsystem.model.dao.InterviewResultDao;
 import com.epam.hrsystem.model.dao.impl.ApplicantRequestDaoImpl;
-import com.epam.hrsystem.model.dao.impl.InterviewResultDaoImpl;
 import com.epam.hrsystem.model.entity.ApplicantState;
 import com.epam.hrsystem.model.entity.InterviewResult;
 import com.epam.hrsystem.model.entity.InterviewType;
@@ -35,7 +33,6 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     private static final ApplicantRequestDao applicantRequestDao = ApplicantRequestDaoImpl.getInstance();
-    private static final InterviewResultDao interviewResultDao = InterviewResultDaoImpl.getInstance();
     private static final EntityFactory<ApplicantRequest> applicantRequestFactory = ApplicantRequestFactory.getInstance();
     private static final EntityFactory<InterviewResult> interviewResultFactory = InterviewResultFactory.getInstance();
     private static final Lock locker = new ReentrantLock();
@@ -144,7 +141,7 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
                         } else {
                             interviewResult.setType(InterviewType.TECHNICAL);
                         }
-                        result = interviewResultDao.add(interviewResult, applicantRequest.getId()) &&
+                        result = applicantRequestDao.addInterviewResult(interviewResult, applicantRequest.getId()) &&
                                 applicantRequestDao.updateApplicantState(applicantRequest.getId(), ApplicantState.valueOf(newApplicantState.toUpperCase(Locale.ROOT)));
                     }
                 }
