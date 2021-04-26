@@ -117,11 +117,12 @@ public interface VacancyDao {
     /**
      * Finds city's id by name.
      *
-     * @param name String object of city's name.
+     * @param city String object of city's name.
+     * @param country String object of city's country.
      * @return Optional object of long value if exists, Optional.empty() otherwise.
      * @throws DaoException if the database throws SQLException.
      */
-    Optional<Long> findCityIdByName(String name) throws DaoException;
+    Optional<Long> findCityIdByNameAndCountry(String city, String country) throws DaoException;
 
     /**
      * Adds county to the table.

@@ -202,11 +202,13 @@ public class VacancyServiceImpl implements VacancyService {
     }
 
     private boolean addCountryIfNotExists(String name) throws DaoException {
-        return (dao.findCountryIdByName(name.toUpperCase(Locale.ROOT)).isPresent() || dao.addCounty(name.toUpperCase(Locale.ROOT)));
+        return (dao.findCountryIdByName(name.toUpperCase(Locale.ROOT)).isPresent() ||
+                dao.addCounty(name.toUpperCase(Locale.ROOT)));
     }
 
     private boolean addCityIfNotExists(String city, String country) throws DaoException {
-        return (dao.findCityIdByName(city.toUpperCase(Locale.ROOT)).isPresent() || dao.addCity(city.toUpperCase(Locale.ROOT), country.toUpperCase(Locale.ROOT)));
+        return (dao.findCityIdByNameAndCountry(city.toUpperCase(Locale.ROOT), country.toUpperCase(Locale.ROOT)).isPresent() ||
+                dao.addCity(city.toUpperCase(Locale.ROOT), country.toUpperCase(Locale.ROOT)));
     }
 
     private void updateVacancyInfo(Vacancy vacancy, Map<String, String> fields) {

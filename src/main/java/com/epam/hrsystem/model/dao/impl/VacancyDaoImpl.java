@@ -59,7 +59,7 @@ public class VacancyDaoImpl implements VacancyDao {
             statement.setString(2, vacancy.getPosition());
             statement.setString(3, vacancy.getDescription());
             statement.setDate(4, Date.valueOf(vacancy.getCreationDate()));
-            statement.setLong(5, findCityIdByName(vacancy.getCity()).orElseThrow(() -> new DaoException("Invalid city")));
+            statement.setLong(5, findCityIdByNameAndCountry(vacancy.getCity(), vacancy.getCountry()).orElseThrow(() -> new DaoException("Invalid city")));
             statement.setLong(6, vacancy.getEmployee().getId());
             return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
@@ -186,7 +186,7 @@ public class VacancyDaoImpl implements VacancyDao {
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_VACANCY_INFO)) {
             statement.setString(1, vacancy.getPosition());
             statement.setString(2, vacancy.getDescription());
-            statement.setLong(3, findCityIdByName(vacancy.getCity()).orElseThrow(() -> new DaoException("Invalid city")));
+            statement.setLong(3, findCityIdByNameAndCountry(vacancy.getCity(), vacancy.getCountry()).orElseThrow(() -> new DaoException("Invalid city")));
             statement.setLong(4, vacancy.getId());
             return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
@@ -219,10 +219,11 @@ public class VacancyDaoImpl implements VacancyDao {
     }
 
     @Override
-    public Optional<Long> findCityIdByName(String name) throws DaoException {
+    public Optional<Long> findCityIdByNameAndCountry(String city, String country) throws DaoException {
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_FIND_CITY_ID_BY_NAME)) {
-            statement.setString(1, name);
+            statement.setString(1, city);
+            statement.setString(2, country);
             ResultSet resultSet = statement.executeQuery();
             return (resultSet.next() ? Optional.of(resultSet.getLong(1)) : Optional.empty());
         } catch (SQLException | ConnectionPoolException e) {

@@ -99,7 +99,8 @@ public class SqlQuery {
     /**
      * The constant SQL_FIND_CITY_ID_BY_NAME.
      */
-    public static final String SQL_FIND_CITY_ID_BY_NAME = "SELECT city_id FROM cities WHERE city = ?;";
+    public static final String SQL_FIND_CITY_ID_BY_NAME = "SELECT city_id FROM cities JOIN countries ON country_id_fk = country_id" +
+            " WHERE city = ? AND country = ?;";
 
     /**
      * The constant SQL_INSERT_COUNTRY.
