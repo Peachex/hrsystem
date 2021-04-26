@@ -82,8 +82,11 @@ DROP TABLE IF EXISTS `cities`;
 CREATE TABLE `cities` (
   `city_id` bigint NOT NULL AUTO_INCREMENT,
   `city` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`city_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `country_id_fk` bigint NOT NULL,
+  PRIMARY KEY (`city_id`),
+  KEY `cities_country_id_idx` (`country_id_fk`),
+  CONSTRAINT `cities_country_id` FOREIGN KEY (`country_id_fk`) REFERENCES `countries` (`country_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +95,7 @@ CREATE TABLE `cities` (
 
 LOCK TABLES `cities` WRITE;
 /*!40000 ALTER TABLE `cities` DISABLE KEYS */;
-INSERT INTO `cities` VALUES (1,'MINSK'),(2,'MOGILEV'),(6,'HOMEL'),(8,'BREST'),(9,'GRODNO');
+INSERT INTO `cities` VALUES (14,'MINSK',10),(15,'BREST',10),(16,'HOMEL',10);
 /*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,7 +110,7 @@ CREATE TABLE `countries` (
   `country_id` bigint NOT NULL AUTO_INCREMENT,
   `country` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`country_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +119,7 @@ CREATE TABLE `countries` (
 
 LOCK TABLES `countries` WRITE;
 /*!40000 ALTER TABLE `countries` DISABLE KEYS */;
-INSERT INTO `countries` VALUES (6,'BELARUS');
+INSERT INTO `countries` VALUES (10,'BELARUS');
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +162,7 @@ DROP TABLE IF EXISTS `interview_types`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `interview_types` (
   `interview_type_id` bigint NOT NULL AUTO_INCREMENT,
-  `type` varchar(30) COLLATE utf8_bin NOT NULL,
+  `type` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`interview_type_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -276,17 +279,14 @@ CREATE TABLE `vacancies` (
   `position` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `creation_date` date NOT NULL,
-  `country_id_fk` bigint NOT NULL,
   `city_id_fk` bigint NOT NULL,
   `user_id_fk` bigint NOT NULL,
   PRIMARY KEY (`vacancy_id`),
   KEY `vacancies_user_id_idx` (`user_id_fk`),
-  KEY `vacancies_country_id_idx` (`country_id_fk`),
   KEY `vacancies_city_id_idx` (`city_id_fk`),
   CONSTRAINT `vacancies_city_id` FOREIGN KEY (`city_id_fk`) REFERENCES `cities` (`city_id`),
-  CONSTRAINT `vacancies_country_id` FOREIGN KEY (`country_id_fk`) REFERENCES `countries` (`country_id`),
   CONSTRAINT `vacancies_user_id` FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,7 +295,7 @@ CREATE TABLE `vacancies` (
 
 LOCK TABLES `vacancies` WRITE;
 /*!40000 ALTER TABLE `vacancies` DISABLE KEYS */;
-INSERT INTO `vacancies` VALUES (37,_binary '','Senior Android Developer','CoolCompany - продуктовая компания основанная в США. Мы разрабатываем приложения с момента основания App Store, наши приложения неоднократно были профичерены компаниями Apple & Google. Наши приоритеты это создание высококачественных продуктов на основе многолетнего опыта с использованием новейших технологий iOS & Android.\r\n\r\nRequirements\r\n\r\n3+ years of Android development\r\nExpert in development and support of apps starting with Android 6.0\r\nExperience in creating apps with tablet support\r\nDeep knowledge of Material Design & implementation. Android design patterns\r\nStrong reliance on object-oriented analysis and development\r\nSolid knowledge of HTTP client programming\r\nMulti-threading\r\nAutomated testing and test-driven development\r\nAbility to work independently, estimate and deliver on time\r\nWritten English sufficient for communicating with native speakers via email and producing technical documentation.\r\nGood to have\r\n\r\nExperience in the development of B2C products\r\nCompensation\r\n\r\nSalary: from $2,500 with performance-based bonuses\r\nGuaranteed vacation and holidays\r\nStable full-time employment\r\nFlexible work schedule\r\nWorking in a team with friendly people who created winning apps and services, no-nonsense, pure creation atmosphere','2021-02-25',6,1,22),(38,_binary '','Senior/Lead DevOps Engineer','GreatRiver develops custom software solutions for corporate clients in Austria, Germany, Italy, Slovakia and USA. For doing this we have sales and service divisions in the local markets and development centers in Belarus (Minsk and Grodno). \r\n\r\nCurrently we are seeking for a Senior DevOps Engineer to join our fast-growing team located in Grodno. Partner description: Money Bank is a specialist provider of retail financial services and a leader in non-proprietary automotive and consumer finance. \r\n\r\nOur corporate group, Banco Santander, is the largest banking group in the Eurozone and one of the world\'s best banks. The goal is to build a state-of-the-art banking architecture with scalable, flexible and data-driven technology stack. Cooperation with a third-party consulting company with separated responsibilities. You will have a unique opportunity to act as innovator in DevOps space to make sure that build and delivery mechanisms are reliable, transparent, scalable and transportable.','2021-03-26',6,9,22),(39,_binary '','Software Tester','Our team.\r\n\r\nWe are the Quality Assurance team. We are software testing engineers who execute high-quality tests to refine our wide range of products and services. We look after the quality, usability, and stability of our websites and trading platforms to deliver a world-class experience to our end users.\r\n\r\nYour role.\r\n\r\nAs a Software Tester at Vired, you will engage in quality control throughout the product development lifecycle of all our products, services, and systems. You will help come up with test plans and ensure their execution on each stage, from planning until release. We process over a million transactions per day, and we need you to help deliver the best version of every product, fully optimised, free from bugs, and polished for client utilisation. ','2021-04-04',6,8,22),(40,_binary '','Senior System Administrator','Little City - одно из самых больших интернет-издательств в мире. Мы ежедневно создаем и публикуем сотни развлекательных и познавательных статей и видео для 850+ миллионов подписчиков по всему миру. Вы наверняка видели наши проекты в YouTube, Facebook и Instagram: 5-Minute Crafts, Bright Side, AdMe, La La Life, 123 GO!, Slick Slime Sam, Avocado Couple и т.д. Эти и десятки других проектов - результат работы нашей международной креативной команды.\r\n\r\nНаша IT-команда работает над самыми разнообразными проектами:\r\n\r\n- Высоконагруженная система управления производством контента               \r\n- Облачные решения для видео- и анимационного производства\r\n- Внутренний электронный документооборот и система расчетов\r\n- Корпоративная система аналитики\r\n         \r\nПрямо сейчас мы в поиске опытного Senior System Administrator, который обеспечит бесперебойную работу новой видеостудий и будет применять свою сильную техническую экспертизу в решений нестандартных задач.','2021-02-10',6,1,24);
+INSERT INTO `vacancies` VALUES (53,_binary '','Middle Android Developer','CoolCompany - продуктовая компания основанная в США. Мы разрабатываем приложения с момента основания App Store, наши приложения неоднократно были профичерены компаниями Apple & Google. Наши приоритеты это создание высококачественных продуктов на основе многолетнего опыта с использованием новейших технологий iOS & Android. Requirements 3+ years of Android development Expert in development and support of apps starting with Android 6.0 Experience in creating apps with tablet support Deep knowledge of Material Design & implementation. Android design patterns Strong reliance on object-oriented analysis and development Solid knowledge of HTTP client programming Multi-threading Automated testing and test-driven development Ability to work independently, estimate and deliver on time Written English sufficient for communicating with native speakers via email and producing technical documentation. Good to have Experience in the development of B2C products Compensation Salary: from $2,500 with performance-based bonuses Guaranteed vacation and holidays Stable full-time employment Flexible work schedule Working in a team with friendly people who created winning apps and services, no-nonsense, pure creation atmosphere.','2021-02-25',14,22),(54,_binary '','Senior/Lead DevOps Engineer','GreatRiver develops custom software solutions for corporate clients in Austria, Germany, Italy, Slovakia and USA. For doing this we have sales and service divisions in the local markets and development centers in Belarus (Minsk and Grodno). Currently we are seeking for a Senior DevOps Engineer to join our fast-growing team located in Grodno. Partner description: Money Bank is a specialist provider of retail financial services and a leader in non-proprietary automotive and consumer finance. Our corporate group, Banco Santander, is the largest banking group in the Eurozone and one of the world\'s best banks. The goal is to build a state-of-the-art banking architecture with scalable, flexible and data-driven technology stack. Cooperation with a third-party consulting company with separated responsibilities. You will have a unique opportunity to act as innovator in DevOps space to make sure that build and delivery mechanisms are reliable, transparent, scalable and transportable.','2021-03-26',14,22),(55,_binary '','Software Tester','Our team. We are the Quality Assurance team. We are software testing engineers who execute high-quality tests to refine our wide range of products and services. We look after the quality, usability, and stability of our websites and trading platforms to deliver a world-class experience to our end users. Your role. As a Software Tester at Vired, you will engage in quality control throughout the product development lifecycle of all our products, services, and systems. You will help come up with test plans and ensure their execution on each stage, from planning until release. We process over a million transactions per day, and we need you to help deliver the best version of every product, fully optimised, free from bugs, and polished for client utilisation. ','2021-04-04',15,22),(56,_binary '','Junior System Administrator','Little City - одно из самых больших интернет-издательств в мире. Мы ежедневно создаем и публикуем сотни развлекательных и познавательных статей и видео для 850+ миллионов подписчиков по всему миру. Вы наверняка видели наши проекты в YouTube, Facebook и Instagram: 5-Minute Crafts, Bright Side, AdMe, La La Life, 123 GO!, Slick Slime Sam, Avocado Couple и т.д. Эти и десятки других проектов - результат работы нашей международной креативной команды. Наша IT-команда работает над самыми разнообразными проектами: - Высоконагруженная система управления производством контента                - Облачные решения для видео- и анимационного производства - Внутренний электронный документооборот и система расчетов - Корпоративная система аналитики           Прямо сейчас мы в поиске опытного Senior System Administrator, который обеспечит бесперебойную работу новой видеостудий и будет применять свою сильную техническую экспертизу в решений нестандартных задач.','2021-02-10',16,22);
 /*!40000 ALTER TABLE `vacancies` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -308,4 +308,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-22 19:20:14
+-- Dump completed on 2021-04-26 12:09:32
