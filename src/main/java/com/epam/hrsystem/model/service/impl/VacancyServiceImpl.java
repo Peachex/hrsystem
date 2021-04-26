@@ -61,7 +61,7 @@ public class VacancyServiceImpl implements VacancyService {
                 if (employee.isPresent()) {
                     Vacancy vacancy = vacancyOptional.get();
                     vacancy.setEmployee(employee.get());
-                    return (addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity())
+                    return (addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity(), vacancy.getCountry())
                             && (!dao.vacancyExists(vacancy)) && dao.add(vacancy));
                 }
             }
@@ -164,7 +164,7 @@ public class VacancyServiceImpl implements VacancyService {
                 if (vacancyOptional.isPresent() && vacancyOptional.get().getEmployee().getId() == employeeId) {
                     Vacancy vacancy = vacancyOptional.get();
                     updateVacancyInfo(vacancy, fields);
-                    return (addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity()) &&
+                    return (addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity(), vacancy.getCountry()) &&
                             !vacancyExists(vacancy) && dao.updateVacancyInfo(vacancy));
                 }
             }
@@ -205,8 +205,8 @@ public class VacancyServiceImpl implements VacancyService {
         return (dao.findCountryIdByName(name.toUpperCase(Locale.ROOT)).isPresent() || dao.addCounty(name.toUpperCase(Locale.ROOT)));
     }
 
-    private boolean addCityIfNotExists(String name) throws DaoException {
-        return (dao.findCityIdByName(name.toUpperCase(Locale.ROOT)).isPresent() || dao.addCity(name.toUpperCase(Locale.ROOT)));
+    private boolean addCityIfNotExists(String city, String country) throws DaoException {
+        return (dao.findCityIdByName(city.toUpperCase(Locale.ROOT)).isPresent() || dao.addCity(city.toUpperCase(Locale.ROOT), country.toUpperCase(Locale.ROOT)));
     }
 
     private void updateVacancyInfo(Vacancy vacancy, Map<String, String> fields) {

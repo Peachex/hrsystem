@@ -59,9 +59,8 @@ public class VacancyDaoImpl implements VacancyDao {
             statement.setString(2, vacancy.getPosition());
             statement.setString(3, vacancy.getDescription());
             statement.setDate(4, Date.valueOf(vacancy.getCreationDate()));
-            statement.setLong(5, findCountryIdByName(vacancy.getCountry()).orElseThrow(() -> new DaoException("Invalid country")));
-            statement.setLong(6, findCityIdByName(vacancy.getCity()).orElseThrow(() -> new DaoException("Invalid city")));
-            statement.setLong(7, vacancy.getEmployee().getId());
+            statement.setLong(5, findCityIdByName(vacancy.getCity()).orElseThrow(() -> new DaoException("Invalid city")));
+            statement.setLong(6, vacancy.getEmployee().getId());
             return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -187,9 +186,8 @@ public class VacancyDaoImpl implements VacancyDao {
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_UPDATE_VACANCY_INFO)) {
             statement.setString(1, vacancy.getPosition());
             statement.setString(2, vacancy.getDescription());
-            statement.setLong(3, findCountryIdByName(vacancy.getCountry()).orElseThrow(() -> new DaoException("Invalid country")));
-            statement.setLong(4, findCityIdByName(vacancy.getCity()).orElseThrow(() -> new DaoException("Invalid city")));
-            statement.setLong(5, vacancy.getId());
+            statement.setLong(3, findCityIdByName(vacancy.getCity()).orElseThrow(() -> new DaoException("Invalid city")));
+            statement.setLong(4, vacancy.getId());
             return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -244,10 +242,11 @@ public class VacancyDaoImpl implements VacancyDao {
     }
 
     @Override
-    public boolean addCity(String name) throws DaoException {
+    public boolean addCity(String city, String country) throws DaoException {
         try (Connection connection = pool.takeConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_INSERT_CITY)) {
-            statement.setString(1, name);
+            statement.setString(1, city);
+            statement.setLong(2, findCountryIdByName(country).orElseThrow(() -> new DaoException("Invalid country")));
             return (statement.executeUpdate() == 1);
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -260,8 +259,8 @@ public class VacancyDaoImpl implements VacancyDao {
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SQL_CHECK_VACANCY_FOR_EXISTENCE)) {
             statement.setString(1, vacancy.getPosition());
             statement.setString(2, vacancy.getDescription());
-            statement.setLong(3, findCountryIdByName(vacancy.getCountry()).orElseThrow(() -> new DaoException("Invalid country")));
-            statement.setLong(4, findCityIdByName(vacancy.getCity()).orElseThrow(() -> new DaoException("Invalid city")));
+            statement.setString(3, vacancy.getCountry());
+            statement.setString(4, vacancy.getCity());
             ResultSet resultSet = statement.executeQuery();
             return resultSet.next();
         } catch (SQLException | ConnectionPoolException e) {

@@ -135,11 +135,12 @@ public interface VacancyDao {
     /**
      * Adds city to the table.
      *
-     * @param name String object of city's name.
+     * @param city    String object of city's name.
+     * @param country String object of country's name.
      * @return boolean value. True if the city has been added, false otherwise.
      * @throws DaoException if the database throws SQLException.
      */
-    boolean addCity(String name) throws DaoException;
+    boolean addCity(String city, String country) throws DaoException;
 
     /**
      * Check if vacancy exists.
