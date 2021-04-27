@@ -28,10 +28,12 @@
         ${errorInputData}
         ${invalidCurrentPassword}
     </wrong-message>
-    
-    <success-message>
-        ${successMessage}
-    </success-message>
+
+    <c:if test="${successMessage}">
+        <success-message>
+            <fmt:message key="successMessage"/>
+        </success-message>
+    </c:if>
 
     <div class="card text-dark bg-light offset-3" style="margin-top: 1%;max-width: 50%; margin-bottom: 2%;">
         <div class="card-header"><h3><fmt:message key="profile.title"/></h3></div>

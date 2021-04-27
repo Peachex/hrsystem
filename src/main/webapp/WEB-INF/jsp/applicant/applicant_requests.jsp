@@ -28,9 +28,11 @@
         <wrong-message>
             ${noApplicantRequests}
         </wrong-message>
-        <success-message>
-            ${successMessage}
-        </success-message>
+        <c:if test="${successMessage}">
+            <success-message>
+                <fmt:message key="successMessage"/>
+            </success-message>
+        </c:if>
     </div>
 
     <vacancies-number><fmt:message

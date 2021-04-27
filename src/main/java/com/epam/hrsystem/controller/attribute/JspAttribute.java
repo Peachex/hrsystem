@@ -229,16 +229,6 @@ public class JspAttribute {
      */
     public static final String ERROR_MESSAGE_INFO = "errorMessageInfo";
 
-    /**
-     * The constant that represents SUCCESS_ATTRIBUTE.
-     */
-    public static final String SUCCESS_ATTRIBUTE = "successMessage";
-
-    /**
-     * The constant that represents SUCCESS_MESSAGE.
-     */
-    public static final String SUCCESS_MESSAGE = "Successfully completed / успешно выполнено";
-
     private JspAttribute() {
     }
 }

@@ -62,9 +62,11 @@
         ${errorInputData}
     </wrong-message>
 
-    <success-message>
-        ${successMessage}
-    </success-message>
+    <c:if test="${successMessage}">
+        <success-message>
+            <fmt:message key="successMessage"/>
+        </success-message>
+    </c:if>
 
     <c:if test="${sessionScope.role.toString().equals(applicant) || sessionScope.role.toString().equals(employee)}">
         <button type="button" class="btn btn-secondary col-2 offset-5"

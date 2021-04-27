@@ -28,9 +28,8 @@ public class MessageFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
-        String successMessage = (String) session.getAttribute(SessionAttribute.SUCCESS_MESSAGE);
-        if (successMessage != null) {
-            request.setAttribute(JspAttribute.SUCCESS_ATTRIBUTE, successMessage);
+        if (session.getAttribute(SessionAttribute.SUCCESS_MESSAGE) != null) {
+            request.setAttribute(SessionAttribute.SUCCESS_MESSAGE, true);
         }
         session.removeAttribute(SessionAttribute.SUCCESS_MESSAGE);
         chain.doFilter(request, response);

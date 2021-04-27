@@ -43,9 +43,11 @@
                 ${errorInputData}
                 ${accountIsDeleted}
             </wrong-message>
-            <success-message>
-                ${successMessage}
-            </success-message>
+            <c:if test="${successMessage}">
+                <success-message>
+                    <fmt:message key="successMessage"/>
+                </success-message>
+            </c:if>
         </div>
 
         <div class="mt-5 col-2 offset-5">

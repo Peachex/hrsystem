@@ -48,7 +48,7 @@ public class CreateVacancyCommand implements ActionCommand {
         CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES, CommandResult.Type.REDIRECT);
         try {
             if (service.createVacancy(fields, employeeId)) {
-                session.setAttribute(JspAttribute.SUCCESS_ATTRIBUTE, JspAttribute.SUCCESS_MESSAGE);
+                session.setAttribute(SessionAttribute.SUCCESS_MESSAGE, Boolean.TRUE);
             } else {
                 if (VacancyValidator.isVacancyFormValid(fields)) {
                     request.setAttribute(JspAttribute.ERROR_DUPLICATE_ATTRIBUTE, JspAttribute.ERROR_VACANCY_DUPLICATE_MESSAGE);

@@ -51,7 +51,7 @@ public class CreateApplicantRequestCommand implements ActionCommand {
                 String applicantEmail = applicant.getEmail();
                 mailSender.setupEmail(applicantEmail, MailMessage.HR_SYSTEM_MAIL_SUBJECT, MailMessage.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
                 mailSender.send();
-                session.setAttribute(JspAttribute.SUCCESS_ATTRIBUTE, JspAttribute.SUCCESS_MESSAGE);
+                session.setAttribute(SessionAttribute.SUCCESS_MESSAGE, Boolean.TRUE);
             } else {
                 if (ApplicantRequestValidator.isSummaryValid(summary)) {
                     request.setAttribute(JspAttribute.ERROR_DUPLICATE_ATTRIBUTE, JspAttribute.ERROR_APPLICANT_REQUEST_DUPLICATE_MESSAGE);
