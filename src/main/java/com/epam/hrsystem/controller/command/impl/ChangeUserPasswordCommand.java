@@ -49,6 +49,7 @@ public class ChangeUserPasswordCommand implements ActionCommand {
             Optional<User> userOptional = service.login(user.getEmail(), currentPassword);
             if (userOptional.isPresent()) {
                 if (service.changePassword(user.getId(), fields)) {
+                    session.setAttribute(JspAttribute.SUCCESS_ATTRIBUTE, JspAttribute.SUCCESS_MESSAGE);
                     result = new CommandResult(CommandName.TO_USER_PROFILE, CommandResult.Type.REDIRECT);
                 } else {
                     if (!UserValidator.isChangePasswordFormValid(fields)) {
