@@ -44,6 +44,7 @@ public class DeleteUserAccountCommand implements ActionCommand {
                 session.removeAttribute(SessionAttribute.USER_ID);
                 session.removeAttribute(SessionAttribute.USER);
                 session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.GUEST);
+                session.setAttribute(SessionAttribute.SUCCESS_MESSAGE, Boolean.TRUE);
             } else {
                 request.setAttribute(JspAttribute.ERROR_INVALID_CURRENT_PASSWORD_ATTRIBUTE, JspAttribute.ERROR_INVALID_CURRENT_PASSWORD_MESSAGE);
                 result = new CommandResult(CommandName.TO_USER_PROFILE, CommandResult.Type.FORWARD);
