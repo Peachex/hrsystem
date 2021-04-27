@@ -124,21 +124,26 @@ public class CommandResult {
      * @throws IOException      if an exception has occurred while executing.
      */
     public void redirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CommandResult.Type commandType = this.getType();
-        if (commandType == CommandResult.Type.FORWARD) {
-            request.getRequestDispatcher(this.providePath()).forward(request, response);
-            return;
-        }
-        if (commandType == CommandResult.Type.REDIRECT) {
-            response.sendRedirect(request.getContextPath() + this.providePath());
-            return;
-        }
-        if (commandType == CommandResult.Type.RETURN_WITH_REDIRECT) {
-            String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
-            if (previousUrl == null || previousUrl.isEmpty()) {
-                previousUrl = request.getContextPath() + CommandResult.DEFAULT_PATH;
+        switch (this.getType()) {
+            case FORWARD: {
+                request.getRequestDispatcher(this.providePath()).forward(request, response);
+                break;
             }
-            response.sendRedirect(previousUrl);
+            case REDIRECT: {
+                response.sendRedirect(request.getContextPath() + this.providePath());
+                break;
+            }
+            case RETURN_WITH_REDIRECT: {
+                String previousUrl = request.getHeader(RequestParameter.HEADER_REFERER);
+                if (previousUrl == null || previousUrl.isEmpty()) {
+                    previousUrl = request.getContextPath() + CommandResult.DEFAULT_PATH;
+                }
+                response.sendRedirect(previousUrl);
+                break;
+            }
+            default: {
+                response.sendRedirect(request.getContextPath() + CommandResult.DEFAULT_PATH);
+            }
         }
     }
 }
