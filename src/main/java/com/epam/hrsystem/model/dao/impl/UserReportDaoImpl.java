@@ -164,6 +164,7 @@ public class UserReportDaoImpl implements UserReportDao {
         LocalDate creationDate = resultSet.getDate(6).toLocalDate();
 
         long userId = resultSet.getLong(7);
+        //fixme
         User user = userDao.findUserById(userId).orElseThrow(() -> new DaoException("Invalid id"));
 
         UserReport report = new UserReport(id, isAvailable, subject, comment, creationDate, user);

@@ -96,7 +96,11 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findAvailableVacancies() throws ServiceException {
         try {
-            return dao.findVacanciesByAvailability(true);
+            List<Vacancy> vacancies = dao.findVacanciesByAvailability(true);
+            for (Vacancy vacancy : vacancies) {
+                updateVacancyEmployee(vacancy);
+            }
+            return vacancies;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -105,7 +109,11 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findEmployeeVacancies(long employeeId) throws ServiceException {
         try {
-            return dao.findEmployeeVacancies(employeeId);
+            List<Vacancy> vacancies = dao.findEmployeeVacancies(employeeId);
+            for (Vacancy vacancy : vacancies) {
+                updateVacancyEmployee(vacancy);
+            }
+            return vacancies;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -114,7 +122,11 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findActiveEmployeeVacancies(long employeeId) throws ServiceException {
         try {
-            return dao.findEmployeeVacanciesByAvailability(employeeId, true);
+            List<Vacancy> vacancies = dao.findEmployeeVacanciesByAvailability(employeeId, true);
+            for (Vacancy vacancy : vacancies) {
+                updateVacancyEmployee(vacancy);
+            }
+            return vacancies;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -123,7 +135,11 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findDeletedEmployeeVacancies(long employeeId) throws ServiceException {
         try {
-            return dao.findEmployeeVacanciesByAvailability(employeeId, false);
+            List<Vacancy> vacancies = dao.findEmployeeVacanciesByAvailability(employeeId, false);
+            for (Vacancy vacancy : vacancies) {
+                updateVacancyEmployee(vacancy);
+            }
+            return vacancies;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -132,7 +148,11 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findEmployeeVacanciesWithApplicantsRequests(long employeeId) throws ServiceException {
         try {
-            return dao.findEmployeeVacanciesWithApplicantsRequests(employeeId);
+            List<Vacancy> vacancies = dao.findEmployeeVacanciesWithApplicantsRequests(employeeId);
+            for (Vacancy vacancy : vacancies) {
+                updateVacancyEmployee(vacancy);
+            }
+            return vacancies;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -141,7 +161,11 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findEmployeeVacanciesWithActiveApplicantsRequests(long employeeId) throws ServiceException {
         try {
-            return dao.findEmployeeVacanciesWithApplicantsRequestsByActivity(employeeId, true);
+            List<Vacancy> vacancies = dao.findEmployeeVacanciesWithApplicantsRequestsByActivity(employeeId, true);
+            for (Vacancy vacancy : vacancies) {
+                updateVacancyEmployee(vacancy);
+            }
+            return vacancies;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -150,7 +174,11 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findEmployeeVacanciesWithNotActiveApplicantsRequests(long employeeId) throws ServiceException {
         try {
-            return dao.findEmployeeVacanciesWithApplicantsRequestsByActivity(employeeId, false);
+            List<Vacancy> vacancies = dao.findEmployeeVacanciesWithApplicantsRequestsByActivity(employeeId, false);
+            for (Vacancy vacancy : vacancies) {
+                updateVacancyEmployee(vacancy);
+            }
+            return vacancies;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -177,7 +205,14 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public Optional<Vacancy> findVacancyById(long vacancyId) throws ServiceException {
         try {
-            return dao.findVacancyById(vacancyId);
+            Optional<Vacancy> vacancyOptional = dao.findVacancyById(vacancyId);
+            if (vacancyOptional.isPresent()) {
+                Vacancy vacancy = vacancyOptional.get();
+                if (updateVacancyEmployee(vacancy)) {
+                    vacancyOptional = Optional.of(vacancy);
+                }
+            }
+            return vacancyOptional;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -187,7 +222,11 @@ public class VacancyServiceImpl implements VacancyService {
     public List<Vacancy> findVacanciesByKeyWord(String keyWord) throws ServiceException {
         try {
             String keyWordForQuery = PERCENT_SIGN + keyWord + PERCENT_SIGN;
-            return dao.findVacanciesByKeyWord(keyWordForQuery);
+            List<Vacancy> vacancies = dao.findVacanciesByKeyWord(keyWordForQuery);
+            for (Vacancy vacancy : vacancies) {
+                updateVacancyEmployee(vacancy);
+            }
+            return vacancies;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -223,5 +262,16 @@ public class VacancyServiceImpl implements VacancyService {
 
         String newCity = fields.get(RequestParameter.CITY);
         vacancy.setCity(newCity);
+    }
+
+    private boolean updateVacancyEmployee(Vacancy vacancy) throws DaoException {
+        boolean result = false;
+        Optional<User> employeeOptional = UserDaoImpl.getInstance().findUserById(vacancy.getEmployee().getId());
+        if (employeeOptional.isPresent()) {
+            User employee = employeeOptional.get();
+            vacancy.setEmployee(employee);
+            result = true;
+        }
+        return result;
     }
 }

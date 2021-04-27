@@ -192,7 +192,7 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
 
         long applicantId = resultSet.getLong(5);
         User applicant = userDao.findUserById(applicantId).orElseThrow(() -> new DaoException("Invalid id"));
-
+        //fixme
         long vacancyId = resultSet.getLong(6);
         Vacancy vacancy = vacancyDao.findVacancyById(vacancyId).orElseThrow(() -> new DaoException("Invalid id"));
 

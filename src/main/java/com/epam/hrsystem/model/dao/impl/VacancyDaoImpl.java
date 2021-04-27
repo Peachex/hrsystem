@@ -2,7 +2,6 @@ package com.epam.hrsystem.model.dao.impl;
 
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
-import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.dao.VacancyDao;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.Vacancy;
@@ -27,7 +26,6 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class VacancyDaoImpl implements VacancyDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
-    private static final UserDao userDao = UserDaoImpl.getInstance();
     private static final Lock locker = new ReentrantLock();
     private static volatile VacancyDao instance;
 
@@ -278,7 +276,7 @@ public class VacancyDaoImpl implements VacancyDao {
         String country = resultSet.getString(6);
         String city = resultSet.getString(7);
         long userId = resultSet.getLong(8);
-        User employee = userDao.findUserById(userId).orElseThrow(() -> new DaoException("Invalid id"));
+        User employee = new User(userId);
         return (new Vacancy(id, isAvailable, position, description, creationDate, country, city, employee));
     }
 }

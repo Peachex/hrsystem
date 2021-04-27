@@ -25,6 +25,15 @@ public class User {
     }
 
     /**
+     * Constructs an User object with given id.
+     *
+     * @param id long value of user's id.
+     */
+    public User(long id) {
+        this.id = id;
+    }
+
+    /**
      * Constructs an User object with given id, role, isActive, photoName, firstName, lastName, dateOfBirth, phoneNumber, email.
      *
      * @param id          long value of user's id.
