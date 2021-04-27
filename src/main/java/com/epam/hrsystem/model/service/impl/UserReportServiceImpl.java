@@ -2,6 +2,7 @@ package com.epam.hrsystem.model.service.impl;
 
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
+import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.dao.UserReportDao;
 import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
 import com.epam.hrsystem.model.dao.impl.UserReportDaoImpl;
@@ -24,7 +25,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Aleksey Klevitov
  */
 public class UserReportServiceImpl implements UserReportService {
-    private static final UserReportDao dao = UserReportDaoImpl.getInstance();
+    private static final UserReportDao userReportDao = UserReportDaoImpl.getInstance();
+    private static final UserDao userDao = UserDaoImpl.getInstance();
     private static final String PERCENT_SIGN = "%";
     private static final EntityFactory<UserReport> userReportFactory = UserReportFactory.getInstance();
     private static final Lock locker = new ReentrantLock();
@@ -60,7 +62,7 @@ public class UserReportServiceImpl implements UserReportService {
                 if (userOptional.isPresent()) {
                     User user = userOptional.get();
                     report.setUser(user);
-                    return (!dao.userReportExists(report) && dao.add(report));
+                    return (!userReportDao.userReportExists(report) && userReportDao.add(report));
                 }
             }
         } catch (DaoException | NumberFormatException e) {
@@ -72,7 +74,11 @@ public class UserReportServiceImpl implements UserReportService {
     @Override
     public List<UserReport> findAllUserReports() throws ServiceException {
         try {
-            return dao.findAllUserReports();
+            List<UserReport> reports = userReportDao.findAllUserReports();
+            for (UserReport report : reports) {
+                updateReportUser(report);
+            }
+            return reports;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -81,7 +87,11 @@ public class UserReportServiceImpl implements UserReportService {
     @Override
     public List<UserReport> findAvailableUserReports() throws ServiceException {
         try {
-            return dao.findUserReportsByAvailability(true);
+            List<UserReport> reports = userReportDao.findUserReportsByAvailability(true);
+            for (UserReport report : reports) {
+                updateReportUser(report);
+            }
+            return reports;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -90,7 +100,11 @@ public class UserReportServiceImpl implements UserReportService {
     @Override
     public List<UserReport> findDeletedUserReports() throws ServiceException {
         try {
-            return dao.findUserReportsByAvailability(false);
+            List<UserReport> reports = userReportDao.findUserReportsByAvailability(false);
+            for (UserReport report : reports) {
+                updateReportUser(report);
+            }
+            return reports;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -100,7 +114,11 @@ public class UserReportServiceImpl implements UserReportService {
     public List<UserReport> findUserReportsByKeyWord(String keyWord) throws ServiceException {
         try {
             String keyWordForQuery = PERCENT_SIGN + keyWord + PERCENT_SIGN;
-            return dao.findUserReportsByKeyWord(keyWordForQuery);
+            List<UserReport> reports = userReportDao.findUserReportsByKeyWord(keyWordForQuery);
+            for (UserReport report : reports) {
+                updateReportUser(report);
+            }
+            return reports;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -110,12 +128,12 @@ public class UserReportServiceImpl implements UserReportService {
     public boolean createResponse(long reportId, String response) throws ServiceException {
         try {
             if (UserReportValidator.isResponseValid(response)) {
-                Optional<UserReport> reportOptional = dao.findUserReportById(reportId);
+                Optional<UserReport> reportOptional = userReportDao.findUserReportById(reportId);
                 if (reportOptional.isPresent()) {
                     UserReport report = reportOptional.get();
                     if (report.getResponse() == null) {
                         report.setResponse(response);
-                        return dao.updateUserReportResponse(report);
+                        return userReportDao.updateUserReportResponse(report);
                     }
                 }
             }
@@ -128,9 +146,27 @@ public class UserReportServiceImpl implements UserReportService {
     @Override
     public Optional<UserReport> findUserReportById(long reportId) throws ServiceException {
         try {
-            return dao.findUserReportById(reportId);
+            Optional<UserReport> reportOptional = userReportDao.findUserReportById(reportId);
+            if (reportOptional.isPresent()) {
+                UserReport report = reportOptional.get();
+                if (updateReportUser(report)) {
+                    reportOptional = Optional.of(report);
+                }
+            }
+            return reportOptional;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+    }
+
+    private boolean updateReportUser(UserReport report) throws DaoException {
+        boolean result = false;
+        Optional<User> userOptional = userDao.findUserById(report.getUser().getId());
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            report.setUser(user);
+            result = true;
+        }
+        return result;
     }
 }

@@ -2,7 +2,6 @@ package com.epam.hrsystem.model.dao.impl;
 
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
-import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.dao.UserReportDao;
 import com.epam.hrsystem.model.entity.User;
 import com.epam.hrsystem.model.entity.UserReport;
@@ -29,7 +28,6 @@ import java.util.concurrent.locks.ReentrantLock;
 public class UserReportDaoImpl implements UserReportDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
     private static final Lock locker = new ReentrantLock();
-    private static final UserDao userDao = UserDaoImpl.getInstance();
     private static volatile UserReportDao instance;
 
     /**
@@ -164,8 +162,7 @@ public class UserReportDaoImpl implements UserReportDao {
         LocalDate creationDate = resultSet.getDate(6).toLocalDate();
 
         long userId = resultSet.getLong(7);
-        //fixme
-        User user = userDao.findUserById(userId).orElseThrow(() -> new DaoException("Invalid id"));
+        User user = new User(userId);
 
         UserReport report = new UserReport(id, isAvailable, subject, comment, creationDate, user);
         if (response != null) {

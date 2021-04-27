@@ -3,6 +3,7 @@ package com.epam.hrsystem.model.service.impl;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
+import com.epam.hrsystem.model.dao.UserDao;
 import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
 import com.epam.hrsystem.model.dao.impl.VacancyDaoImpl;
 import com.epam.hrsystem.model.factory.EntityFactory;
@@ -26,7 +27,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Aleksey Klevitov
  */
 public class VacancyServiceImpl implements VacancyService {
-    private static final VacancyDao dao = VacancyDaoImpl.getInstance();
+    private static final VacancyDao vacancyDao = VacancyDaoImpl.getInstance();
+    private static final UserDao userDao = UserDaoImpl.getInstance();
     private static final String PERCENT_SIGN = "%";
     private static final EntityFactory<Vacancy> vacancyFactory = VacancyFactory.getInstance();
     private static final Lock locker = new ReentrantLock();
@@ -62,7 +64,7 @@ public class VacancyServiceImpl implements VacancyService {
                     Vacancy vacancy = vacancyOptional.get();
                     vacancy.setEmployee(employee.get());
                     return (addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity(), vacancy.getCountry())
-                            && (!dao.vacancyExists(vacancy)) && dao.add(vacancy));
+                            && (!vacancyDao.vacancyExists(vacancy)) && vacancyDao.add(vacancy));
                 }
             }
         } catch (DaoException | NumberFormatException e) {
@@ -74,9 +76,9 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public boolean deleteVacancy(long vacancyId, long employeeId) throws ServiceException {
         try {
-            Optional<Vacancy> vacancy = dao.findVacancyById(vacancyId);
+            Optional<Vacancy> vacancy = vacancyDao.findVacancyById(vacancyId);
             return (vacancy.isPresent() && vacancy.get().getEmployee().getId() == employeeId &&
-                    dao.updateVacancyAvailability(vacancyId, (byte) 0));
+                    vacancyDao.updateVacancyAvailability(vacancyId, (byte) 0));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -85,9 +87,9 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public boolean restoreVacancy(long vacancyId, long employeeId) throws ServiceException {
         try {
-            Optional<Vacancy> vacancy = dao.findVacancyById(vacancyId);
+            Optional<Vacancy> vacancy = vacancyDao.findVacancyById(vacancyId);
             return (vacancy.isPresent() && vacancy.get().getEmployee().getId() == employeeId &&
-                    dao.updateVacancyAvailability(vacancyId, (byte) 1));
+                    vacancyDao.updateVacancyAvailability(vacancyId, (byte) 1));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -96,7 +98,7 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findAvailableVacancies() throws ServiceException {
         try {
-            List<Vacancy> vacancies = dao.findVacanciesByAvailability(true);
+            List<Vacancy> vacancies = vacancyDao.findVacanciesByAvailability(true);
             for (Vacancy vacancy : vacancies) {
                 updateVacancyEmployee(vacancy);
             }
@@ -109,7 +111,7 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findEmployeeVacancies(long employeeId) throws ServiceException {
         try {
-            List<Vacancy> vacancies = dao.findEmployeeVacancies(employeeId);
+            List<Vacancy> vacancies = vacancyDao.findEmployeeVacancies(employeeId);
             for (Vacancy vacancy : vacancies) {
                 updateVacancyEmployee(vacancy);
             }
@@ -122,7 +124,7 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findActiveEmployeeVacancies(long employeeId) throws ServiceException {
         try {
-            List<Vacancy> vacancies = dao.findEmployeeVacanciesByAvailability(employeeId, true);
+            List<Vacancy> vacancies = vacancyDao.findEmployeeVacanciesByAvailability(employeeId, true);
             for (Vacancy vacancy : vacancies) {
                 updateVacancyEmployee(vacancy);
             }
@@ -135,7 +137,7 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findDeletedEmployeeVacancies(long employeeId) throws ServiceException {
         try {
-            List<Vacancy> vacancies = dao.findEmployeeVacanciesByAvailability(employeeId, false);
+            List<Vacancy> vacancies = vacancyDao.findEmployeeVacanciesByAvailability(employeeId, false);
             for (Vacancy vacancy : vacancies) {
                 updateVacancyEmployee(vacancy);
             }
@@ -148,7 +150,7 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findEmployeeVacanciesWithApplicantsRequests(long employeeId) throws ServiceException {
         try {
-            List<Vacancy> vacancies = dao.findEmployeeVacanciesWithApplicantsRequests(employeeId);
+            List<Vacancy> vacancies = vacancyDao.findEmployeeVacanciesWithApplicantsRequests(employeeId);
             for (Vacancy vacancy : vacancies) {
                 updateVacancyEmployee(vacancy);
             }
@@ -161,7 +163,7 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findEmployeeVacanciesWithActiveApplicantsRequests(long employeeId) throws ServiceException {
         try {
-            List<Vacancy> vacancies = dao.findEmployeeVacanciesWithApplicantsRequestsByActivity(employeeId, true);
+            List<Vacancy> vacancies = vacancyDao.findEmployeeVacanciesWithApplicantsRequestsByActivity(employeeId, true);
             for (Vacancy vacancy : vacancies) {
                 updateVacancyEmployee(vacancy);
             }
@@ -174,7 +176,7 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public List<Vacancy> findEmployeeVacanciesWithNotActiveApplicantsRequests(long employeeId) throws ServiceException {
         try {
-            List<Vacancy> vacancies = dao.findEmployeeVacanciesWithApplicantsRequestsByActivity(employeeId, false);
+            List<Vacancy> vacancies = vacancyDao.findEmployeeVacanciesWithApplicantsRequestsByActivity(employeeId, false);
             for (Vacancy vacancy : vacancies) {
                 updateVacancyEmployee(vacancy);
             }
@@ -188,12 +190,12 @@ public class VacancyServiceImpl implements VacancyService {
     public boolean updateVacancyInfo(long vacancyId, long employeeId, Map<String, String> fields) throws ServiceException {
         try {
             if (VacancyValidator.isVacancyFormValid(fields)) {
-                Optional<Vacancy> vacancyOptional = dao.findVacancyById(vacancyId);
+                Optional<Vacancy> vacancyOptional = vacancyDao.findVacancyById(vacancyId);
                 if (vacancyOptional.isPresent() && vacancyOptional.get().getEmployee().getId() == employeeId) {
                     Vacancy vacancy = vacancyOptional.get();
                     updateVacancyInfo(vacancy, fields);
                     return (addCountryIfNotExists(vacancy.getCountry()) && addCityIfNotExists(vacancy.getCity(), vacancy.getCountry()) &&
-                            !vacancyExists(vacancy) && dao.updateVacancyInfo(vacancy));
+                            !vacancyExists(vacancy) && vacancyDao.updateVacancyInfo(vacancy));
                 }
             }
         } catch (DaoException e) {
@@ -205,7 +207,7 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public Optional<Vacancy> findVacancyById(long vacancyId) throws ServiceException {
         try {
-            Optional<Vacancy> vacancyOptional = dao.findVacancyById(vacancyId);
+            Optional<Vacancy> vacancyOptional = vacancyDao.findVacancyById(vacancyId);
             if (vacancyOptional.isPresent()) {
                 Vacancy vacancy = vacancyOptional.get();
                 if (updateVacancyEmployee(vacancy)) {
@@ -222,7 +224,7 @@ public class VacancyServiceImpl implements VacancyService {
     public List<Vacancy> findVacanciesByKeyWord(String keyWord) throws ServiceException {
         try {
             String keyWordForQuery = PERCENT_SIGN + keyWord + PERCENT_SIGN;
-            List<Vacancy> vacancies = dao.findVacanciesByKeyWord(keyWordForQuery);
+            List<Vacancy> vacancies = vacancyDao.findVacanciesByKeyWord(keyWordForQuery);
             for (Vacancy vacancy : vacancies) {
                 updateVacancyEmployee(vacancy);
             }
@@ -234,20 +236,20 @@ public class VacancyServiceImpl implements VacancyService {
 
     private boolean vacancyExists(Vacancy vacancy) throws ServiceException {
         try {
-            return dao.vacancyExists(vacancy);
+            return vacancyDao.vacancyExists(vacancy);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
     private boolean addCountryIfNotExists(String name) throws DaoException {
-        return (dao.findCountryIdByName(name.toUpperCase(Locale.ROOT)).isPresent() ||
-                dao.addCounty(name.toUpperCase(Locale.ROOT)));
+        return (vacancyDao.findCountryIdByName(name.toUpperCase(Locale.ROOT)).isPresent() ||
+                vacancyDao.addCounty(name.toUpperCase(Locale.ROOT)));
     }
 
     private boolean addCityIfNotExists(String city, String country) throws DaoException {
-        return (dao.findCityIdByNameAndCountry(city.toUpperCase(Locale.ROOT), country.toUpperCase(Locale.ROOT)).isPresent() ||
-                dao.addCity(city.toUpperCase(Locale.ROOT), country.toUpperCase(Locale.ROOT)));
+        return (vacancyDao.findCityIdByNameAndCountry(city.toUpperCase(Locale.ROOT), country.toUpperCase(Locale.ROOT)).isPresent() ||
+                vacancyDao.addCity(city.toUpperCase(Locale.ROOT), country.toUpperCase(Locale.ROOT)));
     }
 
     private void updateVacancyInfo(Vacancy vacancy, Map<String, String> fields) {
@@ -266,7 +268,7 @@ public class VacancyServiceImpl implements VacancyService {
 
     private boolean updateVacancyEmployee(Vacancy vacancy) throws DaoException {
         boolean result = false;
-        Optional<User> employeeOptional = UserDaoImpl.getInstance().findUserById(vacancy.getEmployee().getId());
+        Optional<User> employeeOptional = userDao.findUserById(vacancy.getEmployee().getId());
         if (employeeOptional.isPresent()) {
             User employee = employeeOptional.get();
             vacancy.setEmployee(employee);
