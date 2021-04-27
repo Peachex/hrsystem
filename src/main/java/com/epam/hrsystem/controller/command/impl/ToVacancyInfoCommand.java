@@ -37,8 +37,10 @@ public class ToVacancyInfoCommand implements ActionCommand {
                 Optional<Vacancy> vacancyOptional = service.findVacancyById(Long.parseLong(vacancyId));
                 if (vacancyOptional.isPresent()) {
                     Vacancy vacancy = vacancyOptional.get();
-                    request.setAttribute(RequestParameter.VACANCY, vacancy);
-                    result = new CommandResult(PagePath.CURRENT_VACANCY_INFO, CommandResult.Type.FORWARD);
+                    if (vacancy.getIsAvailable()) {
+                        request.setAttribute(RequestParameter.VACANCY, vacancy);
+                        result = new CommandResult(PagePath.CURRENT_VACANCY_INFO, CommandResult.Type.FORWARD);
+                    }
                 } else {
                     request.setAttribute(JspAttribute.NO_VACANCY_ATTRIBUTE, JspAttribute.NO_VACANCY_MESSAGE);
                 }
