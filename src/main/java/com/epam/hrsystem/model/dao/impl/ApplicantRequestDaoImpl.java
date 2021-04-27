@@ -3,8 +3,6 @@ package com.epam.hrsystem.model.dao.impl;
 import com.epam.hrsystem.exception.ConnectionPoolException;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.model.dao.ApplicantRequestDao;
-import com.epam.hrsystem.model.dao.UserDao;
-import com.epam.hrsystem.model.dao.VacancyDao;
 import com.epam.hrsystem.model.entity.ApplicantRequest;
 import com.epam.hrsystem.model.entity.ApplicantState;
 import com.epam.hrsystem.model.entity.InterviewResult;
@@ -33,8 +31,6 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
     private static final ConnectionPool pool = ConnectionPool.ConnectionPoolHolder.POOL.getConnectionPool();
-    private static final UserDao userDao = UserDaoImpl.getInstance();
-    private static final VacancyDao vacancyDao = VacancyDaoImpl.getInstance();
     private static final Lock locker = new ReentrantLock();
     private static volatile ApplicantRequestDao instance;
 
@@ -191,10 +187,10 @@ public class ApplicantRequestDaoImpl implements ApplicantRequestDao {
         ApplicantState applicantState = ApplicantState.valueOf(resultSet.getString(4));
 
         long applicantId = resultSet.getLong(5);
-        User applicant = userDao.findUserById(applicantId).orElseThrow(() -> new DaoException("Invalid id"));
-        //fixme
+        User applicant = new User(applicantId);
+
         long vacancyId = resultSet.getLong(6);
-        Vacancy vacancy = vacancyDao.findVacancyById(vacancyId).orElseThrow(() -> new DaoException("Invalid id"));
+        Vacancy vacancy = new Vacancy(vacancyId);
 
         ApplicantRequest applicantRequest = new ApplicantRequest(id, summary, applicantState, applicant, vacancy);
         if (technicalInterviewDate != null) {

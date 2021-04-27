@@ -270,8 +270,7 @@ public class VacancyServiceImpl implements VacancyService {
         boolean result = false;
         Optional<User> employeeOptional = userDao.findUserById(vacancy.getEmployee().getId());
         if (employeeOptional.isPresent()) {
-            User employee = employeeOptional.get();
-            vacancy.setEmployee(employee);
+            vacancy.setEmployee(employeeOptional.get());
             result = true;
         }
         return result;

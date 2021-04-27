@@ -3,7 +3,11 @@ package com.epam.hrsystem.model.service.impl;
 import com.epam.hrsystem.controller.attribute.RequestParameter;
 import com.epam.hrsystem.exception.DaoException;
 import com.epam.hrsystem.exception.ServiceException;
+import com.epam.hrsystem.model.dao.UserDao;
+import com.epam.hrsystem.model.dao.VacancyDao;
 import com.epam.hrsystem.model.dao.impl.ApplicantRequestDaoImpl;
+import com.epam.hrsystem.model.dao.impl.UserDaoImpl;
+import com.epam.hrsystem.model.dao.impl.VacancyDaoImpl;
 import com.epam.hrsystem.model.entity.ApplicantState;
 import com.epam.hrsystem.model.entity.InterviewResult;
 import com.epam.hrsystem.model.entity.InterviewType;
@@ -33,6 +37,8 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     private static final ApplicantRequestDao applicantRequestDao = ApplicantRequestDaoImpl.getInstance();
+    private static final UserDao userDao = UserDaoImpl.getInstance();
+    private static final VacancyDao vacancyDao = VacancyDaoImpl.getInstance();
     private static final EntityFactory<ApplicantRequest> applicantRequestFactory = ApplicantRequestFactory.getInstance();
     private static final EntityFactory<InterviewResult> interviewResultFactory = InterviewResultFactory.getInstance();
     private static final VacancyService vacancyService = VacancyServiceImpl.getInstance();
@@ -82,7 +88,11 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     @Override
     public List<ApplicantRequest> findApplicantRequestsByVacancyId(long vacancyId) throws ServiceException {
         try {
-            return applicantRequestDao.findApplicantRequestsById(vacancyId, 0);
+            List<ApplicantRequest> requests = applicantRequestDao.findApplicantRequestsById(vacancyId, 0);
+            for (ApplicantRequest request : requests) {
+                updateApplicantRequest(request);
+            }
+            return requests;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -91,7 +101,11 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     @Override
     public List<ApplicantRequest> findApplicantRequestsByApplicantId(long applicantId) throws ServiceException {
         try {
-            return applicantRequestDao.findApplicantRequestsById(0, applicantId);
+            List<ApplicantRequest> requests = applicantRequestDao.findApplicantRequestsById(0, applicantId);
+            for (ApplicantRequest request : requests) {
+                updateApplicantRequest(request);
+            }
+            return requests;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -100,7 +114,14 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
     @Override
     public Optional<ApplicantRequest> findApplicantRequestByVacancyIdAndApplicantId(long vacancyId, long applicantId) throws ServiceException {
         try {
-            return applicantRequestDao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
+            Optional<ApplicantRequest> applicantRequestOptional = applicantRequestDao.findApplicantRequestByVacancyIdAndApplicantId(vacancyId, applicantId);
+            if (applicantRequestOptional.isPresent()) {
+                ApplicantRequest applicantRequest = applicantRequestOptional.get();
+                if (updateApplicantRequest(applicantRequest)) {
+                    applicantRequestOptional = Optional.of(applicantRequest);
+                }
+            }
+            return applicantRequestOptional;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -158,5 +179,17 @@ public class ApplicantRequestServiceImpl implements ApplicantRequestService {
                 currentState == ApplicantState.READY_FOR_TECHNICAL_INTERVIEW && technicalInterviewDate != null &&
                         !newApplicantState.equals(ApplicantState.READY_FOR_TECHNICAL_INTERVIEW.name()) &&
                         !newApplicantState.equals(ApplicantState.LEFT_REQUEST.name()));
+    }
+
+    private boolean updateApplicantRequest(ApplicantRequest request) throws DaoException {
+        boolean result = false;
+        Optional<User> applicantOptional = userDao.findUserById(request.getApplicant().getId());
+        Optional<Vacancy> vacancyOptional = vacancyDao.findVacancyById(request.getVacancy().getId());
+        if (applicantOptional.isPresent() && vacancyOptional.isPresent()) {
+            request.setApplicant(applicantOptional.get());
+            request.setVacancy(vacancyOptional.get());
+            result = true;
+        }
+        return result;
     }
 }

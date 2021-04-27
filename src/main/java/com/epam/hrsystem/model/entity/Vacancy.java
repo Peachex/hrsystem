@@ -24,6 +24,15 @@ public class Vacancy {
     }
 
     /**
+     * Constructs a Vacancy object with given id.
+     *
+     * @param id long value of vacancy's id.
+     */
+    public Vacancy(long id) {
+        this.id = id;
+    }
+
+    /**
      * Constructs a Vacancy object with given id, isAvailable, position, description, creationDate, country, city, employee.
      *
      * @param id           long value of vacancy's id.

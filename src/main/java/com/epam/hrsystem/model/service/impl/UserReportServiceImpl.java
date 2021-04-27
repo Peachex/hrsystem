@@ -163,8 +163,7 @@ public class UserReportServiceImpl implements UserReportService {
         boolean result = false;
         Optional<User> userOptional = userDao.findUserById(report.getUser().getId());
         if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            report.setUser(user);
+            report.setUser(userOptional.get());
             result = true;
         }
         return result;
