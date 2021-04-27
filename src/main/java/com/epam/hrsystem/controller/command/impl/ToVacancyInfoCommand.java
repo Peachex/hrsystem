@@ -34,8 +34,7 @@ public class ToVacancyInfoCommand implements ActionCommand {
         CommandResult result = new CommandResult(CommandName.TO_VACANCIES, CommandResult.Type.FORWARD);
         try {
             try {
-                long id = Long.parseLong(vacancyId);
-                Optional<Vacancy> vacancyOptional = service.findVacancyById(id);
+                Optional<Vacancy> vacancyOptional = service.findVacancyById(Long.parseLong(vacancyId));
                 if (vacancyOptional.isPresent()) {
                     Vacancy vacancy = vacancyOptional.get();
                     request.setAttribute(RequestParameter.VACANCY, vacancy);

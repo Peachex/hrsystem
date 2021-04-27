@@ -38,7 +38,8 @@ public class ScheduleTechnicalInterviewCommand implements ActionCommand {
         String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
         String technicalInterviewDateStr = request.getParameter(RequestParameter.TECHNICAL_INTERVIEW_DATE);
         ApplicantRequestService applicantRequestService = ApplicantRequestServiceImpl.getInstance();
-        CommandResult result;
+        CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_APPLICANT_REQUEST + vacancyIdStr + APPLICANT_ID_COMMAND_PARAMETER +
+                applicantIdStr, CommandResult.Type.REDIRECT);
         try {
             long vacancyId = Long.parseLong(vacancyIdStr);
             long applicantId = Long.parseLong(applicantIdStr);
@@ -46,14 +47,11 @@ public class ScheduleTechnicalInterviewCommand implements ActionCommand {
                 String applicantEmail = request.getParameter(RequestParameter.EMAIL);
                 if (applicantEmail != null) {
                     MailSender mailSender = MailSender.MailSenderHolder.HOLDER.getMailSender();
-                    StringBuilder mailMessage = new StringBuilder();
-                    mailMessage.append(MailMessage.SCHEDULE_TECHNICAL_INTERVIEW_PART_1_MAIL_TEXT).append(technicalInterviewDateStr)
-                            .append(MailMessage.SCHEDULE_TECHNICAL_INTERVIEW_PART_2_MAIL_TEXT);
-                    mailSender.setupEmail(applicantEmail, MailMessage.HR_SYSTEM_MAIL_SUBJECT, mailMessage.toString());
+                    String mailMessage = MailMessage.SCHEDULE_TECHNICAL_INTERVIEW_PART_1_MAIL_TEXT + technicalInterviewDateStr +
+                            MailMessage.SCHEDULE_TECHNICAL_INTERVIEW_PART_2_MAIL_TEXT;
+                    mailSender.setupEmail(applicantEmail, MailMessage.HR_SYSTEM_MAIL_SUBJECT, mailMessage);
                     mailSender.send();
                 }
-                result = new CommandResult(CommandName.TO_EMPLOYEE_APPLICANT_REQUEST + vacancyIdStr + APPLICANT_ID_COMMAND_PARAMETER +
-                        applicantIdStr, CommandResult.Type.REDIRECT);
             } else {
                 HttpSession session = request.getSession();
                 long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);

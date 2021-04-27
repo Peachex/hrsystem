@@ -24,7 +24,6 @@ public class SeeAvailableReportsCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         UserReportService service = UserReportServiceImpl.getInstance();
-        CommandResult result = new CommandResult(PagePath.ADMIN_USER_REPORT_LIST, CommandResult.Type.FORWARD);
         try {
             List<UserReport> reports = service.findAvailableUserReports();
             if (reports.size() > 0) {
@@ -35,6 +34,6 @@ public class SeeAvailableReportsCommand implements ActionCommand {
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
-        return result;
+        return (new CommandResult(PagePath.ADMIN_USER_REPORT_LIST, CommandResult.Type.FORWARD));
     }
 }

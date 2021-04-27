@@ -43,16 +43,15 @@ public class CreateApplicantRequestCommand implements ActionCommand {
         fields.put(RequestParameter.SUMMARY, summary);
         fields.put(RequestParameter.VACANCY_ID, vacancyIdStr);
 
-        CommandResult result;
+        CommandResult result = new CommandResult(CommandName.TO_APPLICANT_REQUESTS, CommandResult.Type.REDIRECT);
+        ApplicantRequestService service = ApplicantRequestServiceImpl.getInstance();
         try {
-            ApplicantRequestService service = ApplicantRequestServiceImpl.getInstance();
             if (service.createApplicantRequest(fields, applicant)) {
                 MailSender mailSender = MailSender.MailSenderHolder.HOLDER.getMailSender();
                 String applicantEmail = applicant.getEmail();
                 mailSender.setupEmail(applicantEmail, MailMessage.HR_SYSTEM_MAIL_SUBJECT, MailMessage.CREATION_APPLICANT_REQUEST_MAIL_TEXT);
                 mailSender.send();
                 session.setAttribute(JspAttribute.SUCCESS_ATTRIBUTE, JspAttribute.SUCCESS_MESSAGE);
-                result = new CommandResult(CommandName.TO_APPLICANT_REQUESTS, CommandResult.Type.REDIRECT);
             } else {
                 if (ApplicantRequestValidator.isSummaryValid(summary)) {
                     request.setAttribute(JspAttribute.ERROR_DUPLICATE_ATTRIBUTE, JspAttribute.ERROR_APPLICANT_REQUEST_DUPLICATE_MESSAGE);

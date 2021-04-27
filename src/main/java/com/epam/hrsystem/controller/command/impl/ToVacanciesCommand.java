@@ -26,7 +26,6 @@ public class ToVacanciesCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         VacancyService service = VacancyServiceImpl.getInstance();
-        CommandResult result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD);
         try {
             List<Vacancy> vacancies = service.findAvailableVacancies();
             if (vacancies.size() > 0) {
@@ -39,6 +38,6 @@ public class ToVacanciesCommand implements ActionCommand {
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
-        return result;
+        return (new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD));
     }
 }

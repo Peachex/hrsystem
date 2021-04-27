@@ -33,8 +33,7 @@ public class ToAdminUserInfoCommand implements ActionCommand {
         UserService service = UserServiceImpl.getInstance();
         CommandResult result = new CommandResult(CommandName.TO_ADMIN_USER_LIST, CommandResult.Type.FORWARD);
         try {
-            long userId = Long.parseLong(userIdStr);
-            Optional<User> userOptional = service.findUserById(userId);
+            Optional<User> userOptional = service.findUserById(Long.parseLong(userIdStr));
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
                 request.setAttribute(RequestParameter.USER, user);

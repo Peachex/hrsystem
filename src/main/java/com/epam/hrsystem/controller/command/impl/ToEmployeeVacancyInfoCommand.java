@@ -40,8 +40,7 @@ public class ToEmployeeVacancyInfoCommand implements ActionCommand {
         ApplicantRequestService applicantRequestService = ApplicantRequestServiceImpl.getInstance();
         CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES, CommandResult.Type.FORWARD);
         try {
-            long id = Long.parseLong(vacancyId);
-            Optional<Vacancy> vacancyOptional = vacancyService.findVacancyById(id);
+            Optional<Vacancy> vacancyOptional = vacancyService.findVacancyById(Long.parseLong(vacancyId));
             if (vacancyOptional.isPresent()) {
                 HttpSession session = request.getSession();
                 Vacancy vacancy = vacancyOptional.get();

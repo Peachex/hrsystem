@@ -48,12 +48,11 @@ public class EditUserProfileCommand implements ActionCommand {
         fields.put(RequestParameter.EMAIL, newEmail);
 
         UserService service = UserServiceImpl.getInstance();
-        CommandResult result;
+        CommandResult result = new CommandResult(CommandName.TO_USER_PROFILE, CommandResult.Type.REDIRECT);
         try {
             Optional<User> userOptional = service.updateProfile(userId, fields);
             if (userOptional.isPresent()) {
                 session.setAttribute(SessionAttribute.USER, userOptional.get());
-                result = new CommandResult(CommandName.TO_USER_PROFILE, CommandResult.Type.REDIRECT);
             } else {
                 if (!service.isEmailAvailable(newEmail)) {
                     request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.EMAIL_AVAILABLE_ERROR_MESSAGE);

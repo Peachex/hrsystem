@@ -23,7 +23,6 @@ public class LogoutCommand implements ActionCommand {
         session.removeAttribute(SessionAttribute.USER_ID);
         session.removeAttribute(SessionAttribute.USER);
         session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.GUEST);
-        CommandResult result = new CommandResult(ServletAttribute.HOME_URL_PATTERN, CommandResult.Type.REDIRECT);
-        return result;
+        return (new CommandResult(ServletAttribute.HOME_URL_PATTERN, CommandResult.Type.REDIRECT));
     }
 }

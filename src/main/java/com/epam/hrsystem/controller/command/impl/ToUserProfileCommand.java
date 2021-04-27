@@ -27,7 +27,6 @@ public class ToUserProfileCommand implements ActionCommand {
         request.setAttribute(RequestParameter.DATE_OF_BIRTH, user.getDateOfBirth());
         request.setAttribute(RequestParameter.PHONE_NUMBER, user.getPhoneNumber());
         request.setAttribute(RequestParameter.EMAIL, user.getEmail());
-        CommandResult result = new CommandResult(PagePath.USER_PROFILE, CommandResult.Type.FORWARD);
-        return result;
+        return (new CommandResult(PagePath.USER_PROFILE, CommandResult.Type.FORWARD));
     }
 }

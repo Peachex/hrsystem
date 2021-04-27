@@ -31,13 +31,10 @@ public class RestoreVacancyCommand implements ActionCommand {
         HttpSession session = request.getSession();
         String vacancyIdStr = request.getParameter(RequestParameter.VACANCY_ID);
         VacancyService service = VacancyServiceImpl.getInstance();
-        CommandResult result;
+        CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT);
         try {
-            long vacancyId = Long.parseLong(vacancyIdStr);
             long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
-            if (service.restoreVacancy(vacancyId, employeeId)) {
-                result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT);
-            } else {
+            if (!service.restoreVacancy(Long.parseLong(vacancyIdStr), employeeId)) {
                 result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCIES, CommandResult.Type.FORWARD);
                 request.setAttribute(JspAttribute.ERROR_VACANCY_RESTORE_ATTRIBUTE, JspAttribute.ERROR_VACANCY_RESTORE_MESSAGE);
             }

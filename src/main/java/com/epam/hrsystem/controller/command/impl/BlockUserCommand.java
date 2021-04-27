@@ -30,8 +30,7 @@ public class BlockUserCommand implements ActionCommand {
         String userIdStr = request.getParameter(RequestParameter.USER_ID);
         CommandResult result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.FORWARD);
         try {
-            long userId = Long.parseLong(userIdStr);
-            if (service.blockUser(userId)) {
+            if (service.blockUser(Long.parseLong(userIdStr))) {
                 result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute(JspAttribute.ERROR_USER_BLOCKING_ATTRIBUTE, JspAttribute.ERROR_USER_BLOCKING_MESSAGE);

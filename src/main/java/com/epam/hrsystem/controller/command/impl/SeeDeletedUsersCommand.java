@@ -24,7 +24,6 @@ public class SeeDeletedUsersCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         UserService service = UserServiceImpl.getInstance();
-        CommandResult result = new CommandResult(PagePath.ADMIN_USER_LIST, CommandResult.Type.FORWARD);
         try {
             List<User> users = service.findBlockedUsers();
             if (users.size() > 0) {
@@ -35,6 +34,6 @@ public class SeeDeletedUsersCommand implements ActionCommand {
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
-        return result;
+        return (new CommandResult(PagePath.ADMIN_USER_LIST, CommandResult.Type.FORWARD));
     }
 }

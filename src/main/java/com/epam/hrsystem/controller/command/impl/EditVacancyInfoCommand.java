@@ -48,8 +48,7 @@ public class EditVacancyInfoCommand implements ActionCommand {
         VacancyService service = VacancyServiceImpl.getInstance();
         CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_VACANCY_INFO + vacancyIdStr, CommandResult.Type.REDIRECT);
         try {
-            long vacancyId = Long.parseLong(vacancyIdStr);
-            if (!service.updateVacancyInfo(vacancyId, employeeId, fields)) {
+            if (!service.updateVacancyInfo(Long.parseLong(vacancyIdStr), employeeId, fields)) {
                 if (!VacancyValidator.isVacancyFormValid(fields)) {
                     request.setAttribute(RequestParameter.POSITION, fields.get(RequestParameter.POSITION));
                     request.setAttribute(RequestParameter.DESCRIPTION, fields.get(RequestParameter.DESCRIPTION));

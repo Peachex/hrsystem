@@ -48,12 +48,11 @@ public class RegisterCommand implements ActionCommand {
         fields.put(RequestParameter.REPEATED_PASSWORD, repeatedPassword);
 
         UserService service = UserServiceImpl.getInstance();
-        CommandResult result;
+        CommandResult result = new CommandResult(ServletAttribute.LOGIN_URL_PATTERN, CommandResult.Type.REDIRECT);
         try {
             if (service.register(fields)) {
                 HttpSession session = request.getSession();
                 session.setAttribute(JspAttribute.SUCCESS_ATTRIBUTE, JspAttribute.SUCCESS_MESSAGE);
-                result = new CommandResult(ServletAttribute.LOGIN_URL_PATTERN, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute(RequestParameter.FIRST_NAME, fields.get(RequestParameter.FIRST_NAME));
                 request.setAttribute(RequestParameter.LAST_NAME, fields.get(RequestParameter.LAST_NAME));

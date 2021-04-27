@@ -30,8 +30,7 @@ public class UnblockUserCommand implements ActionCommand {
         UserService service = UserServiceImpl.getInstance();
         CommandResult result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.FORWARD);
         try {
-            long userId = Long.parseLong(userIdStr);
-            if (service.unblockUser(userId)) {
+            if (service.unblockUser(Long.parseLong(userIdStr))) {
                 result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute(JspAttribute.ERROR_USER_BLOCKING_ATTRIBUTE, JspAttribute.ERROR_USER_BLOCKING_MESSAGE);

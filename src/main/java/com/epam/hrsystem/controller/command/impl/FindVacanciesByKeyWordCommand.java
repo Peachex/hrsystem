@@ -24,7 +24,6 @@ public class FindVacanciesByKeyWordCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         VacancyService service = VacancyServiceImpl.getInstance();
-        CommandResult result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD);
         try {
             String keyWord = request.getParameter(RequestParameter.KEY_WORD);
             List<Vacancy> vacancies = service.findVacanciesByKeyWord(keyWord);
@@ -36,6 +35,6 @@ public class FindVacanciesByKeyWordCommand implements ActionCommand {
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
-        return result;
+        return (new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD));
     }
 }

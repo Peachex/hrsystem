@@ -49,7 +49,8 @@ public class CreateInterviewResultCommand implements ActionCommand {
         fields.put(RequestParameter.APPLICANT_STATE, newApplicantState);
 
         ApplicantRequestService applicantRequestService = ApplicantRequestServiceImpl.getInstance();
-        CommandResult result;
+        CommandResult result = new CommandResult(CommandName.TO_EMPLOYEE_APPLICANT_REQUEST + vacancyIdStr + APPLICANT_ID_COMMAND_PARAMETER +
+                applicantIdStr, CommandResult.Type.REDIRECT);
         try {
             long vacancyId = Long.parseLong(vacancyIdStr);
             long applicantId = Long.parseLong(applicantIdStr);
@@ -79,8 +80,6 @@ public class CreateInterviewResultCommand implements ActionCommand {
                     mailSender.setupEmail(applicantEmail, MailMessage.HR_SYSTEM_MAIL_SUBJECT, message);
                     mailSender.send();
                 }
-                result = new CommandResult(CommandName.TO_EMPLOYEE_APPLICANT_REQUEST + vacancyIdStr + APPLICANT_ID_COMMAND_PARAMETER +
-                        applicantIdStr, CommandResult.Type.REDIRECT);
             } else {
                 HttpSession session = request.getSession();
                 long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);

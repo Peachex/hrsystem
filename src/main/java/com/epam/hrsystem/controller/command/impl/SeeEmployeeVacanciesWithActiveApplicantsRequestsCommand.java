@@ -27,7 +27,6 @@ public class SeeEmployeeVacanciesWithActiveApplicantsRequestsCommand implements 
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         HttpSession session = request.getSession();
         VacancyService service = VacancyServiceImpl.getInstance();
-        CommandResult result = new CommandResult(PagePath.EMPLOYEE_VACANCY_LIST, CommandResult.Type.FORWARD);
         try {
             long employeeId = (long) session.getAttribute(SessionAttribute.USER_ID);
             List<Vacancy> vacancies = service.findEmployeeVacanciesWithActiveApplicantsRequests(employeeId);
@@ -39,6 +38,6 @@ public class SeeEmployeeVacanciesWithActiveApplicantsRequestsCommand implements 
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
-        return result;
+        return (new CommandResult(PagePath.EMPLOYEE_VACANCY_LIST, CommandResult.Type.FORWARD));
     }
 }

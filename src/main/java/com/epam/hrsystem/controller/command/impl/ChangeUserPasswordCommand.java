@@ -48,8 +48,7 @@ public class ChangeUserPasswordCommand implements ActionCommand {
         try {
             Optional<User> userOptional = service.login(user.getEmail(), currentPassword);
             if (userOptional.isPresent()) {
-                long userId = user.getId();
-                if (service.changePassword(userId, fields)) {
+                if (service.changePassword(user.getId(), fields)) {
                     result = new CommandResult(CommandName.TO_USER_PROFILE, CommandResult.Type.REDIRECT);
                 } else {
                     if (!UserValidator.isChangePasswordFormValid(fields)) {

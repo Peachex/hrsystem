@@ -32,8 +32,7 @@ public class ChangeUserRoleCommand implements ActionCommand {
         String newUserRole = request.getParameter(RequestParameter.USER_ROLE);
         CommandResult result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.FORWARD);
         try {
-            long userId = Long.parseLong(userIdStr);
-            if (service.changeUserRole(userId, newUserRole)) {
+            if (service.changeUserRole(Long.parseLong(userIdStr), newUserRole)) {
                 result = new CommandResult(CommandName.TO_ADMIN_USER_INFO + userIdStr, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute(JspAttribute.ERROR_INPUT_DATA_ATTRIBUTE, JspAttribute.ERROR_INPUT_DATA_MESSAGE);

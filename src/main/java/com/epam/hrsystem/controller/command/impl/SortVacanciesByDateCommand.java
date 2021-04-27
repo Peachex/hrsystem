@@ -26,21 +26,19 @@ public class SortVacanciesByDateCommand implements ActionCommand {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        CommandResult result = new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD);
         Comparator<Vacancy> comparator = VacancyComparator.VACANCY_CREATION_DATE;
         HttpSession session = request.getSession();
+
+        @SuppressWarnings("unchecked")
         List<Vacancy> vacancies = (List<Vacancy>) session.getAttribute(SessionAttribute.VACANCIES);
+
         String sortSequence = request.getParameter(RequestParameter.SORT_SEQUENCE);
         if (vacancies != null && vacancies.size() > 0 && sortSequence != null && !sortSequence.isEmpty()) {
-            if (sortSequence.equalsIgnoreCase(SORT_SEQUENCE_ASC)) {
-                vacancies.sort(comparator);
-            } else {
-                vacancies.sort(comparator.reversed());
-            }
+            vacancies.sort(sortSequence.equalsIgnoreCase(SORT_SEQUENCE_ASC) ? comparator : comparator.reversed());
             request.setAttribute(RequestParameter.VACANCIES, vacancies);
         } else {
             request.setAttribute(JspAttribute.NO_VACANCIES_ATTRIBUTE, JspAttribute.NO_VACANCIES_MESSAGE);
         }
-        return result;
+        return (new CommandResult(PagePath.VACANCY_LIST, CommandResult.Type.FORWARD));
     }
 }

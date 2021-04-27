@@ -36,7 +36,7 @@ public class DeleteUserAccountCommand implements ActionCommand {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(SessionAttribute.USER);
         String currentPassword = request.getParameter(RequestParameter.CURRENT_PASSWORD);
-        CommandResult result;
+        CommandResult result = new CommandResult(ServletAttribute.HOME_URL_PATTERN, CommandResult.Type.REDIRECT);
         try {
             Optional<User> userOptional = service.login(user.getEmail(), currentPassword);
             if (userOptional.isPresent()) {
@@ -44,7 +44,6 @@ public class DeleteUserAccountCommand implements ActionCommand {
                 session.removeAttribute(SessionAttribute.USER_ID);
                 session.removeAttribute(SessionAttribute.USER);
                 session.setAttribute(SessionAttribute.CURRENT_ROLE, UserRole.GUEST);
-                result = new CommandResult(ServletAttribute.HOME_URL_PATTERN, CommandResult.Type.REDIRECT);
             } else {
                 request.setAttribute(JspAttribute.ERROR_INVALID_CURRENT_PASSWORD_ATTRIBUTE, JspAttribute.ERROR_INVALID_CURRENT_PASSWORD_MESSAGE);
                 result = new CommandResult(CommandName.TO_USER_PROFILE, CommandResult.Type.FORWARD);

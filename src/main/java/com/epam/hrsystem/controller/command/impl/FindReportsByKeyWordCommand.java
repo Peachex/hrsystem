@@ -24,7 +24,6 @@ public class FindReportsByKeyWordCommand implements ActionCommand {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         UserReportService service = UserReportServiceImpl.getInstance();
-        CommandResult result = new CommandResult(PagePath.ADMIN_USER_REPORT_LIST, CommandResult.Type.FORWARD);
         try {
             String keyWord = request.getParameter(RequestParameter.KEY_WORD);
             List<UserReport> reports = service.findUserReportsByKeyWord(keyWord);
@@ -36,6 +35,6 @@ public class FindReportsByKeyWordCommand implements ActionCommand {
         } catch (ServiceException e) {
             throw new CommandException(e);
         }
-        return result;
+        return (new CommandResult(PagePath.ADMIN_USER_REPORT_LIST, CommandResult.Type.FORWARD));
     }
 }
